@@ -1,29 +1,62 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../views/Home.vue";
 
-Vue.use(VueRouter)
+//Layouts
+import Dashboard from "@/layouts/Dashboard";
+
+//Views
+import DashboardIndex from "@/views/Dashboard/Index";
+import PackageManager from "@/views/Dashboard/PackageManager";
+import InvoiceManager from "@/views/Dashboard/InvoiceManager";
+import UsersManager from "@/views/Dashboard/UsersManager";
+import Reports from "@/views/Dashboard/Reports";
+
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/admin",
+    component: Dashboard,
+    children: [
+      {
+        path: "",
+        name: "DashboardIndex",
+        component: DashboardIndex,
+      },
+      {
+        path: "/package-manager",
+        name: "PackageManager",
+        component: PackageManager,
+      },
+      {
+        path: "/invoice-manager",
+        name: "InvoiceManager",
+        component: InvoiceManager,
+      },
+      {
+        path: "/users-manager",
+        name: "UsersManager",
+        component: UsersManager,
+      },
+      {
+        path: "/reports",
+        name: "Reports",
+        component: Reports,
+      },
+    ],
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+    path: "/",
+    name: "Home",
+    component: Home,
+  },
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
