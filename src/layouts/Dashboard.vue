@@ -59,7 +59,7 @@ export default {
           icon: "fas fa-file-alt",
         },
         {
-          name: "Usuarios",
+          name: "Gestor de usuarios",
           link: "/users-manager",
           icon: "fas fa-user-circle",
         },
