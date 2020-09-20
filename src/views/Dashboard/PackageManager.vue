@@ -63,7 +63,7 @@
       </div>
     </div>
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-btn fab icon="fas fa-boxes" color="accent" />
+      <q-btn fab icon="fas fa-boxes" color="accent" to="/package-register"/>
     </q-page-sticky>
   </q-page>
 </template>

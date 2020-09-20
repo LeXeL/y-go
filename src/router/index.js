@@ -11,6 +11,7 @@ import PackageManager from "@/views/Dashboard/PackageManager";
 import InvoiceManager from "@/views/Dashboard/InvoiceManager";
 import UsersManager from "@/views/Dashboard/UsersManager";
 import Reports from "@/views/Dashboard/Reports";
+import PackageRegister from "@/views/Dashboard/PackageRegister"
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,11 @@ const routes = [
         path: "/package-manager",
         name: "PackageManager",
         component: PackageManager,
+      },
+      {
+        path: "/package-register",
+        name: "PackageRegister",
+        component: PackageRegister,
       },
       {
         path: "/invoice-manager",
