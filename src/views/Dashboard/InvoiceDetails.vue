@@ -14,6 +14,11 @@
                     <q-input filled label="Facturado el" value="1-6-2020" readonly class="q-mb-md"/> 
                     <q-input filled label="Facturado por" value="Pedro Picapiedras" readonly class="q-mb-md"/> 
                 </q-card-section>
+                <q-separator/>
+                <q-card-actions>
+                    <q-space/>
+                    <q-btn color="primary" label="Reenviar correo" flat/>
+                </q-card-actions>
             </q-card>
         </div>
         <div class="col-lg-6 q-px-md">
