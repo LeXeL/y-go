@@ -17,25 +17,82 @@
           <template v-slot:header="props">
             <q-tr :props="props">
               <q-th v-for="col in props.cols" :key="col.name" :props="props">{{ col.label }}</q-th>
-              <!-- <q-th>Eliminar</q-th> -->
+              <q-th>Eliminar</q-th>
             </q-tr>
           </template>
 
-          <template v-slot:body="props">
+          <!-- <template v-slot:body="props">
             <q-tr :props="props">
               <q-td v-for="col in props.cols" :key="col.name" :props="props">{{ col.value }}</q-td>
-              <!-- <q-td auto-width>
+              <q-td auto-width>
                 <q-btn size="sm" color="red-7" round dense icon="fas fa-times" />
-              </q-td>-->
+              </q-td>
             </q-tr>
-          </template>
+          </template> -->
+          <template v-slot:body="props">
+        <q-tr :props="props">
+          <q-td key="tracking" :props="props">
+            {{ props.row.tracking }}
+            <q-popup-edit v-model="props.row.tracking" title="Editar tracking" buttons>
+              <q-input type="text" v-model="props.row.tracking" dense autofocus />
+            </q-popup-edit>
+          </q-td>
+
+          <q-td key="box" :props="props">
+            {{ props.row.box }}
+            <q-popup-edit v-model="props.row.box" title="Editar casillero" buttons>
+              <q-input type="text" v-model="props.row.box" dense autofocus />
+            </q-popup-edit>
+          </q-td>
+
+          <q-td key="weight" :props="props">
+            {{ props.row.weight }}
+            <q-popup-edit v-model="props.row.weight" title="Editar peso" buttons>
+              <q-input type="text" v-model="props.row.weight" dense autofocus />
+            </q-popup-edit>
+          </q-td>
+
+          <q-td key="long" :props="props">
+            {{ props.row.long }}
+            <q-popup-edit v-model="props.row.long" title="Editar largo" buttons>
+              <q-input type="text" v-model="props.row.long" dense autofocus />
+            </q-popup-edit>
+          </q-td>
+
+          <q-td key="height" :props="props">
+            {{ props.row.height }}
+            <q-popup-edit v-model="props.row.height" title="Editar alto" buttons>
+              <q-input type="text" v-model="props.row.height" dense autofocus />
+            </q-popup-edit>
+          </q-td>
+
+          <q-td key="width" :props="props">
+            {{ props.row.width }}
+            <q-popup-edit v-model="props.row.width" title="Editar ancho" buttons>
+              <q-input type="text" v-model="props.row.width" dense autofocus />
+            </q-popup-edit>
+          </q-td>
+
+          <q-td auto-width>
+                <q-btn size="sm" color="red-7" round flat dense icon="fas fa-times" />
+              </q-td>
+        </q-tr>
+      </template>
         </q-table>
         </div>
         <div class="col-lg-4 q-px-md">
             <q-card class="full-width">
                 <q-card-section>
-                    <div class="text-h6">Our Changing Planet</div>
-                    <div class="text-subtitle2">by John Doe</div>
+                    <div class="text-h6">Registrar</div>
+                </q-card-section>
+
+                <q-card-section>
+                    <q-input filled v-model="tracking" label="Tracking" class="q-mb-md"/>
+                    <q-input filled v-model="box" label="Casillero" class="q-mb-md"/>
+                    <q-input filled v-model="weight" label="Peso" class="q-mb-md"/>
+                    <q-input filled v-model="long" label="Largo" class="q-mb-md"/>
+                    <q-input filled v-model="height" label="Alto" class="q-mb-md"/>
+                    <q-input filled v-model="width" label="Ancho" class="q-mb-md"/>
                 </q-card-section>
 
                 <q-separator />
@@ -47,6 +104,9 @@
             </q-card>
         </div>
     </div>
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-btn fab icon="fas fa-file-alt" color="accent" to="/package-register"/>
+    </q-page-sticky>
   </q-page>
 </template>
 
@@ -54,15 +114,17 @@
 export default {
   data() {
     return {
-      searchTracking: "",
-      searchBox: "",
-      searchInvoice: "",
-      searchDate: "",
+      tracking: '',
+      box: '',
+      weight: '',
+      long: '',
+      height: '',
+      width: '',
       initialPagination: {
         sortBy: "desc",
         descending: false,
         page: 1,
-        rowsPerPage: 10,
+        rowsPerPage: 0,
       },
       packagesColumns: [
         {
