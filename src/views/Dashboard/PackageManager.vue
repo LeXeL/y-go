@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="row q-mb-lg">
-      <!-- <q-space /> -->
+      <q-space />
       <div class="col-lg-2 q-px-md">
         <q-input dense filled label="Tracking" v-model="searchTracking" />
       </div>
