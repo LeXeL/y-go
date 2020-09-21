@@ -31,6 +31,7 @@
           row-key="name"
           :pagination.sync="initialPagination"
           class="full-width"
+          title="Usuarios"
         >
           <template v-slot:header="props">
             <q-tr :props="props">
