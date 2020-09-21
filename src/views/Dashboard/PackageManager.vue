@@ -43,6 +43,7 @@
           row-key="name"
           :pagination.sync="initialPagination"
           class="full-width"
+          title="Paquetes facturados"
         >
           <template v-slot:header="props">
             <q-tr :props="props">
