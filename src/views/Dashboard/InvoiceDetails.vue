@@ -8,6 +8,10 @@
     <div class="row">
         <div class="col-lg-6 q-px-md">
             <q-card class="full-width">
+              <q-card-section>
+                <div class="text-h6">Datos de factura</div>
+              </q-card-section>
+              <q-separator/>
                 <q-card-section>
                     <q-input filled label="Casillero" value="YGO-5687" readonly class="q-mb-md"/> 
                     <q-input filled label="Monto" value="$ 5.75" readonly class="q-mb-md"/> 
@@ -28,6 +32,7 @@
           row-key="name"
           :pagination.sync="initialPagination"
           class="full-width"
+          title="Detalle de paquetes"
         >
           <template v-slot:header="props">
             <q-tr :props="props">
