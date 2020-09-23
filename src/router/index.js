@@ -12,6 +12,7 @@ import InvoiceManager from "@/views/Dashboard/InvoiceManager";
 import UsersManager from "@/views/Dashboard/UsersManager";
 import Reports from "@/views/Dashboard/Reports";
 import PackageRegister from "@/views/Dashboard/PackageRegister"
+import UserDetails from '@/views/Dashboard/UserDetails'
 
 Vue.use(VueRouter);
 
@@ -44,6 +45,11 @@ const routes = [
         path: "/users-manager",
         name: "UsersManager",
         component: UsersManager,
+      },
+      {
+        path: "/user-details",
+        name: "UserDetails",
+        component: UserDetails,
       },
       {
         path: "/reports",

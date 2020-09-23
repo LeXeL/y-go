@@ -40,6 +40,7 @@
           row-key="name"
           :pagination.sync="initialPagination"
           class="full-width"
+          title="Facturas"
         >
           <template v-slot:header="props">
             <q-tr :props="props">
