@@ -35,8 +35,8 @@
     <div class="row q-mb-xl">
       <div class="col q-px-md">
         <q-table
-          :data="packagesData"
-          :columns="packagesColumns"
+          :data="invoicesData"
+          :columns="invoicesColumns"
           row-key="name"
           :pagination.sync="initialPagination"
           class="full-width"
@@ -76,7 +76,7 @@ export default {
         page: 1,
         rowsPerPage: 10,
       },
-      packagesColumns: [
+      invoicesColumns: [
         {
           name: "invoice",
           align: "left",
@@ -120,7 +120,7 @@ export default {
           sortable: true,
         },        
       ],
-      packagesData: [
+      invoicesData: [
         {
           invoice: "1",
           box: 'YGO-5687',
