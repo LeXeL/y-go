@@ -14,8 +14,10 @@ import UsersManager from '@/views/Dashboard/UsersManager'
 import Reports from '@/views/Dashboard/Reports'
 import PackageRegister from '@/views/Dashboard/PackageRegister'
 import UserDetails from '@/views/Dashboard/UserDetails'
-import Login from '@/views/Auth/Login'
 import InvoiceDetails from '@/views/Dashboard/InvoiceDetails'
+
+import Login from '@/views/Auth/Login'
+import Register from '@/views/Auth/Register'
 
 Vue.use(VueRouter)
 
@@ -74,6 +76,11 @@ const routes = [
                 path: '',
                 name: 'Login',
                 component: Login,
+            },
+            {
+                path: '/register',
+                name: 'Register',
+                component: Register,
             },
         ],
     },
