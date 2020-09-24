@@ -1,9 +1,9 @@
 import axios from 'axios'
 let baseUrl
 if (process.env.NODE_ENV == 'production') {
-    baseUrl = 'https://us-central1-tareax-bfce8.cloudfunctions.net'
+    baseUrl = 'https://us-central1-y-go-9fa3f.cloudfunctions.net'
 } else {
-    baseUrl = 'http://localhost:5000/tareax-bfce8/us-central1'
+    baseUrl = 'http://localhost:5000/y-go-9fa3f/us-central1'
 }
 export default class Request {
     static post(url, data, headers) {
