@@ -13,7 +13,7 @@ import firebase from 'firebase/app'
 
 Vue.config.productionTip = false
 
-Vue.component('yg-alert', BrewthersAlert)
+Vue.component('yg-alert', LoadingAlert)
 Vue.component('loading-alert', Alert)
 Vue.component('confirm-dialog', Confirm)
 
@@ -29,15 +29,15 @@ const firebaseConfig = {
 }
 firebase.initializeApp(firebaseConfig)
 
-firebase.auth().onAuthStateChanged(user => {
-    // store.dispatch('fetchUser', user)
-    if (user && store.getters.user === '') {
-        store.dispatch('setCurrentUser', user)
-        api.getuserinformationbyid({uid: user.uid}).then(response => {
-            store.commit('SET_USER', response.data.data)
-        })
-    }
-})
+// firebase.auth().onAuthStateChanged(user => {
+//     // store.dispatch('fetchUser', user)
+//     if (user && store.getters.user === '') {
+//         store.dispatch('setCurrentUser', user)
+//         api.getUserInformationById({uid: user.uid}).then(response => {
+//             store.commit('SET_USER', response.data.data)
+//         })
+//     }
+// })
 
 new Vue({
     router,
