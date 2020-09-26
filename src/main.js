@@ -13,8 +13,8 @@ import firebase from 'firebase/app'
 
 Vue.config.productionTip = false
 
-Vue.component('yg-alert', LoadingAlert)
-Vue.component('loading-alert', Alert)
+Vue.component('ygo-alert', Alert)
+Vue.component('loading-alert', LoadingAlert)
 Vue.component('confirm-dialog', Confirm)
 
 const firebaseConfig = {

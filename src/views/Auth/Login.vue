@@ -54,6 +54,7 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import * as api from '@/api/api'
 
 export default {
     name: 'Login',
@@ -69,6 +70,7 @@ export default {
             dismissSecs: 15,
             dismissCountDown: 0,
             errorMessage: '',
+            user: '',
         }
     },
     methods: {
@@ -77,9 +79,20 @@ export default {
                 .auth()
                 .signInWithEmailAndPassword(this.email, this.password)
                 .then(async () => {
-                    let user = await firebase.auth().currentUser
-                    await this.$store.dispatch('setCurrentUser', user)
-                    this.$router.push('/admin')
+                    this.user = await firebase.auth().currentUser
+                    await this.$store.dispatch('setCurrentUser', this.user)
+                })
+                .then(async () => {
+                    await api
+                        .getUserInformationById({
+                            uid: this.user.uid,
+                        })
+                        .then(response => {
+                            this.$store.commit('SET_USER', response.data.data)
+                            if (response.data.data.role === 'admin')
+                                this.$router.push('/admin')
+                            else this.$router.push('/')
+                        })
                 })
                 .catch(error => {
                     this.dismissCountDown = this.dismissSecs
