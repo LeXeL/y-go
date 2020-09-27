@@ -70,7 +70,7 @@ export default {
             dismissSecs: 15,
             dismissCountDown: 0,
             errorMessage: '',
-            user: '',
+            currentUser: '',
         }
     },
     methods: {
@@ -79,13 +79,16 @@ export default {
                 .auth()
                 .signInWithEmailAndPassword(this.email, this.password)
                 .then(async () => {
-                    this.user = await firebase.auth().currentUser
-                    await this.$store.dispatch('setCurrentUser', this.user)
+                    this.currentUser = await firebase.auth().currentUser
+                    await this.$store.dispatch(
+                        'setCurrentUser',
+                        this.currentUser
+                    )
                 })
                 .then(async () => {
                     await api
                         .getUserInformationById({
-                            uid: this.user.uid,
+                            uid: this.currentUser.uid,
                         })
                         .then(response => {
                             this.$store.commit('SET_USER', response.data.data)
