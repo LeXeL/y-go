@@ -1,93 +1,113 @@
 <template>
     <q-page class="q-pa-lg">
-        <div class="row q-mb-lg">
-            <div class="text-h5">
-                <div class="col q-px-md">Gestor de usuarios</div>
+        <loading-alert :display="displayLoading"></loading-alert>
+        <ygo-alert
+            :display="displayAlert"
+            :title="alertTitle"
+            :message="alertMessage"
+            :type="alertType"
+            @accept="displayAlert = false"
+        ></ygo-alert>
+        <div>
+            <div class="row q-mb-lg">
+                <div class="text-h5">
+                    <div class="col q-px-md">Gestor de usuarios</div>
+                </div>
             </div>
-        </div>
-        <div class="row q-mb-lg">
-            <q-space />
-            <div class="col-lg-2 q-px-md">
-                <q-input dense filled label="Nombre" v-model="searchName" />
+            <div class="row q-mb-lg">
+                <q-space />
+                <div class="col-lg-2 q-px-md">
+                    <q-input dense filled label="Nombre" v-model="searchName" />
+                </div>
+                <div class="col-lg-2 q-px-md">
+                    <q-input
+                        dense
+                        filled
+                        label="Apellido"
+                        v-model="searchLastName"
+                    />
+                </div>
+                <div class="col-lg-2 q-px-md">
+                    <q-input
+                        dense
+                        filled
+                        label="Correo"
+                        v-model="searchEmail"
+                    />
+                </div>
+                <div class="col-lg-2 q-px-md">
+                    <q-input
+                        dense
+                        filled
+                        label="Casillero"
+                        v-model="searchBox"
+                    />
+                </div>
+                <div class="col-lg-1 q-px-md">
+                    <q-btn
+                        color="primary"
+                        label="Buscar"
+                        @click="filterContent()"
+                    />
+                </div>
             </div>
-            <div class="col-lg-2 q-px-md">
-                <q-input
-                    dense
-                    filled
-                    label="Apellido"
-                    v-model="searchLastName"
-                />
-            </div>
-            <div class="col-lg-2 q-px-md">
-                <q-input dense filled label="Correo" v-model="searchEmail" />
-            </div>
-            <div class="col-lg-2 q-px-md">
-                <q-input dense filled label="Casillero" v-model="searchBox" />
-            </div>
-            <div class="col-lg-1 q-px-md">
-                <q-btn
-                    color="primary"
-                    label="Buscar"
-                    @click="filterContent()"
-                />
-            </div>
-        </div>
-        <div class="row q-mb-xl">
-            <div class="col q-px-md">
-                <q-table
-                    :data="filteredUserData"
-                    :columns="usersColumns"
-                    row-key="name"
-                    :pagination.sync="initialPagination"
-                    class="full-width"
-                    title="Usuarios"
-                >
-                    <template v-slot:header="props">
-                        <q-tr :props="props">
-                            <q-th
-                                v-for="col in props.cols"
-                                :key="col.name"
-                                :props="props"
-                                >{{ col.label }}</q-th
-                            >
-                            <q-th>Editar</q-th>
-                        </q-tr>
-                    </template>
+            <div class="row q-mb-xl">
+                <div class="col q-px-md">
+                    <q-table
+                        :data="filteredUserData"
+                        :columns="usersColumns"
+                        row-key="name"
+                        :pagination.sync="initialPagination"
+                        class="full-width"
+                        title="Usuarios"
+                    >
+                        <template v-slot:header="props">
+                            <q-tr :props="props">
+                                <q-th
+                                    v-for="col in props.cols"
+                                    :key="col.name"
+                                    :props="props"
+                                    >{{ col.label }}</q-th
+                                >
+                                <q-th>Editar</q-th>
+                            </q-tr>
+                        </template>
 
-                    <template v-slot:body="props">
-                        <q-tr :props="props">
-                            <q-td key="name" :props="props">{{
-                                props.row.name
-                            }}</q-td>
-                            <q-td key="lastName" :props="props">{{
-                                props.row.lastName
-                            }}</q-td>
-                            <q-td key="email" :props="props">{{
-                                props.row.email
-                            }}</q-td>
-                            <q-td key="box" :props="props">{{
-                                props.row.box
-                            }}</q-td>
-                            <q-td key="rate" :props="props">{{
-                                props.row.rate
-                            }}</q-td>
-                            <q-td key="role" :props="props">{{
-                                props.row.role
-                            }}</q-td>
-                            <q-td auto-width>
-                                <q-btn
-                                    size="sm"
-                                    color="primary"
-                                    round
-                                    dense
-                                    icon="fas fa-user-edit"
-                                    flat
-                                    :to="`/user-details/${props.row.id}`"
-                                />
-                            </q-td>
-                        </q-tr>
-                    </template>
-                </q-table>
+                        <template v-slot:body="props">
+                            <q-tr :props="props">
+                                <q-td key="name" :props="props">{{
+                                    props.row.name
+                                }}</q-td>
+                                <q-td key="lastName" :props="props">{{
+                                    props.row.lastName
+                                }}</q-td>
+                                <q-td key="email" :props="props">{{
+                                    props.row.email
+                                }}</q-td>
+                                <q-td key="box" :props="props">{{
+                                    props.row.box
+                                }}</q-td>
+                                <q-td key="rate" :props="props">{{
+                                    props.row.rate
+                                }}</q-td>
+                                <q-td key="role" :props="props">{{
+                                    props.row.role
+                                }}</q-td>
+                                <q-td auto-width>
+                                    <q-btn
+                                        size="sm"
+                                        color="primary"
+                                        round
+                                        dense
+                                        icon="fas fa-user-edit"
+                                        flat
+                                        :to="`/user-details/${props.row.id}`"
+                                    />
+                                </q-td>
+                            </q-tr>
+                        </template>
+                    </q-table>
+                </div>
             </div>
         </div>
     </q-page>
@@ -101,6 +121,11 @@ import 'firebase/auth'
 export default {
     data() {
         return {
+            displayLoading: false,
+            displayAlert: false,
+            alertTitle: '',
+            alertMessage: '',
+            alertType: '',
             searchName: '',
             searchLastName: '',
             searchEmail: '',
