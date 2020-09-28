@@ -27,3 +27,28 @@ export const ReturnAllUsers = data =>
     Request.post('/ReturnAllUsers', data, {
         'Content-Type': 'application/json',
     })
+//PACKAGES
+export const CreatePackageOnDatabase = data =>
+    Request.post('/CreatePackageOnDatabase', data, {
+        'Content-Type': 'application/json',
+    })
+export const UpdatePackageInformationById = data =>
+    Request.post('/UpdatePackageInformationById', data, {
+        'Content-Type': 'application/json',
+    })
+export const DeletePackageOnDatabase = data =>
+    Request.post('/DeletePackageOnDatabase', data, {
+        'Content-Type': 'application/json',
+    })
+export const ReturnAllPackages = data =>
+    Request.post('/ReturnAllPackages', data, {
+        'Content-Type': 'application/json',
+    })
+export const ReturnAllPackagesWithoutInvoice = data =>
+    Request.post('/ReturnAllPackagesWithoutInvoice', data, {
+        'Content-Type': 'application/json',
+    })
+export const ReturnAllPackagesWithInvoice = data =>
+    Request.post('/ReturnAllPackagesWithInvoice', data, {
+        'Content-Type': 'application/json',
+    })

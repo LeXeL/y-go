@@ -195,7 +195,8 @@ export default {
             if (
                 this.searchName === '' &&
                 this.searchLastName === '' &&
-                (this.searchEmail === '') & (this.searchBox === '')
+                this.searchEmail === '' &&
+                this.searchBox === ''
             )
                 this.filteredUserData = this.usersData
             if (this.searchName) {

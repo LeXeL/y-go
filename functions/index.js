@@ -12,6 +12,7 @@ const cors = require('cors')({
     origin: true,
 })
 const users = require('./lib/users')
+const packages = require('./lib/packages')
 
 exports.createUserOnDatabase = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
@@ -86,26 +87,6 @@ exports.UpdateUserInformationById = functions.https.onRequest(
         })
     }
 )
-exports.ChangeUserVerified = functions.https.onRequest(async (req, res) => {
-    cors(req, res, async () => {
-        try {
-            let response = await users.changeVerified(
-                req.body.uid,
-                req.body.user
-            )
-            functions.logger.info('ChangeUserVerified', {
-                userUid: req.body.uid,
-                userInfo: req.body.user,
-            })
-            res.status(200).send({data: response})
-        } catch (err) {
-            functions.logger.error('ChangeUserVerified', {
-                error: err,
-            })
-            res.status(400).send({err: err})
-        }
-    })
-})
 exports.ReturnAllUsers = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
         try {
@@ -120,3 +101,109 @@ exports.ReturnAllUsers = functions.https.onRequest(async (req, res) => {
         }
     })
 })
+
+//PACKAGES
+exports.CreatePackageOnDatabase = functions.https.onRequest(
+    async (req, res) => {
+        cors(req, res, async () => {
+            try {
+                await packages.createPackage(req.body.package)
+                functions.logger.info('CreatePackageOnDatabase', {
+                    package: req.body.package,
+                })
+                res.status(200).send({status: 'Created'})
+            } catch (err) {
+                functions.logger.error('CreatePackageOnDatabase', {
+                    error: err,
+                })
+                res.status(400).send({err: err})
+            }
+        })
+    }
+)
+exports.UpdatePackageInformationById = functions.https.onRequest(
+    async (req, res) => {
+        cors(req, res, async () => {
+            try {
+                let response = await packages.updatePackage(
+                    req.body.id,
+                    req.body.package
+                )
+                functions.logger.info('UpdatePackageInformationById', {
+                    packageUpdated: req.body.id,
+                    packageInfo: req.body.package,
+                })
+                res.status(200).send({data: response})
+            } catch (err) {
+                functions.logger.error('UpdatePackageInformationById', {
+                    error: err,
+                })
+                res.status(400).send({err: err})
+            }
+        })
+    }
+)
+exports.DeletePackageOnDatabase = functions.https.onRequest(
+    async (req, res) => {
+        cors(req, res, async () => {
+            try {
+                await packages.deletePackage(req.body.id)
+                functions.logger.info('DeletePackageOnDatabase', {
+                    packageId: req.body.id,
+                })
+                res.status(200).send({status: 'Created'})
+            } catch (err) {
+                functions.logger.error('DeletePackageOnDatabase', {
+                    error: err,
+                })
+                res.status(400).send({err: err})
+            }
+        })
+    }
+)
+exports.ReturnAllPackages = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await packages.returnAllPackages()
+            functions.logger.info('ReturnAllPackages')
+            res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('ReturnAllPackages', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
+exports.ReturnAllPackagesWithoutInvoice = functions.https.onRequest(
+    async (req, res) => {
+        cors(req, res, async () => {
+            try {
+                let response = await packages.returnAllPackagesWithoutInvoice()
+                functions.logger.info('ReturnAllPackagesWithoutInvoice')
+                res.status(200).send({data: response})
+            } catch (err) {
+                functions.logger.error('ReturnAllPackagesWithoutInvoice', {
+                    error: err,
+                })
+                res.status(400).send({err: err})
+            }
+        })
+    }
+)
+exports.ReturnAllPackagesWithInvoice = functions.https.onRequest(
+    async (req, res) => {
+        cors(req, res, async () => {
+            try {
+                let response = await packages.returnAllPackagesWithInvoice()
+                functions.logger.info('ReturnAllPackagesWithInvoice')
+                res.status(200).send({data: response})
+            } catch (err) {
+                functions.logger.error('ReturnAllPackagesWithInvoice', {
+                    error: err,
+                })
+                res.status(400).send({err: err})
+            }
+        })
+    }
+)
