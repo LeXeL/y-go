@@ -349,6 +349,8 @@ export default {
             ],
             packagesData: [],
             workingDeletedId: '',
+            usersRegistered: [],
+            usersBox: [],
         }
     },
     computed: {
@@ -433,25 +435,34 @@ export default {
         async Generate() {
             this.displayLoading = true
             this.form.by = this.user
-            this.form.box = this.validateBox(this.form.box)
-            api.CreatePackageOnDatabase({package: this.form})
-                .then(response => {
-                    this.clear()
-                    this.displayLoading = false
-                    this.alertTitle = 'Exito!'
-                    this.alertMessage = 'Se ha creado el paquete con exito'
-                    this.alertType = 'success'
-                    this.displayAlert = true
-                })
-                .catch(error => {
-                    console.log(error)
-                    this.displayLoading = false
-                    this.alertTitle = 'Error'
-                    this.alertMessage =
-                        'Hubo un error por favor vuelve a intentarlo'
-                    this.alertType = 'error'
-                    this.displayAlert = true
-                })
+            this.form.box = await this.validateBox(this.form.box)
+            if (this.usersBox.includes(this.form.box)) {
+                api.CreatePackageOnDatabase({package: this.form})
+                    .then(response => {
+                        this.clear()
+                        this.displayLoading = false
+                        this.alertTitle = 'Exito!'
+                        this.alertMessage = 'Se ha creado el paquete con exito'
+                        this.alertType = 'success'
+                        this.displayAlert = true
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        this.displayLoading = false
+                        this.alertTitle = 'Error'
+                        this.alertMessage =
+                            'Hubo un error por favor vuelve a intentarlo'
+                        this.alertType = 'error'
+                        this.displayAlert = true
+                    })
+            } else {
+                this.displayLoading = false
+                this.alertTitle = 'Error'
+                this.alertMessage =
+                    'El usuario casillero ingresado no existe en la base de datos por favor revisar'
+                this.alertType = 'error'
+                this.displayAlert = true
+            }
         },
         addToData(id, data) {
             data.id = id
@@ -475,6 +486,12 @@ export default {
     },
     mounted() {
         let db = firebase.firestore()
+        api.ReturnAllUsers().then(response => {
+            this.usersRegistered = response.data.data
+            this.usersBox = this.usersRegistered.map(user => {
+                return user.box
+            })
+        })
         db.collection('packages').onSnapshot(
             snapshot => {
                 snapshot.docChanges().forEach(change => {
