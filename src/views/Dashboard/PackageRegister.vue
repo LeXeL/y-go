@@ -44,7 +44,7 @@
                     </q-file>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="margin-bottom: 65px;">
                 <div class="col-lg-8 q-px-md">
                     <q-table
                         :data="filteredPackagesData"
