@@ -21,7 +21,30 @@
                     <div class="col q-px-md">Registro de paquetes</div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row q-mb-lg">
+                <div class="col-lg-3 q-px-md">
+                    <q-file
+                        filled
+                        v-model="uploadFile"
+                        label="Subir por archivo"
+                        dense
+                    >
+                        <template v-slot:prepend>
+                            <q-icon name="fas fa-paperclip" />
+                        </template>
+                        <template v-slot:after>
+                            <q-btn
+                                round
+                                dense
+                                flat
+                                color="primary"
+                                icon="fas fa-paper-plane"
+                            />
+                        </template>
+                    </q-file>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 65px;">
                 <div class="col-lg-8 q-px-md">
                     <q-table
                         :data="filteredPackagesData"
@@ -249,6 +272,56 @@
                                     val => !!val || 'El campo es obligatorio',
                                 ]"
                             />
+                            <q-input
+                                filled
+                                type="number"
+                                label="No. factura de proveedor"
+                                class="q-mb-md"
+                                :rules="[
+                                    val => !!val || 'El campo es obligatorio',
+                                ]"
+                            />
+                            <q-input
+                                filled
+                                mask="date"
+                                class="q-mb-md"
+                                label="Fecha de factura de proveedor"
+                                :rules="[
+                                    val => !!val || 'El campo es obligatorio',
+                                ]"
+                            >
+                                <template v-slot:append>
+                                    <q-icon
+                                        name="fas fa-calendar"
+                                        class="cursor-pointer"
+                                    >
+                                        <q-popup-proxy
+                                            ref="qDateProxy"
+                                            transition-show="scale"
+                                            transition-hide="scale"
+                                        >
+                                            <q-date
+                                                v-model="searchDate"
+                                                @input="
+                                                    () =>
+                                                        $refs.qDateProxy.hide()
+                                                "
+                                            >
+                                                <div
+                                                    class="row items-center justify-end"
+                                                >
+                                                    <q-btn
+                                                        v-close-popup
+                                                        label="Cerrar"
+                                                        color="primary"
+                                                        flat
+                                                    />
+                                                </div>
+                                            </q-date>
+                                        </q-popup-proxy>
+                                    </q-icon>
+                                </template>
+                            </q-input>
                         </q-card-section>
 
                         <q-separator />
@@ -285,6 +358,7 @@ import * as api from '@/api/api'
 export default {
     data() {
         return {
+            uploadFile: null,
             displayLoading: false,
             displayAlert: false,
             displayConfirm: false,
@@ -345,6 +419,20 @@ export default {
                     align: 'left',
                     label: 'Ancho (plg)',
                     field: 'width',
+                },
+                {
+                    name: 'providerInvoice',
+                    align: 'left',
+                    label: 'Factura proveedor',
+                    field: 'providerInvoice',
+                    sortable: true,
+                },
+                {
+                    name: 'providerInvoiceDate',
+                    align: 'left',
+                    label: 'Fecha proveedor',
+                    field: 'providerInvoiceDate',
+                    sortable: true,
                 },
             ],
             packagesData: [],

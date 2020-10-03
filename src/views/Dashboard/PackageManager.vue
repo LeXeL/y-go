@@ -43,6 +43,14 @@
                 </div>
                 <div class="col-lg-2 q-px-md">
                     <q-input
+                        dense
+                        filled
+                        label="Factura de proveedor"
+                        type="number"
+                    />
+                </div>
+                <div class="col-lg-2 q-px-md">
+                    <q-input
                         filled
                         mask="date"
                         label="Fecha"
@@ -68,7 +76,7 @@
                                         >
                                             <q-btn
                                                 v-close-popup
-                                                label="Close"
+                                                label="Cerrar"
                                                 color="primary"
                                                 flat
                                             />
@@ -250,6 +258,20 @@ export default {
                     align: 'left',
                     label: 'Recibido por',
                     field: 'admin',
+                    sortable: true,
+                },
+                {
+                    name: 'providerInvoice',
+                    align: 'left',
+                    label: 'Factura proveedor',
+                    field: 'providerInvoice',
+                    sortable: true,
+                },
+                {
+                    name: 'providerInvoiceDate',
+                    align: 'left',
+                    label: 'Fecha proveedor',
+                    field: 'providerInvoiceDate',
                     sortable: true,
                 },
             ],
