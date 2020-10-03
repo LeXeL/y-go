@@ -110,6 +110,93 @@
                 </div>
             </div>
         </div>
+        <q-dialog v-model="ratesDialog" persistent>
+            <q-card style="width: 700px; max-width: 80vw">
+                <q-card-section>
+                    <div class="text-h6">Tarifas existentes</div>
+                </q-card-section>
+                <q-card-section>
+                    <q-table
+                        :data="ratesData"
+                        :columns="ratesColumns"
+                        row-key="name"
+                        :pagination.sync="initialPagination"
+                        class="full-width"
+                    >
+                        <template v-slot:header="props">
+                            <q-tr :props="props">
+                                <q-th
+                                    v-for="col in props.cols"
+                                    :key="col.name"
+                                    :props="props"
+                                    >{{ col.label }}</q-th
+                                >
+                                <q-th>Eliminar</q-th>
+                            </q-tr>
+                        </template>
+
+                        <template v-slot:body="props">
+                            <q-tr :props="props">
+                                <q-td key="name" :props="props">{{
+                                    props.row.name
+                                }}</q-td>
+                                <q-td key="rate" :props="props"
+                                    >$ {{ props.row.rate.toFixed(2) }}</q-td
+                                >
+                                <q-td auto-width>
+                                    <q-btn
+                                        size="sm"
+                                        color="red-7"
+                                        round
+                                        dense
+                                        icon="fas fa-times"
+                                        flat
+                                    />
+                                </q-td>
+                            </q-tr>
+                        </template>
+                    </q-table>
+                </q-card-section>
+                <q-separator />
+                <q-card-section>
+                    <div class="text-h6">Crear nueva tarifa</div>
+                </q-card-section>
+                <q-card-section>
+                    <div class="row">
+                        <div class="col-6">
+                            <q-input
+                                filled
+                                dense
+                                label="Nombre"
+                                class="on-left"
+                            />
+                        </div>
+                        <div class="col-6">
+                            <q-input
+                                filled
+                                dense
+                                label="Tarifa"
+                                type="number"
+                                class="on-right"
+                            />
+                        </div>
+                    </div>
+                </q-card-section>
+
+                <q-card-actions align="right" class="text-primary">
+                    <q-btn flat color="red-7" label="Cancelar" v-close-popup />
+                    <q-btn flat label="Crear" />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
+        <q-page-sticky position="bottom-right" :offset="[18, 18]">
+            <q-btn
+                fab
+                icon="fas fa-dollar-sign"
+                color="accent"
+                @click="ratesDialog = true"
+            />
+        </q-page-sticky>
     </q-page>
 </template>
 
@@ -123,6 +210,7 @@ export default {
         return {
             displayLoading: false,
             displayAlert: false,
+            ratesDialog: false,
             alertTitle: '',
             alertMessage: '',
             alertType: '',
@@ -178,6 +266,32 @@ export default {
                     label: 'Acceso',
                     field: 'role',
                     sortable: true,
+                },
+            ],
+            ratesColumns: [
+                {
+                    name: 'name',
+                    align: 'left',
+                    label: 'Nombre',
+                    field: 'name',
+                    sortable: true,
+                },
+                {
+                    name: 'rate',
+                    align: 'left',
+                    label: 'Tarifa',
+                    field: 'rate',
+                    sortable: true,
+                },
+            ],
+            ratesData: [
+                {
+                    name: 'Base',
+                    rate: 2.5,
+                },
+                {
+                    name: 'Family & Friends',
+                    rate: 2,
                 },
             ],
             usersData: [],
