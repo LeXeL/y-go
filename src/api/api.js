@@ -52,3 +52,21 @@ export const ReturnAllPackagesWithInvoice = data =>
     Request.post('/ReturnAllPackagesWithInvoice', data, {
         'Content-Type': 'application/json',
     })
+
+//RATES
+export const CreateRateOnDatabase = data =>
+    Request.post('/CreateRateOnDatabase', data, {
+        'Content-Type': 'application/json',
+    })
+export const UpdateRateInformationById = data =>
+    Request.post('/UpdateRateInformationById', data, {
+        'Content-Type': 'application/json',
+    })
+export const DeleteRateOnDatabase = data =>
+    Request.post('/DeleteRateOnDatabase', data, {
+        'Content-Type': 'application/json',
+    })
+export const ReturnAllRates = data =>
+    Request.post('/ReturnAllRates', data, {
+        'Content-Type': 'application/json',
+    })
