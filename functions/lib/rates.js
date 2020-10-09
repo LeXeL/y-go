@@ -7,7 +7,7 @@ async function createRate(rate) {
         .doc()
         .set({
             name: rate.name,
-            price: rate.price,
+            rate: parseInt(rate.rate),
         })
         .then(() => {
             return 'Succesfull'

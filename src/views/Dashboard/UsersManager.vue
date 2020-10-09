@@ -8,6 +8,13 @@
             :type="alertType"
             @accept="displayAlert = false"
         ></ygo-alert>
+        <confirm-dialog
+            :display="displayConfirm"
+            :title="alertTitle"
+            :message="alertMessage"
+            @accept="deleteRate"
+            @cancel="displayConfirm = false"
+        ></confirm-dialog>
         <div>
             <div class="row q-mb-lg">
                 <div class="text-h5">
@@ -151,6 +158,7 @@
                                         dense
                                         icon="fas fa-times"
                                         flat
+                                        @click="askForDeleteRate(props.row.id)"
                                     />
                                 </q-td>
                             </q-tr>
@@ -168,6 +176,7 @@
                                 filled
                                 dense
                                 label="Nombre"
+                                v-model="rateName"
                                 class="on-left"
                             />
                         </div>
@@ -177,6 +186,7 @@
                                 dense
                                 label="Tarifa"
                                 type="number"
+                                v-model.number="rateRate"
                                 class="on-right"
                             />
                         </div>
@@ -185,7 +195,7 @@
 
                 <q-card-actions align="right" class="text-primary">
                     <q-btn flat color="red-7" label="Cancelar" v-close-popup />
-                    <q-btn flat label="Crear" />
+                    <q-btn flat label="Crear" @click="createNewRate()" />
                 </q-card-actions>
             </q-card>
         </q-dialog>
@@ -210,6 +220,7 @@ export default {
         return {
             displayLoading: false,
             displayAlert: false,
+            displayConfirm: false,
             ratesDialog: false,
             alertTitle: '',
             alertMessage: '',
@@ -218,6 +229,9 @@ export default {
             searchLastName: '',
             searchEmail: '',
             searchBox: '',
+            rateName: '',
+            rateRate: '',
+            workingDeletedId: '',
             initialPagination: {
                 sortBy: 'desc',
                 descending: false,
@@ -284,21 +298,79 @@ export default {
                     sortable: true,
                 },
             ],
-            ratesData: [
-                {
-                    name: 'Base',
-                    rate: 2.5,
-                },
-                {
-                    name: 'Family & Friends',
-                    rate: 2,
-                },
-            ],
+            ratesData: [],
             usersData: [],
             filteredUserData: [],
         }
     },
     methods: {
+        getAllRates() {
+            try {
+                api.ReturnAllRates().then(response => {
+                    this.ratesData = response.data.data
+                })
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        deleteRate() {
+            this.displayLoading = true
+            this.displayAlert = false
+            this.displayConfirm = false
+            api.DeleteRateOnDatabase({
+                id: this.workingDeletedId,
+            })
+                .then(() => {
+                    this.displayLoading = false
+                    this.alertTitle = 'Exito!'
+                    this.alertMessage = 'Se ha eliminado la tarifa con exito'
+                    this.alertType = 'success'
+                    this.displayAlert = true
+                    this.getAllRates()
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage = error
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                })
+        },
+        askForDeleteRate(id) {
+            this.alertTitle = 'Esta seguro?'
+            this.alertMessage = 'Se va a proceder a eliminar este paquete'
+            this.workingDeletedId = id
+            this.displayConfirm = true
+        },
+        createNewRate() {
+            this.displayLoading = true
+            if (this.rateName === '' || this.rateRate === '') {
+                console.log(error)
+                this.displayLoading = false
+                this.alertTitle = 'Error'
+                this.alertMessage =
+                    'Por favor asegurate que llenaste los datos de nombre y precio correctamente'
+                this.alertType = 'error'
+                this.displayAlert = true
+                return
+            }
+            api.CreateRateOnDatabase({
+                rate: {name: this.rateName, rate: this.rateRate},
+            }).then(response => {
+                this.displayLoading = false
+                this.alertTitle = 'Exito!'
+                this.alertMessage = 'Se ha creado con exito la tarifa'
+                this.alertType = 'success'
+                this.displayAlert = true
+                this.ratesData.push({
+                    name: this.rateName,
+                    rate: this.rateRate,
+                })
+                this.rateName = ''
+                this.rateRate = ''
+            })
+        },
         clear() {
             this.searchName = ''
             this.searchLastName = ''
@@ -389,6 +461,7 @@ export default {
     },
     mounted() {
         let db = firebase.firestore()
+        this.getAllRates()
         db.collection('users').onSnapshot(
             snapshot => {
                 snapshot.docChanges().forEach(change => {
