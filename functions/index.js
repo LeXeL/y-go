@@ -13,6 +13,7 @@ const cors = require('cors')({
 })
 const users = require('./lib/users')
 const packages = require('./lib/packages')
+const rates = require('./lib/rates')
 
 exports.createUserOnDatabase = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
@@ -207,3 +208,73 @@ exports.ReturnAllPackagesWithInvoice = functions.https.onRequest(
         })
     }
 )
+
+//RATES
+exports.CreateRateOnDatabase = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            await rates.createRate(req.body.rate)
+            functions.logger.info('CreateRateOnDatabase', {
+                rate: req.body.rate,
+            })
+            res.status(200).send({status: 'Created'})
+        } catch (err) {
+            functions.logger.error('CreateRateOnDatabase', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
+exports.UpdateRateInformationById = functions.https.onRequest(
+    async (req, res) => {
+        cors(req, res, async () => {
+            try {
+                let response = await rates.updateRate(
+                    req.body.id,
+                    req.body.rate
+                )
+                functions.logger.info('UpdateRateInformationById', {
+                    rateUpdated: req.body.id,
+                    rateInfo: req.body.rate,
+                })
+                res.status(200).send({data: response})
+            } catch (err) {
+                functions.logger.error('UpdateRateInformationById', {
+                    error: err,
+                })
+                res.status(400).send({err: err})
+            }
+        })
+    }
+)
+exports.DeleteRateOnDatabase = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            await rates.deleteRate(req.body.id)
+            functions.logger.info('DeleteRateOnDatabase', {
+                rateId: req.body.id,
+            })
+            res.status(200).send({status: 'Created'})
+        } catch (err) {
+            functions.logger.error('DeleteRateOnDatabase', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
+exports.ReturnAllRates = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await rates.returnAllRates()
+            functions.logger.info('ReturnAllRates')
+            res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('ReturnAllRates', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
