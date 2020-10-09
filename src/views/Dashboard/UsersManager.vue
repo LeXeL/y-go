@@ -346,7 +346,6 @@ export default {
         createNewRate() {
             this.displayLoading = true
             if (this.rateName === '' || this.rateRate === '') {
-                console.log(error)
                 this.displayLoading = false
                 this.alertTitle = 'Error'
                 this.alertMessage =
@@ -363,10 +362,7 @@ export default {
                 this.alertMessage = 'Se ha creado con exito la tarifa'
                 this.alertType = 'success'
                 this.displayAlert = true
-                this.ratesData.push({
-                    name: this.rateName,
-                    rate: this.rateRate,
-                })
+                this.getAllRates()
                 this.rateName = ''
                 this.rateRate = ''
             })
