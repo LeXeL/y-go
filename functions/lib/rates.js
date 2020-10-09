@@ -8,6 +8,7 @@ async function createRate(rate) {
         .set({
             name: rate.name,
             rate: parseInt(rate.rate),
+            status: 'active',
         })
         .then(() => {
             return 'Succesfull'
@@ -34,7 +35,7 @@ async function deleteRate(id) {
     return db
         .collection('rates')
         .doc(id)
-        .delete()
+        .update({status: 'inactive'})
         .then(() => {
             console.log('Document successfully deleted!')
             return 'Succesfull'
@@ -48,6 +49,7 @@ async function returnAllRates() {
     let rates = []
     await db
         .collection('rates')
+        .where('status', '==', 'active')
         .get()
         .then(snapshot => {
             if (snapshot.empty) {
