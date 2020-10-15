@@ -148,8 +148,30 @@
                                     props.row.name
                                 }}</q-td>
                                 <q-td key="rate" :props="props"
-                                    >$ {{ props.row.rate.toFixed(2) }}</q-td
-                                >
+                                    >$
+                                    {{ parseInt(props.row.rate).toFixed(2) }}
+                                    <q-popup-edit
+                                        v-model="props.row.rate"
+                                        @save="
+                                            updateRate(
+                                                props.row.id,
+                                                props.row.rate
+                                            )
+                                        "
+                                        title="Actualizar Tarifa"
+                                        buttons
+                                    >
+                                        <q-input
+                                            type="text"
+                                            v-model="props.row.rate"
+                                            dense
+                                            autofocus
+                                            :rules="[
+                                                val =>
+                                                    !!val ||
+                                                    'El campo es obligatorio',
+                                            ]" /></q-popup-edit
+                                ></q-td>
                                 <q-td auto-width>
                                     <q-btn
                                         size="sm"
@@ -304,6 +326,30 @@ export default {
         }
     },
     methods: {
+        updateRate(id, rate) {
+            console.log('entra')
+            this.displayLoading = true
+            this.displayAlert = false
+            api.UpdateRateInformationById({
+                id: id,
+                rate: {rate: parseInt(rate)},
+            })
+                .then(() => {
+                    this.displayLoading = false
+                    this.alertTitle = 'Exito!'
+                    this.alertMessage = 'Se ha cambiado el nombre con exito'
+                    this.alertType = 'success'
+                    this.displayAlert = true
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage = error
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                })
+        },
         getAllRates() {
             try {
                 api.ReturnAllRates().then(response => {
