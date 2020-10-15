@@ -7,7 +7,7 @@ async function createRate(rate) {
         .doc()
         .set({
             name: rate.name,
-            rate: parseInt(rate.rate),
+            rate: parseFloat(rate.rate),
             status: 'active',
         })
         .then(() => {

@@ -149,7 +149,7 @@
                                 }}</q-td>
                                 <q-td key="rate" :props="props"
                                     >$
-                                    {{ parseInt(props.row.rate).toFixed(2) }}
+                                    {{ parseFloat(props.row.rate).toFixed(2) }}
                                     <q-popup-edit
                                         v-model="props.row.rate"
                                         @save="
@@ -208,7 +208,7 @@
                                 dense
                                 label="Tarifa"
                                 type="number"
-                                v-model="rateRate"
+                                v-model.number="rateRate"
                                 class="on-right"
                             />
                         </div>
@@ -331,7 +331,7 @@ export default {
             this.displayAlert = false
             api.UpdateRateInformationById({
                 id: id,
-                rate: {rate: parseInt(rate)},
+                rate: {rate: parseFloat(rate)},
             })
                 .then(() => {
                     this.displayLoading = false
