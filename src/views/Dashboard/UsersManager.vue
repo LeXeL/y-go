@@ -208,7 +208,7 @@
                                 dense
                                 label="Tarifa"
                                 type="number"
-                                v-model.number="rateRate"
+                                v-model="rateRate"
                                 class="on-right"
                             />
                         </div>
