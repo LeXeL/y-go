@@ -327,7 +327,6 @@ export default {
     },
     methods: {
         updateRate(id, rate) {
-            console.log('entra')
             this.displayLoading = true
             this.displayAlert = false
             api.UpdateRateInformationById({
@@ -337,7 +336,7 @@ export default {
                 .then(() => {
                     this.displayLoading = false
                     this.alertTitle = 'Exito!'
-                    this.alertMessage = 'Se ha cambiado el nombre con exito'
+                    this.alertMessage = 'Se ha cambiado la tarifa con exito'
                     this.alertType = 'success'
                     this.displayAlert = true
                 })
@@ -345,7 +344,8 @@ export default {
                     console.log(error)
                     this.displayLoading = false
                     this.alertTitle = 'Error'
-                    this.alertMessage = error
+                    this.alertMessage =
+                        'Hubo un error con tu peticion intentalo mas tarde.'
                     this.alertType = 'error'
                     this.displayAlert = true
                 })
