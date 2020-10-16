@@ -62,13 +62,13 @@
                             />
                             <q-select
                                 filled
-                                v-model="rate"
+                                v-model="currentlySelectedRate"
                                 :disable="!editInformation"
-                                :options="[
-                                    'Base',
-                                    'Family & Friends',
-                                    'Employee',
-                                ]"
+                                :options="
+                                    rates.map(rate => {
+                                        return rate.name
+                                    })
+                                "
                                 label="Tarifa"
                             />
                         </q-card-section>
@@ -142,7 +142,8 @@ export default {
             alertMessage: '',
             alertType: '',
             role: 'Usuario',
-            rate: 'Family & Friends',
+            rates: [],
+            currentlySelectedRate: '',
             initialPagination: {
                 sortBy: 'desc',
                 descending: false,
@@ -195,12 +196,18 @@ export default {
             this.update()
         },
         async update() {
+            let obj = this.data
+            obj.rate = this.currentlySelectedRate
             this.displayLoading = true
             this.displayAlert = false
-
+            obj.rate = this.rates.filter(rate => {
+                if (rate.name === obj.rate) {
+                    return rate
+                }
+            })[0].id
             api.UpdateUserInformationById({
                 uid: this.$route.params.id,
-                user: this.data,
+                user: obj,
             })
                 .then(response => {
                     this.displayLoading = false
@@ -226,6 +233,14 @@ export default {
         api.getUserInformationById({uid: this.$route.params.id})
             .then(user => {
                 this.data = user.data.data
+                api.ReturnAllRates().then(response => {
+                    this.rates = response.data.data
+                    this.currentlySelectedRate = this.rates.filter(rate => {
+                        if (rate.id === this.data.rate) {
+                            return rate
+                        }
+                    })[0].name
+                })
             })
             .then(() => {
                 this.displayLoading = false

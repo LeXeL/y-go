@@ -95,7 +95,7 @@
                                     props.row.box
                                 }}</q-td>
                                 <q-td key="rate" :props="props">{{
-                                    props.row.rate
+                                    returnRateName(props.row.rate)
                                 }}</q-td>
                                 <q-td key="role" :props="props">{{
                                     props.row.role
@@ -323,9 +323,20 @@ export default {
             ratesData: [],
             usersData: [],
             filteredUserData: [],
+            rates: [],
         }
     },
     methods: {
+        returnRateName(rateId) {
+            let rateName
+            rateName = this.rates.filter(rate => {
+                if (rate.id === rateId) {
+                    return rate
+                }
+            })[0]
+
+            return rateName === null ? 'NaN' : rateName.name
+        },
         updateRate(id, rate) {
             this.displayLoading = true
             this.displayAlert = false
@@ -522,6 +533,9 @@ export default {
                 console.log(error)
             }
         )
+        api.ReturnAllRates().then(response => {
+            this.rates = response.data.data
+        })
     },
 }
 </script>
