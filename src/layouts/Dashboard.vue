@@ -7,6 +7,29 @@
         <q-toolbar-title>
           <img src="@/assets/logo_ygo.png" width="4%" style="padding-top: 5px; cursor: pointer;" />
         </q-toolbar-title>
+        <q-space />
+            <q-btn flat round dense>
+                <i class="fas fa-user"></i>
+                <q-menu>
+                    <q-list style="width: 150px;">
+                        <q-item clickable v-close-popup>
+                            <q-item-section>
+                                <span>
+                                    <i class="fas fa-user on-left"></i>Mi Perfil
+                                </span>
+                            </q-item-section>
+                        </q-item>
+                        <q-separator />
+                        <q-item clickable v-close-popup>
+                            <q-item-section>
+                                <span>
+                                    <i class="fas fa-sign-out-alt on-left"></i>Cerrar sesion
+                                </span>
+                            </q-item-section>
+                        </q-item>
+                    </q-list>
+                </q-menu>
+            </q-btn>
       </q-toolbar>
     </q-header>
 
