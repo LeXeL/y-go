@@ -174,6 +174,7 @@
                                 ></q-td>
                                 <q-td auto-width>
                                     <q-btn
+                                        v-if="props.row.name !== 'Default'"
                                         size="sm"
                                         color="red-7"
                                         round
@@ -323,13 +324,12 @@ export default {
             ratesData: [],
             usersData: [],
             filteredUserData: [],
-            rates: [],
         }
     },
     methods: {
         returnRateName(rateId) {
             let rateName
-            rateName = this.rates.filter(rate => {
+            rateName = this.ratesData.filter(rate => {
                 if (rate.id === rateId) {
                     return rate
                 }
@@ -365,6 +365,13 @@ export default {
             try {
                 api.ReturnAllRates().then(response => {
                     this.ratesData = response.data.data
+                    this.ratesData = this.ratesData.sort(function (x, y) {
+                        return x.name == 'Default'
+                            ? -1
+                            : y.name == 'Default'
+                            ? 1
+                            : 0
+                    })
                 })
             } catch (error) {
                 console.log(error)
@@ -533,9 +540,6 @@ export default {
                 console.log(error)
             }
         )
-        api.ReturnAllRates().then(response => {
-            this.rates = response.data.data
-        })
     },
 }
 </script>
