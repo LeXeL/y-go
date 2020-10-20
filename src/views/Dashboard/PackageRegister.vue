@@ -337,6 +337,7 @@
                                         flat
                                         color="primary"
                                         icon="fas fa-edit"
+                                        @click="additionalChargesDialog = true"
                                     />
                                 </template>
                             </q-input>
@@ -355,6 +356,85 @@
                     </q-card>
                 </div>
             </div>
+            <q-dialog v-model="additionalChargesDialog" persistent>
+                <q-card style="width: 700px; max-width: 80vw">
+                    <q-card-section>
+                        <div class="text-h6">Cargos adicionales</div>
+                    </q-card-section>
+                    <q-card-section>
+                        <q-table
+                            :data="additionalChargesData"
+                            :columns="additionalChargesColumns"
+                            row-key="name"
+                            :pagination.sync="initialPagination"
+                            class="full-width"
+                        >
+                            <template v-slot:header="props">
+                                <q-tr :props="props">
+                                    <q-th
+                                        v-for="col in props.cols"
+                                        :key="col.name"
+                                        :props="props"
+                                        >{{ col.label }}</q-th
+                                    >
+                                    <q-th>Eliminar</q-th>
+                                </q-tr>
+                            </template>
+
+                            <template v-slot:body="props">
+                                <q-tr :props="props">
+                                    <q-td key="name" :props="props">{{
+                                        props.row.name
+                                    }}</q-td>
+                                    <q-td key="rate" :props="props"
+                                        >$ {{ props.row.rate.toFixed(2) }}</q-td
+                                    >
+                                    <q-td auto-width>
+                                        <q-btn
+                                            size="sm"
+                                            color="red-7"
+                                            round
+                                            dense
+                                            icon="fas fa-times"
+                                            flat
+                                        />
+                                    </q-td>
+                                </q-tr>
+                            </template>
+                        </q-table>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-section>
+                        <div class="text-h6">Agregar cargo</div>
+                    </q-card-section>
+                    <q-card-section>
+                        <div class="row">
+                            <div class="col-6">
+                                <q-input
+                                    filled
+                                    dense
+                                    label="Descripcion"
+                                    class="on-left"
+                                />
+                            </div>
+                            <div class="col-6">
+                                <q-input
+                                    filled
+                                    dense
+                                    label="Monto"
+                                    type="number"
+                                    class="on-right"
+                                />
+                            </div>
+                        </div>
+                    </q-card-section>
+
+                    <q-card-actions align="right" class="text-primary">
+                        <q-btn flat color="red-7" label="Cancelar" v-close-popup />
+                        <q-btn flat label="Agregar" />
+                    </q-card-actions>
+                </q-card>
+            </q-dialog>
             <q-page-sticky position="bottom-right" :offset="[18, 18]">
                 <q-btn
                     fab
@@ -376,6 +456,7 @@ import * as api from '@/api/api'
 export default {
     data() {
         return {
+            additionalChargesDialog: false,
             uploadFile: null,
             displayLoading: false,
             displayAlert: false,
@@ -457,6 +538,32 @@ export default {
             workingDeletedId: '',
             usersRegistered: [],
             usersBox: [],
+            additionalChargesColumns: [
+                {
+                    name: 'name',
+                    align: 'left',
+                    label: 'Descripcion',
+                    field: 'name',
+                    sortable: true,
+                },
+                {
+                    name: 'rate',
+                    align: 'left',
+                    label: 'Monto',
+                    field: 'rate',
+                    sortable: true,
+                },
+            ],
+            additionalChargesData: [
+                {
+                    name: 'Almacenamiento',
+                    rate: 5.75,
+                },
+                {
+                    name: 'Impuestos de importacion',
+                    rate: 6,
+                },
+            ],
         }
     },
     computed: {
@@ -589,6 +696,12 @@ export default {
                 }
             })
         },
+        // calculateAdditionalCharges() {
+        //     let total = 0
+        //     this.additionalChargesData.forEach(el => {
+        //         total += el.
+        //     })
+        // }
     },
     mounted() {
         let db = firebase.firestore()
