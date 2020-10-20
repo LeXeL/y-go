@@ -322,6 +322,24 @@
                                     </q-icon>
                                 </template>
                             </q-input>
+                            <q-input
+                                filled
+                                type="number"
+                                label="Cargos adicionales"
+                                readonly
+                                class="q-mb-md"
+                                value="0.00"
+                            >
+                                <template v-slot:after>
+                                    <q-btn
+                                        round
+                                        dense
+                                        flat
+                                        color="primary"
+                                        icon="fas fa-edit"
+                                    />
+                                </template>
+                            </q-input>
                         </q-card-section>
 
                         <q-separator />
