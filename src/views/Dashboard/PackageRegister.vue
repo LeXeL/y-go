@@ -454,6 +454,13 @@ export default {
                     sortable: true,
                 },
                 {
+                    name: 'additionalCharges',
+                    align: 'left',
+                    label: 'Cargos adicionales',
+                    field: 'additionalCharges',
+                    sortable: true,
+                },
+                {
                     name: 'providerInvoice',
                     align: 'left',
                     label: 'Factura proveedor',
