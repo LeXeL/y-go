@@ -2,6 +2,7 @@ const admin = require('firebase-admin')
 const db = admin.firestore()
 const package = require('./packages')
 function groupPackagesByBox(packages) {
+    //Groups every packages according to its box id.
     let groupedPackages = {}
     packages.forEach(package => {
         if (Object.keys(groupedPackages).includes(package.box)) {
@@ -13,6 +14,10 @@ function groupPackagesByBox(packages) {
     return groupedPackages
 }
 async function createInvoice() {
+    //TODO:
+    // [ ] falta calcular precio,
+    // [ ] falta poner un custom id a los invoice,
+    // [ ] falta una vez se guarde sacar el id del invoice generado y asignarlo a su paquete correspondiente
     let packages = await package.returnAllPackagesWithoutInvoice()
     let groupedPackages = await groupPackagesByBox(packages)
     try {
@@ -21,13 +26,15 @@ async function createInvoice() {
                 const element = groupedPackages[box]
                 db.collection('invoices')
                     .doc()
-                    .set({
+                    .add({
                         box: box,
                         creationTime: Date.now(),
                         packages: element,
+                        paidTime: '',
+                        status: 'unpaid', //paid, unpaid
                     })
-                    .then(() => {
-                        return 'Succesfull'
+                    .then(docRef => {
+                        console.log(docRef)
                     })
                     .catch(error => {
                         return error
