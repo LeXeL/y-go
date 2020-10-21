@@ -456,6 +456,7 @@
                     icon="fas fa-file-alt"
                     color="accent"
                     to="/package-register"
+                    @click="handleInvoices()"
                 />
             </q-page-sticky>
         </div>
@@ -653,6 +654,12 @@ export default {
                 supplierInvoiceDate: selectedPackage.supplierInvoiceDate,
                 aditionalCharges: selectedPackage.aditionalCharges,
             }
+        },
+        handleInvoices() {
+            console.log('entra')
+            api.CreateInvoiceOnDatabase().then(response => {
+                console.log(response)
+            })
         },
         updatePackageWithChange(packages) {
             this.displayLoading = true
