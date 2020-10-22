@@ -1,6 +1,23 @@
 const admin = require('firebase-admin')
 const db = admin.firestore()
-const package = require('./packages')
+const packages = require('./packages')
+async function addToLastInvoiceId() {
+    // Sum the count of each shard in the subcollection
+    return await db
+        .collection('general')
+        .doc('lastInvoiceId')
+        .update({lastInvoiceId: admin.firestore.FieldValue.increment(1)})
+}
+async function getLastInvoiceId() {
+    // Sum the count of each shard in the subcollection
+    return await db
+        .collection('general')
+        .doc('lastInvoiceId')
+        .get()
+        .then(doc => {
+            return doc.data()
+        })
+}
 function groupPackagesByBox(packages) {
     //Groups every packages according to its box id.
     let groupedPackages = {}
@@ -16,17 +33,19 @@ function groupPackagesByBox(packages) {
 async function createInvoice() {
     //TODO:
     // [ ] falta calcular precio,
-    // [ ] falta poner un custom id a los invoice,
-    // [ ] falta una vez se guarde sacar el id del invoice generado y asignarlo a su paquete correspondiente
-    let packages = await package.returnAllPackagesWithoutInvoice()
-    let groupedPackages = await groupPackagesByBox(packages)
+    // [x] falta poner un custom id a los invoice,
+    // [x] falta una vez se guarde sacar el id del invoice generado y asignarlo a su paquete correspondiente
+    let allPackages = await packages.returnAllPackagesWithoutInvoice()
+    let groupedPackages = await groupPackagesByBox(allPackages)
     try {
         for (const box in groupedPackages) {
             if (groupedPackages.hasOwnProperty(box)) {
                 const element = groupedPackages[box]
-                db.collection('invoices')
-                    .doc()
+                let lastInvoiceId = await getLastInvoiceId()
+                await db
+                    .collection('invoices')
                     .add({
+                        No: parseInt(lastInvoiceId.lastInvoiceId),
                         box: box,
                         creationTime: Date.now(),
                         packages: element,
@@ -34,11 +53,15 @@ async function createInvoice() {
                         status: 'unpaid', //paid, unpaid
                     })
                     .then(docRef => {
-                        console.log(docRef)
+                        element.forEach(package => {
+                            package.invoice = docRef.id
+                            packages.updatePackage(package.id, package)
+                        })
                     })
                     .catch(error => {
                         return error
                     })
+                await addToLastInvoiceId()
             }
         }
     } catch (error) {
