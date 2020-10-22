@@ -54,7 +54,7 @@
                             />
                             <q-select
                                 filled
-                                v-model="role"
+                                v-model="currentlySelectedRole"
                                 :disable="!editInformation"
                                 :options="['Usuario', 'Administrador']"
                                 label="Acceso"
@@ -141,9 +141,10 @@ export default {
             alertTitle: '',
             alertMessage: '',
             alertType: '',
-            role: 'Usuario',
+            role: '',
             rates: [],
             currentlySelectedRate: '',
+            currentlySelectedRole: '',
             initialPagination: {
                 sortBy: 'desc',
                 descending: false,
@@ -200,6 +201,9 @@ export default {
             obj.rate = this.currentlySelectedRate
             this.displayLoading = true
             this.displayAlert = false
+            this.currentlySelectedRole === 'Administrador'
+                ? (obj.role = 'admin')
+                : (obj.role = 'user')
             obj.rate = this.rates.filter(rate => {
                 if (rate.name === obj.rate) {
                     return rate
@@ -241,6 +245,8 @@ export default {
                         }
                     })[0].name
                 })
+                this.currentlySelectedRole =
+                    this.data.role === 'admin' ? 'Administrador' : 'Usuario'
             })
             .then(() => {
                 this.displayLoading = false
