@@ -44,7 +44,7 @@
                     </q-file>
                 </div>
             </div>
-            <div class="row" style="margin-bottom: 65px;">
+            <div class="row" style="margin-bottom: 65px">
                 <div class="col-lg-8 q-px-md">
                     <q-table
                         :data="filteredPackagesData"
@@ -146,9 +146,26 @@
                                             askForDeletePackage(props.row.id)
                                         "
                                     /> -->
-                                    <q-btn-group >
-                                        <q-btn icon="fas fa-edit" size="sm" round flat color="primary" />
-                                        <q-btn icon="fas fa-times" size="sm" round flat color="red-7" @click="askForDeletePackage(props.row.id)"/>
+                                    <q-btn-group>
+                                        <q-btn
+                                            icon="fas fa-edit"
+                                            size="sm"
+                                            round
+                                            flat
+                                            color="primary"
+                                        />
+                                        <q-btn
+                                            icon="fas fa-times"
+                                            size="sm"
+                                            round
+                                            flat
+                                            color="red-7"
+                                            @click="
+                                                askForDeletePackage(
+                                                    props.row.id
+                                                )
+                                            "
+                                        />
                                     </q-btn-group>
                                 </q-td>
                             </q-tr>
@@ -325,7 +342,7 @@
                                         :props="props"
                                         >{{ col.label }}</q-th
                                     >
-                                    <q-th>Editar</q-th>
+                                    <q-th>Eliminar</q-th>
                                 </q-tr>
                             </template>
 
@@ -335,7 +352,8 @@
                                         props.row.desc
                                     }}</q-td>
                                     <q-td key="amount" :props="props"
-                                        >$ {{ props.row.amount.toFixed(2) }}</q-td
+                                        >$
+                                        {{ props.row.amount.toFixed(2) }}</q-td
                                     >
                                     <q-td auto-width>
                                         <q-btn
@@ -378,7 +396,12 @@
                     </q-card-section>
 
                     <q-card-actions align="right" class="text-primary">
-                        <q-btn flat color="red-7" label="Cerrar" v-close-popup />
+                        <q-btn
+                            flat
+                            color="red-7"
+                            label="Cerrar"
+                            v-close-popup
+                        />
                         <q-btn flat label="Agregar" />
                     </q-card-actions>
                 </q-card>
@@ -644,7 +667,7 @@ export default {
                 total += el.amount
             })
             return total
-        }
+        },
     },
     mounted() {
         let db = firebase.firestore()
