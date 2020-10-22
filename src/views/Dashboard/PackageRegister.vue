@@ -44,7 +44,7 @@
                     </q-file>
                 </div>
             </div>
-            <div class="row" style="margin-bottom: 65px;">
+            <div class="row" style="margin-bottom: 65px">
                 <div class="col-lg-8 q-px-md">
                     <q-table
                         :data="filteredPackagesData"
@@ -62,7 +62,7 @@
                                     :props="props"
                                     >{{ col.label }}</q-th
                                 >
-                                <q-th>Eliminar</q-th>
+                                <q-th>Acciones</q-th>
                             </q-tr>
                         </template>
 
@@ -113,7 +113,9 @@
                                         />
                                     </q-popup-edit>
                                 </q-td>
-
+                                <q-td key="dimensions" :props="props">
+                                    {{ returnDimensions(props.row) }}
+                                </q-td>
                                 <q-td key="weight" :props="props">
                                     {{ props.row.weight }}
                                     <q-popup-edit
@@ -132,66 +134,8 @@
                                         />
                                     </q-popup-edit>
                                 </q-td>
-
-                                <q-td key="long" :props="props">
-                                    {{ props.row.long }}
-                                    <q-popup-edit
-                                        v-model="props.row.long"
-                                        @save="
-                                            updatePackageWithChange(props.row)
-                                        "
-                                        title="Editar largo"
-                                        buttons
-                                    >
-                                        <q-input
-                                            type="text"
-                                            v-model="props.row.long"
-                                            dense
-                                            autofocus
-                                        />
-                                    </q-popup-edit>
-                                </q-td>
-
-                                <q-td key="height" :props="props">
-                                    {{ props.row.height }}
-                                    <q-popup-edit
-                                        v-model="props.row.height"
-                                        @save="
-                                            updatePackageWithChange(props.row)
-                                        "
-                                        title="Editar alto"
-                                        buttons
-                                    >
-                                        <q-input
-                                            type="text"
-                                            v-model="props.row.height"
-                                            dense
-                                            autofocus
-                                        />
-                                    </q-popup-edit>
-                                </q-td>
-
-                                <q-td key="width" :props="props">
-                                    {{ props.row.width }}
-                                    <q-popup-edit
-                                        v-model="props.row.width"
-                                        @save="
-                                            updatePackageWithChange(props.row)
-                                        "
-                                        title="Editar ancho"
-                                        buttons
-                                    >
-                                        <q-input
-                                            type="text"
-                                            v-model="props.row.width"
-                                            dense
-                                            autofocus
-                                        />
-                                    </q-popup-edit>
-                                </q-td>
-
                                 <q-td auto-width>
-                                    <q-btn
+                                    <!-- <q-btn
                                         size="sm"
                                         color="red-7"
                                         round
@@ -201,7 +145,28 @@
                                         @click="
                                             askForDeletePackage(props.row.id)
                                         "
-                                    />
+                                    /> -->
+                                    <q-btn-group>
+                                        <q-btn
+                                            icon="fas fa-edit"
+                                            size="sm"
+                                            round
+                                            flat
+                                            color="primary"
+                                        />
+                                        <q-btn
+                                            icon="fas fa-times"
+                                            size="sm"
+                                            round
+                                            flat
+                                            color="red-7"
+                                            @click="
+                                                askForDeletePackage(
+                                                    props.row.id
+                                                )
+                                            "
+                                        />
+                                    </q-btn-group>
                                 </q-td>
                             </q-tr>
                         </template>
@@ -322,6 +287,25 @@
                                     </q-icon>
                                 </template>
                             </q-input>
+                            <q-input
+                                filled
+                                type="number"
+                                label="Cargos adicionales"
+                                readonly
+                                class="q-mb-md"
+                                :value="calculateAdditionalCharges()"
+                            >
+                                <template v-slot:after>
+                                    <q-btn
+                                        round
+                                        dense
+                                        flat
+                                        color="primary"
+                                        icon="far fa-list-alt"
+                                        @click="additionalChargesDialog = true"
+                                    />
+                                </template>
+                            </q-input>
                         </q-card-section>
 
                         <q-separator />
@@ -337,6 +321,91 @@
                     </q-card>
                 </div>
             </div>
+            <q-dialog v-model="additionalChargesDialog" persistent>
+                <q-card style="width: 700px; max-width: 80vw">
+                    <q-card-section>
+                        <div class="text-h6">Cargos adicionales</div>
+                    </q-card-section>
+                    <q-card-section>
+                        <q-table
+                            :data="additionalChargesData"
+                            :columns="additionalChargesColumns"
+                            row-key="name"
+                            :pagination.sync="initialPagination"
+                            class="full-width"
+                        >
+                            <template v-slot:header="props">
+                                <q-tr :props="props">
+                                    <q-th
+                                        v-for="col in props.cols"
+                                        :key="col.name"
+                                        :props="props"
+                                        >{{ col.label }}</q-th
+                                    >
+                                    <q-th>Eliminar</q-th>
+                                </q-tr>
+                            </template>
+
+                            <template v-slot:body="props">
+                                <q-tr :props="props">
+                                    <q-td key="desc" :props="props">{{
+                                        props.row.desc
+                                    }}</q-td>
+                                    <q-td key="amount" :props="props"
+                                        >$
+                                        {{ props.row.amount.toFixed(2) }}</q-td
+                                    >
+                                    <q-td auto-width>
+                                        <q-btn
+                                            size="sm"
+                                            color="red-7"
+                                            round
+                                            dense
+                                            icon="fas fa-times"
+                                            flat
+                                        />
+                                    </q-td>
+                                </q-tr>
+                            </template>
+                        </q-table>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-section>
+                        <div class="text-h6">Agregar cargo</div>
+                    </q-card-section>
+                    <q-card-section>
+                        <div class="row">
+                            <div class="col-6">
+                                <q-input
+                                    filled
+                                    dense
+                                    label="Descripcion"
+                                    class="on-left"
+                                />
+                            </div>
+                            <div class="col-6">
+                                <q-input
+                                    filled
+                                    dense
+                                    label="Monto"
+                                    type="number"
+                                    class="on-right"
+                                />
+                            </div>
+                        </div>
+                    </q-card-section>
+
+                    <q-card-actions align="right" class="text-primary">
+                        <q-btn
+                            flat
+                            color="red-7"
+                            label="Cerrar"
+                            v-close-popup
+                        />
+                        <q-btn flat label="Agregar" />
+                    </q-card-actions>
+                </q-card>
+            </q-dialog>
             <q-page-sticky position="bottom-right" :offset="[18, 18]">
                 <q-btn
                     fab
@@ -358,6 +427,7 @@ import * as api from '@/api/api'
 export default {
     data() {
         return {
+            additionalChargesDialog: false,
             uploadFile: null,
             displayLoading: false,
             displayAlert: false,
@@ -394,6 +464,12 @@ export default {
                     sortable: true,
                 },
                 {
+                    name: 'dimensions',
+                    align: 'left',
+                    label: 'Dimensiones LxHxA (plg)',
+                    field: 'dimensions',
+                },
+                {
                     name: 'weight',
                     align: 'left',
                     label: 'Peso fisico (lb)',
@@ -401,24 +477,11 @@ export default {
                     sortable: true,
                 },
                 {
-                    name: 'long',
+                    name: 'additionalCharges',
                     align: 'left',
-                    label: 'Largo (plg)',
-                    field: 'long',
+                    label: 'Cargos adicionales',
+                    field: 'additionalCharges',
                     sortable: true,
-                },
-                {
-                    name: 'height',
-                    align: 'left',
-                    label: 'Alto (plg)',
-                    field: 'height',
-                    sortable: true,
-                },
-                {
-                    name: 'width',
-                    align: 'left',
-                    label: 'Ancho (plg)',
-                    field: 'width',
                 },
                 {
                     name: 'providerInvoice',
@@ -439,6 +502,30 @@ export default {
             workingDeletedId: '',
             usersRegistered: [],
             usersBox: [],
+            additionalChargesColumns: [
+                {
+                    name: 'desc',
+                    align: 'left',
+                    label: 'Descripcion',
+                    field: 'desc',
+                },
+                {
+                    name: 'amount',
+                    align: 'left',
+                    label: 'Monto',
+                    field: 'amount',
+                },
+            ],
+            additionalChargesData: [
+                {
+                    desc: 'Almacenamiento',
+                    amount: 5.75,
+                },
+                {
+                    desc: 'Impuestos de importacion',
+                    amount: 6,
+                },
+            ],
         }
     },
     computed: {
@@ -570,6 +657,16 @@ export default {
                     this.packagesData.splice(index, 1)
                 }
             })
+        },
+        returnDimensions(row) {
+            return `${row.long} x ${row.height} x ${row.width}`
+        },
+        calculateAdditionalCharges() {
+            let total = 0
+            this.additionalChargesData.forEach(el => {
+                total += el.amount
+            })
+            return total
         },
     },
     mounted() {

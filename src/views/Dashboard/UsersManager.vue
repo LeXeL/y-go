@@ -217,7 +217,7 @@
                 </q-card-section>
 
                 <q-card-actions align="right" class="text-primary">
-                    <q-btn flat color="red-7" label="Cancelar" v-close-popup />
+                    <q-btn flat color="red-7" label="Cerrar" v-close-popup />
                     <q-btn flat label="Crear" @click="createNewRate()" />
                 </q-card-actions>
             </q-card>
