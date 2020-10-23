@@ -722,6 +722,7 @@ export default {
             this.form.supplierInvoice = ''
             this.form.supplierInvoiceDate = ''
             this.form.aditionalCharges = []
+            this.isEditingFile = false
         },
         async Generate() {
             this.displayLoading = true
