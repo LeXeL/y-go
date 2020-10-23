@@ -191,6 +191,7 @@ export default {
             searchTracking: '',
             searchBox: '',
             searchInvoice: '',
+            rates: [],
             searchDate: moment(new Date()).format('YYYY/MM/DD'),
             initialPagination: {
                 sortBy: 'desc',
@@ -342,7 +343,7 @@ export default {
         },
         addToData(id, data) {
             data.id = id
-            this.packagesData.push(data)
+            if (data.invoice != null) this.packagesData.push(data)
         },
         editData(id, data) {
             data.id = id
@@ -396,6 +397,9 @@ export default {
                 console.log(error)
             }
         )
+        api.ReturnAllRates().then(response => {
+            this.rates = response.data.data
+        })
     },
 }
 </script>
