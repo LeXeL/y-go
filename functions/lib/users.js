@@ -1,5 +1,6 @@
 const admin = require('firebase-admin')
 const db = admin.firestore()
+const rates = require('./rates')
 
 async function addToLastId() {
     // Sum the count of each shard in the subcollection
@@ -120,6 +121,18 @@ async function returnAllUsers() {
         })
     return users
 }
+async function returnUserRateByBox(box) {
+    let users = await returnAllUsers()
+    let allRates = await rates.returnAllRates()
+    let currentSelectedUser = users.filter(user => {
+        if (user.box === box) return user
+    })[0]
+    return allRates.filter(rate => {
+        if (currentSelectedUser.rate === rate.id) {
+            return rate
+        }
+    })[0]
+}
 
 module.exports = {
     createDatabaseWithUserInfo,
@@ -128,4 +141,5 @@ module.exports = {
     updateUserInfo,
     changeVerified,
     returnAllUsers,
+    returnUserRateByBox,
 }
