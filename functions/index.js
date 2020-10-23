@@ -14,6 +14,7 @@ const cors = require('cors')({
 const users = require('./lib/users')
 const packages = require('./lib/packages')
 const rates = require('./lib/rates')
+const invoices = require('./lib/invoices')
 
 exports.createUserOnDatabase = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
@@ -278,3 +279,20 @@ exports.ReturnAllRates = functions.https.onRequest(async (req, res) => {
         }
     })
 })
+//INVOICES
+exports.CreateInvoiceOnDatabase = functions.https.onRequest(
+    async (req, res) => {
+        cors(req, res, async () => {
+            try {
+                let response = await invoices.createInvoice()
+                functions.logger.info('CreateRateOnDatabase')
+                res.status(200).send({data: response})
+            } catch (err) {
+                functions.logger.error('CreateRateOnDatabase', {
+                    error: err,
+                })
+                res.status(400).send({err: err})
+            }
+        })
+    }
+)

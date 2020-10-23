@@ -70,3 +70,8 @@ export const ReturnAllRates = data =>
     Request.post('/ReturnAllRates', data, {
         'Content-Type': 'application/json',
     })
+//INVOICES
+export const CreateInvoiceOnDatabase = data =>
+    Request.post('/CreateInvoiceOnDatabase', data, {
+        'Content-Type': 'application/json',
+    })

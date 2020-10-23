@@ -7,6 +7,7 @@
             :message="alertMessage"
             :type="alertType"
             @accept="displayAlert = false"
+            :redirect="redirect"
         ></ygo-alert>
         <confirm-dialog
             :display="displayConfirm"
@@ -455,7 +456,7 @@
                     fab
                     icon="fas fa-file-alt"
                     color="accent"
-                    to="/package-register"
+                    @click="handleInvoices()"
                 />
             </q-page-sticky>
         </div>
@@ -481,6 +482,7 @@ export default {
             alertType: '',
             chargeName: '',
             chargeAmount: '',
+            redirect: '',
             form: {
                 tracking: '',
                 box: '',
@@ -653,6 +655,29 @@ export default {
                 supplierInvoiceDate: selectedPackage.supplierInvoiceDate,
                 aditionalCharges: selectedPackage.aditionalCharges,
             }
+        },
+        handleInvoices() {
+            console.log('entra')
+            this.displayLoading = true
+            api.CreateInvoiceOnDatabase()
+                .then(() => {
+                    this.displayLoading = false
+                    this.alertTitle = 'Exito!'
+                    this.alertMessage =
+                        'Hemos generado todas las facturas correspondientes.'
+                    this.alertType = 'success'
+                    this.displayAlert = true
+                    this.redirect = '/invoice-manager'
+                })
+                .catch(error => {
+                    this.displayLoading = false
+                    console.log(error)
+                    this.alertTitle = 'Hubo un Error!'
+                    this.alertMessage =
+                        'Hubo un error con tu peticion por favor intentalo mas tarde.'
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                })
         },
         updatePackageWithChange(packages) {
             this.displayLoading = true
