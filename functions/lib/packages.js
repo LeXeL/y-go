@@ -14,6 +14,9 @@ async function createPackage(package) {
             width: package.width,
             creationTime: Date.now(),
             by: package.by,
+            supplierInvoice: package.supplierInvoice,
+            supplierInvoiceDate: package.supplierInvoiceDate,
+            aditionalCharges: package.aditionalCharges,
             invoice: null,
         })
         .then(() => {

@@ -134,6 +134,19 @@
                                         />
                                     </q-popup-edit>
                                 </q-td>
+                                <q-td key="additionalCharges" :props="props">
+                                    {{
+                                        calculateAdditionalChargesTotal(
+                                            props.row.aditionalCharges
+                                        )
+                                    }}
+                                </q-td>
+                                <q-td key="providerInvoice" :props="props">
+                                    {{ props.row.supplierInvoice }}
+                                </q-td>
+                                <q-td key="providerInvoiceDate" :props="props">
+                                    {{ props.row.supplierInvoiceDate }}
+                                </q-td>
                                 <q-td auto-width>
                                     <!-- <q-btn
                                         size="sm"
@@ -153,6 +166,7 @@
                                             round
                                             flat
                                             color="primary"
+                                            @click="populateForm(props.row)"
                                         />
                                         <q-btn
                                             icon="fas fa-times"
@@ -241,6 +255,7 @@
                                 filled
                                 type="number"
                                 label="No. factura de proveedor"
+                                v-model="form.supplierInvoice"
                                 class="q-mb-md"
                                 :rules="[
                                     val => !!val || 'El campo es obligatorio',
@@ -251,6 +266,7 @@
                                 mask="date"
                                 class="q-mb-md"
                                 label="Fecha de factura de proveedor"
+                                v-model="form.supplierInvoiceDate"
                                 :rules="[
                                     val => !!val || 'El campo es obligatorio',
                                 ]"
@@ -266,7 +282,9 @@
                                             transition-hide="scale"
                                         >
                                             <q-date
-                                                v-model="searchDate"
+                                                v-model="
+                                                    form.supplierInvoiceDate
+                                                "
                                                 @input="
                                                     () =>
                                                         $refs.qDateProxy.hide()
@@ -293,7 +311,11 @@
                                 label="Cargos adicionales"
                                 readonly
                                 class="q-mb-md"
-                                :value="calculateAdditionalCharges()"
+                                :value="
+                                    calculateAdditionalChargesTotal(
+                                        form.aditionalCharges
+                                    )
+                                "
                             >
                                 <template v-slot:after>
                                     <q-btn
@@ -314,7 +336,18 @@
                             <q-btn flat color="warning" @click="clear()"
                                 >Cancelar</q-btn
                             >
-                            <q-btn flat color="primary" @click="Generate()"
+                            <q-btn
+                                v-if="isEditingFile"
+                                flat
+                                color="primary"
+                                @click="updatePackage()"
+                                >Actualizar</q-btn
+                            >
+                            <q-btn
+                                v-if="!isEditingFile"
+                                flat
+                                color="primary"
+                                @click="Generate()"
                                 >Registrar</q-btn
                             >
                         </q-card-actions>
@@ -328,7 +361,7 @@
                     </q-card-section>
                     <q-card-section>
                         <q-table
-                            :data="additionalChargesData"
+                            :data="form.aditionalCharges"
                             :columns="additionalChargesColumns"
                             row-key="name"
                             :pagination.sync="initialPagination"
@@ -348,12 +381,16 @@
 
                             <template v-slot:body="props">
                                 <q-tr :props="props">
-                                    <q-td key="desc" :props="props">{{
-                                        props.row.desc
+                                    <q-td key="chargeName" :props="props">{{
+                                        props.row.chargeName
                                     }}</q-td>
-                                    <q-td key="amount" :props="props"
+                                    <q-td key="chargeAmount" :props="props"
                                         >$
-                                        {{ props.row.amount.toFixed(2) }}</q-td
+                                        {{
+                                            parseFloat(
+                                                props.row.chargeAmount
+                                            ).toFixed(2)
+                                        }}</q-td
                                     >
                                     <q-td auto-width>
                                         <q-btn
@@ -363,6 +400,7 @@
                                             dense
                                             icon="fas fa-times"
                                             flat
+                                            @click="deleteCharge(props.row)"
                                         />
                                     </q-td>
                                 </q-tr>
@@ -381,6 +419,7 @@
                                     dense
                                     label="Descripcion"
                                     class="on-left"
+                                    v-model="chargeName"
                                 />
                             </div>
                             <div class="col-6">
@@ -390,6 +429,7 @@
                                     label="Monto"
                                     type="number"
                                     class="on-right"
+                                    v-model.number="chargeAmount"
                                 />
                             </div>
                         </div>
@@ -402,7 +442,11 @@
                             label="Cerrar"
                             v-close-popup
                         />
-                        <q-btn flat label="Agregar" />
+                        <q-btn
+                            flat
+                            label="Agregar"
+                            @click="addToAdditionalCharges()"
+                        />
                     </q-card-actions>
                 </q-card>
             </q-dialog>
@@ -435,6 +479,8 @@ export default {
             alertTitle: '',
             alertMessage: '',
             alertType: '',
+            chargeName: '',
+            chargeAmount: '',
             form: {
                 tracking: '',
                 box: '',
@@ -442,6 +488,9 @@ export default {
                 long: '',
                 height: '',
                 width: '',
+                supplierInvoice: '',
+                supplierInvoiceDate: '',
+                aditionalCharges: [],
             },
             initialPagination: {
                 sortBy: 'desc',
@@ -502,28 +551,19 @@ export default {
             workingDeletedId: '',
             usersRegistered: [],
             usersBox: [],
+            isEditingFile: false,
             additionalChargesColumns: [
                 {
-                    name: 'desc',
+                    name: 'chargeName',
                     align: 'left',
                     label: 'Descripcion',
-                    field: 'desc',
+                    field: 'chargeName',
                 },
                 {
-                    name: 'amount',
+                    name: 'chargeAmount',
                     align: 'left',
                     label: 'Monto',
-                    field: 'amount',
-                },
-            ],
-            additionalChargesData: [
-                {
-                    desc: 'Almacenamiento',
-                    amount: 5.75,
-                },
-                {
-                    desc: 'Impuestos de importacion',
-                    amount: 6,
+                    field: 'chargeAmount',
                 },
             ],
         }
@@ -541,6 +581,79 @@ export default {
         },
     },
     methods: {
+        updatePackage() {
+            this.displayLoading = true
+            this.displayAlert = false
+            let id = this.form.id
+            delete this.form.id
+            api.UpdatePackageInformationById({
+                id: id,
+                package: this.form,
+            })
+                .then(() => {
+                    this.displayLoading = false
+                    this.alertTitle = 'Exito!'
+                    this.alertMessage = 'Se ha actualizado con exito'
+                    this.alertType = 'success'
+                    this.displayAlert = true
+                    this.clear()
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage = 'Hubo un error con la peticion'
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                })
+        },
+        deleteCharge(currentSelectedCharge) {
+            this.form.aditionalCharges.forEach((charges, index) => {
+                if (
+                    charges.chargeName === currentSelectedCharge.chargeName &&
+                    charges.chargeAmount === currentSelectedCharge.chargeAmount
+                ) {
+                    this.form.aditionalCharges.splice(index, 1)
+                }
+            })
+        },
+        addToAdditionalCharges() {
+            if (this.chargeName === '' || this.chargeAmount === '') {
+                this.displayLoading = false
+                this.alertTitle = 'Error'
+                this.alertMessage =
+                    'Por favor asegurate que llenaste los datos de nombre y precio correctamente'
+                this.alertType = 'error'
+                this.displayAlert = true
+                return
+            }
+            this.form.aditionalCharges.push({
+                chargeName: this.chargeName,
+                chargeAmount: this.chargeAmount,
+            })
+            this.displayLoading = false
+            this.alertTitle = 'Exito!'
+            this.alertMessage = 'Se ha creado con exito la tarifa'
+            this.alertType = 'success'
+            this.displayAlert = true
+            this.chargeName = ''
+            this.chargeAmount = ''
+        },
+        populateForm(selectedPackage) {
+            this.isEditingFile = true
+            this.form = {
+                id: selectedPackage.id,
+                tracking: selectedPackage.tracking,
+                box: selectedPackage.box,
+                weight: selectedPackage.weight,
+                long: selectedPackage.long,
+                height: selectedPackage.height,
+                width: selectedPackage.width,
+                supplierInvoice: selectedPackage.supplierInvoice,
+                supplierInvoiceDate: selectedPackage.supplierInvoiceDate,
+                aditionalCharges: selectedPackage.aditionalCharges,
+            }
+        },
         updatePackageWithChange(packages) {
             this.displayLoading = true
             this.displayAlert = false
@@ -606,6 +719,10 @@ export default {
             this.form.long = ''
             this.form.height = ''
             this.form.width = ''
+            this.form.supplierInvoice = ''
+            this.form.supplierInvoiceDate = ''
+            this.form.aditionalCharges = []
+            this.isEditingFile = false
         },
         async Generate() {
             this.displayLoading = true
@@ -661,12 +778,12 @@ export default {
         returnDimensions(row) {
             return `${row.long} x ${row.height} x ${row.width}`
         },
-        calculateAdditionalCharges() {
+        calculateAdditionalChargesTotal(additionalCharges) {
             let total = 0
-            this.additionalChargesData.forEach(el => {
-                total += el.amount
+            additionalCharges.forEach(el => {
+                total += el.chargeAmount
             })
-            return total
+            return parseFloat(total).toFixed(2)
         },
     },
     mounted() {
