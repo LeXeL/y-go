@@ -1,7 +1,22 @@
 const admin = require('firebase-admin')
 const db = admin.firestore()
+const users = require('./users')
+async function calculatePackagePrices(package) {
+    let rateForCurrentBox = await users.returnUserRateByBox(package.box)
+    let price = parseFloat(package.weight * rateForCurrentBox.rate).toFixed(2)
+    let totalPrice = 0.0
+    if (package.aditionalCharges.length > 0) {
+        package.aditionalCharges.forEach(el => {
+            totalPrice += el.chargeAmount
+        })
+    }
+    totalPrice += parseFloat(price)
+    totalPrice = parseFloat(totalPrice).toFixed(2)
+    return {price, totalPrice}
+}
 
 async function createPackage(package) {
+    let prices = await calculatePackagePrices(package)
     return db
         .collection('packages')
         .doc()
@@ -18,27 +33,38 @@ async function createPackage(package) {
             supplierInvoiceDate: package.supplierInvoiceDate,
             aditionalCharges: package.aditionalCharges,
             invoice: null,
+            price: prices.price,
+            totalPrice: prices.totalPrice,
         })
         .then(() => {
             return 'Succesfull'
         })
         .catch(error => {
+            console.log(error)
             return error
         })
 }
 async function updatePackage(id, Obj) {
-    return db
-        .collection('packages')
-        .doc(id)
-        .update(Obj)
-        .then(() => {
-            console.log('Document successfully written!')
-            return 'Succesfull'
-        })
-        .catch(error => {
-            console.error('Error writing document: ', error)
-            return error
-        })
+    try {
+        let prices = await calculatePackagePrices(Obj)
+        Obj.price = prices.price
+        Obj.totalPrice = prices.totalPrice
+        return db
+            .collection('packages')
+            .doc(id)
+            .update(Obj)
+            .then(() => {
+                console.log('Document successfully written!')
+                return 'Succesfull'
+            })
+            .catch(error => {
+                console.error('Error writing document: ', error)
+                return error
+            })
+    } catch (error) {
+        console.log(error)
+        return error
+    }
 }
 async function deletePackage(id) {
     return db

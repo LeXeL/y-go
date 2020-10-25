@@ -804,11 +804,16 @@ export default {
             return `${row.long} x ${row.height} x ${row.width}`
         },
         calculateAdditionalChargesTotal(additionalCharges) {
-            let total = 0
-            additionalCharges.forEach(el => {
-                total += el.chargeAmount
-            })
-            return parseFloat(total).toFixed(2)
+            try {
+                let total = 0
+                additionalCharges.forEach(el => {
+                    total += el.chargeAmount
+                })
+                return parseFloat(total).toFixed(2)
+            } catch (error) {
+                return 'NaN'
+                console.log(error)
+            }
         },
     },
     mounted() {

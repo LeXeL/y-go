@@ -1,6 +1,7 @@
 const admin = require('firebase-admin')
 const db = admin.firestore()
 const packages = require('./packages')
+
 async function addToLastInvoiceId() {
     // Sum the count of each shard in the subcollection
     return await db
@@ -18,6 +19,13 @@ async function getLastInvoiceId() {
             return doc.data()
         })
 }
+async function calculatePriceForGroupedPackages(groupedPackages) {
+    let total = 0.0
+    groupedPackages.forEach(package => {
+        total += parseFloat(package.totalPrice)
+    })
+    return total.toFixed(2)
+}
 function groupPackagesByBox(packages) {
     //Groups every packages according to its box id.
     let groupedPackages = {}
@@ -31,10 +39,6 @@ function groupPackagesByBox(packages) {
     return groupedPackages
 }
 async function createInvoice() {
-    //TODO:
-    // [ ] falta calcular precio,
-    // [x] falta poner un custom id a los invoice,
-    // [x] falta una vez se guarde sacar el id del invoice generado y asignarlo a su paquete correspondiente
     let allPackages = await packages.returnAllPackagesWithoutInvoice()
     let groupedPackages = await groupPackagesByBox(allPackages)
     try {
@@ -42,6 +46,7 @@ async function createInvoice() {
             if (groupedPackages.hasOwnProperty(box)) {
                 const element = groupedPackages[box]
                 let lastInvoiceId = await getLastInvoiceId()
+                let price = await calculatePriceForGroupedPackages(element)
                 await db
                     .collection('invoices')
                     .add({
@@ -51,12 +56,13 @@ async function createInvoice() {
                         packages: element,
                         paidTime: '',
                         status: 'unpaid', //paid, unpaid
+                        price: price,
                     })
                     .then(docRef => {
-                        element.forEach(package => {
-                            package.invoice = docRef.id
-                            packages.updatePackage(package.id, package)
-                        })
+                        // element.forEach(package => {
+                        //     package.invoice = docRef.id
+                        //     packages.updatePackage(package.id, package)
+                        // })
                     })
                     .catch(error => {
                         return error
