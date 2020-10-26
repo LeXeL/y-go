@@ -108,7 +108,6 @@ async function returnAllInvoices() {
     let Invoices = []
     await db
         .collection('invoices')
-        .where('status', '==', 'active')
         .get()
         .then(snapshot => {
             if (snapshot.empty) {
