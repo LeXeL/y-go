@@ -59,10 +59,10 @@ async function createInvoice() {
                         price: price,
                     })
                     .then(docRef => {
-                        // element.forEach(package => {
-                        //     package.invoice = docRef.id
-                        //     packages.updatePackage(package.id, package)
-                        // })
+                        element.forEach(package => {
+                            package.invoice = docRef.id
+                            packages.updatePackage(package.id, package)
+                        })
                     })
                     .catch(error => {
                         return error

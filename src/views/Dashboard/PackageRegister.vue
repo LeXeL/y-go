@@ -657,7 +657,6 @@ export default {
             }
         },
         handleInvoices() {
-            console.log('entra')
             this.displayLoading = true
             api.CreateInvoiceOnDatabase()
                 .then(() => {
