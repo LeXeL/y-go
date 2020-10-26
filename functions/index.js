@@ -296,3 +296,17 @@ exports.CreateInvoiceOnDatabase = functions.https.onRequest(
         })
     }
 )
+exports.returnAllInvoices = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await invoices.returnAllInvoices()
+            functions.logger.info('returnAllInvoices')
+            res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('returnAllInvoices', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})

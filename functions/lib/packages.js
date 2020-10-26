@@ -1,6 +1,7 @@
 const admin = require('firebase-admin')
 const db = admin.firestore()
 const users = require('./users')
+const invoices = require('./invoices')
 async function calculatePackagePrices(package) {
     let rateForCurrentBox = await users.returnUserRateByBox(package.box)
     let price = parseFloat(package.weight * rateForCurrentBox.rate).toFixed(2)
@@ -120,6 +121,7 @@ async function returnAllPackagesWithoutInvoice() {
     return packages
 }
 async function returnAllPackagesWithInvoice() {
+    let invoicesData = await invoices.returnAllInvoices()
     let packages = []
     await db
         .collection('packages')
@@ -130,17 +132,19 @@ async function returnAllPackagesWithInvoice() {
                 return
             }
             snapshot.forEach(doc => {
-                packages.push({...doc.data(), id: doc.id})
+                let obj = doc.data()
+                if (obj.invoice != null) {
+                    obj.invoice = invoicesData.filter(
+                        invoice => invoice.id === obj.invoice
+                    )[0].No
+                    packages.push({...obj, id: doc.id})
+                }
             })
         })
         .catch(function(error) {
             console.log('Error getting documents: ', error)
         })
-    return packages.filter(package => {
-        if (package.invoice !== null) {
-            return null
-        }
-    })
+    return packages
 }
 
 module.exports = {

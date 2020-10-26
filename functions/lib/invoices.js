@@ -59,10 +59,10 @@ async function createInvoice() {
                         price: price,
                     })
                     .then(docRef => {
-                        // element.forEach(package => {
-                        //     package.invoice = docRef.id
-                        //     packages.updatePackage(package.id, package)
-                        // })
+                        element.forEach(package => {
+                            package.invoice = docRef.id
+                            packages.updatePackage(package.id, package)
+                        })
                     })
                     .catch(error => {
                         return error
@@ -108,7 +108,6 @@ async function returnAllInvoices() {
     let Invoices = []
     await db
         .collection('invoices')
-        .where('status', '==', 'active')
         .get()
         .then(snapshot => {
             if (snapshot.empty) {

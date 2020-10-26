@@ -138,7 +138,36 @@
                                     {{ calculateVolumetric(props.row) }}
                                 </q-td>
                                 <q-td key="price" :props="props">
-                                    {{ props.row.price }}
+                                    $ {{ props.row.totalPrice }}
+                                    <q-tooltip
+                                        anchor="bottom middle"
+                                        self="top middle"
+                                        content-class="bg-primary"
+                                        :offset="[10, 10]"
+                                    >
+                                        <div class="text-subtitle2">
+                                            <strong
+                                                >$ {{ props.row.price }}</strong
+                                            >
+                                            - Costo
+                                        </div>
+                                        <div
+                                            class="text-subtitle2"
+                                            v-for="(addchrg, i) in props.row
+                                                .aditionalCharges"
+                                            :key="i"
+                                        >
+                                            <strong
+                                                >$
+                                                {{
+                                                    addchrg.chargeAmount.toFixed(
+                                                        2
+                                                    )
+                                                }}</strong
+                                            >
+                                            - {{ addchrg.chargeName }}
+                                        </div>
+                                    </q-tooltip>
                                 </q-td>
                                 <q-td key="date" :props="props">
                                     {{
@@ -152,6 +181,27 @@
                                         `${props.row.by.name} ${props.row.by.lastName}`
                                     }}
                                 </q-td>
+                                <q-td key="supplierInvoice" :props="props">
+                                    <q-chip>Ver</q-chip>
+                                    <q-tooltip
+                                        anchor="bottom middle"
+                                        self="top middle"
+                                        content-class="bg-primary"
+                                        :offset="[10, 10]"
+                                    >
+                                        <div class="text-subtitle2">
+                                            <strong>No. Factura: </strong>
+                                            {{ props.row.supplierInvoice }}
+                                        </div>
+                                        <div class="text-subtitle2">
+                                            <strong>Fecha. Factura: </strong>
+                                            {{ props.row.supplierInvoiceDate }}
+                                        </div>
+                                    </q-tooltip>
+                                </q-td>
+                                <!-- <q-td key="supplierInvoiceDate" :props="props">
+                                    {{ props.row.supplierInvoiceDate }}
+                                </q-td> -->
                                 <!-- <q-td auto-width>
                 <q-btn size="sm" color="red-7" round dense icon="fas fa-times" />
               </q-td>-->
@@ -191,7 +241,7 @@ export default {
             searchTracking: '',
             searchBox: '',
             searchInvoice: '',
-            rates: [],
+            invoices: [],
             searchDate: moment(new Date()).format('YYYY/MM/DD'),
             initialPagination: {
                 sortBy: 'desc',
@@ -262,18 +312,9 @@ export default {
                     sortable: true,
                 },
                 {
-                    name: 'providerInvoice',
+                    name: 'supplierInvoice',
                     align: 'left',
-                    label: 'Factura proveedor',
-                    field: 'providerInvoice',
-                    sortable: true,
-                },
-                {
-                    name: 'providerInvoiceDate',
-                    align: 'left',
-                    label: 'Fecha proveedor',
-                    field: 'providerInvoiceDate',
-                    sortable: true,
+                    label: 'Info Proveedor',
                 },
             ],
             packagesData: [],
@@ -318,15 +359,10 @@ export default {
                 })
             }
             if (this.searchInvoice) {
-                this.filteredUserData = this.packagesData.filter(packages => {
-                    if (
-                        packages.invoice
-                            .toLowerCase()
-                            .includes(this.searchInvoice.toLowerCase())
-                    ) {
-                        return packages
-                    }
-                })
+                this.filteredUserData = this.packagesData.filter(
+                    packages =>
+                        packages.invoice === parseInt(this.searchInvoice)
+                )
             }
             if (this.searchDate) {
                 this.filteredUserData = this.packagesData.filter(packages => {
@@ -340,25 +376,6 @@ export default {
             }
 
             this.clear()
-        },
-        addToData(id, data) {
-            data.id = id
-            if (data.invoice != null) this.packagesData.push(data)
-        },
-        editData(id, data) {
-            data.id = id
-            this.packagesData.forEach((d, index) => {
-                if (d.id === id) {
-                    this.data.splice(index, 1, data)
-                }
-            })
-        },
-        removeData(id) {
-            this.packagesData.forEach((d, index) => {
-                if (d.id === id) {
-                    this.data.splice(index, 1)
-                }
-            })
         },
         returnDimensions(row) {
             return `${row.long} x ${row.height} x ${row.width}`
@@ -379,27 +396,16 @@ export default {
     },
     mounted() {
         let db = firebase.firestore()
-        db.collection('packages').onSnapshot(
-            snapshot => {
-                snapshot.docChanges().forEach(change => {
-                    if (change.type === 'added') {
-                        this.addToData(change.doc.id, change.doc.data())
-                    }
-                    if (change.type === 'modified') {
-                        this.editData(change.doc.id, change.doc.data())
-                    }
-                    if (change.type === 'removed') {
-                        this.removeData(change.doc.id)
-                    }
-                })
-            },
-            error => {
-                console.log(error)
-            }
-        )
-        api.ReturnAllRates().then(response => {
-            this.rates = response.data.data
-        })
+        try {
+            api.ReturnAllPackagesWithInvoice().then(
+                response => (this.packagesData = response.data.data)
+            )
+            api.returnAllInvoices().then(
+                response => (this.invoices = response.data.data)
+            )
+        } catch (error) {
+            console.log(error)
+        }
     },
 }
 </script>
