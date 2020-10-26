@@ -573,7 +573,7 @@ export default {
                 {
                     name: 'providerInvoice',
                     align: 'left',
-                    label: 'Info proveedor',
+                    label: 'Info Proveedor',
                 },
             ],
             packagesData: [],
