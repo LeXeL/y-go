@@ -136,17 +136,53 @@
                                     </q-popup-edit>
                                 </q-td>
                                 <q-td key="additionalCharges" :props="props">
+                                    $
                                     {{
                                         calculateAdditionalChargesTotal(
                                             props.row.aditionalCharges
                                         )
                                     }}
+                                    <q-tooltip
+                                        anchor="bottom middle"
+                                        self="top middle"
+                                        content-class="bg-primary"
+                                        :offset="[10, 10]"
+                                    >
+                                        <div
+                                            class="text-subtitle2"
+                                            v-for="(addchrg, i) in props.row
+                                                .aditionalCharges"
+                                            :key="i"
+                                        >
+                                            <strong
+                                                >$
+                                                {{
+                                                    addchrg.chargeAmount.toFixed(
+                                                        2
+                                                    )
+                                                }}</strong
+                                            >
+                                            - {{ addchrg.chargeName }}
+                                        </div>
+                                    </q-tooltip>
                                 </q-td>
                                 <q-td key="providerInvoice" :props="props">
-                                    {{ props.row.supplierInvoice }}
-                                </q-td>
-                                <q-td key="providerInvoiceDate" :props="props">
-                                    {{ props.row.supplierInvoiceDate }}
+                                    <q-chip>Ver</q-chip>
+                                    <q-tooltip
+                                        anchor="bottom middle"
+                                        self="top middle"
+                                        content-class="bg-primary"
+                                        :offset="[10, 10]"
+                                    >
+                                        <div class="text-subtitle2">
+                                            <strong>No. Factura: </strong>
+                                            {{ props.row.supplierInvoice }}
+                                        </div>
+                                        <div class="text-subtitle2">
+                                            <strong>Fecha. Factura: </strong>
+                                            {{ props.row.supplierInvoiceDate }}
+                                        </div>
+                                    </q-tooltip>
                                 </q-td>
                                 <q-td auto-width>
                                     <!-- <q-btn
@@ -537,16 +573,7 @@ export default {
                 {
                     name: 'providerInvoice',
                     align: 'left',
-                    label: 'Factura proveedor',
-                    field: 'providerInvoice',
-                    sortable: true,
-                },
-                {
-                    name: 'providerInvoiceDate',
-                    align: 'left',
-                    label: 'Fecha proveedor',
-                    field: 'providerInvoiceDate',
-                    sortable: true,
+                    label: 'Info proveedor',
                 },
             ],
             packagesData: [],
