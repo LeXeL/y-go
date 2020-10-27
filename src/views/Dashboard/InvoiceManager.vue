@@ -92,7 +92,11 @@
                             >
                                 {{ props.row.No }}
                             </q-td>
-                            <q-td key="box" :props="props">
+                            <q-td
+                                key="box"
+                                :props="props"
+                                @click="returnBoxId(props.row.box)"
+                            >
                                 {{ props.row.box }}
                             </q-td>
                             <q-td key="price" :props="props">
@@ -180,6 +184,7 @@ export default {
             ],
             invoicesData: [],
             filterInvoicesData: [],
+            allUsers: [],
         }
     },
     methods: {
@@ -219,6 +224,10 @@ export default {
             }
 
             this.clear()
+        },
+        returnBoxId(box) {
+            let userId = this.allUsers.find(user => user.box === box).id
+            this.$router.push(`/user-details/${userId}`)
         },
         returnFormatedTime(time) {
             return moment(time).format('DD/MM/YYYY')
@@ -270,6 +279,9 @@ export default {
             error => {
                 console.log(error)
             }
+        )
+        api.ReturnAllUsers().then(
+            response => (this.allUsers = response.data.data)
         )
     },
 }
