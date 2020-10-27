@@ -81,7 +81,15 @@
 
                     <template v-slot:body="props">
                         <q-tr :props="props">
-                            <q-td key="No" :props="props">
+                            <q-td
+                                key="No"
+                                :props="props"
+                                @click="
+                                    $router.push(
+                                        `/invoice-details/${props.row.id}`
+                                    )
+                                "
+                            >
                                 {{ props.row.No }}
                             </q-td>
                             <q-td key="box" :props="props">
