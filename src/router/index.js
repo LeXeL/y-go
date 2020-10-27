@@ -47,7 +47,7 @@ const routes = [
                 component: InvoiceManager,
             },
             {
-                path: '/invoice-details',
+                path: '/invoice-details/:id',
                 name: 'InvoiceDetails',
                 component: InvoiceDetails,
             },
