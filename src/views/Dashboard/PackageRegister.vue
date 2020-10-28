@@ -395,12 +395,12 @@
                             <q-btn flat color="warning" @click="clear()"
                                 >Cancelar</q-btn
                             >
-                            <q-btn
+                            <!-- <q-btn
                                 v-if="isEditingFile"
                                 flat
                                 color="primary"
                                 @click="updatePackage()"
-                                >Actualizar</q-btn
+                                >Siguiente</q-btn
                             >
                             <q-btn
                                 v-if="!isEditingFile"
@@ -408,7 +408,13 @@
                                 color="primary"
                                 @click="Generate()"
                                 >Registrar</q-btn
-                            >
+                            > -->
+                            <q-btn
+                                flat
+                                color="primary"
+                                @click="saveDataLocally()"
+                                label="Siguiente"
+                            />
                         </q-card-actions>
                     </q-card>
                 </div>
@@ -867,7 +873,16 @@ export default {
             }
         },
         saveDataLocally() {
-            alert('data saved locally')
+            if (this.activeRowIndex != null) {
+                alert('data saved locally')
+                this.activeRowIndex++
+                if (this.activeRowIndex < this.filteredPackagesData.length) {
+                    this.populateForm(
+                        this.filteredPackagesData[this.activeRowIndex],
+                        this.activeRowIndex
+                    )
+                }
+            }
         },
     },
     mounted() {
