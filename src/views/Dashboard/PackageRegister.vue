@@ -44,6 +44,14 @@
                         </template>
                     </q-file>
                 </div>
+                <q-space />
+                <div class="col-lg-2">
+                    <q-btn
+                        label="Actualizar BD"
+                        color="accent"
+                        class="full-width"
+                    />
+                </div>
             </div>
             <div class="row" style="margin-bottom: 65px">
                 <div class="col-lg-8 q-px-md">
@@ -875,7 +883,7 @@ export default {
         },
         saveDataLocally() {
             if (this.isEditingFile) {
-                alert('data saved locally')
+                // INSERT "SAVE DATA LOCALLY" CODE HERE
                 this.activeRowIndex++
                 if (this.activeRowIndex < this.filteredPackagesData.length) {
                     this.populateForm(
