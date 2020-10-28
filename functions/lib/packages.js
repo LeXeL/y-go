@@ -1,7 +1,7 @@
 const admin = require('firebase-admin')
 const db = admin.firestore()
 const users = require('./users')
-const invoices = require('./invoices')
+
 async function calculatePackagePrices(package) {
     let rateForCurrentBox = await users.returnUserRateByBox(package.box)
     let price = parseFloat(package.weight * rateForCurrentBox.rate).toFixed(2)
@@ -121,6 +121,7 @@ async function returnAllPackagesWithoutInvoice() {
     return packages
 }
 async function returnAllPackagesWithInvoice() {
+    const invoices = require('./invoices')
     let invoicesData = await invoices.returnAllInvoices()
     let packages = []
     await db

@@ -1,6 +1,5 @@
 const admin = require('firebase-admin')
 const db = admin.firestore()
-const packages = require('./packages')
 
 async function addToLastInvoiceId() {
     // Sum the count of each shard in the subcollection
@@ -39,9 +38,10 @@ function groupPackagesByBox(packages) {
     return groupedPackages
 }
 async function createInvoice() {
-    let allPackages = await packages.returnAllPackagesWithoutInvoice()
-    let groupedPackages = await groupPackagesByBox(allPackages)
+    const packages = require('./packages')
     try {
+        let allPackages = await packages.returnAllPackagesWithoutInvoice()
+        let groupedPackages = await groupPackagesByBox(allPackages)
         for (const box in groupedPackages) {
             if (groupedPackages.hasOwnProperty(box)) {
                 const element = groupedPackages[box]
@@ -71,7 +71,8 @@ async function createInvoice() {
             }
         }
     } catch (error) {
-        console.log(error)
+        console.error(error)
+        return error
     }
 
     return 'completed'
