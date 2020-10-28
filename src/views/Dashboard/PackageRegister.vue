@@ -44,6 +44,14 @@
                         </template>
                     </q-file>
                 </div>
+                <q-space />
+                <div class="col-lg-2">
+                    <q-btn
+                        label="Actualizar BD"
+                        color="accent"
+                        class="full-width"
+                    />
+                </div>
             </div>
             <div class="row" style="margin-bottom: 65px">
                 <div class="col-lg-8 q-px-md">
@@ -76,7 +84,14 @@
             </q-tr>
           </template> -->
                         <template v-slot:body="props">
-                            <q-tr :props="props">
+                            <q-tr
+                                :props="props"
+                                :class="
+                                    props.rowIndex == activeRowIndex
+                                        ? 'bg-secondary'
+                                        : ''
+                                "
+                            >
                                 <q-td key="tracking" :props="props">
                                     {{ props.row.tracking }}
                                     <q-popup-edit
@@ -147,6 +162,10 @@
                                         self="top middle"
                                         content-class="bg-primary"
                                         :offset="[10, 10]"
+                                        v-if="
+                                            props.row.aditionalCharges.length >
+                                            0
+                                        "
                                     >
                                         <div
                                             class="text-subtitle2"
@@ -203,7 +222,12 @@
                                             round
                                             flat
                                             color="primary"
-                                            @click="populateForm(props.row)"
+                                            @click="
+                                                populateForm(
+                                                    props.row,
+                                                    props.rowIndex
+                                                )
+                                            "
                                         />
                                         <q-btn
                                             icon="fas fa-times"
@@ -226,7 +250,13 @@
                 <div class="col-lg-4 q-px-md">
                     <q-card class="full-width">
                         <q-card-section>
-                            <div class="text-h6">Registrar</div>
+                            <div class="text-h6">
+                                {{
+                                    isEditingFile
+                                        ? 'Actualizar paquete'
+                                        : 'Registrar nuevo paquete'
+                                }}
+                            </div>
                         </q-card-section>
 
                         <q-card-section>
@@ -247,6 +277,8 @@
                                 :rules="[
                                     val => !!val || 'El campo es obligatorio',
                                 ]"
+                                ref="box"
+                                v-on:keyup.enter="saveDataLocally()"
                             />
                             <q-input
                                 filled
@@ -257,6 +289,7 @@
                                 :rules="[
                                     val => !!val || 'El campo es obligatorio',
                                 ]"
+                                v-on:keyup.enter="saveDataLocally()"
                             />
                             <q-input
                                 filled
@@ -267,6 +300,7 @@
                                 :rules="[
                                     val => !!val || 'El campo es obligatorio',
                                 ]"
+                                v-on:keyup.enter="saveDataLocally()"
                             />
                             <q-input
                                 filled
@@ -277,6 +311,7 @@
                                 :rules="[
                                     val => !!val || 'El campo es obligatorio',
                                 ]"
+                                v-on:keyup.enter="saveDataLocally()"
                             />
                             <q-input
                                 filled
@@ -287,6 +322,7 @@
                                 :rules="[
                                     val => !!val || 'El campo es obligatorio',
                                 ]"
+                                v-on:keyup.enter="saveDataLocally()"
                             />
                             <q-input
                                 filled
@@ -377,9 +413,9 @@
                                 v-if="isEditingFile"
                                 flat
                                 color="primary"
-                                @click="updatePackage()"
-                                >Actualizar</q-btn
-                            >
+                                @click="saveDataLocally()"
+                                label="Siguiente"
+                            />
                             <q-btn
                                 v-if="!isEditingFile"
                                 flat
@@ -508,6 +544,7 @@ import * as api from '@/api/api'
 export default {
     data() {
         return {
+            activeRowIndex: null,
             additionalChargesDialog: false,
             uploadFile: null,
             displayLoading: false,
@@ -668,7 +705,7 @@ export default {
             this.chargeName = ''
             this.chargeAmount = ''
         },
-        populateForm(selectedPackage) {
+        populateForm(selectedPackage, row) {
             this.isEditingFile = true
             this.form = {
                 id: selectedPackage.id,
@@ -682,6 +719,8 @@ export default {
                 supplierInvoiceDate: selectedPackage.supplierInvoiceDate,
                 aditionalCharges: selectedPackage.aditionalCharges,
             }
+            this.activeRowIndex = row
+            this.$refs.box.focus()
         },
         handleInvoices() {
             this.displayLoading = true
@@ -774,6 +813,7 @@ export default {
             this.form.supplierInvoiceDate = ''
             this.form.aditionalCharges = []
             this.isEditingFile = false
+            this.activeRowIndex = null
         },
         async Generate() {
             this.displayLoading = true
@@ -839,6 +879,24 @@ export default {
             } catch (error) {
                 return 'NaN'
                 console.log(error)
+            }
+        },
+        saveDataLocally() {
+            if (this.isEditingFile) {
+                // INSERT "SAVE DATA LOCALLY" CODE HERE
+                this.activeRowIndex++
+                if (this.activeRowIndex < this.filteredPackagesData.length) {
+                    this.populateForm(
+                        this.filteredPackagesData[this.activeRowIndex],
+                        this.activeRowIndex
+                    )
+                } else {
+                    this.displayAlert = true
+                    this.alertTitle = 'Finalizado'
+                    this.alertMessage = 'Has llegado al final de la lista.'
+                    this.alertType = 'success'
+                    this.clear()
+                }
             }
         },
     },
