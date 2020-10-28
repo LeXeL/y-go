@@ -242,7 +242,13 @@
                 <div class="col-lg-4 q-px-md">
                     <q-card class="full-width">
                         <q-card-section>
-                            <div class="text-h6">Registrar</div>
+                            <div class="text-h6">
+                                {{
+                                    isEditingFile
+                                        ? 'Actualizar paquete'
+                                        : 'Registrar nuevo paquete'
+                                }}
+                            </div>
                         </q-card-section>
 
                         <q-card-section>
@@ -395,26 +401,20 @@
                             <q-btn flat color="warning" @click="clear()"
                                 >Cancelar</q-btn
                             >
-                            <!-- <q-btn
+                            <q-btn
                                 v-if="isEditingFile"
                                 flat
                                 color="primary"
-                                @click="updatePackage()"
-                                >Siguiente</q-btn
-                            >
+                                @click="saveDataLocally()"
+                                label="Siguiente"
+                            />
                             <q-btn
                                 v-if="!isEditingFile"
                                 flat
                                 color="primary"
                                 @click="Generate()"
                                 >Registrar</q-btn
-                            > -->
-                            <q-btn
-                                flat
-                                color="primary"
-                                @click="saveDataLocally()"
-                                label="Siguiente"
-                            />
+                            >
                         </q-card-actions>
                     </q-card>
                 </div>
@@ -805,6 +805,7 @@ export default {
             this.form.supplierInvoiceDate = ''
             this.form.aditionalCharges = []
             this.isEditingFile = false
+            this.activeRowIndex = null
         },
         async Generate() {
             this.displayLoading = true
@@ -873,7 +874,7 @@ export default {
             }
         },
         saveDataLocally() {
-            if (this.activeRowIndex != null) {
+            if (this.isEditingFile) {
                 alert('data saved locally')
                 this.activeRowIndex++
                 if (this.activeRowIndex < this.filteredPackagesData.length) {
@@ -881,6 +882,12 @@ export default {
                         this.filteredPackagesData[this.activeRowIndex],
                         this.activeRowIndex
                     )
+                } else {
+                    this.displayAlert = true
+                    this.alertTitle = 'Finalizado'
+                    this.alertMessage = 'Has llegado al final de la lista.'
+                    this.alertType = 'success'
+                    this.clear()
                 }
             }
         },
