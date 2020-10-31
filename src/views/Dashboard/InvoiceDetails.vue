@@ -51,6 +51,7 @@
                                 value="Pedro Picapiedras"
                                 readonly
                                 class="q-mb-md"
+                                v-model="form.by"
                             />
                         </q-card-section>
                         <q-separator />
@@ -165,15 +166,7 @@ export default {
                 },
             ],
             loading: false,
-            packagesData: [
-                {
-                    tracking: '1Z196513565126',
-                    dimensions: '4 x 7 x 9',
-                    weight: 4,
-                    volumetricWeight: 3,
-                    price: 5.5,
-                },
-            ],
+            packagesData: [],
         }
     },
     methods: {
@@ -191,6 +184,7 @@ export default {
                 this.form.price = obj.price
                 this.form.date = obj.creationTime
                 this.form.No = obj.No
+                this.form.by = `${obj.by.name} ${obj.by.lastName}`
                 obj.packages.forEach(element => {
                     this.packagesData.push({
                         tracking: element.tracking,
