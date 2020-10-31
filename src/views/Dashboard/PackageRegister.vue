@@ -724,7 +724,7 @@ export default {
         },
         handleInvoices() {
             this.displayLoading = true
-            api.CreateInvoiceOnDatabase()
+            api.CreateInvoiceOnDatabase({by: this.user})
                 .then(() => {
                     this.displayLoading = false
                     this.alertTitle = 'Exito!'

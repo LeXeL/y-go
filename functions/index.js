@@ -284,7 +284,7 @@ exports.CreateInvoiceOnDatabase = functions.https.onRequest(
     async (req, res) => {
         cors(req, res, async () => {
             try {
-                let response = await invoices.createInvoice()
+                let response = await invoices.createInvoice(req.body.by)
                 functions.logger.info('CreateRateOnDatabase')
                 res.status(200).send({data: response})
             } catch (err) {

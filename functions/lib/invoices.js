@@ -37,7 +37,7 @@ function groupPackagesByBox(packages) {
     })
     return groupedPackages
 }
-async function createInvoice() {
+async function createInvoice(by) {
     const packages = require('./packages')
     try {
         let allPackages = await packages.returnAllPackagesWithoutInvoice()
@@ -57,6 +57,7 @@ async function createInvoice() {
                         paidTime: '',
                         status: 'unpaid', //paid, unpaid
                         price: price,
+                        by: by,
                     })
                     .then(docRef => {
                         element.forEach(package => {
