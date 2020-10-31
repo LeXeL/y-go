@@ -79,3 +79,7 @@ export const returnAllInvoices = data =>
     Request.post('/returnAllInvoices', data, {
         'Content-Type': 'application/json',
     })
+export const returnInvoiceById = data =>
+    Request.post('/returnInvoiceById', data, {
+        'Content-Type': 'application/json',
+    })

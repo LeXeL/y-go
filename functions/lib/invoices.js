@@ -124,9 +124,26 @@ async function returnAllInvoices() {
         })
     return Invoices
 }
+async function returnInvoiceById(id) {
+    return db
+        .collection('invoices')
+        .doc(id)
+        .get()
+        .then(doc => {
+            if (doc.exists) {
+                return doc.data()
+            } else {
+                console.log('Document no existe')
+            }
+        })
+        .catch(error => {
+            return error
+        })
+}
 module.exports = {
     createInvoice,
     updateInvoice,
     deleteInvoice,
     returnAllInvoices,
+    returnInvoiceById,
 }
