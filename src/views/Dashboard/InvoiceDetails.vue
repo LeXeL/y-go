@@ -54,11 +54,7 @@
                         <q-separator />
                         <q-card-actions>
                             <q-space />
-                            <q-btn
-                                color="primary"
-                                label="Reenviar correo"
-                                flat
-                            />
+                            <q-btn color="primary" label="Reenviar correo" flat />
                         </q-card-actions>
                     </q-card>
                 </div>
@@ -73,23 +69,29 @@
                     >
                         <template v-slot:header="props">
                             <q-tr :props="props">
-                                <q-th
-                                    v-for="col in props.cols"
-                                    :key="col.name"
-                                    :props="props"
-                                    >{{ col.label }}</q-th
-                                >
+                                <q-th v-for="col in props.cols" :key="col.name" :props="props">{{
+                                    col.label
+                                }}</q-th>
                             </q-tr>
                         </template>
 
                         <template v-slot:body="props">
                             <q-tr :props="props">
-                                <q-td
-                                    v-for="col in props.cols"
-                                    :key="col.name"
-                                    :props="props"
-                                    >{{ col.value }}</q-td
-                                >
+                                <q-td key="tracking" :props="props">
+                                    {{ props.row.tracking }}
+                                </q-td>
+                                <q-td key="dimensions" :props="props">
+                                    {{ props.row.dimensions }}
+                                </q-td>
+                                <q-td key="weight" :props="props">
+                                    {{ props.row.weight }}
+                                </q-td>
+                                <q-td key="volumetricWeight" :props="props">
+                                    {{ props.row.volumetricWeight }}
+                                </q-td>
+                                <q-td key="price" :props="props">
+                                    {{ props.row.price }}
+                                </q-td>
                             </q-tr>
                         </template>
                     </q-table>
@@ -199,8 +201,7 @@ export default {
                 console.log(error)
                 this.displayLoading = false
                 this.alertTitle = 'Error'
-                this.alertMessage =
-                    'Hubo un error con la solicitud por favor inténtelo más tarde'
+                this.alertMessage = 'Hubo un error con la solicitud por favor inténtelo más tarde'
                 this.alertType = 'error'
                 this.displayAlert = true
             })
