@@ -84,20 +84,14 @@
                             <q-td
                                 key="No"
                                 :props="props"
-                                @click="
-                                    $router.push(
-                                        `/invoice-details/${props.row.id}`
-                                    )
-                                "
                             >
-                                {{ props.row.No }}
+                                <router-link :to="`/invoice-details/${props.row.id}`" class="text-primary">{{ props.row.No }}</router-link>
                             </q-td>
                             <q-td
                                 key="box"
                                 :props="props"
-                                @click="returnBoxId(props.row.box)"
                             >
-                                {{ props.row.box }}
+                                <router-link :to="returnBoxId(props.row.box)" class="text-primary">{{ props.row.box }}</router-link>
                             </q-td>
                             <q-td key="price" :props="props">
                                 {{ props.row.price }}
@@ -227,7 +221,7 @@ export default {
         },
         returnBoxId(box) {
             let userId = this.allUsers.find(user => user.box === box).id
-            this.$router.push(`/user-details/${userId}`)
+            return `/user-details/${userId}`
         },
         returnFormatedTime(time) {
             return moment(time).format('DD/MM/YYYY')

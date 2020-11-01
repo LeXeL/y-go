@@ -91,6 +91,35 @@
                                 </q-td>
                                 <q-td key="price" :props="props">
                                     {{ props.row.price }}
+                                    <q-tooltip
+                                        anchor="bottom middle"
+                                        self="top middle"
+                                        content-class="bg-primary"
+                                        :offset="[10, 10]"
+                                    >
+                                        <div class="text-subtitle2">
+                                            <strong
+                                                >$ {{ props.row.price }}</strong
+                                            >
+                                            - Costo
+                                        </div>
+                                        <div
+                                            class="text-subtitle2"
+                                            v-for="(addchrg, i) in props.row
+                                                .aditionalCharges"
+                                            :key="i"
+                                        >
+                                            <strong
+                                                >$
+                                                {{
+                                                    addchrg.chargeAmount.toFixed(
+                                                        2
+                                                    )
+                                                }}</strong
+                                            >
+                                            - {{ addchrg.chargeName }}
+                                        </div>
+                                    </q-tooltip>
                                 </q-td>
                             </q-tr>
                         </template>
