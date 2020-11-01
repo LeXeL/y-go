@@ -25,7 +25,6 @@
                             <q-input
                                 filled
                                 label="Casillero"
-                                value="YGO-5687"
                                 readonly
                                 class="q-mb-md"
                                 v-model="form.box"
@@ -33,7 +32,6 @@
                             <q-input
                                 filled
                                 label="Monto"
-                                value="$ 5.75"
                                 readonly
                                 class="q-mb-md"
                                 v-model="form.price"
@@ -48,7 +46,6 @@
                             <q-input
                                 filled
                                 label="Facturado por"
-                                value="Pedro Picapiedras"
                                 readonly
                                 class="q-mb-md"
                                 v-model="form.by"
@@ -82,7 +79,6 @@
                                     :props="props"
                                     >{{ col.label }}</q-th
                                 >
-                                <!-- <q-th>Eliminar</q-th> -->
                             </q-tr>
                         </template>
 
@@ -94,9 +90,6 @@
                                     :props="props"
                                     >{{ col.value }}</q-td
                                 >
-                                <!-- <q-td auto-width>
-                <q-btn size="sm" color="red-7" round dense icon="fas fa-times" />
-              </q-td>-->
                             </q-tr>
                         </template>
                     </q-table>
