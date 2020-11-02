@@ -37,7 +37,7 @@ function groupPackagesByBox(packages) {
     })
     return groupedPackages
 }
-async function createInvoice() {
+async function createInvoice(by) {
     const packages = require('./packages')
     try {
         let allPackages = await packages.returnAllPackagesWithoutInvoice()
@@ -57,6 +57,7 @@ async function createInvoice() {
                         paidTime: '',
                         status: 'unpaid', //paid, unpaid
                         price: price,
+                        by: by,
                     })
                     .then(docRef => {
                         element.forEach(package => {
@@ -124,9 +125,26 @@ async function returnAllInvoices() {
         })
     return Invoices
 }
+async function returnInvoiceById(id) {
+    return db
+        .collection('invoices')
+        .doc(id)
+        .get()
+        .then(doc => {
+            if (doc.exists) {
+                return doc.data()
+            } else {
+                console.log('Document no existe')
+            }
+        })
+        .catch(error => {
+            return error
+        })
+}
 module.exports = {
     createInvoice,
     updateInvoice,
     deleteInvoice,
     returnAllInvoices,
+    returnInvoiceById,
 }

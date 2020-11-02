@@ -284,7 +284,7 @@ exports.CreateInvoiceOnDatabase = functions.https.onRequest(
     async (req, res) => {
         cors(req, res, async () => {
             try {
-                let response = await invoices.createInvoice()
+                let response = await invoices.createInvoice(req.body.by)
                 functions.logger.info('CreateRateOnDatabase')
                 res.status(200).send({data: response})
             } catch (err) {
@@ -301,6 +301,20 @@ exports.returnAllInvoices = functions.https.onRequest(async (req, res) => {
         try {
             let response = await invoices.returnAllInvoices()
             functions.logger.info('returnAllInvoices')
+            res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('returnAllInvoices', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
+exports.returnInvoiceById = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await invoices.returnInvoiceById(req.body.id)
+            functions.logger.info('returnAllInvoices', {id: req.body.id})
             res.status(200).send({data: response})
         } catch (err) {
             functions.logger.error('returnAllInvoices', {
