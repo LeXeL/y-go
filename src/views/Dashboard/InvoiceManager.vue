@@ -60,7 +60,7 @@
         <div class="row q-mb-xl">
             <div class="col q-px-md">
                 <q-table
-                    :data="filterInvoicesData"
+                    :data="filterTableData"
                     :columns="invoicesColumns"
                     row-key="name"
                     :pagination.sync="initialPagination"
@@ -97,10 +97,10 @@
                                 {{ props.row.price }}
                             </q-td>
                             <q-td key="status" :props="props">
-                                <q-chip :color="returnStatus(props.row.status).color" class="text-white" style="cursor: pointer;">
+                                <q-btn :color="returnStatus(props.row.status).color" class="text-white" rounded size="sm" @click="statusDialog = true">
                                     <i :class="`fas fa-${returnStatus(props.row.status).icon} q-mr-sm`"></i>
                                     {{ returnStatus(props.row.status).status }}
-                                    </q-chip>
+                                </q-btn>
                             </q-td>
                             <q-td key="packages" :props="props">
                                 {{ returnPackagesAmount(props.row.packages) }}
@@ -125,6 +125,29 @@
                 </q-table>
             </div>
         </div>
+        <q-dialog v-model="statusDialog">
+            <q-card style="width: 300px">
+                <q-card-section>
+                    <div class="text-h6">
+                        Estado de factura
+                    </div>
+                </q-card-section>
+                <q-card-section>
+                    <div class="row">
+                        <q-btn outline color="red" label="Pendiente" class="full-width q-mb-md" />
+                    </div>
+                    <div class="row">
+                        <q-btn outline color="green" label="Pagado" class="full-width q-mb-md" />
+                    </div>
+                    <div class="row">
+                        <q-btn outline color="primary" label="Entregado" class="full-width q-mb-md" />
+                    </div>
+                    <div class="row">
+                        <q-btn outline color="amber" label="..STATUS.." class="full-width q-mb-md" />
+                    </div>
+                </q-card-section>
+            </q-card>
+        </q-dialog>
     </q-page>
 </template>
 
@@ -136,6 +159,7 @@ import moment from 'moment'
 export default {
     data() {
         return {
+            statusDialog: false,
             searchBox: '',
             searchInvoice: '',
             searchDate: '',
@@ -268,6 +292,16 @@ export default {
                 return { status: 'Pagado', color: 'green', icon: 'dollar-sign'}
             if (status == 'delivered')
                 return { status: 'Entregado', color: 'primary', icon: 'box'}
+        }
+    },
+    computed: {
+        filterTableData() {
+            let data = []
+            this.invoicesData.forEach(invoice => {
+                if (invoice.No.toString(10).includes(this.searchInvoice))
+                    data.push(invoice)
+            })
+            return data
         }
     },
     watch: {
