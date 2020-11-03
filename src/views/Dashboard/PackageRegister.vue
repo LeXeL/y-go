@@ -24,12 +24,7 @@
             </div>
             <div class="row q-mb-lg">
                 <div class="col-lg-3 q-px-md">
-                    <q-file
-                        filled
-                        v-model="uploadFile"
-                        label="Subir por archivo"
-                        dense
-                    >
+                    <q-file filled v-model="uploadFile" label="Subir por archivo" dense>
                         <template v-slot:prepend>
                             <q-icon name="fas fa-paperclip" />
                         </template>
@@ -40,17 +35,14 @@
                                 flat
                                 color="primary"
                                 icon="fas fa-paper-plane"
+                                @click="importExcel"
                             />
                         </template>
                     </q-file>
                 </div>
                 <q-space />
                 <div class="col-lg-2">
-                    <q-btn
-                        label="Actualizar BD"
-                        color="accent"
-                        class="full-width"
-                    />
+                    <q-btn label="Actualizar BD" color="accent" class="full-width" />
                 </div>
             </div>
             <div class="row" style="margin-bottom: 65px">
@@ -65,12 +57,9 @@
                     >
                         <template v-slot:header="props">
                             <q-tr :props="props">
-                                <q-th
-                                    v-for="col in props.cols"
-                                    :key="col.name"
-                                    :props="props"
-                                    >{{ col.label }}</q-th
-                                >
+                                <q-th v-for="col in props.cols" :key="col.name" :props="props">{{
+                                    col.label
+                                }}</q-th>
                                 <q-th>Acciones</q-th>
                             </q-tr>
                         </template>
@@ -86,19 +75,13 @@
                         <template v-slot:body="props">
                             <q-tr
                                 :props="props"
-                                :class="
-                                    props.rowIndex == activeRowIndex
-                                        ? 'bg-secondary'
-                                        : ''
-                                "
+                                :class="props.rowIndex == activeRowIndex ? 'bg-secondary' : ''"
                             >
                                 <q-td key="tracking" :props="props">
                                     {{ props.row.tracking }}
                                     <q-popup-edit
                                         v-model="props.row.tracking"
-                                        @save="
-                                            updatePackageWithChange(props.row)
-                                        "
+                                        @save="updatePackageWithChange(props.row)"
                                         title="Editar tracking"
                                         buttons
                                     >
@@ -115,9 +98,7 @@
                                     {{ props.row.box }}
                                     <q-popup-edit
                                         v-model="props.row.box"
-                                        @save="
-                                            updatePackageWithChange(props.row)
-                                        "
+                                        @save="updatePackageWithChange(props.row)"
                                         title="Editar casillero"
                                         buttons
                                     >
@@ -136,9 +117,7 @@
                                     {{ props.row.weight }}
                                     <q-popup-edit
                                         v-model="props.row.weight"
-                                        @save="
-                                            updatePackageWithChange(props.row)
-                                        "
+                                        @save="updatePackageWithChange(props.row)"
                                         title="Editar peso"
                                         buttons
                                     >
@@ -153,34 +132,21 @@
                                 <q-td key="additionalCharges" :props="props">
                                     $
                                     {{
-                                        calculateAdditionalChargesTotal(
-                                            props.row.aditionalCharges
-                                        )
+                                        calculateAdditionalChargesTotal(props.row.aditionalCharges)
                                     }}
                                     <q-tooltip
                                         anchor="bottom middle"
                                         self="top middle"
                                         content-class="bg-primary"
                                         :offset="[10, 10]"
-                                        v-if="
-                                            props.row.aditionalCharges.length >
-                                            0
-                                        "
+                                        v-if="props.row.aditionalCharges.length > 0"
                                     >
                                         <div
                                             class="text-subtitle2"
-                                            v-for="(addchrg, i) in props.row
-                                                .aditionalCharges"
+                                            v-for="(addchrg, i) in props.row.aditionalCharges"
                                             :key="i"
                                         >
-                                            <strong
-                                                >$
-                                                {{
-                                                    addchrg.chargeAmount.toFixed(
-                                                        2
-                                                    )
-                                                }}</strong
-                                            >
+                                            <strong>$ {{ addchrg.chargeAmount.toFixed(2) }}</strong>
                                             - {{ addchrg.chargeName }}
                                         </div>
                                     </q-tooltip>
@@ -222,12 +188,7 @@
                                             round
                                             flat
                                             color="primary"
-                                            @click="
-                                                populateForm(
-                                                    props.row,
-                                                    props.rowIndex
-                                                )
-                                            "
+                                            @click="populateForm(props.row, props.rowIndex)"
                                         />
                                         <q-btn
                                             icon="fas fa-times"
@@ -235,11 +196,7 @@
                                             round
                                             flat
                                             color="red-7"
-                                            @click="
-                                                askForDeletePackage(
-                                                    props.row.id
-                                                )
-                                            "
+                                            @click="askForDeletePackage(props.row.id)"
                                         />
                                     </q-btn-group>
                                 </q-td>
@@ -252,9 +209,7 @@
                         <q-card-section>
                             <div class="text-h6">
                                 {{
-                                    isEditingFile
-                                        ? 'Actualizar paquete'
-                                        : 'Registrar nuevo paquete'
+                                    isEditingFile ? 'Actualizar paquete' : 'Registrar nuevo paquete'
                                 }}
                             </div>
                         </q-card-section>
@@ -265,18 +220,14 @@
                                 v-model="form.tracking"
                                 label="Tracking"
                                 class="q-mb-md"
-                                :rules="[
-                                    val => !!val || 'El campo es obligatorio',
-                                ]"
+                                :rules="[val => !!val || 'El campo es obligatorio']"
                             />
                             <q-input
                                 filled
                                 v-model="form.box"
                                 label="Casillero"
                                 class="q-mb-md"
-                                :rules="[
-                                    val => !!val || 'El campo es obligatorio',
-                                ]"
+                                :rules="[val => !!val || 'El campo es obligatorio']"
                                 ref="box"
                                 v-on:keyup.enter="saveDataLocally()"
                             />
@@ -286,9 +237,7 @@
                                 type="number"
                                 label="Peso"
                                 class="q-mb-md"
-                                :rules="[
-                                    val => !!val || 'El campo es obligatorio',
-                                ]"
+                                :rules="[val => !!val || 'El campo es obligatorio']"
                                 v-on:keyup.enter="saveDataLocally()"
                             />
                             <q-input
@@ -297,9 +246,7 @@
                                 type="number"
                                 label="Largo"
                                 class="q-mb-md"
-                                :rules="[
-                                    val => !!val || 'El campo es obligatorio',
-                                ]"
+                                :rules="[val => !!val || 'El campo es obligatorio']"
                                 v-on:keyup.enter="saveDataLocally()"
                             />
                             <q-input
@@ -308,9 +255,7 @@
                                 type="number"
                                 label="Alto"
                                 class="q-mb-md"
-                                :rules="[
-                                    val => !!val || 'El campo es obligatorio',
-                                ]"
+                                :rules="[val => !!val || 'El campo es obligatorio']"
                                 v-on:keyup.enter="saveDataLocally()"
                             />
                             <q-input
@@ -319,53 +264,35 @@
                                 type="number"
                                 label="Ancho"
                                 class="q-mb-md"
-                                :rules="[
-                                    val => !!val || 'El campo es obligatorio',
-                                ]"
+                                :rules="[val => !!val || 'El campo es obligatorio']"
                                 v-on:keyup.enter="saveDataLocally()"
                             />
                             <q-input
                                 filled
-                                type="number"
                                 label="No. factura de proveedor"
                                 v-model="form.supplierInvoice"
                                 class="q-mb-md"
-                                :rules="[
-                                    val => !!val || 'El campo es obligatorio',
-                                ]"
+                                :rules="[val => !!val || 'El campo es obligatorio']"
                             />
                             <q-input
                                 filled
-                                mask="date"
                                 class="q-mb-md"
                                 label="Fecha de factura de proveedor"
                                 v-model="form.supplierInvoiceDate"
-                                :rules="[
-                                    val => !!val || 'El campo es obligatorio',
-                                ]"
+                                :rules="[val => !!val || 'El campo es obligatorio']"
                             >
                                 <template v-slot:append>
-                                    <q-icon
-                                        name="fas fa-calendar"
-                                        class="cursor-pointer"
-                                    >
+                                    <q-icon name="fas fa-calendar" class="cursor-pointer">
                                         <q-popup-proxy
                                             ref="qDateProxy"
                                             transition-show="scale"
                                             transition-hide="scale"
                                         >
                                             <q-date
-                                                v-model="
-                                                    form.supplierInvoiceDate
-                                                "
-                                                @input="
-                                                    () =>
-                                                        $refs.qDateProxy.hide()
-                                                "
+                                                v-model="form.supplierInvoiceDate"
+                                                @input="() => $refs.qDateProxy.hide()"
                                             >
-                                                <div
-                                                    class="row items-center justify-end"
-                                                >
+                                                <div class="row items-center justify-end">
                                                     <q-btn
                                                         v-close-popup
                                                         label="Cerrar"
@@ -384,11 +311,7 @@
                                 label="Cargos adicionales"
                                 readonly
                                 class="q-mb-md"
-                                :value="
-                                    calculateAdditionalChargesTotal(
-                                        form.aditionalCharges
-                                    )
-                                "
+                                :value="calculateAdditionalChargesTotal(form.aditionalCharges)"
                             >
                                 <template v-slot:after>
                                     <q-btn
@@ -406,9 +329,7 @@
                         <q-separator />
 
                         <q-card-actions align="right">
-                            <q-btn flat color="warning" @click="clear()"
-                                >Cancelar</q-btn
-                            >
+                            <q-btn flat color="warning" @click="clear()">Cancelar</q-btn>
                             <q-btn
                                 v-if="isEditingFile"
                                 flat
@@ -416,11 +337,7 @@
                                 @click="saveDataLocally()"
                                 label="Siguiente"
                             />
-                            <q-btn
-                                v-if="!isEditingFile"
-                                flat
-                                color="primary"
-                                @click="Generate()"
+                            <q-btn v-if="!isEditingFile" flat color="primary" @click="Generate()"
                                 >Registrar</q-btn
                             >
                         </q-card-actions>
@@ -458,12 +375,7 @@
                                         props.row.chargeName
                                     }}</q-td>
                                     <q-td key="chargeAmount" :props="props"
-                                        >$
-                                        {{
-                                            parseFloat(
-                                                props.row.chargeAmount
-                                            ).toFixed(2)
-                                        }}</q-td
+                                        >$ {{ parseFloat(props.row.chargeAmount).toFixed(2) }}</q-td
                                     >
                                     <q-td auto-width>
                                         <q-btn
@@ -509,27 +421,13 @@
                     </q-card-section>
 
                     <q-card-actions align="right" class="text-primary">
-                        <q-btn
-                            flat
-                            color="red-7"
-                            label="Cerrar"
-                            v-close-popup
-                        />
-                        <q-btn
-                            flat
-                            label="Agregar"
-                            @click="addToAdditionalCharges()"
-                        />
+                        <q-btn flat color="red-7" label="Cerrar" v-close-popup />
+                        <q-btn flat label="Agregar" @click="addToAdditionalCharges()" />
                     </q-card-actions>
                 </q-card>
             </q-dialog>
             <q-page-sticky position="bottom-right" :offset="[18, 18]">
-                <q-btn
-                    fab
-                    icon="fas fa-file-alt"
-                    color="accent"
-                    @click="handleInvoices()"
-                />
+                <q-btn fab icon="fas fa-file-alt" color="accent" @click="handleInvoices()" />
             </q-page-sticky>
         </div>
     </q-page>
@@ -538,6 +436,8 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import xlsx from 'xlsx'
+import moment from 'moment'
 
 import * as api from '@/api/api'
 
@@ -647,6 +547,57 @@ export default {
         },
     },
     methods: {
+        importExcel() {
+            if (this.uploadFile === null) {
+                this.alertTitle = 'Error'
+                this.alertMessage = 'Tiene que selecionar un archivo primero'
+                this.alertType = 'error'
+                this.displayAlert = true
+                return
+            }
+            this.displayLoading = true
+            this.displayAlert = false
+            const files = this.uploadFile
+            const fileReader = new FileReader()
+            fileReader.onload = ev => {
+                try {
+                    const data = ev.target.result
+                    const XLSX = xlsx
+                    const workbook = XLSX.read(data, {
+                        type: 'binary',
+                    })
+                    const wsname = workbook.SheetNames[0]
+                    const ws = XLSX.utils.sheet_to_json(workbook.Sheets[wsname], {raw: false})
+                    const excellist = [] // Clear received data
+                    // Edit data
+                    for (var i = 0; i < ws.length; i++) {
+                        ws[i].by = this.user
+                        excellist.push(ws[i])
+                    }
+                    api.createPackagesFromXls({packages: excellist})
+                        .then(response => {
+                            this.uploadFile = null
+                            this.displayLoading = false
+                            this.alertTitle = 'Exito!'
+                            this.alertMessage = 'Se ha actualizado con exito'
+                            this.alertType = 'success'
+                            this.displayAlert = true
+                        })
+                        .catch(e => {
+                            console.log(e)
+                            this.displayLoading = false
+                            this.alertTitle = 'Error'
+                            this.alertMessage = 'Hubo un error con la peticion'
+                            this.alertType = 'error'
+                            this.displayAlert = true
+                        })
+                } catch (e) {
+                    console.log(e)
+                    alert('Read failure!')
+                }
+            }
+            fileReader.readAsBinaryString(files)
+        },
         updatePackage() {
             this.displayLoading = true
             this.displayAlert = false
@@ -728,8 +679,7 @@ export default {
                 .then(() => {
                     this.displayLoading = false
                     this.alertTitle = 'Exito!'
-                    this.alertMessage =
-                        'Hemos generado todas las facturas correspondientes.'
+                    this.alertMessage = 'Hemos generado todas las facturas correspondientes.'
                     this.alertType = 'success'
                     this.displayAlert = true
                     this.redirect = '/invoice-manager'
@@ -833,8 +783,7 @@ export default {
                         console.log(error)
                         this.displayLoading = false
                         this.alertTitle = 'Error'
-                        this.alertMessage =
-                            'Hubo un error por favor vuelve a intentarlo'
+                        this.alertMessage = 'Hubo un error por favor vuelve a intentarlo'
                         this.alertType = 'error'
                         this.displayAlert = true
                     })
