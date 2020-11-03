@@ -8,6 +8,12 @@
         <div class="row q-mb-lg">
             <q-space />
             <div class="col-lg-2 q-px-md">
+                <q-select :options="statusOptions" label ="Estatus" dense filled v-model="searchStatus" emit-value map-options/>
+            </div>
+            <div class="col-lg-2 q-px-md">
+                <q-input dense filled label="Casillero" v-model="searchBox" />
+            </div>
+            <div class="col-lg-2 q-px-md">
                 <q-input
                     dense
                     filled
@@ -15,9 +21,6 @@
                     type="number"
                     v-model="searchInvoice"
                 />
-            </div>
-            <div class="col-lg-2 q-px-md">
-                <q-input dense filled label="Casillero" v-model="searchBox" />
             </div>
             <div class="col-lg-2 q-px-md">
                 <q-input
@@ -49,18 +52,11 @@
                     </template>
                 </q-input>
             </div>
-            <div class="col-lg-1 q-px-md">
-                <q-btn
-                    color="primary"
-                    label="Buscar"
-                    @click="filterContent()"
-                />
-            </div>
         </div>
         <div class="row q-mb-xl">
             <div class="col q-px-md">
                 <q-table
-                    :data="filterInvoicesData"
+                    :data="filterTableData"
                     :columns="invoicesColumns"
                     row-key="name"
                     :pagination.sync="initialPagination"
@@ -96,6 +92,12 @@
                             <q-td key="price" :props="props">
                                 {{ props.row.price }}
                             </q-td>
+                            <q-td key="status" :props="props">
+                                <q-btn :color="returnStatus(props.row.status).color" class="text-white" rounded size="sm" @click="statusDialog = true">
+                                    <i :class="`fas fa-${returnStatus(props.row.status).icon} q-mr-sm`"></i>
+                                    {{ returnStatus(props.row.status).status }}
+                                </q-btn>
+                            </q-td>
                             <q-td key="packages" :props="props">
                                 {{ returnPackagesAmount(props.row.packages) }}
                             </q-td>
@@ -119,6 +121,29 @@
                 </q-table>
             </div>
         </div>
+        <q-dialog v-model="statusDialog">
+            <q-card style="width: 300px">
+                <q-card-section>
+                    <div class="text-h6">
+                        Estado de factura
+                    </div>
+                </q-card-section>
+                <q-card-section>
+                    <div class="row">
+                        <q-btn outline color="red" label="Pendiente" class="full-width q-mb-md" />
+                    </div>
+                    <div class="row">
+                        <q-btn outline color="green" label="Pagado" class="full-width q-mb-md" />
+                    </div>
+                    <div class="row">
+                        <q-btn outline color="primary" label="Entregado" class="full-width q-mb-md" />
+                    </div>
+                    <div class="row">
+                        <q-btn outline color="amber" label="..STATUS.." class="full-width q-mb-md" />
+                    </div>
+                </q-card-section>
+            </q-card>
+        </q-dialog>
     </q-page>
 </template>
 
@@ -130,9 +155,25 @@ import moment from 'moment'
 export default {
     data() {
         return {
+            searchStatus: 'unpaid',
+            statusDialog: false,
             searchBox: '',
             searchInvoice: '',
             searchDate: '',
+            statusOptions: [
+                {
+                    label: 'Pendiente',
+                    value: 'unpaid'
+                },
+                {
+                    label: 'Pagado',
+                    value: 'payed'
+                },
+                {
+                    label: 'Entregado',
+                    value: 'delivered'
+                }
+            ],
             initialPagination: {
                 sortBy: 'desc',
                 descending: false,
@@ -159,6 +200,13 @@ export default {
                     align: 'left',
                     label: 'Monto ($)',
                     field: 'price',
+                    sortable: true,
+                },
+                {
+                    name: 'status',
+                    align: 'left',
+                    label: 'Estado',
+                    field: 'status',
                     sortable: true,
                 },
                 {
@@ -248,6 +296,24 @@ export default {
                 }
             })
         },
+        returnStatus(status) {
+            if (status == 'unpaid')
+                return { status: 'Pendiente', color: 'red', icon: 'dollar-sign'}
+            if (status == 'payed')
+                return { status: 'Pagado', color: 'green', icon: 'dollar-sign'}
+            if (status == 'delivered')
+                return { status: 'Entregado', color: 'primary', icon: 'box'}
+        }
+    },
+    computed: {
+        filterTableData() {
+            let data = []
+            this.invoicesData.forEach(invoice => {
+                if (invoice.No.toString(10).includes(this.searchInvoice) && invoice.box.includes(this.searchBox) && invoice.status.includes(this.searchStatus))
+                    data.push(invoice)
+            })
+            return data
+        }
     },
     watch: {
         invoicesData(newValue, oldValue) {
