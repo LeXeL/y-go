@@ -32,6 +32,10 @@ export const CreatePackageOnDatabase = data =>
     Request.post('/CreatePackageOnDatabase', data, {
         'Content-Type': 'application/json',
     })
+export const createPackagesFromXls = data =>
+    Request.post('/createPackagesFromXls', data, {
+        'Content-Type': 'application/json',
+    })
 export const UpdatePackageInformationById = data =>
     Request.post('/UpdatePackageInformationById', data, {
         'Content-Type': 'application/json',

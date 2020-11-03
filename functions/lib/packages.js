@@ -45,6 +45,41 @@ async function createPackage(package) {
             return error
         })
 }
+async function createPackagesFromXls(packages) {
+    try {
+        for await (const package of packages) {
+            // let prices = await calculatePackagePrices(package)
+            db.collection('packages')
+                .doc()
+                .set({
+                    tracking: package.tracking,
+                    box: !!package.box ? package.box : null,
+                    weight: package.weight,
+                    long: package.long,
+                    height: package.height,
+                    width: package.width,
+                    creationTime: Date.now(),
+                    by: package.by,
+                    supplierInvoice: package.supplierInvoice,
+                    supplierInvoiceDate: package.supplierInvoiceDate,
+                    aditionalCharges: [],
+                    invoice: null,
+                    // price: prices.price,
+                    // totalPrice: prices.totalPrice,
+                })
+                .then(() => {
+                    console.log('Succesfully added')
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        }
+        return 'success'
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
 async function updatePackage(id, Obj) {
     try {
         let prices = await calculatePackagePrices(Obj)
@@ -135,9 +170,7 @@ async function returnAllPackagesWithInvoice() {
             snapshot.forEach(doc => {
                 let obj = doc.data()
                 if (obj.invoice != null) {
-                    obj.invoice = invoicesData.filter(
-                        invoice => invoice.id === obj.invoice
-                    )[0].No
+                    obj.invoice = invoicesData.filter(invoice => invoice.id === obj.invoice)[0].No
                     packages.push({...obj, id: doc.id})
                 }
             })
@@ -150,6 +183,7 @@ async function returnAllPackagesWithInvoice() {
 
 module.exports = {
     createPackage,
+    createPackagesFromXls,
     updatePackage,
     deletePackage,
     returnAllPackages,

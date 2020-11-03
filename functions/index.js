@@ -67,28 +67,23 @@ exports.getUserInformationById = functions.https.onRequest(async (req, res) => {
         }
     })
 })
-exports.UpdateUserInformationById = functions.https.onRequest(
-    async (req, res) => {
-        cors(req, res, async () => {
-            try {
-                let response = await users.updateUserInfo(
-                    req.body.uid,
-                    req.body.user
-                )
-                functions.logger.info('UpdateUserInformationById', {
-                    userUpdated: req.body.uid,
-                    userInfo: req.body.user,
-                })
-                res.status(200).send({data: response})
-            } catch (err) {
-                functions.logger.error('UpdateUserInformationById', {
-                    error: err,
-                })
-                res.status(400).send({err: err})
-            }
-        })
-    }
-)
+exports.UpdateUserInformationById = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await users.updateUserInfo(req.body.uid, req.body.user)
+            functions.logger.info('UpdateUserInformationById', {
+                userUpdated: req.body.uid,
+                userInfo: req.body.user,
+            })
+            res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('UpdateUserInformationById', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
 exports.ReturnAllUsers = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
         try {
@@ -105,64 +100,71 @@ exports.ReturnAllUsers = functions.https.onRequest(async (req, res) => {
 })
 
 //PACKAGES
-exports.CreatePackageOnDatabase = functions.https.onRequest(
-    async (req, res) => {
-        cors(req, res, async () => {
-            try {
-                await packages.createPackage(req.body.package)
-                functions.logger.info('CreatePackageOnDatabase', {
-                    package: req.body.package,
-                })
-                res.status(200).send({status: 'Created'})
-            } catch (err) {
-                functions.logger.error('CreatePackageOnDatabase', {
-                    error: err,
-                })
-                res.status(400).send({err: err})
-            }
-        })
-    }
-)
-exports.UpdatePackageInformationById = functions.https.onRequest(
-    async (req, res) => {
-        cors(req, res, async () => {
-            try {
-                let response = await packages.updatePackage(
-                    req.body.id,
-                    req.body.package
-                )
-                functions.logger.info('UpdatePackageInformationById', {
-                    packageUpdated: req.body.id,
-                    packageInfo: req.body.package,
-                })
-                res.status(200).send({data: response})
-            } catch (err) {
-                functions.logger.error('UpdatePackageInformationById', {
-                    error: err,
-                })
-                res.status(400).send({err: err})
-            }
-        })
-    }
-)
-exports.DeletePackageOnDatabase = functions.https.onRequest(
-    async (req, res) => {
-        cors(req, res, async () => {
-            try {
-                await packages.deletePackage(req.body.id)
-                functions.logger.info('DeletePackageOnDatabase', {
-                    packageId: req.body.id,
-                })
-                res.status(200).send({status: 'Created'})
-            } catch (err) {
-                functions.logger.error('DeletePackageOnDatabase', {
-                    error: err,
-                })
-                res.status(400).send({err: err})
-            }
-        })
-    }
-)
+exports.CreatePackageOnDatabase = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            await packages.createPackage(req.body.package)
+            functions.logger.info('CreatePackageOnDatabase', {
+                package: req.body.package,
+            })
+            res.status(200).send({status: 'Created'})
+        } catch (err) {
+            functions.logger.error('CreatePackageOnDatabase', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
+exports.createPackagesFromXls = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            await packages.createPackagesFromXls(req.body.packages)
+            functions.logger.info('createPackagesFromXls', {
+                package: req.body.packages,
+            })
+            res.status(200).send({status: 'Created'})
+        } catch (err) {
+            functions.logger.error('createPackagesFromXls', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
+exports.UpdatePackageInformationById = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await packages.updatePackage(req.body.id, req.body.package)
+            functions.logger.info('UpdatePackageInformationById', {
+                packageUpdated: req.body.id,
+                packageInfo: req.body.package,
+            })
+            res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('UpdatePackageInformationById', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
+exports.DeletePackageOnDatabase = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            await packages.deletePackage(req.body.id)
+            functions.logger.info('DeletePackageOnDatabase', {
+                packageId: req.body.id,
+            })
+            res.status(200).send({status: 'Created'})
+        } catch (err) {
+            functions.logger.error('DeletePackageOnDatabase', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
 exports.ReturnAllPackages = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
         try {
@@ -177,38 +179,34 @@ exports.ReturnAllPackages = functions.https.onRequest(async (req, res) => {
         }
     })
 })
-exports.ReturnAllPackagesWithoutInvoice = functions.https.onRequest(
-    async (req, res) => {
-        cors(req, res, async () => {
-            try {
-                let response = await packages.returnAllPackagesWithoutInvoice()
-                functions.logger.info('ReturnAllPackagesWithoutInvoice')
-                res.status(200).send({data: response})
-            } catch (err) {
-                functions.logger.error('ReturnAllPackagesWithoutInvoice', {
-                    error: err,
-                })
-                res.status(400).send({err: err})
-            }
-        })
-    }
-)
-exports.ReturnAllPackagesWithInvoice = functions.https.onRequest(
-    async (req, res) => {
-        cors(req, res, async () => {
-            try {
-                let response = await packages.returnAllPackagesWithInvoice()
-                functions.logger.info('ReturnAllPackagesWithInvoice')
-                res.status(200).send({data: response})
-            } catch (err) {
-                functions.logger.error('ReturnAllPackagesWithInvoice', {
-                    error: err,
-                })
-                res.status(400).send({err: err})
-            }
-        })
-    }
-)
+exports.ReturnAllPackagesWithoutInvoice = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await packages.returnAllPackagesWithoutInvoice()
+            functions.logger.info('ReturnAllPackagesWithoutInvoice')
+            res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('ReturnAllPackagesWithoutInvoice', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
+exports.ReturnAllPackagesWithInvoice = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await packages.returnAllPackagesWithInvoice()
+            functions.logger.info('ReturnAllPackagesWithInvoice')
+            res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('ReturnAllPackagesWithInvoice', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
 
 //RATES
 exports.CreateRateOnDatabase = functions.https.onRequest(async (req, res) => {
@@ -227,28 +225,23 @@ exports.CreateRateOnDatabase = functions.https.onRequest(async (req, res) => {
         }
     })
 })
-exports.UpdateRateInformationById = functions.https.onRequest(
-    async (req, res) => {
-        cors(req, res, async () => {
-            try {
-                let response = await rates.updateRate(
-                    req.body.id,
-                    req.body.rate
-                )
-                functions.logger.info('UpdateRateInformationById', {
-                    rateUpdated: req.body.id,
-                    rateInfo: req.body.rate,
-                })
-                res.status(200).send({data: response})
-            } catch (err) {
-                functions.logger.error('UpdateRateInformationById', {
-                    error: err,
-                })
-                res.status(400).send({err: err})
-            }
-        })
-    }
-)
+exports.UpdateRateInformationById = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await rates.updateRate(req.body.id, req.body.rate)
+            functions.logger.info('UpdateRateInformationById', {
+                rateUpdated: req.body.id,
+                rateInfo: req.body.rate,
+            })
+            res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('UpdateRateInformationById', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
 exports.DeleteRateOnDatabase = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
         try {
@@ -280,22 +273,20 @@ exports.ReturnAllRates = functions.https.onRequest(async (req, res) => {
     })
 })
 //INVOICES
-exports.CreateInvoiceOnDatabase = functions.https.onRequest(
-    async (req, res) => {
-        cors(req, res, async () => {
-            try {
-                let response = await invoices.createInvoice(req.body.by)
-                functions.logger.info('CreateRateOnDatabase')
-                res.status(200).send({data: response})
-            } catch (err) {
-                functions.logger.error('CreateRateOnDatabase', {
-                    error: err,
-                })
-                res.status(400).send({err: err})
-            }
-        })
-    }
-)
+exports.CreateInvoiceOnDatabase = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await invoices.createInvoice(req.body.by)
+            functions.logger.info('CreateRateOnDatabase')
+            res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('CreateRateOnDatabase', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
 exports.returnAllInvoices = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
         try {
