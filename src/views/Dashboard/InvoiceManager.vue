@@ -8,6 +8,12 @@
         <div class="row q-mb-lg">
             <q-space />
             <div class="col-lg-2 q-px-md">
+                <q-select :options="statusOptions" label ="Estatus" dense filled v-model="searchStatus" emit-value map-options/>
+            </div>
+            <div class="col-lg-2 q-px-md">
+                <q-input dense filled label="Casillero" v-model="searchBox" />
+            </div>
+            <div class="col-lg-2 q-px-md">
                 <q-input
                     dense
                     filled
@@ -15,9 +21,6 @@
                     type="number"
                     v-model="searchInvoice"
                 />
-            </div>
-            <div class="col-lg-2 q-px-md">
-                <q-input dense filled label="Casillero" v-model="searchBox" />
             </div>
             <div class="col-lg-2 q-px-md">
                 <q-input
@@ -48,13 +51,6 @@
                         </q-icon>
                     </template>
                 </q-input>
-            </div>
-            <div class="col-lg-1 q-px-md">
-                <q-btn
-                    color="primary"
-                    label="Buscar"
-                    @click="filterContent()"
-                />
             </div>
         </div>
         <div class="row q-mb-xl">
@@ -159,10 +155,25 @@ import moment from 'moment'
 export default {
     data() {
         return {
+            searchStatus: 'unpaid',
             statusDialog: false,
             searchBox: '',
             searchInvoice: '',
             searchDate: '',
+            statusOptions: [
+                {
+                    label: 'Pendiente',
+                    value: 'unpaid'
+                },
+                {
+                    label: 'Pagado',
+                    value: 'payed'
+                },
+                {
+                    label: 'Entregado',
+                    value: 'delivered'
+                }
+            ],
             initialPagination: {
                 sortBy: 'desc',
                 descending: false,
@@ -298,7 +309,7 @@ export default {
         filterTableData() {
             let data = []
             this.invoicesData.forEach(invoice => {
-                if (invoice.No.toString(10).includes(this.searchInvoice))
+                if (invoice.No.toString(10).includes(this.searchInvoice) && invoice.box.includes(this.searchBox) && invoice.status.includes(this.searchStatus))
                     data.push(invoice)
             })
             return data
