@@ -96,6 +96,12 @@
                             <q-td key="price" :props="props">
                                 {{ props.row.price }}
                             </q-td>
+                            <q-td key="status" :props="props">
+                                <q-chip :color="returnStatus(props.row.status).color" class="text-white" style="cursor: pointer;">
+                                    <i :class="`fas fa-${returnStatus(props.row.status).icon} q-mr-sm`"></i>
+                                    {{ returnStatus(props.row.status).status }}
+                                    </q-chip>
+                            </q-td>
                             <q-td key="packages" :props="props">
                                 {{ returnPackagesAmount(props.row.packages) }}
                             </q-td>
@@ -159,6 +165,13 @@ export default {
                     align: 'left',
                     label: 'Monto ($)',
                     field: 'price',
+                    sortable: true,
+                },
+                {
+                    name: 'status',
+                    align: 'left',
+                    label: 'Estado',
+                    field: 'status',
                     sortable: true,
                 },
                 {
@@ -248,6 +261,14 @@ export default {
                 }
             })
         },
+        returnStatus(status) {
+            if (status == 'unpaid')
+                return { status: 'Pendiente', color: 'red', icon: 'dollar-sign'}
+            if (status == 'payed')
+                return { status: 'Pagado', color: 'green', icon: 'dollar-sign'}
+            if (status == 'delivered')
+                return { status: 'Entregado', color: 'primary', icon: 'box'}
+        }
     },
     watch: {
         invoicesData(newValue, oldValue) {
