@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 //Layouts
 import Dashboard from '@/layouts/Dashboard'
 import Auth from '@/layouts/Auth'
+import Landing from '@/layouts/Landing'
 
 //Views
 import DashboardIndex from '@/views/Dashboard/Index'
@@ -18,6 +18,8 @@ import InvoiceDetails from '@/views/Dashboard/InvoiceDetails'
 
 import Login from '@/views/Auth/Login'
 import Register from '@/views/Auth/Register'
+
+import Home from '@/views/Landing/Home'
 
 Vue.use(VueRouter)
 
@@ -86,8 +88,14 @@ const routes = [
     },
     {
         path: '/',
-        name: 'Home',
-        component: Home,
+        component: Landing,
+        children: [
+            {
+                path: '/',
+                name: 'Landing Home',
+                component: Home
+            }
+        ]
     },
 ]
 
