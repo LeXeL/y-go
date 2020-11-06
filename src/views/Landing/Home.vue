@@ -1,100 +1,106 @@
 <template>
     <q-page>
-        <div class="row q-py-xl">
-            <div class="col desktop-only"></div>
-            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 q-px-md">
-                <div class="row" style="margin-bottom: 50px">
-                    <div class="col-lg-6 col-xs-12 q-px-md">
-                        <div
-                            class="bg-primary rounded-borders q-pa-lg text-white column flex-center"
-                        >
-                            <q-img
-                                :src="require('@/assets/logo_ygo.png')"
-                                style="width: 40%; margin: 40px 0"
-                            />
-                            <div
-                                class="text-h4 text-center text-weight-bolder"
-                                style="margin: 10px 0"
-                            >
-                                ABRE TU CASILLERO GRATIS
+        <div class="row">
+            <div class="col-lg-8 col-xs-12">
+                <q-carousel
+                    arrows
+                    animated
+                    v-model="slide"
+                    height="100vh"
+                    class="full-width"
+                    transition-prev="slide-right"
+                    transition-next="slide-left"
+                    infinite
+                    autoplay
+                    control-color="accent"
+                >
+                    <q-carousel-slide
+                        v-for="(slide, i) in slidesContent"
+                        :key="i"
+                        :name="slide.name"
+                        :img-src="slide.pic"
+                    >
+                        <div class="absolute-center full-width custom-caption column flex-center">
+                            <div class="text-subtitle2 q-mb-sm">{{ slide.subtitle }}</div>
+                            <div class="text-h2 text-weight-bolder q-mb-md">{{ slide.title }}</div>
+                            <div class="text-subtitle1">
+                                {{ slide.text }}
                             </div>
-                            <div class="text-subtitle2">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            </div>
-                            <q-btn color="accent full-width q-mt-lg" push label="Registrate aqui" />
                         </div>
+                    </q-carousel-slide>
+                </q-carousel>
+            </div>
+            <div class="col-lg-4 col-xs-12">
+                <div class="full-width bg-grey-2 column flex-center" style="height: 100vh">
+                    <div class="text-center" v-if="!showRegisterForm">
+                        <q-img
+                            :src="require('@/assets/logo_ygo.png')"
+                            class="q-mb-lg"
+                            style="width: 60%"
+                        />
+                        <div class="text-h4 text-center text-primary text-weight-bolder q-mb-sm">
+                            ABRE TU CASILLERO GRATIS
+                        </div>
+                        <div class="text-subtitle2 q-mb-lg">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                        </div>
+                        <q-btn
+                            color="accent"
+                            push
+                            label="Registrate aqui"
+                            size="lg"
+                            @click="showRegisterForm = !showRegisterForm"
+                        />
                     </div>
-                    <div class="col-lg-6 col-xs-12 q-px-md">
-                        <q-carousel
-                            v-model="slide"
-                            swipeable
-                            animated
-                            transition-prev="scale"
-                            transition-next="scale"
-                            control-type="flat"
-                            control-color="accent"
-                            infinite
-                            arrows
-                            style="height: 400px"
-                            class="text-accent rounded-borders"
-                            autoplay
-                        >
-                            <q-carousel-slide
-                                v-for="(slide, i) in slidesContent"
-                                :key="i"
-                                :name="slide.name"
-                                class="column no-wrap flex-center"
-                            >
-                                <q-img
-                                    :src="require(`@/assets/Landing/${slide.pic}`)"
-                                    style="width: 30%; margin-bottom: 50px"
-                                />
-                                <div class="text-subtitle2">{{ slide.subtitle }}</div>
-                                <div class="text-h4 text-weight-bolder">{{ slide.title }}</div>
-                                <div class="q-mt-md text-center text-black">
-                                    {{ slide.text }}
-                                </div>
-                            </q-carousel-slide>
-                        </q-carousel>
+                    <div class="q-pa-lg full-width" v-else>
+                        <div class="text-h4 text-weight-bolder text-center text-primary q-mb-md">
+                            REGISTRATE
+                        </div>
+                        <q-separator
+                            color="accent"
+                            style="width: 150px; margin: 0 auto; height: 2px"
+                        />
+                        <q-input
+                            filled
+                            label="Nombre"
+                            color="accent"
+                            placeholder="John"
+                            class="q-mb-md q-mt-xl"
+                        />
+                        <q-input
+                            filled
+                            label="Apellido"
+                            color="accent"
+                            placeholder="Doe"
+                            class="q-mb-md"
+                        />
+                        <q-input
+                            filled
+                            label="Correo"
+                            type="email"
+                            color="accent"
+                            placeholder="john.doe@gmail.com"
+                            class="q-mb-md"
+                        />
+                        <q-input
+                            filled
+                            label="Contraseña"
+                            type="password"
+                            color="accent"
+                            placeholder="********"
+                            class="q-mb-md"
+                        />
+                        <q-btn
+                            color="accent"
+                            label="Registrar"
+                            push
+                            style="float: right"
+                            size="lg"
+                            @click="showRegisterForm = !showRegisterForm"
+                        />
                     </div>
                 </div>
             </div>
-            <div class="col desktop-only"></div>
-        </div>
-        <div class="row bg-grey-2" style="padding: 75px 0">
-            <div class="col desktop-only"></div>
-            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 q-px-md">
-                <div class="text-h4 text-weight-bolder text-center text-primary q-mb-md">
-                    REGISTRATE
-                </div>
-                <q-separator color="accent" style="width: 150px; margin: 0 auto; height: 2px" />
-                <q-input
-                    filled
-                    label="Nombre"
-                    color="accent"
-                    placeholder="John"
-                    class="q-mb-md q-mt-xl"
-                />
-                <q-input filled label="Apellido" color="accent" placeholder="Doe" class="q-mb-md" />
-                <q-input
-                    filled
-                    label="Correo"
-                    type="email"
-                    color="accent"
-                    placeholder="john.doe@gmail.com"
-                    class="q-mb-md"
-                />
-                <q-input
-                    filled
-                    label="Contraseña"
-                    type="password"
-                    color="accent"
-                    placeholder="********"
-                    class="q-mb-md"
-                />
-                <q-btn color="accent" label="Registrar" push style="float: right" />
-            </div>
-            <div class="col desktop-only"></div>
         </div>
     </q-page>
 </template>
@@ -103,25 +109,26 @@
 export default {
   data() {
     return {
+      showRegisterForm: false,
       slide: 'slide_1',
       slidesContent: [
         {
           name: 'slide_1',
-          pic: 'slider_pic_1.jpg',
+          pic: 'https://www.lawdonut.co.uk/business/sites/lawdonut-business/files/courierservice1_0.jpg',
           title: 'This Is Title 1',
           subtitle: 'This is subtitle 1',
           text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum slide 1.'
         },
         {
           name: 'slide_2',
-          pic: 'slider_pic_2.jpg',
+          pic: 'https://businessexpresscourier.com/wp-content/uploads/2019/08/Post-Office-vs.-Courier-Service.jpg',
           title: 'This Is Title 2',
           subtitle: 'This is subtitle 2',
           text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum slide 2.'
         },
         {
           name: 'slide_3',
-          pic: 'slider_pic_3.jpg',
+          pic: 'https://images.jdmagicbox.com/comp/def_content/domestic_courier_services/default-domestic-courier-services-172.jpg?clr=#808080',
           title: 'This Is Title 3',
           subtitle: 'This is subtitle 3',
           text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum slide 3.'
@@ -131,3 +138,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.custom-caption {
+    text-align: center;
+    height: 100%;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+</style>
