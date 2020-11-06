@@ -43,6 +43,7 @@
 /* width */
 ::-webkit-scrollbar {
     width: 7px;
+    height: 7px;
 }
 
 /* Track */
@@ -68,6 +69,9 @@
     .frontpage-carousell {
         height: 300px !important;
     }
+    .hide-in-mobile {
+        display: none !important;
+    }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -77,6 +81,9 @@
     }
     .frontpage-carousell {
         height: 300px !important;
+    }
+    .hide-in-desktop {
+        display: none !important;
     }
 }
 

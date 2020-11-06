@@ -3,10 +3,7 @@
         <div class="absolute-center">
             <q-card style="width: 400px" class="q-pa-md rounded-borders">
                 <q-card-section>
-                    <q-img
-                        :src="require('@/assets/logo_ygo.png')"
-                        class="q-mb-md"
-                    />
+                    <q-img :src="require('@/assets/logo_ygo.png')" class="q-mb-md" />
                     <q-input
                         filled
                         label="Correo electronico"
@@ -22,20 +19,17 @@
                         v-model="password"
                     />
                     <q-btn
-                        color="warning"
+                        color="accent"
                         label="Iniciar sesion"
-                        class="q-mb-md full-width"
+                        class="q-mb-md full-width text-weight-bolder"
+                        push
                         @click="login"
                     />
-                    <q-card-section v-if="dismissCountDown > 0">
-                        <q-banner
-                            inline-actions
-                            rounded
-                            class="bg-red text-white"
-                        >
+                    <q-card-section v-if="dismissCountDown > 0" class="q-px-none">
+                        <q-banner inline-actions rounded class="bg-red text-white">
                             {{ errorMessage }}
                             <template v-slot:action>
-                                <q-btn flat @click="dismissCountDown = 0">
+                                <q-btn flat @click="dismissCountDown = 0" round size="sm">
                                     <i class="fas fa-times"></i>
                                 </q-btn>
                             </template>
