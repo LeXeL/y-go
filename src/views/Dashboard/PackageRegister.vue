@@ -830,9 +830,25 @@ export default {
                 console.log(error)
             }
         },
+        updateTable() {
+            // get the index of the id in filteredpackagesData
+            let index = 0
+            this.filteredPackagesData.forEach((packagesData, i) => {
+                if (packagesData.id === this.form.id) {
+                    index = i
+                }
+            })
+            // this.filteredPackagesData.splice(index, 1, this.form)
+            this.$set(this.filteredPackagesData[index], 'tracking', this.form.tracking)
+            this.$set(this.filteredPackagesData[index], 'box', this.form.box)
+            this.$set(this.filteredPackagesData[index], 'weight', this.form.weight)
+            this.$set(this.filteredPackagesData[index], 'long', this.form.long)
+            this.$set(this.filteredPackagesData[index], 'height', this.form.height)
+            this.$set(this.filteredPackagesData[index], 'width', this.form.width)
+        },
         saveDataLocally() {
             if (this.isEditingFile) {
-                // INSERT "SAVE DATA LOCALLY" CODE HERE
+                this.updateTable()
                 this.activeRowIndex++
                 if (this.activeRowIndex < this.filteredPackagesData.length) {
                     this.populateForm(
