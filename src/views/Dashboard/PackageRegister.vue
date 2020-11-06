@@ -831,14 +831,12 @@ export default {
             }
         },
         updateTable() {
-            // get the index of the id in filteredpackagesData
             let index = 0
             this.filteredPackagesData.forEach((packagesData, i) => {
                 if (packagesData.id === this.form.id) {
                     index = i
                 }
             })
-            // this.filteredPackagesData.splice(index, 1, this.form)
             this.$set(this.filteredPackagesData[index], 'tracking', this.form.tracking)
             this.$set(this.filteredPackagesData[index], 'box', this.form.box)
             this.$set(this.filteredPackagesData[index], 'weight', this.form.weight)
