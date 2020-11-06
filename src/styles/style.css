@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
+
+.y-go-font {
+    font-family: 'Oswald', sans-serif;
+}
+
+.social-ribbon ul {
+    padding-left: 0;
+}
+
 .social-ribbon li {
     display: inline-block;
     margin-right: 20px;
@@ -28,4 +38,24 @@
 
 .navigation-bar a:hover {
     color: rgba(255, 255, 255, 0.7);
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #ff5722;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #dd2c00;
 }
