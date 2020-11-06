@@ -1,17 +1,17 @@
 <template>
     <q-page>
         <div class="row">
-            <div class="col-lg-8 col-xs-12">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <q-carousel
                     arrows
                     animated
                     v-model="slide"
-                    height="100vh"
-                    class="full-width"
+                    class="full-width frontpage-carousell"
                     transition-prev="slide-right"
                     transition-next="slide-left"
                     infinite
                     autoplay
+                    swipeable
                     control-color="accent"
                 >
                     <q-carousel-slide
@@ -30,8 +30,8 @@
                     </q-carousel-slide>
                 </q-carousel>
             </div>
-            <div class="col-lg-4 col-xs-12">
-                <div class="full-width bg-grey-2 column flex-center" style="height: 100vh">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="full-width bg-grey-2 column flex-center frontpage-hero">
                     <div class="text-center" v-if="!showRegisterForm">
                         <q-img
                             :src="require('@/assets/logo_ygo.png')"
