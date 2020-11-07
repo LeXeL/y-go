@@ -461,6 +461,7 @@ export default {
             chargeName: '',
             chargeAmount: '',
             redirect: '',
+            updatedDatabase: false,
             form: {
                 tracking: '',
                 box: '',
@@ -678,8 +679,43 @@ export default {
             this.activeRowIndex = row
             this.$refs.box.focus()
         },
-        handleInvoices() {
+        async checkIfEmpty() {
+            let isEmpty = false
+            for await (const filterPackage of this.filteredPackagesData) {
+                if (
+                    filterPackage.box === null ||
+                    filterPackage.tracking === null ||
+                    filterPackage.weight === null ||
+                    filterPackage.long === null ||
+                    filterPackage.height === null ||
+                    filterPackage.width === null ||
+                    filterPackage.supplierInvoice === null ||
+                    filterPackage.supplierInvoiceDate === null
+                ) {
+                    isEmpty = true
+                }
+            }
+            return isEmpty
+        },
+        async handleInvoices() {
             this.displayLoading = true
+            this.displayAlert = false
+            if (await this.checkIfEmpty()) {
+                this.displayLoading = false
+                this.alertTitle = 'Error'
+                this.alertMessage = 'Por favor los campos no puede estar ninguno vacio.'
+                this.alertType = 'error'
+                this.displayAlert = true
+                return
+            }
+            if (!this.updatedDatabase) {
+                this.displayLoading = false
+                this.alertTitle = 'Error'
+                this.alertMessage = 'Debes asegurate de actualizar primero la base de datos.'
+                this.alertType = 'error'
+                this.displayAlert = true
+                return
+            }
             api.CreateInvoiceOnDatabase({by: this.user})
                 .then(() => {
                     this.displayLoading = false
@@ -711,6 +747,7 @@ export default {
                     this.alertMessage = 'Se ha cambiado con exito'
                     this.alertType = 'success'
                     this.displayAlert = true
+                    this.updatedDatabase = true
                 })
                 .catch(error => {
                     console.log(error)
