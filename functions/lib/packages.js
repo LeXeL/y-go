@@ -1,8 +1,8 @@
 const admin = require('firebase-admin')
 const db = admin.firestore()
-const users = require('./users')
 
 async function calculatePackagePrices(package) {
+    const users = require('./users')
     let rateForCurrentBox = await users.returnUserRateByBox(package.box)
     let price = parseFloat(package.weight * rateForCurrentBox.rate).toFixed(2)
     let totalPrice = 0.0
@@ -80,7 +80,34 @@ async function createPackagesFromXls(packages) {
         return error
     }
 }
-async function updatePackage(id, Obj) {
+async function updateGroupPackages(packages) {
+    try {
+        for await (const package of packages) {
+            if (package.box != null) {
+                console.log(`package: ${JSON.stringify(package)}`)
+                let prices = await calculatePackagePrices(package)
+                package.price = prices.price
+                package.totalPrice = prices.totalPrice
+            }
+            let id = package.id
+            delete package.id
+            db.collection('packages')
+                .doc(id)
+                .update(package)
+                .then(() => {
+                    console.log('Succesfully updated')
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        }
+        return 'success'
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+async function updatePackageById(id, Obj) {
     try {
         let prices = await calculatePackagePrices(Obj)
         Obj.price = prices.price
@@ -184,7 +211,8 @@ async function returnAllPackagesWithInvoice() {
 module.exports = {
     createPackage,
     createPackagesFromXls,
-    updatePackage,
+    updatePackageById,
+    updateGroupPackages,
     deletePackage,
     returnAllPackages,
     returnAllPackagesWithoutInvoice,

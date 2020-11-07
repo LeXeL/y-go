@@ -62,7 +62,8 @@ async function createInvoice(by) {
                     .then(docRef => {
                         element.forEach(package => {
                             package.invoice = docRef.id
-                            packages.updatePackage(package.id, package)
+                            console.log(package)
+                            packages.updatePackageById(package.id, package)
                         })
                     })
                     .catch(error => {

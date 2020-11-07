@@ -42,7 +42,12 @@
                 </div>
                 <q-space />
                 <div class="col-lg-2">
-                    <q-btn label="Actualizar BD" color="accent" class="full-width" />
+                    <q-btn
+                        label="Actualizar BD"
+                        color="accent"
+                        class="full-width"
+                        @click="updatePackageInCurrentTable()"
+                    />
                 </div>
             </div>
             <div class="row" style="margin-bottom: 65px">
@@ -694,6 +699,28 @@ export default {
                     this.displayAlert = true
                 })
         },
+        updatePackageInCurrentTable() {
+            this.displayLoading = true
+            this.displayAlert = false
+            api.UpdateGroupPackages({
+                packages: this.filteredPackagesData,
+            })
+                .then(() => {
+                    this.displayLoading = false
+                    this.alertTitle = 'Exito!'
+                    this.alertMessage = 'Se ha cambiado con exito'
+                    this.alertType = 'success'
+                    this.displayAlert = true
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage = error
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                })
+        },
         updatePackageWithChange(packages) {
             this.displayLoading = true
             this.displayAlert = false
@@ -830,7 +857,17 @@ export default {
                 console.log(error)
             }
         },
-        updateTable() {
+        async updateTable() {
+            this.form.box = await this.validateBox(this.form.box)
+            if (!this.usersBox.includes(this.form.box)) {
+                this.displayLoading = false
+                this.alertTitle = 'Error'
+                this.alertMessage =
+                    'El usuario casillero ingresado no existe en la base de datos por favor revisar'
+                this.alertType = 'error'
+                this.displayAlert = true
+                return
+            }
             let index = 0
             this.filteredPackagesData.forEach((packagesData, i) => {
                 if (packagesData.id === this.form.id) {
@@ -844,9 +881,9 @@ export default {
             this.$set(this.filteredPackagesData[index], 'height', this.form.height)
             this.$set(this.filteredPackagesData[index], 'width', this.form.width)
         },
-        saveDataLocally() {
+        async saveDataLocally() {
             if (this.isEditingFile) {
-                this.updateTable()
+                await this.updateTable()
                 this.activeRowIndex++
                 if (this.activeRowIndex < this.filteredPackagesData.length) {
                     this.populateForm(

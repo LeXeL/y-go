@@ -40,6 +40,10 @@ export const UpdatePackageInformationById = data =>
     Request.post('/UpdatePackageInformationById', data, {
         'Content-Type': 'application/json',
     })
+export const UpdateGroupPackages = data =>
+    Request.post('/UpdateGroupPackages', data, {
+        'Content-Type': 'application/json',
+    })
 export const DeletePackageOnDatabase = data =>
     Request.post('/DeletePackageOnDatabase', data, {
         'Content-Type': 'application/json',
