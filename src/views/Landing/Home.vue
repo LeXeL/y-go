@@ -47,14 +47,14 @@
                         <q-btn
                             color="accent"
                             push
-                            label="Registrate aqui"
+                            label="Regístrate aquí"
                             size="lg"
                             @click="showRegisterForm = !showRegisterForm"
                         />
                     </div>
                     <div class="q-pa-lg full-width" v-else>
                         <div class="text-h4 text-weight-bolder text-center text-primary q-mb-md">
-                            REGISTRATE
+                            REGÍSTRATE
                         </div>
                         <q-separator
                             color="accent"
