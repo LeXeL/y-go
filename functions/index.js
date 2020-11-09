@@ -135,7 +135,7 @@ exports.createPackagesFromXls = functions.https.onRequest(async (req, res) => {
 exports.UpdatePackageInformationById = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
         try {
-            let response = await packages.updatePackage(req.body.id, req.body.package)
+            let response = await packages.updatePackageById(req.body.id, req.body.package)
             functions.logger.info('UpdatePackageInformationById', {
                 packageUpdated: req.body.id,
                 packageInfo: req.body.package,
@@ -143,6 +143,22 @@ exports.UpdatePackageInformationById = functions.https.onRequest(async (req, res
             res.status(200).send({data: response})
         } catch (err) {
             functions.logger.error('UpdatePackageInformationById', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
+exports.UpdateGroupPackages = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await packages.updateGroupPackages(req.body.packages)
+            functions.logger.info('UpdateGroupPackages', {
+                packagesInfo: req.body.packages,
+            })
+            res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('UpdateGroupPackages', {
                 error: err,
             })
             res.status(400).send({err: err})

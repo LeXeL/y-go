@@ -42,7 +42,12 @@
                 </div>
                 <q-space />
                 <div class="col-lg-2">
-                    <q-btn label="Actualizar BD" color="accent" class="full-width" />
+                    <q-btn
+                        label="Actualizar BD"
+                        color="accent"
+                        class="full-width"
+                        @click="updatePackageInCurrentTable()"
+                    />
                 </div>
             </div>
             <div class="row" style="margin-bottom: 65px">
@@ -456,6 +461,7 @@ export default {
             chargeName: '',
             chargeAmount: '',
             redirect: '',
+            updatedDatabase: false,
             form: {
                 tracking: '',
                 box: '',
@@ -673,8 +679,43 @@ export default {
             this.activeRowIndex = row
             this.$refs.box.focus()
         },
-        handleInvoices() {
+        async checkIfEmpty() {
+            let isEmpty = false
+            for await (const filterPackage of this.filteredPackagesData) {
+                if (
+                    filterPackage.box === null ||
+                    filterPackage.tracking === null ||
+                    filterPackage.weight === null ||
+                    filterPackage.long === null ||
+                    filterPackage.height === null ||
+                    filterPackage.width === null ||
+                    filterPackage.supplierInvoice === null ||
+                    filterPackage.supplierInvoiceDate === null
+                ) {
+                    isEmpty = true
+                }
+            }
+            return isEmpty
+        },
+        async handleInvoices() {
             this.displayLoading = true
+            this.displayAlert = false
+            if (await this.checkIfEmpty()) {
+                this.displayLoading = false
+                this.alertTitle = 'Error'
+                this.alertMessage = 'Por favor los campos no puede estar ninguno vacio.'
+                this.alertType = 'error'
+                this.displayAlert = true
+                return
+            }
+            if (!this.updatedDatabase) {
+                this.displayLoading = false
+                this.alertTitle = 'Error'
+                this.alertMessage = 'Debes asegurate de actualizar primero la base de datos.'
+                this.alertType = 'error'
+                this.displayAlert = true
+                return
+            }
             api.CreateInvoiceOnDatabase({by: this.user})
                 .then(() => {
                     this.displayLoading = false
@@ -690,6 +731,29 @@ export default {
                     this.alertTitle = 'Hubo un Error!'
                     this.alertMessage =
                         'Hubo un error con tu peticion por favor intentalo mas tarde.'
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                })
+        },
+        updatePackageInCurrentTable() {
+            this.displayLoading = true
+            this.displayAlert = false
+            api.UpdateGroupPackages({
+                packages: this.filteredPackagesData,
+            })
+                .then(() => {
+                    this.displayLoading = false
+                    this.alertTitle = 'Exito!'
+                    this.alertMessage = 'Se ha cambiado con exito'
+                    this.alertType = 'success'
+                    this.displayAlert = true
+                    this.updatedDatabase = true
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage = error
                     this.alertType = 'error'
                     this.displayAlert = true
                 })
@@ -830,9 +894,33 @@ export default {
                 console.log(error)
             }
         },
-        saveDataLocally() {
+        async updateTable() {
+            this.form.box = await this.validateBox(this.form.box)
+            if (!this.usersBox.includes(this.form.box)) {
+                this.displayLoading = false
+                this.alertTitle = 'Error'
+                this.alertMessage =
+                    'El usuario casillero ingresado no existe en la base de datos por favor revisar'
+                this.alertType = 'error'
+                this.displayAlert = true
+                return
+            }
+            let index = 0
+            this.filteredPackagesData.forEach((packagesData, i) => {
+                if (packagesData.id === this.form.id) {
+                    index = i
+                }
+            })
+            this.$set(this.filteredPackagesData[index], 'tracking', this.form.tracking)
+            this.$set(this.filteredPackagesData[index], 'box', this.form.box)
+            this.$set(this.filteredPackagesData[index], 'weight', this.form.weight)
+            this.$set(this.filteredPackagesData[index], 'long', this.form.long)
+            this.$set(this.filteredPackagesData[index], 'height', this.form.height)
+            this.$set(this.filteredPackagesData[index], 'width', this.form.width)
+        },
+        async saveDataLocally() {
             if (this.isEditingFile) {
-                // INSERT "SAVE DATA LOCALLY" CODE HERE
+                await this.updateTable()
                 this.activeRowIndex++
                 if (this.activeRowIndex < this.filteredPackagesData.length) {
                     this.populateForm(
