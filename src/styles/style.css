@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
+
+.y-go-font {
+    font-family: 'Oswald', sans-serif;
+}
+
+.social-ribbon ul {
+    padding-left: 0;
+}
+
+.social-ribbon li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.social-ribbon a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.social-ribbon a:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.navigation-bar ul {
+    float: right;
+}
+
+.navigation-bar li {
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.navigation-bar a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.navigation-bar a:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #ff5722;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #dd2c00;
+}
+
+/* Extra small devices (phones, 768px and down) */
+@media only screen and (max-width: 768px) {
+    .frontpage-hero {
+        height: 600px;
+    }
+    .frontpage-carousell {
+        height: 300px !important;
+    }
+    .hide-in-mobile {
+        display: none !important;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .frontpage-hero {
+        height: 750px;
+    }
+    .frontpage-carousell {
+        height: 300px !important;
+    }
+    .hide-in-desktop {
+        display: none !important;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .frontpage-hero {
+        height: 100vh;
+    }
+    .frontpage-carousell {
+        height: 100vh !important;
+    }
+}
