@@ -41,13 +41,16 @@
                     </q-file>
                 </div>
                 <q-space />
-                <div class="col-lg-2">
-                    <q-btn
-                        label="Actualizar BD"
-                        color="accent"
-                        class="full-width"
-                        @click="updatePackageInCurrentTable()"
-                    />
+                <div class="col-lg-1">
+                    <q-btn color="accent" push @click="updatePackageInCurrentTable()"
+                        ><i class="far fa-save on-left"></i>Guardar</q-btn
+                    >
+                </div>
+                <div class="col-lg-2 q-px-md">
+                    <q-btn color="primary" push class="full-width">
+                        <i class="fas fa-mail-bulk on-left"></i>
+                        Guardar y enviar
+                    </q-btn>
                 </div>
             </div>
             <div class="row" style="margin-bottom: 65px">
