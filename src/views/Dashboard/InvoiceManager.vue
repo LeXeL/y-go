@@ -6,30 +6,11 @@
             </div>
         </div>
         <div class="row q-mb-lg">
-            <q-space />
             <div class="col-lg-2 q-px-md">
-                <q-select :options="statusOptions" label ="Estatus" dense filled v-model="searchStatus" emit-value map-options/>
+                <q-input dense filled label="Casillero" ref="box" v-model="searchBox" />
             </div>
             <div class="col-lg-2 q-px-md">
-                <q-input dense filled label="Casillero" v-model="searchBox" />
-            </div>
-            <div class="col-lg-2 q-px-md">
-                <q-input
-                    dense
-                    filled
-                    label="Factura"
-                    type="number"
-                    v-model="searchInvoice"
-                />
-            </div>
-            <div class="col-lg-2 q-px-md">
-                <q-input
-                    filled
-                    mask="date"
-                    label="Fecha"
-                    dense
-                    v-model="searchDate"
-                >
+                <q-input filled mask="date" label="Fecha" dense v-model="searchDate">
                     <template v-slot:append>
                         <q-icon name="fas fa-calendar" class="cursor-pointer">
                             <q-popup-proxy
@@ -39,18 +20,27 @@
                             >
                                 <q-date v-model="searchDate">
                                     <div class="row items-center justify-end">
-                                        <q-btn
-                                            v-close-popup
-                                            label="Close"
-                                            color="primary"
-                                            flat
-                                        />
+                                        <q-btn v-close-popup label="Close" color="primary" flat />
                                     </div>
                                 </q-date>
                             </q-popup-proxy>
                         </q-icon>
                     </template>
                 </q-input>
+            </div>
+            <div class="col-lg-2 q-px-md">
+                <q-select
+                    :options="statusOptions"
+                    label="Estatus"
+                    dense
+                    filled
+                    v-model="searchStatus"
+                    emit-value
+                    map-options
+                />
+            </div>
+            <div class="col-lg-2 q-px-md">
+                <q-input dense filled label="Factura" type="number" v-model="searchInvoice" />
             </div>
         </div>
         <div class="row q-mb-xl">
@@ -65,36 +55,45 @@
                 >
                     <template v-slot:header="props">
                         <q-tr :props="props">
-                            <q-th
-                                v-for="col in props.cols"
-                                :key="col.name"
-                                :props="props"
-                                >{{ col.label }}</q-th
-                            >
+                            <q-th v-for="col in props.cols" :key="col.name" :props="props">{{
+                                col.label
+                            }}</q-th>
                             <q-th>Reenviar</q-th>
                         </q-tr>
                     </template>
 
                     <template v-slot:body="props">
                         <q-tr :props="props">
-                            <q-td
-                                key="No"
-                                :props="props"
-                            >
-                                <router-link :to="`/invoice-details/${props.row.id}`" class="text-primary">{{ props.row.No }}</router-link>
+                            <q-td key="No" :props="props">
+                                <router-link
+                                    :to="`/invoice-details/${props.row.id}`"
+                                    class="text-primary"
+                                    >{{ props.row.No }}</router-link
+                                >
                             </q-td>
-                            <q-td
-                                key="box"
-                                :props="props"
-                            >
-                                <router-link :to="returnBoxId(props.row.box)" class="text-primary">{{ props.row.box }}</router-link>
+                            <q-td key="box" :props="props">
+                                <router-link
+                                    :to="returnBoxId(props.row.box)"
+                                    class="text-primary"
+                                    >{{ props.row.box }}</router-link
+                                >
                             </q-td>
                             <q-td key="price" :props="props">
                                 {{ props.row.price }}
                             </q-td>
                             <q-td key="status" :props="props">
-                                <q-btn :color="returnStatus(props.row.status).color" class="text-white" rounded size="sm" @click="statusDialog = true">
-                                    <i :class="`fas fa-${returnStatus(props.row.status).icon} q-mr-sm`"></i>
+                                <q-btn
+                                    :color="returnStatus(props.row.status).color"
+                                    class="text-white"
+                                    rounded
+                                    size="sm"
+                                    @click="statusDialog = true"
+                                >
+                                    <i
+                                        :class="
+                                            `fas fa-${returnStatus(props.row.status).icon} q-mr-sm`
+                                        "
+                                    ></i>
                                     {{ returnStatus(props.row.status).status }}
                                 </q-btn>
                             </q-td>
@@ -136,10 +135,20 @@
                         <q-btn outline color="green" label="Pagado" class="full-width q-mb-md" />
                     </div>
                     <div class="row">
-                        <q-btn outline color="primary" label="Entregado" class="full-width q-mb-md" />
+                        <q-btn
+                            outline
+                            color="primary"
+                            label="Entregado"
+                            class="full-width q-mb-md"
+                        />
                     </div>
                     <div class="row">
-                        <q-btn outline color="amber" label="..STATUS.." class="full-width q-mb-md" />
+                        <q-btn
+                            outline
+                            color="amber"
+                            label="..STATUS.."
+                            class="full-width q-mb-md"
+                        />
                     </div>
                 </q-card-section>
             </q-card>
@@ -163,16 +172,16 @@ export default {
             statusOptions: [
                 {
                     label: 'Pendiente',
-                    value: 'unpaid'
+                    value: 'unpaid',
                 },
                 {
                     label: 'Pagado',
-                    value: 'payed'
+                    value: 'payed',
                 },
                 {
                     label: 'Entregado',
-                    value: 'delivered'
-                }
+                    value: 'delivered',
+                },
             ],
             initialPagination: {
                 sortBy: 'desc',
@@ -236,17 +245,11 @@ export default {
             this.searchDate = ''
         },
         filterContent() {
-            if (
-                this.searchBox === '' &&
-                this.searchInvoice === '' &&
-                this.searchDate === ''
-            )
+            if (this.searchBox === '' && this.searchInvoice === '' && this.searchDate === '')
                 this.filterInvoicesData = this.invoicesData
             if (this.searchBox) {
                 this.filterInvoicesData = this.invoicesData.filter(invoice =>
-                    invoice.box
-                        .toLowerCase()
-                        .includes(this.searchBox.toLowerCase())
+                    invoice.box.toLowerCase().includes(this.searchBox.toLowerCase())
                 )
             }
             if (this.searchInvoice) {
@@ -256,9 +259,7 @@ export default {
             }
             if (this.searchDate) {
                 this.filterInvoicesData = this.invoicesData.filter(packages => {
-                    let dataDate = moment(packages.creationTime).format(
-                        'YYYY/MM/DD'
-                    )
+                    let dataDate = moment(packages.creationTime).format('YYYY/MM/DD')
                     if (moment(dataDate).isSame(this.searchDate)) {
                         return packages
                     }
@@ -297,23 +298,24 @@ export default {
             })
         },
         returnStatus(status) {
-            if (status == 'unpaid')
-                return { status: 'Pendiente', color: 'red', icon: 'dollar-sign'}
-            if (status == 'payed')
-                return { status: 'Pagado', color: 'green', icon: 'dollar-sign'}
-            if (status == 'delivered')
-                return { status: 'Entregado', color: 'primary', icon: 'box'}
-        }
+            if (status == 'unpaid') return {status: 'Pendiente', color: 'red', icon: 'dollar-sign'}
+            if (status == 'payed') return {status: 'Pagado', color: 'green', icon: 'dollar-sign'}
+            if (status == 'delivered') return {status: 'Entregado', color: 'primary', icon: 'box'}
+        },
     },
     computed: {
         filterTableData() {
             let data = []
             this.invoicesData.forEach(invoice => {
-                if (invoice.No.toString(10).includes(this.searchInvoice) && invoice.box.includes(this.searchBox) && invoice.status.includes(this.searchStatus))
+                if (
+                    invoice.No.toString(10).includes(this.searchInvoice) &&
+                    invoice.box.includes(this.searchBox) &&
+                    invoice.status.includes(this.searchStatus)
+                )
                     data.push(invoice)
             })
             return data
-        }
+        },
     },
     watch: {
         invoicesData(newValue, oldValue) {
@@ -321,6 +323,7 @@ export default {
         },
     },
     mounted() {
+        this.$refs.box.focus()
         let db = firebase.firestore()
         db.collection('invoices').onSnapshot(
             snapshot => {
@@ -340,9 +343,7 @@ export default {
                 console.log(error)
             }
         )
-        api.ReturnAllUsers().then(
-            response => (this.allUsers = response.data.data)
-        )
+        api.ReturnAllUsers().then(response => (this.allUsers = response.data.data))
     },
 }
 </script>
