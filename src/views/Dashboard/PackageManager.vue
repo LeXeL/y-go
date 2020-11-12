@@ -268,16 +268,16 @@ export default {
     computed: {
         filterTableData() {
             let data = []
-            this.packagesData.forEach(invoice => {
+            this.packagesData.forEach(pckg => {
                 if (
-                    invoice.box.includes(this.searchBox) &&
-                    moment(invoice.creationTime)
+                    pckg.box.includes(this.searchBox) &&
+                    moment(pckg.creationTime)
                         .format('YYYY/MM/DD')
                         .includes(this.searchDate) &&
-                    invoice.tracking.includes(this.searchTracking) &&
-                    invoice.invoice.toString(10).includes(this.searchInvoice)
+                    pckg.tracking.includes(this.searchTracking) &&
+                    pckg.invoice.toString(10).includes(this.searchInvoice)
                 )
-                    data.push(invoice)
+                    data.push(pckg)
             })
             return data
         },

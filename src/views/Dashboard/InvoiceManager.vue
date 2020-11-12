@@ -280,6 +280,9 @@ export default {
                 if (
                     invoice.No.toString(10).includes(this.searchInvoice) &&
                     invoice.box.includes(this.searchBox) &&
+                    moment(invoice.creationTime)
+                        .format('YYYY/MM/DD')
+                        .includes(this.searchDate) &&
                     invoice.status.includes(this.searchStatus)
                 )
                     data.push(invoice)
