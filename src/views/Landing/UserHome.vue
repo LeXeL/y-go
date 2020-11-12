@@ -3,7 +3,7 @@
         <div class="row q-mt-lg">
             <div class="col desktop-only"></div>
             <div class="col-lg-7">
-                <q-card>
+                <q-card class="q-mb-lg">
                     <q-card-section>
                         <div class="row">
                             <div class="col  column">
@@ -41,9 +41,52 @@
                             </div>
                         </div>
                     </q-card-section>
-                    <q-separator />
-                    <q-card-section> </q-card-section>
                 </q-card>
+                <div class="row">
+                    <div class="col-4">
+                        <q-list bordered padding class="rounded-borders" style="max-width: 350px">
+                            <q-item-label header>Menu</q-item-label>
+
+                            <q-item clickable v-ripple>
+                                <q-item-section avatar top>
+                                    <q-avatar color="primary" text-color="white">
+                                        <i class="fas fa-home"></i>
+                                    </q-avatar>
+                                </q-item-section>
+
+                                <q-item-section>
+                                    <q-item-label lines="1">Inicio</q-item-label>
+                                </q-item-section>
+                            </q-item>
+
+                            <q-item clickable v-ripple>
+                                <q-item-section avatar top>
+                                    <q-avatar color="primary" text-color="white">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </q-avatar>
+                                </q-item-section>
+
+                                <q-item-section>
+                                    <q-item-label lines="1">Perfil y direccion</q-item-label>
+                                    <q-item-label caption
+                                        >Edita tu informacion y direccion de entrega</q-item-label
+                                    >
+                                </q-item-section>
+                            </q-item>
+                            <q-item clickable v-ripple>
+                                <q-item-section avatar top>
+                                    <q-avatar color="accent" text-color="white">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </q-avatar>
+                                </q-item-section>
+
+                                <q-item-section>
+                                    <q-item-label lines="1">Cerrar sesion</q-item-label>
+                                </q-item-section>
+                            </q-item>
+                        </q-list>
+                    </div>
+                </div>
             </div>
             <div class="col desktop-only"></div>
         </div>
