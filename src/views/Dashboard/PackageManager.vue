@@ -274,7 +274,7 @@ export default {
                     moment(pckg.creationTime)
                         .format('YYYY/MM/DD')
                         .includes(this.searchDate) &&
-                    pckg.tracking.includes(this.searchTracking) &&
+                    pckg.tracking.toLowerCase().includes(this.searchTracking.toLowerCase()) &&
                     pckg.invoice.toString(10).includes(this.searchInvoice)
                 )
                     data.push(pckg)
