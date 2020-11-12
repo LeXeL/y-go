@@ -52,12 +52,6 @@
                 <div class="col-lg-2 q-px-md">
                     <q-input dense filled label="Factura" type="number" v-model="searchInvoice" />
                 </div>
-                <div class="col-lg-2 q-px-md">
-                    <q-input dense filled label="Factura de proveedor" type="number" />
-                </div>
-                <div class="col-lg-1 q-px-md">
-                    <q-btn color="primary" label="Buscar" @click="filterContent()" />
-                </div>
             </div>
             <div class="row q-mb-xl">
                 <div class="col q-px-md">
@@ -321,7 +315,12 @@ export default {
         filterTableData() {
             let data = []
             this.packagesData.forEach(invoice => {
-                if (invoice.box.includes(this.searchBox)) data.push(invoice)
+                if (
+                    invoice.box.includes(this.searchBox) &&
+                    invoice.tracking.includes(this.searchTracking) &&
+                    invoice.invoice.toString(10).includes(this.searchInvoice)
+                )
+                    data.push(invoice)
             })
             return data
         },
