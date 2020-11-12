@@ -42,12 +42,12 @@
                 </div>
                 <q-space />
                 <div class="col-lg-1">
-                    <q-btn color="accent" @click="updatePackageInCurrentTable()"
+                    <q-btn color="accent" push @click="updatePackageInCurrentTable()"
                         ><i class="far fa-save on-left"></i>Guardar</q-btn
                     >
                 </div>
                 <div class="col-lg-2 q-px-md">
-                    <q-btn color="accent" class="full-width">
+                    <q-btn color="primary" push class="full-width">
                         <i class="fas fa-mail-bulk on-left"></i>
                         Guardar y enviar
                     </q-btn>
