@@ -175,7 +175,7 @@ export default {
             searchBox: '',
             searchInvoice: '',
             invoices: [],
-            searchDate: moment(new Date()).format('YYYY/MM/DD'),
+            searchDate: '',
             initialPagination: {
                 sortBy: 'desc',
                 descending: false,
@@ -255,52 +255,6 @@ export default {
         }
     },
     methods: {
-        clear() {
-            this.searchTracking = ''
-            this.searchBox = ''
-            this.searchInvoice = ''
-            this.searchDate = ''
-        },
-        filterContent() {
-            if (
-                this.searchTracking === '' &&
-                this.searchBox === '' &&
-                this.searchInvoice === '' &&
-                this.searchDate === ''
-            )
-                this.filteredUserData = this.packagesData
-            if (this.searchTracking) {
-                this.filteredUserData = this.packagesData.filter(packages => {
-                    if (
-                        packages.tracking.toLowerCase().includes(this.searchTracking.toLowerCase())
-                    ) {
-                        return packages
-                    }
-                })
-            }
-            if (this.searchBox) {
-                this.filteredUserData = this.packagesData.filter(packages => {
-                    if (packages.box.toLowerCase().includes(this.searchBox.toLowerCase())) {
-                        return packages
-                    }
-                })
-            }
-            if (this.searchInvoice) {
-                this.filteredUserData = this.packagesData.filter(
-                    packages => packages.invoice === parseInt(this.searchInvoice)
-                )
-            }
-            if (this.searchDate) {
-                this.filteredUserData = this.packagesData.filter(packages => {
-                    let dataDate = moment(packages.creationTime).format('YYYY/MM/DD')
-                    if (moment(dataDate).isSame(this.searchDate)) {
-                        return packages
-                    }
-                })
-            }
-
-            this.clear()
-        },
         returnDimensions(row) {
             return `${row.long} x ${row.height} x ${row.width}`
         },
@@ -317,6 +271,9 @@ export default {
             this.packagesData.forEach(invoice => {
                 if (
                     invoice.box.includes(this.searchBox) &&
+                    moment(invoice.creationTime)
+                        .format('YYYY/MM/DD')
+                        .includes(this.searchDate) &&
                     invoice.tracking.includes(this.searchTracking) &&
                     invoice.invoice.toString(10).includes(this.searchInvoice)
                 )

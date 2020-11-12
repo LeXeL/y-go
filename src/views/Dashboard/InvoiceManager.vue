@@ -234,40 +234,10 @@ export default {
                 },
             ],
             invoicesData: [],
-            filterInvoicesData: [],
             allUsers: [],
         }
     },
     methods: {
-        clear() {
-            this.searchBox = ''
-            this.searchInvoice = ''
-            this.searchDate = ''
-        },
-        filterContent() {
-            if (this.searchBox === '' && this.searchInvoice === '' && this.searchDate === '')
-                this.filterInvoicesData = this.invoicesData
-            if (this.searchBox) {
-                this.filterInvoicesData = this.invoicesData.filter(invoice =>
-                    invoice.box.toLowerCase().includes(this.searchBox.toLowerCase())
-                )
-            }
-            if (this.searchInvoice) {
-                this.filterInvoicesData = this.invoicesData.filter(invoice =>
-                    invoice.No.toString().includes(this.searchInvoice)
-                )
-            }
-            if (this.searchDate) {
-                this.filterInvoicesData = this.invoicesData.filter(packages => {
-                    let dataDate = moment(packages.creationTime).format('YYYY/MM/DD')
-                    if (moment(dataDate).isSame(this.searchDate)) {
-                        return packages
-                    }
-                })
-            }
-
-            this.clear()
-        },
         returnBoxId(box) {
             let userId = this.allUsers.find(user => user.box === box).id
             return `/user-details/${userId}`
