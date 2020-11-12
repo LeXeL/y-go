@@ -21,6 +21,7 @@ import EmailVerification from '@/views/Auth/EmailVerification'
 import Register from '@/views/Auth/Register'
 
 import Home from '@/views/Landing/Home'
+import UserHome from '@/views/Landing/UserHome'
 
 Vue.use(VueRouter)
 
@@ -95,6 +96,11 @@ const routes = [
                 path: '/',
                 name: 'Landing Home',
                 component: Home,
+            },
+            {
+                path: '/user-home',
+                name: 'user-home',
+                component: UserHome,
             },
         ],
     },
