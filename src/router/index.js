@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 import Dashboard from '@/layouts/Dashboard'
 import Auth from '@/layouts/Auth'
 import Landing from '@/layouts/Landing'
+import User from '@/layouts/User'
 
 //Views
 import DashboardIndex from '@/views/Dashboard/Index'
@@ -22,6 +23,7 @@ import Register from '@/views/Auth/Register'
 
 import Home from '@/views/Landing/Home'
 import UserHome from '@/views/Landing/UserHome'
+import UserProfile from '@/views/Landing/UserProfile'
 
 Vue.use(VueRouter)
 
@@ -97,10 +99,21 @@ const routes = [
                 name: 'Landing Home',
                 component: Home,
             },
+        ],
+    },
+    {
+        path: '/user',
+        component: User,
+        children: [
             {
-                path: '/user-home',
-                name: 'user-home',
+                path: '/user',
+                name: 'User Home',
                 component: UserHome,
+            },
+            {
+                path: '/profile',
+                name: 'User Profile',
+                component: UserProfile,
             },
         ],
     },
