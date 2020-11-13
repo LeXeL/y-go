@@ -17,6 +17,7 @@ import UserDetails from '@/views/Dashboard/UserDetails'
 import InvoiceDetails from '@/views/Dashboard/InvoiceDetails'
 
 import Login from '@/views/Auth/Login'
+import EmailVerification from '@/views/Auth/EmailVerification'
 import Register from '@/views/Auth/Register'
 
 import Home from '@/views/Landing/Home'
@@ -80,12 +81,12 @@ const routes = [
                 component: Login,
             },
             {
-                path: '/register',
-                name: 'Register',
-                component: Register,
+                path: '/emailverification',
+                component: EmailVerification,
             },
         ],
     },
+
     {
         path: '/',
         component: Landing,
@@ -93,9 +94,9 @@ const routes = [
             {
                 path: '/',
                 name: 'Landing Home',
-                component: Home
-            }
-        ]
+                component: Home,
+            },
+        ],
     },
 ]
 
