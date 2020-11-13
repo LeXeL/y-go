@@ -56,6 +56,12 @@ export default {
         user() {
             return this.$store.getters.user
         },
+        isAuthenticated() {
+            return this.$store.getters.isAuthenticated
+        },
+        role() {
+            return this.$store.getters.role
+        },
     },
     data() {
         return {
@@ -74,10 +80,7 @@ export default {
                 .signInWithEmailAndPassword(this.email, this.password)
                 .then(async () => {
                     this.currentUser = await firebase.auth().currentUser
-                    await this.$store.dispatch(
-                        'setCurrentUser',
-                        this.currentUser
-                    )
+                    await this.$store.dispatch('setCurrentUser', this.currentUser)
                 })
                 .then(async () => {
                     await api
@@ -86,8 +89,7 @@ export default {
                         })
                         .then(response => {
                             this.$store.commit('SET_USER', response.data.data)
-                            if (response.data.data.role === 'admin')
-                                this.$router.push('/admin')
+                            if (response.data.data.role === 'admin') this.$router.push('/admin')
                             else this.$router.push('/')
                         })
                 })
@@ -118,7 +120,8 @@ export default {
         },
     },
     mounted() {
-        if (this.user) this.$router.push('/admin')
+        if (this.isAuthenticated && this.role === 'admin') this.$router.push('/admin')
+        if (this.isAuthenticated && this.role === 'user') this.$router.push('/profile')
     },
 }
 </script>
