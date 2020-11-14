@@ -16,21 +16,32 @@ import Reports from '@/views/Dashboard/Reports'
 import PackageRegister from '@/views/Dashboard/PackageRegister'
 import UserDetails from '@/views/Dashboard/UserDetails'
 import InvoiceDetails from '@/views/Dashboard/InvoiceDetails'
-
 import Login from '@/views/Auth/Login'
 import EmailVerification from '@/views/Auth/EmailVerification'
-import Register from '@/views/Auth/Register'
-
 import Home from '@/views/Landing/Home'
 import UserHome from '@/views/Landing/UserHome'
 import UserProfile from '@/views/Landing/UserProfile'
 
+import store from '@/store'
+
 Vue.use(VueRouter)
+
+const ifAuthenticated = (to, from, next) => {
+    if (store.getters.isAuthenticated) {
+        next()
+    } else next('/login')
+}
+const ifAuthenticatedAndAdmin = (to, from, next) => {
+    if (store.getters.isAuthenticated && store.getters.role === 'admin') {
+        next()
+    } else next('/')
+}
 
 const routes = [
     {
         path: '/admin',
         component: Dashboard,
+        beforeEnter: ifAuthenticatedAndAdmin,
         children: [
             {
                 path: '',
@@ -104,6 +115,7 @@ const routes = [
     {
         path: '/user',
         component: User,
+        beforeEnter: ifAuthenticated,
         children: [
             {
                 path: '/user',
