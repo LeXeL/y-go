@@ -16,14 +16,14 @@
                     <i class="fas fa-user"></i>
                     <q-menu>
                         <q-list style="width: 150px">
-                            <q-item clickable v-close-popup>
+                            <q-item clickable v-close-popup :to="'/user'">
                                 <q-item-section>
                                     <span> <i class="fas fa-user on-left"></i>Mi Perfil </span>
                                 </q-item-section>
                             </q-item>
                             <q-separator />
-                            <q-item clickable v-close-popup>
-                                <q-item-section @click="logout()">
+                            <q-item clickable v-close-popup @click="logout()">
+                                <q-item-section>
                                     <span>
                                         <i class="fas fa-sign-out-alt on-left"></i>Cerrar sesion
                                     </span>
