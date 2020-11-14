@@ -210,7 +210,7 @@ export default {
                 .auth()
                 .createUserWithEmailAndPassword(this.form.email, this.form.password)
                 .then(async user => {
-                    await this.$store.dispatch('setCurrentUser', user.user)
+                    // await this.$store.dispatch('setCurrentUser', user.user)
                     firebase
                         .auth()
                         .currentUser.sendEmailVerification({
@@ -236,19 +236,20 @@ export default {
                             })
                         })
                         .then(async () => {
-                            await api
-                                .getUserInformationById({
-                                    uid: user.user.uid,
-                                })
-                                .then(response => {
-                                    this.$store.commit('SET_USER', response.data.data)
-                                    this.displayLoading = false
-                                    this.alertTitle = 'Exito!'
-                                    this.alertMessage =
-                                        'Te has registrado satisfactoriamente, te hemos enviado un correo de confirmación.'
-                                    this.alertType = 'success'
-                                    this.displayAlert = true
-                                })
+                            // await api
+                            //     .getUserInformationById({
+                            //         uid: user.user.uid,
+                            //     })
+                            //     .then(response => {
+
+                            // this.$store.commit('SET_USER', response.data.data)
+                            //     })
+                            this.displayLoading = false
+                            this.alertTitle = 'Exito!'
+                            this.alertMessage =
+                                'Te has registrado satisfactoriamente, te hemos enviado un correo de confirmación.'
+                            this.alertType = 'success'
+                            this.displayAlert = true
                         })
                 })
                 .catch(error => {
