@@ -1,9 +1,6 @@
 <template>
     <q-page class="bg-primary">
         <div class="absolute-center">
-            <q-banner dense inline-actions class="text-white bg-warning rounded-borders q-mb-md">
-                You have lost connection to the internet. This app is offline.
-            </q-banner>
             <q-card style="width: 400px" class="q-pa-md rounded-borders">
                 <q-card-section>
                     <q-img :src="require('@/assets/logo_ygo.png')" class="q-mb-md" />
@@ -84,18 +81,25 @@ export default {
                 .then(async () => {
                     this.currentUser = await firebase.auth().currentUser
                     await this.$store.dispatch('setCurrentUser', this.currentUser)
+                    if (this.currentUser.emailVerified) {
+                        await api
+                            .getUserInformationById({
+                                uid: this.currentUser.uid,
+                            })
+                            .then(response => {
+                                this.$store.commit('SET_USER', response.data.data)
+                                if (this.isAuthenticated && this.role === 'admin')
+                                    this.$router.push('/admin')
+                                if (this.isAuthenticated && this.role === 'user')
+                                    this.$router.push('/profile')
+                            })
+                    } else {
+                        this.dismissCountDown = this.dismissSecs
+                        this.errorMessage =
+                            'La cuenta aun no se ha verificado, por favor revisa tu correo'
+                    }
                 })
-                .then(async () => {
-                    await api
-                        .getUserInformationById({
-                            uid: this.currentUser.uid,
-                        })
-                        .then(response => {
-                            this.$store.commit('SET_USER', response.data.data)
-                            if (response.data.data.role === 'admin') this.$router.push('/admin')
-                            else this.$router.push('/')
-                        })
-                })
+
                 .catch(error => {
                     this.dismissCountDown = this.dismissSecs
                     switch (error.code) {
