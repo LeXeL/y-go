@@ -1,5 +1,13 @@
 <template>
     <q-page>
+        <loading-alert :display="displayLoading"></loading-alert>
+        <ygo-alert
+            :display="displayAlert"
+            :title="alertTitle"
+            :message="alertMessage"
+            :type="alertType"
+            @accept="displayAlert = false"
+        ></ygo-alert>
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <q-carousel
@@ -66,6 +74,7 @@
                             color="accent"
                             placeholder="John"
                             class="q-mb-md q-mt-xl"
+                            v-model="form.name"
                         />
                         <q-input
                             filled
@@ -73,6 +82,7 @@
                             color="accent"
                             placeholder="Doe"
                             class="q-mb-md"
+                            v-model="form.lastName"
                         />
                         <q-input
                             filled
@@ -81,6 +91,7 @@
                             color="accent"
                             placeholder="john.doe@gmail.com"
                             class="q-mb-md"
+                            v-model="form.email"
                         />
                         <q-input
                             filled
@@ -89,6 +100,7 @@
                             color="accent"
                             placeholder="********"
                             class="q-mb-md"
+                            v-model="form.password"
                         />
                         <q-btn
                             color="accent"
@@ -96,7 +108,7 @@
                             push
                             style="float: right"
                             size="lg"
-                            @click="showRegisterForm = !showRegisterForm"
+                            @click="registerUser()"
                         />
                     </div>
                 </div>
@@ -106,36 +118,160 @@
 </template>
 
 <script>
+import * as api from '@/api/api'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+
 export default {
-  data() {
-    return {
-      showRegisterForm: false,
-      slide: 'slide_1',
-      slidesContent: [
-        {
-          name: 'slide_1',
-          pic: 'https://www.lawdonut.co.uk/business/sites/lawdonut-business/files/courierservice1_0.jpg',
-          title: 'This Is Title 1',
-          subtitle: 'This is subtitle 1',
-          text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum slide 1.'
+    data() {
+        return {
+            showRegisterForm: false,
+            slide: 'slide_1',
+            slidesContent: [
+                {
+                    name: 'slide_1',
+                    pic:
+                        'https://www.lawdonut.co.uk/business/sites/lawdonut-business/files/courierservice1_0.jpg',
+                    title: 'This Is Title 1',
+                    subtitle: 'This is subtitle 1',
+                    text:
+                        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum slide 1.',
+                },
+                {
+                    name: 'slide_2',
+                    pic:
+                        'https://businessexpresscourier.com/wp-content/uploads/2019/08/Post-Office-vs.-Courier-Service.jpg',
+                    title: 'This Is Title 2',
+                    subtitle: 'This is subtitle 2',
+                    text:
+                        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum slide 2.',
+                },
+                {
+                    name: 'slide_3',
+                    pic:
+                        'https://images.jdmagicbox.com/comp/def_content/domestic_courier_services/default-domestic-courier-services-172.jpg?clr=#808080',
+                    title: 'This Is Title 3',
+                    subtitle: 'This is subtitle 3',
+                    text:
+                        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum slide 3.',
+                },
+            ],
+            terms: false,
+            displayLoading: false,
+            confirmationDialog: false,
+            displayAlert: false,
+            alertTitle: '',
+            alertMessage: '',
+            alertType: '',
+            form: {
+                name: '',
+                lastName: '',
+                email: '',
+                contactPhone: '',
+                password: '',
+                repassword: '',
+            },
+            strongPass: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+            validEmail: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        }
+    },
+    computed: {
+        user() {
+            return this.$store.getter.user
         },
-        {
-          name: 'slide_2',
-          pic: 'https://businessexpresscourier.com/wp-content/uploads/2019/08/Post-Office-vs.-Courier-Service.jpg',
-          title: 'This Is Title 2',
-          subtitle: 'This is subtitle 2',
-          text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum slide 2.'
+    },
+    methods: {
+        setMarkerPosition(event) {
+            this.form.location = event
         },
-        {
-          name: 'slide_3',
-          pic: 'https://images.jdmagicbox.com/comp/def_content/domestic_courier_services/default-domestic-courier-services-172.jpg?clr=#808080',
-          title: 'This Is Title 3',
-          subtitle: 'This is subtitle 3',
-          text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum slide 3.'
+        registerUser() {
+            // if (!this.terms) {
+            //     this.alertTitle = 'Error'
+            //     this.alertMessage =
+            //         'Debes llenar todos los campos y aceptar los terminos y condiciones.'
+            //     this.alertType = 'error'
+            //     this.displayAlert = true
+            //     return
+            // }
+            if (
+                this.form.name === '' ||
+                this.form.lastName === '' ||
+                this.form.email === '' ||
+                this.form.password === ''
+            ) {
+                this.alertTitle = 'Error'
+                this.alertMessage = 'Debes llenar todos los campos.'
+                this.alertType = 'error'
+                this.displayAlert = true
+                return
+            }
+            this.displayLoading = true
+            firebase
+                .auth()
+                .createUserWithEmailAndPassword(this.form.email, this.form.password)
+                .then(async user => {
+                    // await this.$store.dispatch('setCurrentUser', user.user)
+                    firebase
+                        .auth()
+                        .currentUser.sendEmailVerification({
+                            url: 'https://y-go.com.pa/login',
+                        })
+                        .then(() => {
+                            // Verification email sent.
+                        })
+                        .catch(error => {
+                            // Error occurred. Inspect error.code.
+                            console.log(error)
+                        })
+                    await api
+                        .createuserondatabase({
+                            user: user.user,
+                        })
+                        .then(() => {
+                            this.displayLoading = false
+                            this.confirmationDialog = true
+                            api.updateUserWithInfo({
+                                uid: user.user.uid,
+                                obj: this.form,
+                            })
+                        })
+                        .then(async () => {
+                            // await api
+                            //     .getUserInformationById({
+                            //         uid: user.user.uid,
+                            //     })
+                            //     .then(response => {
+
+                            // this.$store.commit('SET_USER', response.data.data)
+                            //     })
+                            this.displayLoading = false
+                            this.alertTitle = 'Exito!'
+                            this.alertMessage =
+                                'Te has registrado satisfactoriamente, te hemos enviado un correo de confirmación.'
+                            this.alertType = 'success'
+                            this.displayAlert = true
+                        })
+                })
+                .catch(error => {
+                    // Handle Errors here.
+                    console.log(error)
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertType = 'error'
+                    if (error.code === 'auth/email-already-in-use') {
+                        this.alertMessage = 'Este correo ya esta en uso registrado'
+                    }
+                    if (error.code === 'auth/weak-password') {
+                        this.alertMessage = 'La contraseña es demasiado devil, intenta otra'
+                    }
+                    if (error.code === 'auth/invalid-email') {
+                        this.alertMessage = 'El email no es valido por favor revisalo'
+                    }
+                    this.displayAlert = true
+                    // ...
+                })
         },
-      ]
-    }
-  }
+    },
 }
 </script>
 

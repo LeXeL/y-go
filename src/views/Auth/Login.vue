@@ -56,6 +56,12 @@ export default {
         user() {
             return this.$store.getters.user
         },
+        isAuthenticated() {
+            return this.$store.getters.isAuthenticated
+        },
+        role() {
+            return this.$store.getters.role
+        },
     },
     data() {
         return {
@@ -74,23 +80,26 @@ export default {
                 .signInWithEmailAndPassword(this.email, this.password)
                 .then(async () => {
                     this.currentUser = await firebase.auth().currentUser
-                    await this.$store.dispatch(
-                        'setCurrentUser',
-                        this.currentUser
-                    )
+                    await this.$store.dispatch('setCurrentUser', this.currentUser)
+                    if (this.currentUser.emailVerified) {
+                        await api
+                            .getUserInformationById({
+                                uid: this.currentUser.uid,
+                            })
+                            .then(response => {
+                                this.$store.commit('SET_USER', response.data.data)
+                                if (this.isAuthenticated && this.role === 'admin')
+                                    this.$router.push('/admin')
+                                if (this.isAuthenticated && this.role === 'user')
+                                    this.$router.push('/profile')
+                            })
+                    } else {
+                        this.dismissCountDown = this.dismissSecs
+                        this.errorMessage =
+                            'La cuenta aun no se ha verificado, por favor revisa tu correo'
+                    }
                 })
-                .then(async () => {
-                    await api
-                        .getUserInformationById({
-                            uid: this.currentUser.uid,
-                        })
-                        .then(response => {
-                            this.$store.commit('SET_USER', response.data.data)
-                            if (response.data.data.role === 'admin')
-                                this.$router.push('/admin')
-                            else this.$router.push('/')
-                        })
-                })
+
                 .catch(error => {
                     this.dismissCountDown = this.dismissSecs
                     switch (error.code) {
@@ -118,7 +127,8 @@ export default {
         },
     },
     mounted() {
-        if (this.user) this.$router.push('/admin')
+        if (this.isAuthenticated && this.role === 'admin') this.$router.push('/admin')
+        if (this.isAuthenticated && this.role === 'user') this.$router.push('/profile')
     },
 }
 </script>
