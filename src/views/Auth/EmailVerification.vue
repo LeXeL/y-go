@@ -29,8 +29,10 @@ export default {
         let actionCode = this.$route.query.oobCode
         firebase
             .auth()
-            .applyActionCode(this.actionCode)
-            .then(() => {})
+            .applyActionCode(actionCode)
+            .then(() => {
+                console.log('Email is verified')
+            })
             .catch(error => {
                 console.log(error)
             })
