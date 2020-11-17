@@ -115,6 +115,11 @@ const routes = [
         component: User,
         beforeEnter: ifAuthenticated,
     },
+    {
+        path: '/profile',
+        component: User,
+        beforeEnter: ifAuthenticated,
+    },
 ]
 
 const router = new VueRouter({

@@ -10,7 +10,7 @@
         ></ygo-alert>
         <SocialBar />
         <Navbar />
-        <q-page-container>
+        <q-page-container v-if="Object.keys(userInformation).length > 0">
             <q-page>
                 <div class="row q-mt-lg">
                     <div class="col desktop-only"></div>
@@ -193,6 +193,7 @@ export default {
     },
     mounted() {
         this.displayLoading = true
+        if (this.$route.path === '/profile') this.showUserProfile = true
         api.returnUserProfileInformation({uid: this.uid}).then(response => {
             this.userInformation = response.data.data
             this.displayLoading = false
