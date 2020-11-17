@@ -19,8 +19,6 @@ import InvoiceDetails from '@/views/Dashboard/InvoiceDetails'
 import Login from '@/views/Auth/Login'
 import EmailVerification from '@/views/Auth/EmailVerification'
 import Home from '@/views/Landing/Home'
-import UserHome from '@/views/Landing/UserHome'
-import UserProfile from '@/views/Landing/UserProfile'
 
 import store from '@/store'
 

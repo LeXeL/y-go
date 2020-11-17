@@ -23,11 +23,12 @@
                                             <span class="text-h5">Bienvenido,</span>
                                             &nbsp;
                                             <span class="text-h3">{{
-                                                `${userInformation.name} ${userInformation.lastName}`
+                                                `${userInformation.user.name} ${userInformation.user.lastName}`
                                             }}</span>
                                         </div>
                                         <div class="text-h5 text-accent">
-                                            Casillero: <strong>{{ userInformation.box }}</strong>
+                                            Casillero:
+                                            <strong>{{ userInformation.user.box }}</strong>
                                         </div>
                                         <div class="text-subtitle2">
                                             <br />
@@ -125,7 +126,10 @@
                                 </q-list>
                             </div>
                             <div class="col">
-                                <UserHome v-if="!showUserProfile"></UserHome>
+                                <UserHome
+                                    v-if="!showUserProfile"
+                                    :data="userInformation.invoices"
+                                ></UserHome>
                                 <UserProfile v-if="showUserProfile"></UserProfile>
                             </div>
                         </div>
@@ -190,7 +194,7 @@ export default {
     mounted() {
         this.displayLoading = true
         api.returnUserProfileInformation({uid: this.uid}).then(response => {
-            console.log(response)
+            this.userInformation = response.data.data
             this.displayLoading = false
         })
     },
