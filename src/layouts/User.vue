@@ -80,7 +80,7 @@
                                 >
                                     <q-item-label header>Menu</q-item-label>
                                     <q-separator />
-                                    <q-item clickable v-ripple to="/user">
+                                    <q-item clickable v-ripple @click="showUserProfile = false">
                                         <q-item-section avatar top>
                                             <q-avatar color="primary" text-color="white">
                                                 <i class="fas fa-home"></i>
@@ -92,7 +92,7 @@
                                         </q-item-section>
                                     </q-item>
 
-                                    <q-item clickable v-ripple to="profile">
+                                    <q-item clickable v-ripple @click="showUserProfile = true">
                                         <q-item-section avatar top>
                                             <q-avatar color="primary" text-color="white">
                                                 <i class="fas fa-map-marker-alt"></i>
@@ -125,7 +125,8 @@
                                 </q-list>
                             </div>
                             <div class="col">
-                                <router-view />
+                                <UserHome v-if="!showUserProfile"></UserHome>
+                                <UserProfile v-if="showUserProfile"></UserProfile>
                             </div>
                         </div>
                     </div>
@@ -141,6 +142,8 @@
 import SocialBar from '@/components/general/SocialBar'
 import Navbar from '@/components/general/Navbar'
 import Footer from '@/components/general/Footer'
+import UserHome from '@/views/Landing/UserHome'
+import UserProfile from '@/views/Landing/UserProfile'
 import * as api from '@/api/api'
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -150,6 +153,8 @@ export default {
         SocialBar,
         Navbar,
         Footer,
+        UserHome,
+        UserProfile,
     },
     data() {
         return {
@@ -160,6 +165,7 @@ export default {
             alertMessage: '',
             alertType: '',
             userInformation: '',
+            showUserProfile: false,
         }
     },
     computed: {

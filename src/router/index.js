@@ -116,18 +116,6 @@ const routes = [
         path: '/user',
         component: User,
         beforeEnter: ifAuthenticated,
-        children: [
-            {
-                path: '/user',
-                name: 'User Home',
-                component: UserHome,
-            },
-            {
-                path: '/profile',
-                name: 'User Profile',
-                component: UserProfile,
-            },
-        ],
     },
 ]
 
