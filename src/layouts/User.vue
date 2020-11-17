@@ -1,5 +1,13 @@
 <template>
     <q-layout class="y-go-font">
+        <loading-alert :display="displayLoading"></loading-alert>
+        <ygo-alert
+            :display="displayAlert"
+            :title="alertTitle"
+            :message="alertMessage"
+            :type="alertType"
+            @accept="displayAlert = false"
+        ></ygo-alert>
         <SocialBar />
         <Navbar />
         <q-page-container>
@@ -14,10 +22,12 @@
                                         <div class="text-primary">
                                             <span class="text-h5">Bienvenido,</span>
                                             &nbsp;
-                                            <span class="text-h3">Fulanito Perez</span>
+                                            <span class="text-h3">{{
+                                                `${userInformation.name} ${userInformation.lastName}`
+                                            }}</span>
                                         </div>
                                         <div class="text-h5 text-accent">
-                                            Casillero: <strong>5683</strong>
+                                            Casillero: <strong>{{ userInformation.box }}</strong>
                                         </div>
                                         <div class="text-subtitle2">
                                             <br />
@@ -131,6 +141,7 @@
 import SocialBar from '@/components/general/SocialBar'
 import Navbar from '@/components/general/Navbar'
 import Footer from '@/components/general/Footer'
+import * as api from '@/api/api'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
@@ -139,6 +150,22 @@ export default {
         SocialBar,
         Navbar,
         Footer,
+    },
+    data() {
+        return {
+            displayLoading: false,
+            confirmationDialog: false,
+            displayAlert: false,
+            alertTitle: '',
+            alertMessage: '',
+            alertType: '',
+            userInformation: '',
+        }
+    },
+    computed: {
+        uid() {
+            return this.$store.getters.uid
+        },
     },
     methods: {
         async logout() {
@@ -153,6 +180,13 @@ export default {
                     console.log(error)
                 })
         },
+    },
+    mounted() {
+        this.displayLoading = true
+        api.returnUserProfileInformation({uid: this.uid}).then(response => {
+            console.log(response)
+            this.displayLoading = false
+        })
     },
 }
 </script>

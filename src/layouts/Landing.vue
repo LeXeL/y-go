@@ -1,7 +1,7 @@
 <template>
     <q-layout class="y-go-font">
         <!-- SOCIAL LINKS -->
-        <SocialBar/>
+        <SocialBar />
         <!-- END SOCIAL LINKS -->
 
         <!-- NAVIGATION BAR -->
@@ -27,15 +27,6 @@
                     </q-btn>
                 </div>
                 <q-separator dark class="q-mb-lg" />
-                <div class="row q-px-md q-py-sm text-right" v-for="(link, i) in navLinks" :key="i">
-                    <div class="text-h5 full-width">
-                        <router-link
-                            :to="link.route"
-                            style="color: #fff; text-decoration: none"
-                            >{{ link.text }}</router-link
-                        >
-                    </div>
-                </div>
                 <div class="q-px-md">
                     <q-btn
                         push
@@ -58,36 +49,17 @@ import SocialBar from '@/components/general/SocialBar'
 import Navbar from '@/components/general/Navbar'
 import Footer from '@/components/general/Footer'
 
-
 export default {
-  data() {
-    return {
-      drawer: false,
-      navLinks: [
-        {
-          text: 'Inicio',
-          route: '/'
-        },
-        {
-          text: 'Tarifas',
-          route: '/'
-        },
-        {
-          text: 'Nosotros',
-          route: '/'
-        },
-        {
-          text: 'Contacto',
-          route: '/'
-        },
-      ]
-    }
-  },
-  components: {
-      SocialBar,
-      Navbar,
-      Footer
-  }
+    data() {
+        return {
+            drawer: false,
+        }
+    },
+    components: {
+        SocialBar,
+        Navbar,
+        Footer,
+    },
 }
 </script>
 

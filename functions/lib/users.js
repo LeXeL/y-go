@@ -133,6 +133,11 @@ async function returnUserRateByBox(box) {
         }
     })[0]
 }
+async function returnUserUidByBox(box) {
+    let users = await returnAllUsers()
+    let currentSelectedUser = users.find(user => user.box === box)
+    return currentSelectedUser !== undefined ? currentSelectedUser.id : 'none'
+}
 
 module.exports = {
     createDatabaseWithUserInfo,
@@ -142,4 +147,5 @@ module.exports = {
     changeVerified,
     returnAllUsers,
     returnUserRateByBox,
+    returnUserUidByBox,
 }

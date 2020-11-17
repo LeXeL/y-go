@@ -15,6 +15,7 @@ const users = require('./lib/users')
 const packages = require('./lib/packages')
 const rates = require('./lib/rates')
 const invoices = require('./lib/invoices')
+const userProfile = require('./lib/userProfile')
 
 exports.createUserOnDatabase = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
@@ -325,6 +326,22 @@ exports.returnInvoiceById = functions.https.onRequest(async (req, res) => {
             res.status(200).send({data: response})
         } catch (err) {
             functions.logger.error('returnAllInvoices', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
+
+//USER PROFILE
+exports.returnUserProfileInformation = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await userProfile.returnUserProfileInformation(req.body.uid)
+            functions.logger.info('returnUserProfileInformation', {uid: req.body.uid})
+            res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('returnUserProfileInformation', {
                 error: err,
             })
             res.status(400).send({err: err})
