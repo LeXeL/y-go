@@ -123,13 +123,7 @@ export default {
             this.sendUpdate()
         },
         async sendUpdate() {
-            let obj = {}
-            obj.name = this.userInformationData.user.name
-            obj.lastName = this.userInformationData.user.lastName
-            obj.email = this.userInformationData.user.email
-            obj.phone = this.userInformationData.user.phone
-            obj.rate = this.userInformationData.user.rate
-            obj.address = this.userInformationData.user.address
+            let obj = {...this.userInformationData.user}
             obj.coordinates = this.location
             this.$emit('saveUserProfile', obj)
         },
@@ -159,7 +153,12 @@ export default {
         GoogleMaps,
     },
     mounted() {
-        this.geolocate()
+        if (this.userInformationData.user.coordinates === undefined) {
+            this.geolocate()
+            return
+        }
+        this.center = this.userInformationData.user.coordinates
+        this.markers.push({position: this.center})
     },
 }
 </script>
