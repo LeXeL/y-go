@@ -25,7 +25,7 @@ import store from '@/store'
 Vue.use(VueRouter)
 
 const ifAuthenticated = (to, from, next) => {
-    if (store.getters.isAuthenticated) {
+    if (store.getters.isAuthenticated && store.getters.isVerified) {
         next()
     } else next('/login')
 }
