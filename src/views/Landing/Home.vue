@@ -47,9 +47,8 @@
                             style="width: 60%"
                         />
                         <div class="text-h4 text-center text-primary text-weight-bolder q-mb-sm">
-                            ABRE TU CASILLERO GRATIS {{ mariel }}
+                            ABRE TU CASILLERO GRATIS
                         </div>
-                        <q-btn label="update mariel" push @click="mariel = 'Mariel 456'"/>
                         <div class="text-subtitle2 q-mb-lg">
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                         </div>
@@ -127,7 +126,6 @@ export default {
     data() {
         return {
             showRegisterForm: false,
-            mariel: 'Mariel 123',
             slide: 'slide_1',
             slidesContent: [
                 {
