@@ -155,7 +155,7 @@ export default {
             }
             let obj = {...this.userInformationData.user}
             obj.isUpdated = true
-            if (this.location?.length) obj.coordinates = this.location
+            if (Object.keys(this.location).length > 0) obj.coordinates = this.location
             this.$emit('saveUserProfile', obj)
         },
         setMarkerPosition(event) {
@@ -183,7 +183,7 @@ export default {
     components: {
         GoogleMaps,
     },
-    mounted() {
+    async mounted() {
         if (this.forceUpdateOnUser) {
             this.editInformation = true
         }

@@ -39,7 +39,7 @@ firebase.initializeApp(firebaseConfig)
 
 firebase.auth().onAuthStateChanged(async user => {
     await store.dispatch('setCurrentUser', user)
-    if (user && store.getters.user === '') {
+    if (user && store.getters.user == null) {
         api.getUserInformationById({uid: user.uid}).then(response => {
             store.commit('SET_USER', response.data.data)
         })

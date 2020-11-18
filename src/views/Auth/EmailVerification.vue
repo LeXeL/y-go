@@ -8,13 +8,7 @@
                         Gracias por confirmar tu correo electronico, puedes proceder al perfil de tu
                         cuenta.
                     </div>
-                    <q-btn
-                        push
-                        label="Continuar"
-                        color="accent"
-                        size="lg"
-                        @click="$router.push('/login')"
-                    />
+                    <q-btn push label="Continuar" color="accent" size="lg" @click="logout()" />
                 </q-card-section>
             </q-card>
         </div>
@@ -24,6 +18,20 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 export default {
+    methods: {
+        logout() {
+            firebase
+                .auth()
+                .signOut()
+                .then(async () => {
+                    await this.$store.dispatch('UserLogout')
+                    this.$router.push('/login')
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+    },
     created() {
         let mode = this.$route.query.mode
         let actionCode = this.$route.query.oobCode

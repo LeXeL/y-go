@@ -30,7 +30,7 @@
                                         </div>
                                         <div class="text-subtitle2">
                                             <br />
-                                            2478 NW 89TH AVE SUITE Y GO 5683
+                                            2478 NW 89TH AVE SUITE {{ userInformation.user.box }}
                                             <br />
                                             DORAL, FLORIDA 33143
                                             <br />
@@ -55,7 +55,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="text-h6 text-primary">Division Platino</div>
+                                        <!-- <div class="text-h6 text-primary">Division Platino</div>
                                         <q-linear-progress
                                             stripe
                                             rounded
@@ -64,7 +64,7 @@
                                             color="accent"
                                             class="q-mt-sm q-mb-xs"
                                         />
-                                        <div class="text-caption">75/100 pts.</div>
+                                        <div class="text-caption">75/100 pts.</div> -->
                                     </div>
                                 </div>
                             </q-card-section>
@@ -197,13 +197,11 @@ export default {
                     this.alertMessage = 'Se ha actualizado con exito la informacion'
                     this.alertType = 'success'
                     this.displayAlert = true
-                    await api
-                        .getUserInformationById({
-                            uid: this.uid,
-                        })
-                        .then(response => {
-                            this.$store.commit('SET_USER', response.data.data)
-                        })
+                    api.getUserInformationById({
+                        uid: this.uid,
+                    }).then(response => {
+                        this.$store.commit('SET_USER', response.data.data)
+                    })
                 })
                 .catch(error => {
                     console.log(error)
@@ -228,11 +226,20 @@ export default {
                 })
         },
     },
+    watch: {
+        user(newValue, oldValue) {
+            if (newValue.isUpdated) this.needsUpdate = false
+        },
+    },
     mounted() {
         this.displayLoading = true
         if (this.$route.path === '/profile') this.showUserProfile = true
-        console.log(this.user)
-        if (!this.user.isUpdated) {
+        if (this.user === null) {
+            api.getUserInformationById({uid: this.uid}).then(async response => {
+                await this.$store.commit('SET_USER', response.data.data)
+            })
+        }
+        if (this.user !== null && !this.user.isUpdated) {
             this.showUserProfile = true
             this.needsUpdate = true
         }
