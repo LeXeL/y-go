@@ -7,7 +7,7 @@
       </q-card-section>
       <q-card-section>
         <div class="text-h5 text-center text-bold q-mb-md">Has olvidado tu contraseña?</div>
-        <div class="text-subtitle2">Ingresa tu correo electronico y te enviaremos un enlace para que puedas reestablecer tu contraseña.</div>
+        <div class="text-subtitle2">Ingresa tu correo electronico y te enviaremos un enlace para que puedas restablecer tu contraseña.</div>
       </q-card-section>
       <q-card-section>
           <q-input ref="emailInput" filled label="Correo electronico" placeholder="correo@gmail.com" v-model="emailInput" lazy-rules :rules="[val => !!val || 'Este campo es obligatorio.']"/>

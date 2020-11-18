@@ -19,6 +19,7 @@ import InvoiceDetails from '@/views/Dashboard/InvoiceDetails'
 import Login from '@/views/Auth/Login'
 import EmailVerification from '@/views/Auth/EmailVerification'
 import ForgotPassword from '@/views/Auth/ForgotPassword'
+import ResetPassword from '@/views/Auth/ResetPassword'
 import Home from '@/views/Landing/Home'
 
 import store from '@/store'
@@ -100,6 +101,10 @@ const routes = [
             {
                 path: '/forgot-password',
                 component: ForgotPassword
+            },
+            {
+                path: '/reset-password',
+                component: ResetPassword
             }
         ],
     },
