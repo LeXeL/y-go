@@ -129,6 +129,7 @@
                                 <UserProfile
                                     v-if="showUserProfile"
                                     :userInformationData="userInformation"
+                                    :forceUpdateOnUser="needsUpdate"
                                     @saveUserProfile="updateUserProfile"
                                 ></UserProfile>
                             </div>
@@ -171,27 +172,38 @@ export default {
             userInformation: '',
             showUserProfile: false,
             userName: '',
+            needsUpdate: false,
         }
     },
     computed: {
+        user() {
+            return this.$store.getters.user
+        },
         uid() {
             return this.$store.getters.uid
         },
     },
     methods: {
-        updateUserProfile(obj) {
+        async updateUserProfile(obj) {
             this.displayLoading = true
             this.displayAlert = false
             api.UpdateUserInformationById({
                 uid: this.uid,
                 user: obj,
             })
-                .then(response => {
+                .then(async response => {
                     this.displayLoading = false
                     this.alertTitle = 'Exito!'
                     this.alertMessage = 'Se ha actualizado con exito la informacion'
                     this.alertType = 'success'
                     this.displayAlert = true
+                    await api
+                        .getUserInformationById({
+                            uid: this.uid,
+                        })
+                        .then(response => {
+                            this.$store.commit('SET_USER', response.data.data)
+                        })
                 })
                 .catch(error => {
                     console.log(error)
@@ -219,6 +231,11 @@ export default {
     mounted() {
         this.displayLoading = true
         if (this.$route.path === '/profile') this.showUserProfile = true
+        console.log(this.user)
+        if (!this.user.isUpdated) {
+            this.showUserProfile = true
+            this.needsUpdate = true
+        }
         api.returnUserProfileInformation({uid: this.uid}).then(response => {
             this.userInformation = response.data.data
             this.displayLoading = false

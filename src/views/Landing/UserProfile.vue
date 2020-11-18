@@ -1,5 +1,12 @@
 <template>
     <q-card class="q-mb-xl">
+        <ygo-alert
+            :display="displayAlert"
+            :title="alertTitle"
+            :message="alertMessage"
+            :type="alertType"
+            @accept="displayAlert = false"
+        ></ygo-alert>
         <q-card-section>
             <div class="text-h6">Mi Perfil</div>
         </q-card-section>
@@ -103,6 +110,10 @@ export default {
             type: Object,
             default: () => {},
         },
+        forceUpdateOnUser: {
+            type: Boolean,
+            default: false,
+        },
     },
     data() {
         return {
@@ -110,6 +121,10 @@ export default {
             markers: [],
             center: {},
             editInformation: false,
+            displayAlert: false,
+            alertTitle: '',
+            alertMessage: '',
+            alertType: '',
         }
     },
     methods: {
@@ -123,8 +138,24 @@ export default {
             this.sendUpdate()
         },
         async sendUpdate() {
+            if (this.forceUpdateOnUser) {
+                if (
+                    this.userInformationData.user.phone === undefined ||
+                    this.userInformationData.user.address === undefined
+                ) {
+                    this.editInformation = true
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage =
+                        'No puedes dejar ningun campo vacio por favor llenalos todos con tus datos'
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                    return
+                }
+            }
             let obj = {...this.userInformationData.user}
-            obj.coordinates = this.location
+            obj.isUpdated = true
+            if (this.location?.length) obj.coordinates = this.location
             this.$emit('saveUserProfile', obj)
         },
         setMarkerPosition(event) {
@@ -153,6 +184,9 @@ export default {
         GoogleMaps,
     },
     mounted() {
+        if (this.forceUpdateOnUser) {
+            this.editInformation = true
+        }
         if (this.userInformationData.user.coordinates === undefined) {
             this.geolocate()
             return

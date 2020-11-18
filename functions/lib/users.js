@@ -47,6 +47,7 @@ async function updateDatabaseWithUserInfo(uid, obj) {
             box: `YGO-${parseInt(lastId.lastId)}`,
             rate: 'fGrsIFC3wmW1KNvgJSww',
             logs: [],
+            isUpdated: false,
         })
         .then(() => {
             addToLastId()
