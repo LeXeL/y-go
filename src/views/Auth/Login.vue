@@ -17,6 +17,7 @@
                         class="full-width q-mb-md"
                         type="password"
                         v-model="password"
+                        @keyup.enter="login"
                     />
                     <q-btn
                         color="accent"
