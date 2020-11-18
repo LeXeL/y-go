@@ -272,7 +272,7 @@ export default {
                             // this.$store.commit('SET_USER', response.data.data)
                             //     })
                             this.displayLoading = false
-                            this.alertTitle = 'Exito!'
+                            this.alertTitle = '¡Bienvenido!'
                             this.alertMessage =
                                 'Te has registrado satisfactoriamente, te hemos enviado un correo de confirmación.'
                             this.alertType = 'success'
