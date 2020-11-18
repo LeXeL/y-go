@@ -52,7 +52,47 @@
                 </div>
             </div>
             <div class="row q-mb-md">
-                <div class="col">
+                <div class="col q-pa-sm">
+                    <div
+                        class="bg-grey-3 q-pa-md rounded-borders text-center"
+                        style="cursor: pointer;"
+                    >
+                        <div class="text-h6 q-mb-sm text-bold text-primary">
+                            Plan Basico
+                        </div>
+                        <q-separator class="q-mb-sm" />
+                        <div class="text-subtitle2">Texto punto 1</div>
+                        <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
+                        <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
+                        <div class="text-h5 text-bold q-mt-md text-accent">$ 2.50</div>
+                    </div>
+                </div>
+                <div class="col q-pa-sm">
+                    <div
+                        class="bg-grey-3 q-pa-md rounded-borders text-center"
+                        style="cursor: pointer;"
+                    >
+                        <div class="text-h6 q-mb-sm text-bold text-primary">
+                            Plan Cero Volumen
+                        </div>
+                        <q-separator class="q-mb-sm" />
+                        <div class="text-subtitle2">Texto punto 1</div>
+                        <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
+                        <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
+                        <div class="text-h5 text-bold q-mt-md text-accent">$ 3.00</div>
+                    </div>
+                </div>
+                <div class="col q-pa-sm">
+                    <div class="bg-grey-3 q-pa-md rounded-borders text-center">
+                        <div class="text-h6 q-mb-sm text-primary text-bold">Plan Business</div>
+                        <q-separator class="q-mb-sm" />
+                        <div class="text-subtitle2">Texto punto 1</div>
+                        <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
+                        <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
+                        <q-btn class="q-mt-md" label="Contactar" size="sm" color="accent" push />
+                    </div>
+                </div>
+                <!-- <div class="col">
                     <q-select
                         :options="['Basico', 'Cero Volumen']"
                         filled
@@ -63,7 +103,7 @@
                     >
                         <template v-slot:hint> Ultima actualizacion: 10/09/2020 </template>
                     </q-select>
-                </div>
+                </div> -->
             </div>
             <div class="row q-mb-md">
                 <div class="col">
