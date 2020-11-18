@@ -22,9 +22,7 @@
                                         <div class="text-primary">
                                             <span class="text-h5">Bienvenido,</span>
                                             &nbsp;
-                                            <span class="text-h3">{{
-                                                `${userInformation.user.name} ${userInformation.user.lastName}`
-                                            }}</span>
+                                            <span class="text-h3">{{ userName }}</span>
                                         </div>
                                         <div class="text-h5 text-accent">
                                             Casillero:
@@ -117,10 +115,8 @@
                                             </q-avatar>
                                         </q-item-section>
 
-                                        <q-item-section>
-                                            <q-item-label @click="logout()" lines="1"
-                                                >Cerrar sesion</q-item-label
-                                            >
+                                        <q-item-section @click="logout()">
+                                            <q-item-label lines="1">Cerrar sesion</q-item-label>
                                         </q-item-section>
                                     </q-item>
                                 </q-list>
@@ -174,6 +170,7 @@ export default {
             alertType: '',
             userInformation: '',
             showUserProfile: false,
+            userName: '',
         }
     },
     computed: {
@@ -225,6 +222,7 @@ export default {
         api.returnUserProfileInformation({uid: this.uid}).then(response => {
             this.userInformation = response.data.data
             this.displayLoading = false
+            this.userName = `${this.userInformation.user.name} ${this.userInformation.user.lastName}`
         })
     },
 }
