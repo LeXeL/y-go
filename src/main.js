@@ -11,6 +11,8 @@ import Confirm from '@/components/general/Confirm'
 import './quasar'
 import firebase from 'firebase/app'
 
+import * as VueGoogleMaps from 'vue2-google-maps'
+
 Vue.config.productionTip = false
 
 Vue.component('ygo-alert', Alert)
@@ -27,6 +29,12 @@ const firebaseConfig = {
     appId: '1:608574804962:web:f7b51dbf64278d75b95fbb',
     measurementId: 'G-S10T249YXG',
 }
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: 'AIzaSyCDzDbwg-PqYOIAMgNE7A70gauYHeOel5A',
+        libraries: 'places', // necessary for places input
+    },
+})
 firebase.initializeApp(firebaseConfig)
 
 firebase.auth().onAuthStateChanged(user => {

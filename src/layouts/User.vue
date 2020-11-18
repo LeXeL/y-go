@@ -130,7 +130,11 @@
                                     v-if="!showUserProfile"
                                     :data="userInformation.invoices"
                                 ></UserHome>
-                                <UserProfile v-if="showUserProfile"></UserProfile>
+                                <UserProfile
+                                    v-if="showUserProfile"
+                                    :userInformationData="userInformation"
+                                    @saveUserProfile="updateUserProfile"
+                                ></UserProfile>
                             </div>
                         </div>
                     </div>
@@ -178,6 +182,30 @@ export default {
         },
     },
     methods: {
+        updateUserProfile(obj) {
+            this.displayLoading = true
+            this.displayAlert = false
+            api.UpdateUserInformationById({
+                uid: this.uid,
+                user: obj,
+            })
+                .then(response => {
+                    this.displayLoading = false
+                    this.alertTitle = 'Exito!'
+                    this.alertMessage = 'Se ha actualizado con exito la informacion'
+                    this.alertType = 'success'
+                    this.displayAlert = true
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage =
+                        'Hubo un error con la solicitud por favor inténtelo más tarde'
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                })
+        },
         async logout() {
             firebase
                 .auth()
