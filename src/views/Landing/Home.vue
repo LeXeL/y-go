@@ -70,7 +70,8 @@
                         />
                         <div class="text-body1 text-center q-mt-md">
                             ¿Ya tienes cuenta con nosotros? Inicia sesión
-                            <router-link to="/login">aquí</router-link>.
+                            <router-link to="/login" class="text-accent text-bold">aquí</router-link
+                            >.
                         </div>
                         <q-input
                             filled
