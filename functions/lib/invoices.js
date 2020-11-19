@@ -39,6 +39,7 @@ function groupPackagesByBox(packages) {
 }
 async function createInvoice(by) {
     const packages = require('./packages')
+    const users = require('./users')
     try {
         let allPackages = await packages.returnAllPackagesWithoutInvoice()
         let groupedPackages = await groupPackagesByBox(allPackages)
@@ -47,11 +48,13 @@ async function createInvoice(by) {
                 const element = groupedPackages[box]
                 let lastInvoiceId = await getLastInvoiceId()
                 let price = await calculatePriceForGroupedPackages(element)
+                let uid = await users.returnUserUidByBox(box)
                 await db
                     .collection('invoices')
                     .add({
                         No: parseInt(lastInvoiceId.lastInvoiceId),
                         box: box,
+                        userId: uid,
                         creationTime: Date.now(),
                         packages: element,
                         paidTime: '',
@@ -142,10 +145,31 @@ async function returnInvoiceById(id) {
             return error
         })
 }
+async function returnAllInvoiceByUid(uid) {
+    let invoices = []
+    await db
+        .collection('invoices')
+        .where('userId', '==', uid)
+        .get()
+        .then(snapshot => {
+            if (snapshot.empty) {
+                console.log('No matching documents.')
+                return
+            }
+            snapshot.forEach(doc => {
+                invoices.push({...doc.data(), id: doc.id})
+            })
+        })
+        .catch(function(error) {
+            console.log('Error getting documents: ', error)
+        })
+    return invoices
+}
 module.exports = {
     createInvoice,
     updateInvoice,
     deleteInvoice,
     returnAllInvoices,
     returnInvoiceById,
+    returnAllInvoiceByUid,
 }

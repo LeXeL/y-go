@@ -18,9 +18,9 @@ import UserDetails from '@/views/Dashboard/UserDetails'
 import InvoiceDetails from '@/views/Dashboard/InvoiceDetails'
 import Login from '@/views/Auth/Login'
 import EmailVerification from '@/views/Auth/EmailVerification'
+import ForgotPassword from '@/views/Auth/ForgotPassword'
+import ResetPassword from '@/views/Auth/ResetPassword'
 import Home from '@/views/Landing/Home'
-import UserHome from '@/views/Landing/UserHome'
-import UserProfile from '@/views/Landing/UserProfile'
 
 import store from '@/store'
 
@@ -98,6 +98,14 @@ const routes = [
                 path: '/emailverification',
                 component: EmailVerification,
             },
+            {
+                path: '/forgot-password',
+                component: ForgotPassword,
+            },
+            // {
+            //     path: '/reset-password',
+            //     component: ResetPassword
+            // }
         ],
     },
 
@@ -116,18 +124,11 @@ const routes = [
         path: '/user',
         component: User,
         beforeEnter: ifAuthenticated,
-        children: [
-            {
-                path: '/user',
-                name: 'User Home',
-                component: UserHome,
-            },
-            {
-                path: '/profile',
-                name: 'User Profile',
-                component: UserProfile,
-            },
-        ],
+    },
+    {
+        path: '/profile',
+        component: User,
+        beforeEnter: ifAuthenticated,
     },
 ]
 
