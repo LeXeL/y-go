@@ -38,7 +38,7 @@
                     </q-card-section>
                     <div class="text-body2">
                         ¿Olvidaste tu contraseña? Haz click
-                        <router-link to="/">aqui</router-link>.
+                        <router-link to="/forgot-password">aqui</router-link>.
                     </div>
                 </q-card-section>
             </q-card>

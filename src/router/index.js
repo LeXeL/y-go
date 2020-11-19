@@ -100,12 +100,12 @@ const routes = [
             },
             {
                 path: '/forgot-password',
-                component: ForgotPassword
+                component: ForgotPassword,
             },
-            {
-                path: '/reset-password',
-                component: ResetPassword
-            }
+            // {
+            //     path: '/reset-password',
+            //     component: ResetPassword
+            // }
         ],
     },
 
