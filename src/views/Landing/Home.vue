@@ -68,6 +68,10 @@
                             color="accent"
                             style="width: 150px; margin: 0 auto; height: 2px"
                         />
+                        <div class="text-body1 text-center q-mt-md">
+                            ¿Ya tienes cuenta con nosotros? Inicia sesión
+                            <router-link to="/login">aquí</router-link>.
+                        </div>
                         <q-input
                             filled
                             label="Nombre"
@@ -181,6 +185,16 @@ export default {
         },
     },
     methods: {
+        getUrlParam(sParam) {
+            var sPageURL = window.location.search.substring(1)
+            var sURLVariables = sPageURL.split('&')
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=')
+                if (sParameterName[0] == sParam) {
+                    return sParameterName[1]
+                }
+            }
+        },
         setMarkerPosition(event) {
             this.form.location = event
         },
@@ -271,6 +285,9 @@ export default {
                     // ...
                 })
         },
+    },
+    mounted() {
+        if (this.getUrlParam('reg') == 'true') this.showRegisterForm = true
     },
 }
 </script>
