@@ -6,7 +6,10 @@
             :title="alertTitle"
             :message="alertMessage"
             :type="alertType"
-            @accept="displayAlert = false"
+            @accept="
+                displayAlert = false
+                statusDialog = false
+            "
         ></ygo-alert>
         <div class="row q-mb-lg">
             <div class="text-h5">
