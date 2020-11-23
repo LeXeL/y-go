@@ -87,12 +87,12 @@
                                     class="text-white"
                                     rounded
                                     size="sm"
-                                    @click="statusDialog = true"
+                                    @click="assignWorkingInvoice(props.row)"
                                 >
                                     <i
-                                        :class="
-                                            `fas fa-${returnStatus(props.row.status).icon} q-mr-sm`
-                                        "
+                                        :class="`fas fa-${
+                                            returnStatus(props.row.status).icon
+                                        } q-mr-sm`"
                                     ></i>
                                     {{ returnStatus(props.row.status).status }}
                                 </q-btn>
@@ -123,16 +123,26 @@
         <q-dialog v-model="statusDialog">
             <q-card style="width: 300px">
                 <q-card-section>
-                    <div class="text-h6">
-                        Estado de factura
-                    </div>
+                    <div class="text-h6">Estado de factura</div>
                 </q-card-section>
                 <q-card-section>
                     <div class="row">
-                        <q-btn outline color="red" label="Pendiente" class="full-width q-mb-md" />
+                        <q-btn
+                            outline
+                            color="red"
+                            label="Pendiente"
+                            class="full-width q-mb-md"
+                            @click="changeInvoiceStatus('unpaid')"
+                        />
                     </div>
                     <div class="row">
-                        <q-btn outline color="green" label="Pagado" class="full-width q-mb-md" />
+                        <q-btn
+                            outline
+                            color="green"
+                            label="Pagado"
+                            class="full-width q-mb-md"
+                            @click="changeInvoiceStatus('payed')"
+                        />
                     </div>
                     <div class="row">
                         <q-btn
@@ -140,6 +150,7 @@
                             color="primary"
                             label="Entregado"
                             class="full-width q-mb-md"
+                            @click="changeInvoiceStatus('delivered')"
                         />
                     </div>
                     <div class="row">
@@ -148,6 +159,7 @@
                             color="amber"
                             label="..STATUS.."
                             class="full-width q-mb-md"
+                            @click="changeInvoiceStatus('somethingelse')"
                         />
                     </div>
                 </q-card-section>
@@ -235,9 +247,19 @@ export default {
             ],
             invoicesData: [],
             allUsers: [],
+            workingInvoice: '',
         }
     },
     methods: {
+        assignWorkingInvoice(invoice) {
+            this.workingInvoice = invoice
+            this.statusDialog = true
+        },
+        changeInvoiceStatus(status) {
+            let obj = {...this.workingInvoice}
+            obj.status = status
+            console.log(obj)
+        },
         returnBoxId(box) {
             let userId = this.allUsers.find(user => user.box === box).id
             return `/user-details/${userId}`
@@ -280,9 +302,7 @@ export default {
                 if (
                     invoice.No.toString(10).includes(this.searchInvoice) &&
                     invoice.box.includes(this.searchBox) &&
-                    moment(invoice.creationTime)
-                        .format('YYYY/MM/DD')
-                        .includes(this.searchDate) &&
+                    moment(invoice.creationTime).format('YYYY/MM/DD').includes(this.searchDate) &&
                     invoice.status.includes(this.searchStatus)
                 )
                     data.push(invoice)
