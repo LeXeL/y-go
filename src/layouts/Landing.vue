@@ -5,7 +5,7 @@
         <!-- END SOCIAL LINKS -->
 
         <!-- NAVIGATION BAR -->
-        <Navbar />
+        <Navbar :navLinks="navLinks" />
         <!-- END NAVIGATION BAR -->
         <q-page-container>
             <router-view />
@@ -52,7 +52,25 @@ import Footer from '@/components/general/Footer'
 export default {
     data() {
         return {
-            drawer: false,
+            drawer: true,
+            navLinks: [
+                {
+                    text: 'Inicio',
+                    route: '/',
+                },
+                {
+                    text: 'Tarifas',
+                    route: '/',
+                },
+                {
+                    text: 'Nosotros',
+                    route: '/',
+                },
+                {
+                    text: 'Contacto',
+                    route: '/',
+                },
+            ],
         }
     },
 

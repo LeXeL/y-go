@@ -47,27 +47,9 @@
 </template>
 <script>
 export default {
+    props: ['navLinks'],
     data() {
-        return {
-            navLinks: [
-                {
-                    text: 'Inicio',
-                    route: '/',
-                },
-                {
-                    text: 'Tarifas',
-                    route: '/',
-                },
-                {
-                    text: 'Nosotros',
-                    route: '/',
-                },
-                {
-                    text: 'Contacto',
-                    route: '/',
-                },
-            ],
-        }
+        return {}
     },
     computed: {
         user() {
