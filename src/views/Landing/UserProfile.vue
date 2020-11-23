@@ -122,7 +122,7 @@
                         type="textarea"
                         filled
                         rows="4"
-                        label="Direccion"
+                        label="Direccion de entrega"
                         v-model="userInformationData.user.address"
                         :disable="!editInformation"
                     />
