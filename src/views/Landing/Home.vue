@@ -53,11 +53,20 @@
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                         </div>
                         <q-btn
+                            v-if="!isAuthenticated"
                             color="accent"
                             push
                             label="Regístrate aquí"
                             size="lg"
                             @click="showRegisterForm = !showRegisterForm"
+                        />
+                        <q-btn
+                            v-if="isAuthenticated && user"
+                            push
+                            label="Mi casillero"
+                            color="accent"
+                            size="lg"
+                            to="/user"
                         />
                     </div>
                     <div class="q-pa-lg full-width" v-else>
@@ -182,7 +191,10 @@ export default {
     },
     computed: {
         user() {
-            return this.$store.getter.user
+            return this.$store.getters.user
+        },
+        isAuthenticated() {
+            return this.$store.getters.isAuthenticated
         },
     },
     methods: {

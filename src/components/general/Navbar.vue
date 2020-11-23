@@ -5,12 +5,22 @@
             <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 q-px-md">
                 <q-img :src="require('@/assets/logo_ygo.png')" style="width: 75px" />
                 <q-btn
+                    v-if="!isAuthenticated"
                     push
                     label="Iniciar sesion"
                     color="accent"
                     style="float: right; margin-top: 6px"
                     class="hide-in-mobile"
                     to="/login"
+                />
+                <q-btn
+                    v-if="isAuthenticated && user"
+                    push
+                    label="Mi casillero"
+                    color="accent"
+                    style="float: right; margin-top: 6px"
+                    class="hide-in-mobile"
+                    to="/user"
                 />
                 <ul class="hide-in-mobile">
                     <li v-for="(link, i) in navLinks" :key="i">
@@ -58,6 +68,14 @@ export default {
                 },
             ],
         }
+    },
+    computed: {
+        user() {
+            return this.$store.getters.user
+        },
+        isAuthenticated() {
+            return this.$store.getters.isAuthenticated
+        },
     },
 }
 </script>

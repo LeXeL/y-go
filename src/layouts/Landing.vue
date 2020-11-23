@@ -55,6 +55,7 @@ export default {
             drawer: false,
         }
     },
+
     components: {
         SocialBar,
         Navbar,
