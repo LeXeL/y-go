@@ -1,5 +1,13 @@
 <template>
     <q-page class="q-pa-lg">
+        <loading-alert :display="displayLoading"></loading-alert>
+        <ygo-alert
+            :display="displayAlert"
+            :title="alertTitle"
+            :message="alertMessage"
+            :type="alertType"
+            @accept="displayAlert = false"
+        ></ygo-alert>
         <div class="row q-mb-lg">
             <div class="text-h5">
                 <div class="col q-px-md">Gestor de facturas</div>
@@ -248,6 +256,11 @@ export default {
             invoicesData: [],
             allUsers: [],
             workingInvoice: '',
+            displayLoading: false,
+            displayAlert: false,
+            alertTitle: '',
+            alertMessage: '',
+            alertType: '',
         }
     },
     methods: {
@@ -256,9 +269,28 @@ export default {
             this.statusDialog = true
         },
         changeInvoiceStatus(status) {
+            this.displayLoading = true
+            this.displayAlert = false
             let obj = {...this.workingInvoice}
             obj.status = status
-            console.log(obj)
+            let id = obj.id
+            delete obj.id
+            api.UpdateInvoiceInformationById({id: id, invoice: obj})
+                .then(response => {
+                    this.displayLoading = false
+                    this.alertTitle = 'Exito!'
+                    this.alertMessage = 'Se ha actualizado con exito'
+                    this.alertType = 'success'
+                    this.displayAlert = true
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage = 'Hubo un error con la peticion'
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                })
         },
         returnBoxId(box) {
             let userId = this.allUsers.find(user => user.box === box).id

@@ -307,7 +307,7 @@ exports.CreateInvoiceOnDatabase = functions.https.onRequest(async (req, res) => 
 exports.UpdateInvoiceInformationById = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
         try {
-            let response = await invoices.updateInvoice(req.body.id, req.body.rate)
+            let response = await invoices.updateInvoice(req.body.id, req.body.invoice)
             functions.logger.info('UpdateInvoiceInformationById', {
                 invoiceUpdated: req.body.id,
                 invoiceInfo: req.body.rate,
