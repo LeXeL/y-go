@@ -61,6 +61,7 @@
                         "
                         @click="selectedRateId = 'plan_basico_id'"
                     >
+                        <i class="fas fa-weight fa-2x q-mb-sm"></i>
                         <div class="text-h6 q-mb-sm text-bold">
                             Plan Basico
                         </div>
@@ -80,6 +81,7 @@
                         "
                         @click="selectedRateId = 'plan_cerovol_id'"
                     >
+                        <i class="fas fa-ruler-combined fa-2x q-mb-sm"></i>
                         <div class="text-h6 q-mb-sm text-bold">
                             Plan Cero Volumen
                         </div>
@@ -92,6 +94,7 @@
                 </div>
                 <div class="col q-pa-sm">
                     <div class="bg-grey-3 q-pa-md rounded-borders text-center">
+                        <i class="fas fa-building fa-2x q-mb-md"></i>
                         <div class="text-h6 q-mb-sm text-primary text-bold">Plan Business</div>
                         <q-separator class="q-mb-sm" />
                         <div class="text-subtitle2">Texto punto 1</div>
