@@ -5,7 +5,7 @@
         <!-- END SOCIAL LINKS -->
 
         <!-- NAVIGATION BAR -->
-        <Navbar :navLinks="navLinks" />
+        <Navbar :navLinks="navLinks" @open-drawer="drawer = true" />
         <!-- END NAVIGATION BAR -->
         <q-page-container>
             <router-view />
@@ -23,18 +23,16 @@
                     <div class="text-h6 text-weight-bolder">Menu</div>
                     <q-space />
                     <q-btn flat color="secondary" round size="sm" @click="drawer = false">
-                        <i class="fas fa-times"></i>
+                        <i class="fas fa-times fa-2x"></i>
                     </q-btn>
                 </div>
                 <q-separator dark class="q-mb-lg" />
                 <div class="q-px-md">
-                    <q-btn
-                        push
-                        label="Iniciar sesion"
-                        color="accent"
-                        style="float: right; margin-top: 12px"
-                        to="/login"
-                    />
+                    <ul class="drawer-link">
+                        <li>
+                            <router-link to="/">Inicio</router-link>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </q-drawer>
@@ -52,7 +50,7 @@ import Footer from '@/components/general/Footer'
 export default {
     data() {
         return {
-            drawer: true,
+            drawer: false,
             navLinks: [
                 {
                     text: 'Inicio',
@@ -84,4 +82,11 @@ export default {
 
 <style>
 @import './../styles/style.css';
+
+.drawer-link {
+    text-decoration: none;
+    color: #fff !important;
+    text-align: right;
+    list-style-type: none;
+}
 </style>

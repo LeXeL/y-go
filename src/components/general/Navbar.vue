@@ -4,13 +4,22 @@
             <div class="col desktop-only"></div>
             <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 q-px-md">
                 <q-img :src="require('@/assets/logo_ygo.png')" style="width: 75px" />
+                <!-- <q-btn
+                    flat
+                    color="secondary"
+                    class="hide-in-desktop q-mt-sm"
+                    style="float: right"
+                    round
+                    @click="openDrawer"
+                >
+                    <i class="fas fa-bars"></i>
+                </q-btn> -->
                 <q-btn
                     v-if="!isAuthenticated"
                     push
                     label="Iniciar sesion"
                     color="accent"
                     style="float: right; margin-top: 6px"
-                    class="hide-in-mobile"
                     to="/login"
                 />
                 <q-btn
@@ -19,7 +28,6 @@
                     label="Mi casillero"
                     color="accent"
                     style="float: right; margin-top: 6px"
-                    class="hide-in-mobile"
                     to="/user"
                 />
                 <ul class="hide-in-mobile">
@@ -29,17 +37,6 @@
                         >
                     </li>
                 </ul>
-
-                <q-btn
-                    flat
-                    color="secondary"
-                    class="hide-in-desktop q-mt-sm"
-                    style="float: right"
-                    round
-                    @click="drawer = true"
-                >
-                    <i class="fas fa-bars"></i>
-                </q-btn>
             </div>
             <div class="col desktop-only"></div>
         </div>
@@ -50,6 +47,11 @@ export default {
     props: ['navLinks'],
     data() {
         return {}
+    },
+    methods: {
+        openDrawer() {
+            this.$emit('open-drawer')
+        },
     },
     computed: {
         user() {

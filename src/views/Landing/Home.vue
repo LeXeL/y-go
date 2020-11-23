@@ -41,23 +41,13 @@
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="full-width bg-grey-2 column flex-center frontpage-hero">
                     <div class="text-center" v-if="!showRegisterForm">
-                        <q-img
-                            :src="require('@/assets/logo_ygo.png')"
-                            class="q-mb-lg"
-                            style="width: 60%"
-                        />
-                        <div class="text-h4 text-center text-primary text-weight-bolder q-mb-sm">
-                            ABRE TU CASILLERO GRATIS
-                        </div>
-                        <div class="text-subtitle2 q-mb-lg">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                        </div>
                         <q-btn
                             v-if="!isAuthenticated"
                             color="accent"
                             push
                             label="Regístrate aquí"
                             size="lg"
+                            class="q-mb-lg"
                             @click="showRegisterForm = !showRegisterForm"
                         />
                         <q-btn
@@ -67,7 +57,19 @@
                             color="accent"
                             size="lg"
                             to="/user"
+                            class="q-mb-lg"
                         />
+                        <div class="text-h4 text-center text-primary text-weight-bolder q-mb-lg">
+                            ABRE TU CASILLERO GRATIS
+                        </div>
+                        <q-img
+                            :src="require('@/assets/logo_ygo.png')"
+                            class="q-mb-lg"
+                            style="width: 60%"
+                        />
+                        <div class="text-subtitle2 q-mb-lg">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                        </div>
                     </div>
                     <div class="q-pa-lg full-width" v-else>
                         <div class="text-h4 text-weight-bolder text-center text-primary q-mb-md">
