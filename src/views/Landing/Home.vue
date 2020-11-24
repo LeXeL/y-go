@@ -200,6 +200,13 @@ export default {
         },
     },
     methods: {
+        clear() {
+            this.form.name = ''
+            this.form.lastName = ''
+            this.form.email = ''
+            this.form.contactPhone = ''
+            this.form.password = ''
+        },
         getUrlParam(sParam) {
             var sPageURL = window.location.search.substring(1)
             var sURLVariables = sPageURL.split('&')
@@ -279,6 +286,7 @@ export default {
                                 'Te has registrado satisfactoriamente, te hemos enviado un correo de confirmación.'
                             this.alertType = 'success'
                             this.displayAlert = true
+                            this.clear()
                         })
                 })
                 .catch(error => {
