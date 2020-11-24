@@ -5,7 +5,7 @@
             <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 q-px-md">
                 <q-img
                     :src="require('@/assets/logo_ygo.png')"
-                    style="width: 75px; margin-top: 5px;"
+                    style="width: 75px; margin-top: 5px"
                 />
                 <q-btn
                     flat
@@ -41,7 +41,7 @@
                 >
                     <i class="fas fa-user"></i>
                     <q-menu>
-                        <q-list style="width: 150px;">
+                        <q-list style="width: 150px">
                             <q-item clickable v-close-popup>
                                 <q-item-section @click="$router.push('/user')">
                                     <span>
@@ -50,7 +50,7 @@
                                 </q-item-section>
                             </q-item>
                             <q-separator />
-                            <q-item clickable v-close-popup>
+                            <q-item clickable v-close-popup @click="logout()">
                                 <q-item-section>
                                     <span>
                                         <i class="fas fa-sign-out-alt on-left"></i>Cerrar sesion
@@ -73,6 +73,8 @@
     </div>
 </template>
 <script>
+import firebase from 'firebase/app'
+import 'firebase/auth'
 export default {
     props: ['navLinks'],
     data() {
@@ -81,6 +83,18 @@ export default {
     methods: {
         openDrawer() {
             this.$emit('open-drawer')
+        },
+        async logout() {
+            firebase
+                .auth()
+                .signOut()
+                .then(async () => {
+                    await this.$store.dispatch('UserLogout')
+                    this.$router.push('/login')
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         },
     },
     computed: {
