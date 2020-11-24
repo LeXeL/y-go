@@ -33,7 +33,12 @@
                     style="float: right; margin-top: 10px"
                     to="/user"
                 /> -->
-                <q-btn push color="accent" style="float: right; margin-top: 10px">
+                <q-btn
+                    push
+                    color="accent"
+                    style="float: right; margin-top: 10px"
+                    v-if="isAuthenticated && user"
+                >
                     <i class="fas fa-user"></i>
                     <q-menu>
                         <q-list style="width: 150px;">
