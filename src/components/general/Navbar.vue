@@ -3,7 +3,10 @@
         <div class="row">
             <div class="col desktop-only"></div>
             <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 q-px-md">
-                <q-img :src="require('@/assets/logo_ygo.png')" style="width: 75px" />
+                <q-img
+                    :src="require('@/assets/logo_ygo.png')"
+                    style="width: 75px; margin-top: 5px;"
+                />
                 <!-- <q-btn
                     flat
                     color="secondary"
@@ -19,17 +22,39 @@
                     push
                     label="Iniciar sesion"
                     color="accent"
-                    style="float: right; margin-top: 6px"
+                    style="float: right; margin-top: 10px"
                     to="/login"
                 />
-                <q-btn
+                <!-- <q-btn
                     v-if="isAuthenticated && user"
                     push
                     label="Mi casillero"
                     color="accent"
-                    style="float: right; margin-top: 6px"
+                    style="float: right; margin-top: 10px"
                     to="/user"
-                />
+                /> -->
+                <q-btn push color="accent" style="float: right; margin-top: 10px">
+                    <i class="fas fa-user"></i>
+                    <q-menu>
+                        <q-list style="width: 150px;">
+                            <q-item clickable v-close-popup>
+                                <q-item-section @click="$router.push('/user')">
+                                    <span>
+                                        <i class="fas fa-box-open on-left"></i>Mi Casillero
+                                    </span>
+                                </q-item-section>
+                            </q-item>
+                            <q-separator />
+                            <q-item clickable v-close-popup>
+                                <q-item-section>
+                                    <span>
+                                        <i class="fas fa-sign-out-alt on-left"></i>Cerrar sesion
+                                    </span>
+                                </q-item-section>
+                            </q-item>
+                        </q-list>
+                    </q-menu>
+                </q-btn>
                 <ul class="hide-in-mobile">
                     <li v-for="(link, i) in navLinks" :key="i">
                         <router-link :to="link.route"
