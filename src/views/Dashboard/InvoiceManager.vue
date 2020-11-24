@@ -1,5 +1,16 @@
 <template>
     <q-page class="q-pa-lg">
+        <loading-alert :display="displayLoading"></loading-alert>
+        <ygo-alert
+            :display="displayAlert"
+            :title="alertTitle"
+            :message="alertMessage"
+            :type="alertType"
+            @accept="
+                displayAlert = false
+                statusDialog = false
+            "
+        ></ygo-alert>
         <div class="row q-mb-lg">
             <div class="text-h5">
                 <div class="col q-px-md">Gestor de facturas</div>
@@ -43,116 +54,130 @@
                 <q-input dense filled label="Factura" type="number" v-model="searchInvoice" />
             </div>
         </div>
-        <div class="row q-mb-xl">
-            <div class="col q-px-md">
-                <q-table
-                    :data="filterTableData"
-                    :columns="invoicesColumns"
-                    row-key="name"
-                    :pagination.sync="initialPagination"
-                    class="full-width"
-                    title="Facturas"
-                >
-                    <template v-slot:header="props">
-                        <q-tr :props="props">
-                            <q-th v-for="col in props.cols" :key="col.name" :props="props">{{
-                                col.label
-                            }}</q-th>
-                            <q-th>Reenviar</q-th>
-                        </q-tr>
-                    </template>
+        <div v-if="Object.keys(invoicesData).length > 0">
+            <div class="row q-mb-xl">
+                <div class="col q-px-md">
+                    <q-table
+                        :data="filterTableData"
+                        :columns="invoicesColumns"
+                        row-key="name"
+                        :pagination.sync="initialPagination"
+                        class="full-width"
+                        title="Facturas"
+                    >
+                        <template v-slot:header="props">
+                            <q-tr :props="props">
+                                <q-th v-for="col in props.cols" :key="col.name" :props="props">{{
+                                    col.label
+                                }}</q-th>
+                                <q-th>Reenviar</q-th>
+                            </q-tr>
+                        </template>
 
-                    <template v-slot:body="props">
-                        <q-tr :props="props">
-                            <q-td key="No" :props="props">
-                                <router-link
-                                    :to="`/invoice-details/${props.row.id}`"
-                                    class="text-primary"
-                                    >{{ props.row.No }}</router-link
-                                >
-                            </q-td>
-                            <q-td key="box" :props="props">
-                                <router-link
-                                    :to="returnBoxId(props.row.box)"
-                                    class="text-primary"
-                                    >{{ props.row.box }}</router-link
-                                >
-                            </q-td>
-                            <q-td key="price" :props="props">
-                                {{ props.row.price }}
-                            </q-td>
-                            <q-td key="status" :props="props">
-                                <q-btn
-                                    :color="returnStatus(props.row.status).color"
-                                    class="text-white"
-                                    rounded
-                                    size="sm"
-                                    @click="statusDialog = true"
-                                >
-                                    <i
-                                        :class="
-                                            `fas fa-${returnStatus(props.row.status).icon} q-mr-sm`
-                                        "
-                                    ></i>
-                                    {{ returnStatus(props.row.status).status }}
-                                </q-btn>
-                            </q-td>
-                            <q-td key="packages" :props="props">
-                                {{ returnPackagesAmount(props.row.packages) }}
-                            </q-td>
+                        <template v-slot:body="props">
+                            <q-tr :props="props">
+                                <q-td key="No" :props="props">
+                                    <router-link
+                                        :to="`/invoice-details/${props.row.id}`"
+                                        class="text-primary"
+                                        >{{ props.row.No }}</router-link
+                                    >
+                                </q-td>
+                                <q-td key="box" :props="props">
+                                    <router-link
+                                        :to="returnBoxId(props.row.box)"
+                                        class="text-primary"
+                                        >{{ props.row.box }}</router-link
+                                    >
+                                </q-td>
+                                <q-td key="price" :props="props">
+                                    {{ props.row.price }}
+                                </q-td>
+                                <q-td key="status" :props="props">
+                                    <q-btn
+                                        :color="returnStatus(props.row.status).color"
+                                        class="text-white"
+                                        rounded
+                                        size="sm"
+                                        @click="assignWorkingInvoice(props.row)"
+                                    >
+                                        <i
+                                            :class="`fas fa-${
+                                                returnStatus(props.row.status).icon
+                                            } q-mr-sm`"
+                                        ></i>
+                                        {{ returnStatus(props.row.status).status }}
+                                    </q-btn>
+                                </q-td>
+                                <q-td key="packages" :props="props">
+                                    {{ returnPackagesAmount(props.row.packages) }}
+                                </q-td>
 
-                            <q-td key="date" :props="props">
-                                {{ returnFormatedTime(props.row.creationTime) }}
-                            </q-td>
+                                <q-td key="date" :props="props">
+                                    {{ returnFormatedTime(props.row.creationTime) }}
+                                </q-td>
 
-                            <q-td auto-width>
-                                <q-btn
-                                    size="sm"
-                                    color="primary"
-                                    round
-                                    dense
-                                    icon="fas fa-envelope"
-                                    flat
-                                />
-                            </q-td>
-                        </q-tr>
-                    </template>
-                </q-table>
+                                <q-td auto-width>
+                                    <q-btn
+                                        size="sm"
+                                        color="primary"
+                                        round
+                                        dense
+                                        icon="fas fa-envelope"
+                                        flat
+                                    />
+                                </q-td>
+                            </q-tr>
+                        </template>
+                    </q-table>
+                </div>
             </div>
+            <q-dialog v-model="statusDialog">
+                <q-card style="width: 300px">
+                    <q-card-section>
+                        <div class="text-h6">Estado de factura</div>
+                    </q-card-section>
+                    <q-card-section>
+                        <div class="row">
+                            <q-btn
+                                outline
+                                color="red"
+                                label="Pendiente"
+                                class="full-width q-mb-md"
+                                @click="changeInvoiceStatus('unpaid')"
+                            />
+                        </div>
+                        <div class="row">
+                            <q-btn
+                                outline
+                                color="green"
+                                label="Pagado"
+                                class="full-width q-mb-md"
+                                @click="changeInvoiceStatus('payed')"
+                            />
+                        </div>
+                        <div class="row">
+                            <q-btn
+                                outline
+                                color="primary"
+                                label="Entregado"
+                                class="full-width q-mb-md"
+                                @click="changeInvoiceStatus('delivered')"
+                            />
+                        </div>
+                        <div class="row">
+                            <q-btn
+                                outline
+                                color="amber"
+                                label="..STATUS.."
+                                class="full-width q-mb-md"
+                                @click="changeInvoiceStatus('somethingelse')"
+                            />
+                        </div>
+                    </q-card-section>
+                </q-card>
+            </q-dialog>
         </div>
-        <q-dialog v-model="statusDialog">
-            <q-card style="width: 300px">
-                <q-card-section>
-                    <div class="text-h6">
-                        Estado de factura
-                    </div>
-                </q-card-section>
-                <q-card-section>
-                    <div class="row">
-                        <q-btn outline color="red" label="Pendiente" class="full-width q-mb-md" />
-                    </div>
-                    <div class="row">
-                        <q-btn outline color="green" label="Pagado" class="full-width q-mb-md" />
-                    </div>
-                    <div class="row">
-                        <q-btn
-                            outline
-                            color="primary"
-                            label="Entregado"
-                            class="full-width q-mb-md"
-                        />
-                    </div>
-                    <div class="row">
-                        <q-btn
-                            outline
-                            color="amber"
-                            label="..STATUS.."
-                            class="full-width q-mb-md"
-                        />
-                    </div>
-                </q-card-section>
-            </q-card>
-        </q-dialog>
     </q-page>
 </template>
 
@@ -235,9 +260,43 @@ export default {
             ],
             invoicesData: [],
             allUsers: [],
+            workingInvoice: '',
+            displayLoading: false,
+            displayAlert: false,
+            alertTitle: '',
+            alertMessage: '',
+            alertType: '',
         }
     },
     methods: {
+        assignWorkingInvoice(invoice) {
+            this.workingInvoice = invoice
+            this.statusDialog = true
+        },
+        changeInvoiceStatus(status) {
+            this.displayLoading = true
+            this.displayAlert = false
+            let obj = {...this.workingInvoice}
+            obj.status = status
+            let id = obj.id
+            delete obj.id
+            api.UpdateInvoiceInformationById({id: id, invoice: obj})
+                .then(response => {
+                    this.displayLoading = false
+                    this.alertTitle = 'Exito!'
+                    this.alertMessage = 'Se ha actualizado con exito'
+                    this.alertType = 'success'
+                    this.displayAlert = true
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage = 'Hubo un error con la peticion'
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                })
+        },
         returnBoxId(box) {
             let userId = this.allUsers.find(user => user.box === box).id
             return `/user-details/${userId}`
@@ -280,9 +339,7 @@ export default {
                 if (
                     invoice.No.toString(10).includes(this.searchInvoice) &&
                     invoice.box.includes(this.searchBox) &&
-                    moment(invoice.creationTime)
-                        .format('YYYY/MM/DD')
-                        .includes(this.searchDate) &&
+                    moment(invoice.creationTime).format('YYYY/MM/DD').includes(this.searchDate) &&
                     invoice.status.includes(this.searchStatus)
                 )
                     data.push(invoice)

@@ -95,6 +95,10 @@ export const returnAllInvoiceByUid = data =>
     Request.post('/returnAllInvoiceByUid', data, {
         'Content-Type': 'application/json',
     })
+export const UpdateInvoiceInformationById = data =>
+    Request.post('/UpdateInvoiceInformationById', data, {
+        'Content-Type': 'application/json',
+    })
 //USER PROFILE
 export const returnUserProfileInformation = data =>
     Request.post('/returnUserProfileInformation', data, {
