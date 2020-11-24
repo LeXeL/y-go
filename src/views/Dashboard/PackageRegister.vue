@@ -47,7 +47,7 @@
                     >
                 </div>
                 <div class="col-lg-2 q-px-md">
-                    <q-btn color="primary" push class="full-width">
+                    <q-btn color="primary" push class="full-width" @click="handleInvoices()">
                         <i class="fas fa-mail-bulk on-left"></i>
                         Guardar y enviar
                     </q-btn>
@@ -434,9 +434,9 @@
                     </q-card-actions>
                 </q-card>
             </q-dialog>
-            <q-page-sticky position="bottom-right" :offset="[18, 18]">
-                <q-btn fab icon="fas fa-file-alt" color="accent" @click="handleInvoices()" />
-            </q-page-sticky>
+            <!-- <q-page-sticky position="bottom-right" :offset="[18, 18]">
+                <q-btn fab icon="fas fa-file-alt" color="accent"  />
+            </q-page-sticky> -->
         </div>
     </q-page>
 </template>
