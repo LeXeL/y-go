@@ -7,16 +7,16 @@
                     :src="require('@/assets/logo_ygo.png')"
                     style="width: 75px; margin-top: 5px;"
                 />
-                <!-- <q-btn
+                <q-btn
                     flat
                     color="secondary"
-                    class="hide-in-desktop q-mt-sm"
+                    class="hide-in-desktop q-mt-sm on-right"
                     style="float: right"
                     round
                     @click="openDrawer"
                 >
                     <i class="fas fa-bars"></i>
-                </q-btn> -->
+                </q-btn>
                 <q-btn
                     v-if="!isAuthenticated"
                     push

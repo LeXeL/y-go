@@ -29,8 +29,12 @@
                 <q-separator dark class="q-mb-lg" />
                 <div class="q-px-md">
                     <ul class="drawer-link">
-                        <li>
-                            <router-link to="/">Inicio</router-link>
+                        <li v-for="(link, i) in navLinks" :key="i">
+                            <router-link
+                                :to="link.route"
+                                style="text-decoration: none; color: #fff;"
+                                >{{ link.text }}</router-link
+                            >
                         </li>
                     </ul>
                 </div>
@@ -84,9 +88,12 @@ export default {
 @import './../styles/style.css';
 
 .drawer-link {
-    text-decoration: none;
-    color: #fff !important;
     text-align: right;
     list-style-type: none;
+    font-size: 30px;
+}
+
+.drawer-link li {
+    margin-bottom: 15px;
 }
 </style>
