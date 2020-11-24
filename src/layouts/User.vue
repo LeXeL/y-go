@@ -100,7 +100,7 @@
 
                                         <q-item-section>
                                             <q-item-label lines="1"
-                                                >Perfil y direccion</q-item-label
+                                                >Perfil y direccion de entrega</q-item-label
                                             >
                                             <q-item-label caption
                                                 >Edita tu informacion y direccion de

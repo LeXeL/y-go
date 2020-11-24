@@ -52,7 +52,58 @@
                 </div>
             </div>
             <div class="row q-mb-md">
-                <div class="col">
+                <div class="col q-pa-sm">
+                    <div
+                        :class="
+                            selectedRateId == 'plan_basico_id'
+                                ? 'rateTileSelected q-pa-md rounded-borders text-center'
+                                : 'rateTile q-pa-md rounded-borders text-center'
+                        "
+                        @click="selectedRateId = 'plan_basico_id'"
+                    >
+                        <i class="fas fa-weight fa-2x q-mb-sm"></i>
+                        <div class="text-h6 q-mb-sm text-bold">
+                            Plan Basico
+                        </div>
+                        <q-separator class="q-mb-sm" :dark="selectedRateId == 'plan_basico_id'" />
+                        <div class="text-subtitle2">Texto punto 1</div>
+                        <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
+                        <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
+                        <div class="text-h5 text-bold q-mt-md">$ 2.50</div>
+                    </div>
+                </div>
+                <div class="col q-pa-sm">
+                    <div
+                        :class="
+                            selectedRateId == 'plan_cerovol_id'
+                                ? 'rateTileSelected q-pa-md rounded-borders text-center'
+                                : 'rateTile q-pa-md rounded-borders text-center'
+                        "
+                        @click="selectedRateId = 'plan_cerovol_id'"
+                    >
+                        <i class="fas fa-ruler-combined fa-2x q-mb-sm"></i>
+                        <div class="text-h6 q-mb-sm text-bold">
+                            Plan Cero Volumen
+                        </div>
+                        <q-separator class="q-mb-sm" :dark="selectedRateId == 'plan_cerovol_id'" />
+                        <div class="text-subtitle2">Texto punto 1</div>
+                        <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
+                        <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
+                        <div class="text-h5 text-bold q-mt-md">$ 3.00</div>
+                    </div>
+                </div>
+                <div class="col q-pa-sm">
+                    <div class="bg-grey-3 q-pa-md rounded-borders text-center">
+                        <i class="fas fa-building fa-2x q-mb-md"></i>
+                        <div class="text-h6 q-mb-sm text-primary text-bold">Plan Business</div>
+                        <q-separator class="q-mb-sm" />
+                        <div class="text-subtitle2">Texto punto 1</div>
+                        <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
+                        <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
+                        <q-btn class="q-mt-md" label="Contactar" size="sm" color="accent" push />
+                    </div>
+                </div>
+                <!-- <div class="col">
                     <q-select
                         :options="['Basico', 'Cero Volumen']"
                         filled
@@ -63,7 +114,7 @@
                     >
                         <template v-slot:hint> Ultima actualizacion: 10/09/2020 </template>
                     </q-select>
-                </div>
+                </div> -->
             </div>
             <div class="row q-mb-md">
                 <div class="col">
@@ -71,7 +122,7 @@
                         type="textarea"
                         filled
                         rows="4"
-                        label="Direccion"
+                        label="Direccion de entrega"
                         v-model="userInformationData.user.address"
                         :disable="!editInformation"
                     />
@@ -125,6 +176,7 @@ export default {
             alertTitle: '',
             alertMessage: '',
             alertType: '',
+            selectedRateId: 'plan_basico_id',
         }
     },
     methods: {
@@ -196,3 +248,28 @@ export default {
     },
 }
 </script>
+
+<style>
+.rateTile {
+    background-color: #eee;
+    cursor: pointer;
+}
+
+.rateTile .text-h6 {
+    color: #01bcd4;
+}
+
+.rateTile .text-h5 {
+    color: #ff5722;
+}
+
+.rateTile .text-subtitle2 {
+    color: #000;
+}
+
+.rateTileSelected {
+    background-color: #ff5722;
+    cursor: pointer;
+    color: #fff;
+}
+</style>
