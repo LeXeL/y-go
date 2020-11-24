@@ -5,7 +5,7 @@
         <!-- END SOCIAL LINKS -->
 
         <!-- NAVIGATION BAR -->
-        <Navbar />
+        <Navbar :navLinks="navLinks" @open-drawer="drawer = true" />
         <!-- END NAVIGATION BAR -->
         <q-page-container>
             <router-view />
@@ -23,18 +23,20 @@
                     <div class="text-h6 text-weight-bolder">Menu</div>
                     <q-space />
                     <q-btn flat color="secondary" round size="sm" @click="drawer = false">
-                        <i class="fas fa-times"></i>
+                        <i class="fas fa-times fa-2x"></i>
                     </q-btn>
                 </div>
                 <q-separator dark class="q-mb-lg" />
                 <div class="q-px-md">
-                    <q-btn
-                        push
-                        label="Iniciar sesion"
-                        color="accent"
-                        style="float: right; margin-top: 12px"
-                        to="/login"
-                    />
+                    <ul class="drawer-link">
+                        <li v-for="(link, i) in navLinks" :key="i">
+                            <router-link
+                                :to="link.route"
+                                style="text-decoration: none; color: #fff;"
+                                >{{ link.text }}</router-link
+                            >
+                        </li>
+                    </ul>
                 </div>
             </div>
         </q-drawer>
@@ -53,6 +55,24 @@ export default {
     data() {
         return {
             drawer: false,
+            navLinks: [
+                {
+                    text: 'Inicio',
+                    route: '/',
+                },
+                {
+                    text: 'Tarifas',
+                    route: '/',
+                },
+                {
+                    text: 'Nosotros',
+                    route: '/',
+                },
+                {
+                    text: 'Contacto',
+                    route: '/',
+                },
+            ],
         }
     },
 
@@ -66,4 +86,14 @@ export default {
 
 <style>
 @import './../styles/style.css';
+
+.drawer-link {
+    text-align: right;
+    list-style-type: none;
+    font-size: 30px;
+}
+
+.drawer-link li {
+    margin-bottom: 15px;
+}
 </style>
