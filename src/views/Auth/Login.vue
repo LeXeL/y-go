@@ -21,11 +21,13 @@
                     />
                     <q-btn
                         color="accent"
-                        label="Iniciar sesion"
                         class="q-mb-md full-width text-weight-bolder"
                         push
                         @click="login"
-                    />
+                    >
+                        <span v-if="!displayLoading">Iniciar sesion</span>
+                        <q-spinner-facebook v-if="displayLoading" color="white" size="1em"
+                    /></q-btn>
                     <q-card-section v-if="dismissCountDown > 0" class="q-px-none">
                         <q-banner inline-actions rounded class="bg-red text-white">
                             {{ errorMessage }}
@@ -72,10 +74,12 @@ export default {
             dismissCountDown: 0,
             errorMessage: '',
             currentUser: '',
+            displayLoading: false,
         }
     },
     methods: {
         async login() {
+            this.displayLoading = true
             firebase
                 .auth()
                 .signInWithEmailAndPassword(this.email, this.password)
@@ -98,11 +102,14 @@ export default {
                         this.dismissCountDown = this.dismissSecs
                         this.errorMessage =
                             'La cuenta aun no se ha verificado, por favor revisa tu correo'
+                        this.displayLoading = false
                     }
                 })
 
                 .catch(error => {
                     this.dismissCountDown = this.dismissSecs
+                    this.displayLoading = false
+
                     switch (error.code) {
                         case 'auth/user-disabled':
                             this.errorMessage =
