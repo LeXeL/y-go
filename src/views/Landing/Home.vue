@@ -272,14 +272,15 @@ export default {
                             })
                         })
                         .then(async () => {
-                            // await api
-                            //     .getUserInformationById({
-                            //         uid: user.user.uid,
-                            //     })
-                            //     .then(response => {
-
-                            // this.$store.commit('SET_USER', response.data.data)
-                            //     })
+                            firebase
+                                .auth()
+                                .signOut()
+                                .then(async () => {
+                                    await this.$store.dispatch('UserLogout')
+                                })
+                                .catch(error => {
+                                    console.log(error)
+                                })
                             this.displayLoading = false
                             this.alertTitle = '¡Bienvenido!'
                             this.alertMessage =
