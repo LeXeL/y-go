@@ -54,7 +54,7 @@
                 <q-input dense filled label="Factura" type="number" v-model="searchInvoice" />
             </div>
         </div>
-        <div v-if="Object.keys(invoicesData).length > 0">
+        <div>
             <div class="row q-mb-xl">
                 <div class="col q-px-md">
                     <q-table
@@ -298,14 +298,14 @@ export default {
                 })
         },
         returnBoxId(box) {
-            let userId = this.allUsers.find(user => user.box === box).id
-            return `/user-details/${userId}`
+            let userId = this.allUsers.find(user => user.box === box)
+            return userId !== undefined ? `/user-details/${userId.id}` : 'NaN'
         },
         returnFormatedTime(time) {
-            return moment(time).format('DD/MM/YYYY')
+            if (time) return moment(time).format('DD/MM/YYYY')
         },
         returnPackagesAmount(packages) {
-            return parseInt(packages.length)
+            if (packages) return parseInt(packages.length)
         },
         addToData(id, data) {
             data.id = id

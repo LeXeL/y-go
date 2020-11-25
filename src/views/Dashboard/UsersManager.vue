@@ -27,35 +27,16 @@
                     <q-input dense filled label="Nombre" v-model="searchName" />
                 </div>
                 <div class="col-lg-2 q-px-md">
-                    <q-input
-                        dense
-                        filled
-                        label="Apellido"
-                        v-model="searchLastName"
-                    />
+                    <q-input dense filled label="Apellido" v-model="searchLastName" />
                 </div>
                 <div class="col-lg-2 q-px-md">
-                    <q-input
-                        dense
-                        filled
-                        label="Correo"
-                        v-model="searchEmail"
-                    />
+                    <q-input dense filled label="Correo" v-model="searchEmail" />
                 </div>
                 <div class="col-lg-2 q-px-md">
-                    <q-input
-                        dense
-                        filled
-                        label="Casillero"
-                        v-model="searchBox"
-                    />
+                    <q-input dense filled label="Casillero" v-model="searchBox" />
                 </div>
                 <div class="col-lg-1 q-px-md">
-                    <q-btn
-                        color="primary"
-                        label="Buscar"
-                        @click="filterContent()"
-                    />
+                    <q-btn color="primary" label="Buscar" @click="filterContent()" />
                 </div>
             </div>
             <div class="row q-mb-xl">
@@ -70,36 +51,23 @@
                     >
                         <template v-slot:header="props">
                             <q-tr :props="props">
-                                <q-th
-                                    v-for="col in props.cols"
-                                    :key="col.name"
-                                    :props="props"
-                                    >{{ col.label }}</q-th
-                                >
+                                <q-th v-for="col in props.cols" :key="col.name" :props="props">{{
+                                    col.label
+                                }}</q-th>
                                 <q-th>Editar</q-th>
                             </q-tr>
                         </template>
 
                         <template v-slot:body="props">
                             <q-tr :props="props">
-                                <q-td key="name" :props="props">{{
-                                    props.row.name
-                                }}</q-td>
-                                <q-td key="lastName" :props="props">{{
-                                    props.row.lastName
-                                }}</q-td>
-                                <q-td key="email" :props="props">{{
-                                    props.row.email
-                                }}</q-td>
-                                <q-td key="box" :props="props">{{
-                                    props.row.box
-                                }}</q-td>
+                                <q-td key="name" :props="props">{{ props.row.name }}</q-td>
+                                <q-td key="lastName" :props="props">{{ props.row.lastName }}</q-td>
+                                <q-td key="email" :props="props">{{ props.row.email }}</q-td>
+                                <q-td key="box" :props="props">{{ props.row.box }}</q-td>
                                 <q-td key="rate" :props="props">{{
                                     returnRateName(props.row.rate)
                                 }}</q-td>
-                                <q-td key="role" :props="props">{{
-                                    props.row.role
-                                }}</q-td>
+                                <q-td key="role" :props="props">{{ props.row.role }}</q-td>
                                 <q-td auto-width>
                                     <q-btn
                                         size="sm"
@@ -132,32 +100,22 @@
                     >
                         <template v-slot:header="props">
                             <q-tr :props="props">
-                                <q-th
-                                    v-for="col in props.cols"
-                                    :key="col.name"
-                                    :props="props"
-                                    >{{ col.label }}</q-th
-                                >
+                                <q-th v-for="col in props.cols" :key="col.name" :props="props">{{
+                                    col.label
+                                }}</q-th>
                                 <q-th>Eliminar</q-th>
                             </q-tr>
                         </template>
 
                         <template v-slot:body="props">
                             <q-tr :props="props">
-                                <q-td key="name" :props="props">{{
-                                    props.row.name
-                                }}</q-td>
+                                <q-td key="name" :props="props">{{ props.row.name }}</q-td>
                                 <q-td key="rate" :props="props"
                                     >$
                                     {{ parseFloat(props.row.rate).toFixed(2) }}
                                     <q-popup-edit
                                         v-model="props.row.rate"
-                                        @save="
-                                            updateRate(
-                                                props.row.id,
-                                                props.row.rate
-                                            )
-                                        "
+                                        @save="updateRate(props.row.id, props.row.rate)"
                                         title="Actualizar Tarifa"
                                         buttons
                                     >
@@ -167,9 +125,7 @@
                                             dense
                                             autofocus
                                             :rules="[
-                                                val =>
-                                                    !!val ||
-                                                    'El campo es obligatorio',
+                                                val => !!val || 'El campo es obligatorio',
                                             ]" /></q-popup-edit
                                 ></q-td>
                                 <q-td auto-width>
@@ -223,12 +179,7 @@
             </q-card>
         </q-dialog>
         <q-page-sticky position="bottom-right" :offset="[18, 18]">
-            <q-btn
-                fab
-                icon="fas fa-dollar-sign"
-                color="accent"
-                @click="ratesDialog = true"
-            />
+            <q-btn fab icon="fas fa-dollar-sign" color="accent" @click="ratesDialog = true" />
         </q-page-sticky>
     </q-page>
 </template>
@@ -328,14 +279,8 @@ export default {
     },
     methods: {
         returnRateName(rateId) {
-            let rateName
-            rateName = this.ratesData.filter(rate => {
-                if (rate.id === rateId) {
-                    return rate
-                }
-            })[0]
-
-            return rateName === null ? 'NaN' : rateName.name
+            let rateName = this.ratesData.find(rate => rate.id === rateId)
+            return rateName !== undefined ? rateName.name : 'NaN'
         },
         updateRate(id, rate) {
             this.displayLoading = true
@@ -355,8 +300,7 @@ export default {
                     console.log(error)
                     this.displayLoading = false
                     this.alertTitle = 'Error'
-                    this.alertMessage =
-                        'Hubo un error con tu peticion intentalo mas tarde.'
+                    this.alertMessage = 'Hubo un error con tu peticion intentalo mas tarde.'
                     this.alertType = 'error'
                     this.displayAlert = true
                 })
@@ -366,11 +310,7 @@ export default {
                 api.ReturnAllRates().then(response => {
                     this.ratesData = response.data.data
                     this.ratesData = this.ratesData.sort(function (x, y) {
-                        return x.name == 'Default'
-                            ? -1
-                            : y.name == 'Default'
-                            ? 1
-                            : 0
+                        return x.name == 'Default' ? -1 : y.name == 'Default' ? 1 : 0
                     })
                 })
             } catch (error) {
@@ -447,44 +387,28 @@ export default {
                 this.filteredUserData = this.usersData
             if (this.searchName) {
                 this.filteredUserData = this.usersData.filter(user => {
-                    if (
-                        user.name
-                            .toLowerCase()
-                            .includes(this.searchName.toLowerCase())
-                    ) {
+                    if (user.name.toLowerCase().includes(this.searchName.toLowerCase())) {
                         return user
                     }
                 })
             }
             if (this.searchLastName) {
                 this.filteredUserData = this.usersData.filter(user => {
-                    if (
-                        user.lastName
-                            .toLowerCase()
-                            .includes(this.searchLastName.toLowerCase())
-                    ) {
+                    if (user.lastName.toLowerCase().includes(this.searchLastName.toLowerCase())) {
                         return user
                     }
                 })
             }
             if (this.searchEmail) {
                 this.filteredUserData = this.usersData.filter(user => {
-                    if (
-                        user.email
-                            .toLowerCase()
-                            .includes(this.searchEmail.toLowerCase())
-                    ) {
+                    if (user.email.toLowerCase().includes(this.searchEmail.toLowerCase())) {
                         return user
                     }
                 })
             }
             if (this.searchBox) {
                 this.filteredUserData = this.usersData.filter(user => {
-                    if (
-                        user.box
-                            .toLowerCase()
-                            .includes(this.searchBox.toLowerCase())
-                    ) {
+                    if (user.box.toLowerCase().includes(this.searchBox.toLowerCase())) {
                         return user
                     }
                 })
