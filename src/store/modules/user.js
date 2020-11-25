@@ -2,7 +2,7 @@
 
 export default {
     state: {
-        user: null,
+        user: '',
         isVerified: '',
         token: localStorage.getItem('user-token') || '',
         uid: localStorage.getItem('uid') || '',
