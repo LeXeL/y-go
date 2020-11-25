@@ -711,6 +711,7 @@ export default {
                 this.displayAlert = true
                 return
             }
+            await this.updatePackageInCurrentTable()
             api.CreateInvoiceOnDatabase({by: this.user})
                 .then(() => {
                     this.displayLoading = false
