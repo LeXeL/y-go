@@ -50,6 +50,12 @@
                                 </q-item-section>
                             </q-item>
                             <q-separator />
+                            <q-item clickable v-close-popup v-if="user.role === 'admin'">
+                                <q-item-section @click="$router.push('/admin')">
+                                    <span> <i class="fas fa-cogs on-left"></i>Admin Panel </span>
+                                </q-item-section>
+                            </q-item>
+                            <q-separator v-if="user.role === 'admin'" />
                             <q-item clickable v-close-popup @click="logout()">
                                 <q-item-section>
                                     <span>
@@ -79,6 +85,11 @@ export default {
     props: ['navLinks'],
     data() {
         return {}
+    },
+    computed: {
+        user() {
+            return this.$store.getters.user
+        },
     },
     methods: {
         openDrawer() {

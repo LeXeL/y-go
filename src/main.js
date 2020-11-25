@@ -38,12 +38,10 @@ Vue.use(VueGoogleMaps, {
 firebase.initializeApp(firebaseConfig)
 
 firebase.auth().onAuthStateChanged(user => {
-    if (user && store.getters.user === '') {
-        store.dispatch('setCurrentUser', user)
-        api.getUserInformationById({uid: user.uid}).then(response => {
-            store.commit('SET_USER', response.data.data)
-        })
-    }
+    store.dispatch('setCurrentUser', user)
+    api.getUserInformationById({uid: user.uid}).then(response => {
+        store.commit('SET_USER', response.data.data)
+    })
 })
 
 new Vue({
