@@ -24,6 +24,7 @@
                         class="q-mb-md full-width text-weight-bolder"
                         push
                         @click="login"
+                        :disable="displayLoading"
                     >
                         <span v-if="!displayLoading">Iniciar sesion</span>
                         <q-spinner-facebook v-if="displayLoading" color="white" size="1em"
