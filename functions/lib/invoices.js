@@ -65,6 +65,7 @@ async function createInvoice(by) {
                     .then(docRef => {
                         element.forEach(package => {
                             package.invoice = docRef.id
+                            console.log(`Ref: ${JSON.stringify(docRef.id)}`)
                             console.log(package)
                             packages.updatePackageById(package.id, package)
                         })
