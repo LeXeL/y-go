@@ -711,14 +711,6 @@ export default {
                 this.displayAlert = true
                 return
             }
-            if (!this.updatedDatabase) {
-                this.displayLoading = false
-                this.alertTitle = 'Error'
-                this.alertMessage = 'Debes asegurate de actualizar primero la base de datos.'
-                this.alertType = 'error'
-                this.displayAlert = true
-                return
-            }
             api.CreateInvoiceOnDatabase({by: this.user})
                 .then(() => {
                     this.displayLoading = false
