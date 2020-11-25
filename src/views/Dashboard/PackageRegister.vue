@@ -711,22 +711,35 @@ export default {
                 this.displayAlert = true
                 return
             }
-            await this.updatePackageInCurrentTable()
-            api.CreateInvoiceOnDatabase({by: this.user})
+            api.UpdateGroupPackages({
+                packages: this.filteredPackagesData,
+            })
                 .then(() => {
-                    this.displayLoading = false
-                    this.alertTitle = 'Exito!'
-                    this.alertMessage = 'Hemos generado todas las facturas correspondientes.'
-                    this.alertType = 'success'
-                    this.displayAlert = true
-                    this.redirect = '/invoice-manager'
+                    api.CreateInvoiceOnDatabase({by: this.user})
+                        .then(() => {
+                            this.displayLoading = false
+                            this.alertTitle = 'Exito!'
+                            this.alertMessage =
+                                'Hemos generado todas las facturas correspondientes.'
+                            this.alertType = 'success'
+                            this.displayAlert = true
+                            this.redirect = '/invoice-manager'
+                        })
+                        .catch(error => {
+                            this.displayLoading = false
+                            console.log(error)
+                            this.alertTitle = 'Hubo un Error!'
+                            this.alertMessage =
+                                'Hubo un error con tu peticion por favor intentalo mas tarde.'
+                            this.alertType = 'error'
+                            this.displayAlert = true
+                        })
                 })
                 .catch(error => {
-                    this.displayLoading = false
                     console.log(error)
-                    this.alertTitle = 'Hubo un Error!'
-                    this.alertMessage =
-                        'Hubo un error con tu peticion por favor intentalo mas tarde.'
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage = error
                     this.alertType = 'error'
                     this.displayAlert = true
                 })
@@ -764,7 +777,7 @@ export default {
                 .then(() => {
                     this.displayLoading = false
                     this.alertTitle = 'Exito!'
-                    this.alertMessage = 'Se ha cambiado con exito'
+                    this.alertMessage = 'Se ha guardado con exito'
                     this.alertType = 'success'
                     this.displayAlert = true
                 })
