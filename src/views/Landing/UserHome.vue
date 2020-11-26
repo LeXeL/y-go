@@ -40,9 +40,25 @@
             </q-tr>
             <q-tr v-show="props.expand" :props="props">
                 <q-td colspan="100%">
-                    <div class="text-left" v-for="(pckg, i) in props.row.packages" :key="i">
-                        {{ pckg.tracking }}
+                    <div>
+                        Fecha:
+                        <span class="text-bold text-accent">{{
+                            returnFormatedTime(props.row.creationTime)
+                        }}</span>
                     </div>
+                    <div>
+                        Paquetes:
+                        <span class="text-bold text-accent">{{ props.row.packages.length }}</span>
+                    </div>
+                    <br />
+                    <div class="row text-left" v-for="(pckg, i) in props.row.packages" :key="i">
+                        <div class="col-8">{{ pckg.tracking }}</div>
+                        <div class="col-2">{{ pckg.weight }}lbs</div>
+                        <div class="col-2">$ {{ pckg.price }}</div>
+                    </div>
+                    <!-- <div class="text-left" v-for="(pckg, i) in props.row.packages" :key="i">
+                        {{ pckg.weight }}lbs - {{ pckg.tracking }}
+                    </div> -->
                 </q-td>
             </q-tr>
         </template>
@@ -63,8 +79,8 @@ export default {
             columns: [
                 {name: 'No', label: 'No. Factura', field: 'No', sortable: true},
                 {name: 'price', label: 'Monto ($)', field: 'price', sortable: true},
-                {name: 'packages', label: 'Paquetes', field: 'packages', sortable: true},
-                {name: 'creationTime', label: 'Fecha', field: 'creationTime', sortable: true},
+                // {name: 'packages', label: 'Paquetes', field: 'packages', sortable: true},
+                // {name: 'creationTime', label: 'Fecha', field: 'creationTime', sortable: true},
                 {name: 'status', label: 'Estatus', field: 'status', sortable: true},
             ],
         }
