@@ -312,6 +312,16 @@ export default {
     },
     mounted() {
         if (this.getUrlParam('reg') == 'true') this.showRegisterForm = true
+        let displayMode = 'browser tab'
+        if (navigator.standalone) {
+            displayMode = 'standalone-ios'
+        }
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            displayMode = 'standalone'
+        }
+        if (displayMode == 'standalone-ios' || displayMode == 'standalone')
+            this.$router.push('/user')
+        console.log('DISPLAY_MODE_LAUNCH:', displayMode)
     },
 }
 </script>
