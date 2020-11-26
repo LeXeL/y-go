@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="row q-mb-md">
-                <div class="col q-pa-sm">
+                <div class="col-lg-4 col-xs-12 q-pa-sm">
                     <div
                         :class="
                             selectedRateId == 'plan_basico_id'
@@ -72,7 +72,7 @@
                         <div class="text-h5 text-bold q-mt-md">$ 2.50</div>
                     </div>
                 </div>
-                <div class="col q-pa-sm">
+                <div class="col-lg-4 col-xs-12 q-pa-sm">
                     <div
                         :class="
                             selectedRateId == 'plan_cerovol_id'
@@ -92,7 +92,7 @@
                         <div class="text-h5 text-bold q-mt-md">$ 3.00</div>
                     </div>
                 </div>
-                <div class="col q-pa-sm">
+                <div class="col-lg-4 col-xs-12 q-pa-sm">
                     <div class="bg-grey-3 q-pa-md rounded-borders text-center">
                         <i class="fas fa-building fa-2x q-mb-md"></i>
                         <div class="text-h6 q-mb-sm text-primary text-bold">Plan Business</div>
