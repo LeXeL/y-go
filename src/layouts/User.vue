@@ -15,47 +15,50 @@
                 <div class="row q-mt-lg">
                     <div class="col desktop-only"></div>
                     <div class="col-lg-7">
-                        <q-card class="q-mb-lg">
-                            <q-card-section>
-                                <div class="row">
-                                    <div class="col column">
-                                        <div class="text-primary">
-                                            <span class="text-h5">Bienvenido,</span>
-                                            &nbsp;
-                                            <span class="text-h3">{{ userName }}</span>
-                                        </div>
-                                        <div class="text-h5 text-accent">
-                                            Casillero:
-                                            <strong>{{ userInformation.user.box }}</strong>
-                                        </div>
-                                        <div class="text-subtitle2">
-                                            <br />
-                                            2478 NW 89TH AVE SUITE {{ userInformation.user.box }}
-                                            <br />
-                                            DORAL, FLORIDA 33143
-                                            <br />
-                                            United States
-                                            <br />Phone number: 7866673688
-                                        </div>
-                                    </div>
-                                    <div class="col-4 column flex-center">
-                                        <div class="row full-width q-mb-lg">
-                                            <div class="col">
-                                                <q-img
-                                                    :src="require('@/assets/logo_ygo.png')"
-                                                    style="width: 150px; display: inline-block"
-                                                />
+                        <div class="q-pa-sm">
+                            <q-card class="q-mb-lg">
+                                <q-card-section>
+                                    <div class="row">
+                                        <div class="col-lg-8 col-xs-12 column">
+                                            <div class="text-primary">
+                                                <span class="text-h5">Bienvenido,</span>
+                                                &nbsp;
+                                                <span class="text-h4">{{ userName }}</span>
                                             </div>
-                                            <div class="col column flex-center">
-                                                <div class="text-h3 text-primary">
-                                                    <strong>24</strong>
-                                                </div>
-                                                <div class="text-subtitle2 text-accent">
-                                                    <strong>Y-Go Libras</strong>
-                                                </div>
+                                            <div class="text-h5 text-accent">
+                                                Casillero:
+                                                <strong>{{ userInformation.user.box }}</strong>
+                                            </div>
+                                            <div class="text-subtitle2">
+                                                <br />
+                                                2478 NW 89TH AVE SUITE
+                                                {{ userInformation.user.box }}
+                                                <br />
+                                                DORAL, FLORIDA 33143
+                                                <br />
+                                                United States
+                                                <br />Phone number: 7866673688
                                             </div>
                                         </div>
-                                        <!-- <div class="text-h6 text-primary">Division Platino</div>
+                                        <div class="mobile-only q-pa-md"></div>
+                                        <div class="col-lg-4 col-xs-12 column flex-center">
+                                            <div class="row full-width q-mb-lg">
+                                                <div class="col">
+                                                    <q-img
+                                                        :src="require('@/assets/logo_ygo.png')"
+                                                        style="width: 150px; display: inline-block"
+                                                    />
+                                                </div>
+                                                <div class="col column flex-center">
+                                                    <div class="text-h3 text-primary">
+                                                        <strong>24</strong>
+                                                    </div>
+                                                    <div class="text-subtitle2 text-accent">
+                                                        <strong>Y-Go Libras</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="text-h6 text-primary">Division Platino</div>
                                         <q-linear-progress
                                             stripe
                                             rounded
@@ -65,18 +68,15 @@
                                             class="q-mt-sm q-mb-xs"
                                         />
                                         <div class="text-caption">75/100 pts.</div> -->
+                                        </div>
                                     </div>
-                                </div>
-                            </q-card-section>
-                        </q-card>
+                                </q-card-section>
+                            </q-card>
+                        </div>
+
                         <div class="row">
-                            <div class="col-4">
-                                <q-list
-                                    bordered
-                                    padding
-                                    class="rounded-borders"
-                                    style="max-width: 350px"
-                                >
+                            <div class="col-lg-4 col-xs-12 q-pa-sm">
+                                <q-list bordered padding class="rounded-borders">
                                     <q-item-label header>Menu</q-item-label>
                                     <q-separator />
                                     <q-item clickable v-ripple @click="showUserProfile = false">
@@ -121,7 +121,7 @@
                                     </q-item>
                                 </q-list>
                             </div>
-                            <div class="col">
+                            <div class="col-lg-8 col-xs-12 q-pa-sm">
                                 <UserHome
                                     v-if="!showUserProfile"
                                     :data="userInformation.invoices"
