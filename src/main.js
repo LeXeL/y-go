@@ -12,6 +12,7 @@ import './quasar'
 import firebase from 'firebase/app'
 
 import * as VueGoogleMaps from 'vue2-google-maps'
+import './registerServiceWorker'
 
 Vue.config.productionTip = false
 
