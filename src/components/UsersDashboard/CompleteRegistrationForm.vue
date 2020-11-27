@@ -16,26 +16,36 @@
                     </div>
                     <div class="row q-mb-md">
                         <div class="col">
-                            <q-input filled label="Nombre" class="on-left" />
+                            <q-input
+                                filled
+                                label="Nombre"
+                                class="on-left"
+                                v-model="registrationData.name"
+                            />
                         </div>
                         <div class="col">
-                            <q-input filled label="Apellido" class="on-right" />
+                            <q-input
+                                filled
+                                label="Apellido"
+                                class="on-right"
+                                v-model="registrationData.lastName"
+                            />
                         </div>
                     </div>
                     <div class="row q-mb-md">
                         <div class="col">
-                            <q-input filled label="Telefono" />
+                            <q-input filled label="Telefono" v-model="registrationData.phone" />
                         </div>
                     </div>
                     <div class="row q-mb-md">
                         <div class="col-lg-4 col-xs-12 q-pa-sm">
                             <div
                                 :class="
-                                    selectedRateId == 'plan_basico_id'
+                                    registrationData.selectedRateId == 'plan_basico_id'
                                         ? 'rateTileSelected q-pa-md rounded-borders text-center'
                                         : 'rateTile q-pa-md rounded-borders text-center'
                                 "
-                                @click="selectedRateId = 'plan_basico_id'"
+                                @click="registrationData.selectedRateId = 'plan_basico_id'"
                             >
                                 <i class="fas fa-weight fa-2x q-mb-sm"></i>
                                 <div class="text-h6 q-mb-sm text-bold">
@@ -43,7 +53,7 @@
                                 </div>
                                 <q-separator
                                     class="q-mb-sm"
-                                    :dark="selectedRateId == 'plan_basico_id'"
+                                    :dark="registrationData.selectedRateId == 'plan_basico_id'"
                                 />
                                 <div class="text-subtitle2">Texto punto 1</div>
                                 <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
@@ -54,11 +64,11 @@
                         <div class="col-lg-4 col-xs-12 q-pa-sm">
                             <div
                                 :class="
-                                    selectedRateId == 'plan_cerovol_id'
+                                    registrationData.selectedRateId == 'plan_cerovol_id'
                                         ? 'rateTileSelected q-pa-md rounded-borders text-center'
                                         : 'rateTile q-pa-md rounded-borders text-center'
                                 "
-                                @click="selectedRateId = 'plan_cerovol_id'"
+                                @click="registrationData.selectedRateId = 'plan_cerovol_id'"
                             >
                                 <i class="fas fa-ruler-combined fa-2x q-mb-sm"></i>
                                 <div class="text-h6 q-mb-sm text-bold">
@@ -66,7 +76,7 @@
                                 </div>
                                 <q-separator
                                     class="q-mb-sm"
-                                    :dark="selectedRateId == 'plan_cerovol_id'"
+                                    :dark="registrationData.selectedRateId == 'plan_cerovol_id'"
                                 />
                                 <div class="text-subtitle2">Texto punto 1</div>
                                 <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
@@ -96,7 +106,13 @@
                     </div>
                     <div class="row q-mb-md">
                         <div class="col">
-                            <q-input type="textarea" filled rows="4" label="Direccion de entrega" />
+                            <q-input
+                                type="textarea"
+                                filled
+                                rows="4"
+                                label="Direccion de entrega"
+                                v-model="registrationData.address"
+                            />
                         </div>
                     </div>
                     <div class="row q-mb-md">
@@ -111,7 +127,13 @@
         <q-card-actions>
             <div class="col desktop-only"></div>
             <div class="col-lg-5">
-                <q-btn color="accent" label="Continuar" push style="float: right" />
+                <q-btn
+                    color="accent"
+                    label="Continuar"
+                    push
+                    style="float: right"
+                    @click="submitForm()"
+                />
             </div>
             <div class="col desktop-only"></div>
         </q-card-actions>
@@ -122,8 +144,24 @@
 export default {
     data() {
         return {
-            selectedRateId: '',
+            registrationData: {
+                name: '',
+                lastName: '',
+                phone: '',
+                selectedRateId: '',
+                address: '',
+            },
         }
+    },
+    methods: {
+        submitForm() {
+            // 1. Validate info
+            // 2. Push data to DB
+            // 3. Await response
+            // 4. Dismiss dialog
+            console.log(this.registrationData)
+            this.$emit('close-registration-dialog')
+        },
     },
 }
 </script>

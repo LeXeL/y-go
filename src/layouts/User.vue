@@ -140,8 +140,16 @@
             </q-page>
         </q-page-container>
         <Footer />
-        <q-dialog v-model="completeRegistrationDialog" persistent maximized>
-            <CompleteRegistrationForm />
+        <q-dialog
+            v-model="completeRegistrationDialog"
+            persistent
+            maximized
+            transition-show="slide-down"
+            transition-hide="slide-up"
+        >
+            <CompleteRegistrationForm
+                @close-registration-dialog="completeRegistrationDialog = false"
+            />
         </q-dialog>
     </q-layout>
 </template>
