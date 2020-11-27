@@ -120,25 +120,14 @@
                             insert map here
                         </div>
                     </div>
+                    <div class="row">
+                        <q-space />
+                        <q-btn color="accent" label="Continuar" push @click="submitForm()" />
+                    </div>
                 </div>
                 <div class="col desktop-only"></div>
             </div>
         </q-card-section>
-        <q-card-actions>
-            <div class="col desktop-only"></div>
-            <div class="col-lg-5">
-                <div class="row full-width">
-                    <q-btn
-                        color="accent"
-                        label="Continuar"
-                        push
-                        @click="submitForm()"
-                        style="float: right"
-                    />
-                </div>
-            </div>
-            <div class="col desktop-only"></div>
-        </q-card-actions>
     </q-card>
 </template>
 
