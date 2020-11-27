@@ -4,15 +4,15 @@
             <i class="far fa-laugh-wink fa-5x text-primary"></i>
         </q-card-section>
         <q-card-section class="text-center">
-            <div class="text-h5 text-bold">Bienvenido!</div>
+            <div class="text-h5 text-bold text-accent">¡Bienvenido!</div>
         </q-card-section>
         <q-card-section>
             <div class="row">
                 <div class="col desktop-only"></div>
                 <div class="col-lg-5">
-                    <div class="text-subtitle1 text-center">
-                        Para continuar, porfavor termina de llenar la informacion personal de tu
-                        cuenta.
+                    <div class="text-subtitle1 text-center q-mb-lg">
+                        Para continuar a tu casillero, porfavor termina de llenar la informacion
+                        personal de tu cuenta.
                     </div>
                     <div class="row q-mb-md">
                         <div class="col">
@@ -127,13 +127,15 @@
         <q-card-actions>
             <div class="col desktop-only"></div>
             <div class="col-lg-5">
-                <q-btn
-                    color="accent"
-                    label="Continuar"
-                    push
-                    style="float: right"
-                    @click="submitForm()"
-                />
+                <div class="row full-width">
+                    <q-btn
+                        color="accent"
+                        label="Continuar"
+                        push
+                        @click="submitForm()"
+                        style="float: right"
+                    />
+                </div>
             </div>
             <div class="col desktop-only"></div>
         </q-card-actions>
