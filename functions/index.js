@@ -16,6 +16,7 @@ const packages = require('./lib/packages')
 const rates = require('./lib/rates')
 const invoices = require('./lib/invoices')
 const userProfile = require('./lib/userProfile')
+const emailHandler = require('./lib/emailHandler')
 
 exports.createUserOnDatabase = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
@@ -357,6 +358,20 @@ exports.returnUserProfileInformation = functions.https.onRequest(async (req, res
             let response = await userProfile.returnUserProfileInformation(req.body.uid)
             functions.logger.info('returnUserProfileInformation', {uid: req.body.uid})
             res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('returnUserProfileInformation', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
+exports.sendEmail = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            await emailHandler.sendEmail('lexel', 'test', 'test')
+            // functions.logger.info('returnUserProfileInformation', {uid: req.body.uid})
+            res.status(200).send({data: 'response'})
         } catch (err) {
             functions.logger.error('returnUserProfileInformation', {
                 error: err,

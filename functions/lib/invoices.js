@@ -40,6 +40,7 @@ function groupPackagesByBox(packages) {
 async function createInvoice(by) {
     const packages = require('./packages')
     const users = require('./users')
+    const emailHandler = require('./emailHandler')
     try {
         let allPackages = await packages.returnAllPackagesWithoutInvoice()
         let groupedPackages = await groupPackagesByBox(allPackages)
@@ -49,24 +50,23 @@ async function createInvoice(by) {
                 let lastInvoiceId = await getLastInvoiceId()
                 let price = await calculatePriceForGroupedPackages(element)
                 let uid = await users.returnUserUidByBox(box)
+                let obj = {
+                    No: parseInt(lastInvoiceId.lastInvoiceId),
+                    box: box,
+                    userId: uid,
+                    creationTime: Date.now(),
+                    packages: element,
+                    paidTime: '',
+                    status: 'unpaid', //paid, unpaid
+                    price: price,
+                    by: by,
+                }
                 await db
                     .collection('invoices')
-                    .add({
-                        No: parseInt(lastInvoiceId.lastInvoiceId),
-                        box: box,
-                        userId: uid,
-                        creationTime: Date.now(),
-                        packages: element,
-                        paidTime: '',
-                        status: 'unpaid', //paid, unpaid
-                        price: price,
-                        by: by,
-                    })
+                    .add(obj)
                     .then(docRef => {
                         element.forEach(package => {
                             package.invoice = docRef.id
-                            console.log(`Ref: ${JSON.stringify(docRef.id)}`)
-                            console.log(package)
                             packages.updatePackageById(package.id, package)
                         })
                     })
@@ -74,6 +74,15 @@ async function createInvoice(by) {
                         return error
                     })
                 await addToLastInvoiceId()
+                let userEmail = await users.returnUserEmailByBox(box)
+                let emailBody = await emailHandler.templateHandler('Invoice-01', obj)
+                let userName = await users.returnUserNameByBox(box)
+                emailHandler.sendEmail(
+                    userEmail,
+                    'Recepcion de Mercancia Y-Go 📦',
+                    emailBody,
+                    userName
+                )
             }
         }
     } catch (error) {
