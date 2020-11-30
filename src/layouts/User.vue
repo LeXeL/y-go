@@ -148,7 +148,9 @@
             transition-hide="slide-up"
         >
             <CompleteRegistrationForm
+                v-if="Object.keys(user).length > 0"
                 @close-registration-dialog="completeRegistrationDialog = false"
+                :userData="user"
             />
         </q-dialog>
     </q-layout>
@@ -186,7 +188,7 @@ export default {
             showUserProfile: false,
             userName: '',
             needsUpdate: false,
-            completeRegistrationDialog: true,
+            completeRegistrationDialog: false,
         }
     },
     computed: {
@@ -240,22 +242,21 @@ export default {
                 })
         },
     },
-    watch: {
-        user(newValue, oldValue) {
-            if (newValue.isUpdated) this.needsUpdate = false
-        },
-    },
+
     mounted() {
         this.displayLoading = true
         if (this.$route.path === '/profile') this.showUserProfile = true
-        if (this.user === null) {
+        if (typeof this.user === 'string') {
             api.getUserInformationById({uid: this.uid}).then(async response => {
                 await this.$store.commit('SET_USER', response.data.data)
+                if (!this.user.isUpdated) {
+                    this.completeRegistrationDialog = true
+                }
             })
-        }
-        if (this.user !== null && !this.user.isUpdated) {
-            this.showUserProfile = true
-            this.needsUpdate = true
+        } else {
+            if (!this.user.isUpdated) {
+                this.completeRegistrationDialog = true
+            }
         }
         api.returnUserProfileInformation({uid: this.uid}).then(response => {
             this.userInformation = response.data.data
