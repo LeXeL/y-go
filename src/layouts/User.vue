@@ -127,7 +127,7 @@
                                     :data="userInformation.invoices"
                                 ></UserHome>
                                 <UserProfile
-                                    v-if="showUserProfile"
+                                    v-else
                                     :userInformationData="userInformation"
                                     :forceUpdateOnUser="needsUpdate"
                                     @saveUserProfile="updateUserProfile"
@@ -245,7 +245,6 @@ export default {
 
     mounted() {
         this.displayLoading = true
-        if (this.$route.path === '/profile') this.showUserProfile = true
         if (typeof this.user === 'string') {
             api.getUserInformationById({uid: this.uid}).then(async response => {
                 await this.$store.commit('SET_USER', response.data.data)

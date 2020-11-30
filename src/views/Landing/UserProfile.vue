@@ -19,6 +19,7 @@
                         class="on-left"
                         v-model="userInformationData.user.name"
                         :disable="!editInformation"
+                        ref="name"
                     />
                 </div>
                 <div class="col">
@@ -51,7 +52,7 @@
                     />
                 </div>
             </div>
-            <div class="row q-mb-md">
+            <div class="row q-mb-md" v-if="editInformation">
                 <div class="col-lg-4 col-xs-12 q-pa-sm">
                     <div
                         :class="
@@ -103,19 +104,21 @@
                         <q-btn class="q-mt-md" label="Contactar" size="sm" color="accent" push />
                     </div>
                 </div>
-                <!-- <div class="col">
-                    <q-select
-                        :options="['Basico', 'Cero Volumen']"
+            </div>
+            <div class="row q-mb-md" v-else>
+                <div class="col">
+                    <q-input
                         filled
                         label="Tarifa"
                         bottom-slots
                         v-model="userInformationData.user.rate"
-                        :disable="!editInformation"
+                        disable
                     >
                         <template v-slot:hint> Ultima actualizacion: 10/09/2020 </template>
-                    </q-select>
-                </div> -->
+                    </q-input>
+                </div>
             </div>
+
             <div class="row q-mb-md">
                 <div class="col">
                     <q-input
