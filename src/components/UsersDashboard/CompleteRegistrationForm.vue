@@ -38,6 +38,11 @@
                         </div>
                     </div>
                     <div class="row q-mb-md">
+                        <div class="col">
+                            <q-select filled label="Sucursal de preferencia" :options="['Sucursal A', 'Sucursal B']"/>
+                        </div>
+                    </div>
+                    <div class="row q-mb-md">
                         <div class="col-lg-4 col-xs-12 q-pa-sm">
                             <div
                                 :class="
