@@ -210,6 +210,7 @@ export default {
                         uid: this.uid,
                     }).then(response => {
                         this.$store.commit('SET_USER', response.data.data)
+                        this.$emit('close-registration-dialog')
                     })
                 })
                 .catch(error => {
@@ -218,7 +219,7 @@ export default {
                     alert('Error')
                 })
 
-            // this.$emit('close-registration-dialog')
+            //
         },
         geolocate() {
             navigator.geolocation.getCurrentPosition(

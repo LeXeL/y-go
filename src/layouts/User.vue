@@ -149,7 +149,7 @@
         >
             <CompleteRegistrationForm
                 v-if="Object.keys(user).length > 0"
-                @close-registration-dialog="completeRegistrationDialog = false"
+                @close-registration-dialog="closeRegistrationDialogAndRefreshContent()"
                 :userData="user"
             />
         </q-dialog>
@@ -200,6 +200,14 @@ export default {
         },
     },
     methods: {
+        async closeRegistrationDialogAndRefreshContent() {
+            api.returnUserProfileInformation({uid: this.uid}).then(response => {
+                this.userInformation = response.data.data
+                this.displayLoading = false
+                this.userName = `${this.userInformation.user.name} ${this.userInformation.user.lastName}`
+                this.completeRegistrationDialog = false
+            })
+        },
         async updateUserProfile(obj) {
             this.displayLoading = true
             this.displayAlert = false
