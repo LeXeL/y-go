@@ -35,7 +35,9 @@
                     {{ returnFormatedTime(props.row.creationTime) }}
                 </q-td>
                 <q-td key="status" :props="props">
-                    {{ props.row.status }}
+                    <q-badge :color="returnStatus(props.row.status).color">
+                        {{ returnStatus(props.row.status).status }}
+                    </q-badge>
                 </q-td>
             </q-tr>
             <q-tr v-show="props.expand" :props="props">
@@ -88,6 +90,11 @@ export default {
     methods: {
         returnFormatedTime(time) {
             return moment(time).format('DD/MM/YYYY')
+        },
+        returnStatus(status) {
+            if (status == 'unpaid') return {status: 'Pendiente', color: 'red', icon: 'dollar-sign'}
+            if (status == 'payed') return {status: 'Pagado', color: 'green', icon: 'dollar-sign'}
+            if (status == 'delivered') return {status: 'Entregado', color: 'primary', icon: 'box'}
         },
     },
 }
