@@ -150,6 +150,7 @@ export default {
             default: () => {},
         },
     },
+
     data() {
         return {
             registrationData: {
@@ -165,9 +166,12 @@ export default {
         }
     },
     watch: {
-        userData(newValue, oldValue) {
-            this.registrationData.name = newValue.name
-            this.registrationData.lastName = newValue.lastName
+        userData: {
+            immediate: true,
+            handler(newValue, oldValue) {
+                this.registrationData.name = newValue.name
+                this.registrationData.lastName = newValue.lastName
+            },
         },
     },
     computed: {
