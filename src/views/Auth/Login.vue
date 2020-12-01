@@ -97,7 +97,7 @@ export default {
                                 if (this.isAuthenticated && this.role === 'admin')
                                     this.$router.push('/admin')
                                 if (this.isAuthenticated && this.role === 'user')
-                                    this.$router.push('/profile')
+                                    this.$router.push('/user')
                             })
                     } else {
                         this.dismissCountDown = this.dismissSecs
