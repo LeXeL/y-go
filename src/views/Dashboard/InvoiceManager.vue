@@ -196,6 +196,10 @@ export default {
             searchDate: '',
             statusOptions: [
                 {
+                    label: 'Todo',
+                    value: '',
+                },
+                {
                     label: 'Pendiente',
                     value: 'unpaid',
                 },
