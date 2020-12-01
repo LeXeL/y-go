@@ -127,7 +127,7 @@
                                     :data="userInformation.invoices"
                                 ></UserHome>
                                 <UserProfile
-                                    v-if="showUserProfile"
+                                    v-else
                                     :userInformationData="userInformation"
                                     :forceUpdateOnUser="needsUpdate"
                                     @saveUserProfile="updateUserProfile"
@@ -140,6 +140,19 @@
             </q-page>
         </q-page-container>
         <Footer />
+        <q-dialog
+            v-model="completeRegistrationDialog"
+            persistent
+            maximized
+            transition-show="slide-down"
+            transition-hide="slide-up"
+        >
+            <CompleteRegistrationForm
+                v-if="Object.keys(user).length > 0"
+                @close-registration-dialog="closeRegistrationDialogAndRefreshContent()"
+                :userData="user"
+            />
+        </q-dialog>
     </q-layout>
 </template>
 
@@ -149,6 +162,7 @@ import Navbar from '@/components/general/Navbar'
 import Footer from '@/components/general/Footer'
 import UserHome from '@/views/Landing/UserHome'
 import UserProfile from '@/views/Landing/UserProfile'
+import CompleteRegistrationForm from '@/components/UsersDashboard/CompleteRegistrationForm'
 import * as api from '@/api/api'
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -160,6 +174,7 @@ export default {
         Footer,
         UserHome,
         UserProfile,
+        CompleteRegistrationForm,
     },
     data() {
         return {
@@ -173,6 +188,7 @@ export default {
             showUserProfile: false,
             userName: '',
             needsUpdate: false,
+            completeRegistrationDialog: false,
         }
     },
     computed: {
@@ -184,6 +200,14 @@ export default {
         },
     },
     methods: {
+        async closeRegistrationDialogAndRefreshContent() {
+            api.returnUserProfileInformation({uid: this.uid}).then(response => {
+                this.userInformation = response.data.data
+                this.displayLoading = false
+                this.userName = `${this.userInformation.user.name} ${this.userInformation.user.lastName}`
+                this.completeRegistrationDialog = false
+            })
+        },
         async updateUserProfile(obj) {
             this.displayLoading = true
             this.displayAlert = false
@@ -226,22 +250,20 @@ export default {
                 })
         },
     },
-    watch: {
-        user(newValue, oldValue) {
-            if (newValue.isUpdated) this.needsUpdate = false
-        },
-    },
+
     mounted() {
         this.displayLoading = true
-        if (this.$route.path === '/profile') this.showUserProfile = true
-        if (this.user === null) {
+        if (typeof this.user === 'string') {
             api.getUserInformationById({uid: this.uid}).then(async response => {
                 await this.$store.commit('SET_USER', response.data.data)
+                if (!this.user.isUpdated) {
+                    this.completeRegistrationDialog = true
+                }
             })
-        }
-        if (this.user !== null && !this.user.isUpdated) {
-            this.showUserProfile = true
-            this.needsUpdate = true
+        } else {
+            if (!this.user.isUpdated) {
+                this.completeRegistrationDialog = true
+            }
         }
         api.returnUserProfileInformation({uid: this.uid}).then(response => {
             this.userInformation = response.data.data
