@@ -1,7 +1,7 @@
 <template>
     <q-layout class="y-go-font">
         <!-- SOCIAL LINKS -->
-        <SocialBar />
+        <!-- <SocialBar /> -->
         <!-- END SOCIAL LINKS -->
 
         <!-- NAVIGATION BAR -->
