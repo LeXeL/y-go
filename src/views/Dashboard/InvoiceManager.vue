@@ -90,9 +90,7 @@
                                         >{{ props.row.box }}</router-link
                                     >
                                 </q-td>
-                                <q-td key="price" :props="props">
-                                    {{ props.row.price }}
-                                </q-td>
+                                <q-td key="price" :props="props"> $ {{ props.row.price }} </q-td>
                                 <q-td key="status" :props="props">
                                     <q-btn
                                         :color="returnStatus(props.row.status).color"
@@ -102,9 +100,11 @@
                                         @click="assignWorkingInvoice(props.row)"
                                     >
                                         <i
-                                            :class="`fas fa-${
-                                                returnStatus(props.row.status).icon
-                                            } q-mr-sm`"
+                                            :class="
+                                                `fas fa-${
+                                                    returnStatus(props.row.status).icon
+                                                } q-mr-sm`
+                                            "
                                         ></i>
                                         {{ returnStatus(props.row.status).status }}
                                     </q-btn>
@@ -140,7 +140,7 @@
                     <q-card-section>
                         <div class="row">
                             <q-btn
-                                outline
+                                filled
                                 color="red"
                                 label="Pendiente"
                                 class="full-width q-mb-md"
@@ -149,7 +149,7 @@
                         </div>
                         <div class="row">
                             <q-btn
-                                outline
+                                filled
                                 color="green"
                                 label="Pagado"
                                 class="full-width q-mb-md"
@@ -158,14 +158,14 @@
                         </div>
                         <div class="row">
                             <q-btn
-                                outline
+                                filled
                                 color="primary"
                                 label="Entregado"
                                 class="full-width q-mb-md"
                                 @click="changeInvoiceStatus('delivered')"
                             />
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <q-btn
                                 outline
                                 color="amber"
@@ -173,7 +173,7 @@
                                 class="full-width q-mb-md"
                                 @click="changeInvoiceStatus('somethingelse')"
                             />
-                        </div>
+                        </div> -->
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -195,6 +195,10 @@ export default {
             searchInvoice: '',
             searchDate: '',
             statusOptions: [
+                {
+                    label: 'Todo',
+                    value: '',
+                },
                 {
                     label: 'Pendiente',
                     value: 'unpaid',
@@ -339,7 +343,9 @@ export default {
                 if (
                     invoice.No.toString(10).includes(this.searchInvoice) &&
                     invoice.box.includes(this.searchBox) &&
-                    moment(invoice.creationTime).format('YYYY/MM/DD').includes(this.searchDate) &&
+                    moment(invoice.creationTime)
+                        .format('YYYY/MM/DD')
+                        .includes(this.searchDate) &&
                     invoice.status.includes(this.searchStatus)
                 )
                     data.push(invoice)
