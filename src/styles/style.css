@@ -22,6 +22,11 @@
     color: rgba(255, 87, 34, 0.7);
 }
 
+.form-section {
+    background-image: url('../assets/Landing/landing_bg.jpg');
+    height: 610px;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 7px;

@@ -1,5 +1,5 @@
 <template>
-    <div class="navigation-bar bg-white text-white shadow-5" style="padding: 5px 0">
+    <div class="navigation-bar bg-white text-white" style="padding: 5px 0">
         <div class="row">
             <div class="col desktop-only"></div>
             <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 q-px-md">

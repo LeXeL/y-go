@@ -8,7 +8,7 @@
         <Navbar :navLinks="navLinks" @open-drawer="drawer = true" />
         <!-- END NAVIGATION BAR -->
         <q-page-container>
-            <router-view />
+            <router-view />            
         </q-page-container>
         <q-drawer
             v-model="drawer"
