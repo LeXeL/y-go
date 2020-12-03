@@ -2,16 +2,16 @@
     <div class="navigation-bar bg-white text-white" style="padding: 5px 0">
         <div class="row">
             <div class="col desktop-only"></div>
-            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 q-px-md">
-                <div class="row">
-                    <div class="col-lg-2 column flex-center">
+            <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12 q-px-md">
+                <div class="row full-width">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 column flex-center">
                         <q-img
                             :src="require('@/assets/logo_ygo.png')"
                             style="width: 175px; margin-top: 5px"
                         />
                     </div>
-                    <div class="col column flex-center">
-                        <ul class="hide-in-mobilex">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 column flex-center">
+                        <ul class="q-pa-none">
                             <li v-for="(link, i) in navLinks" :key="i">
                                 <router-link :to="link.route"
                                     ><div class="text-h6" style="font-weight: 600;">
@@ -21,7 +21,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-lg-2 column flex-center">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 column flex-center">
                         <div>
                             <q-btn
                                 push
@@ -33,7 +33,7 @@
                             />
                         </div>
                     </div>
-                    <div class="col-lg-2 column flex-center">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  q-py-md  column flex-center">
                         <div>
                             <q-btn outline round color="accent" class="on-left">
                                 <i class="fab fa-facebook-f"></i>

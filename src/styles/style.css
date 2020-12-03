@@ -4,13 +4,10 @@
     font-family: 'Josefin Sans', sans-serif;
 }
 
-.navigation-bar ul {
-    float: right;
-}
-
 .navigation-bar li {
     display: inline-block;
-    margin-right: 30px;
+    padding: 0 10px;
+    text-align: center;
 }
 
 .navigation-bar a {

@@ -19,17 +19,19 @@
                 height="260px"
                 class="bg-amber-8 text-white full-width"
             >
-                <q-carousel-slide class="q-pa-none" name="slide_1">
+                <q-carousel-slide class="q-pa-none" name="slide_1" style="overflow: hidden;">
                     <div class="row" style="height: 100%">
                         <div class="col desktop-only"></div>
-                        <div class="col-lg-7">
+                        <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
                             <div class="row" style="height: 100%">
-                                <div class="col-lg-8 column flex-center">
+                                <div
+                                    class="col-lg-8 col-md-6 col-sm-6 col-xs-12 column flex-center q-pa-md"
+                                >
                                     <div class="text-h4 text-bold text-italic">
                                         MENSAJE RAPIDOS<br />FACIL BLA BLA BLA...
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-4 col-md-6 col-sm-6">
                                     <q-img :src="require('@/assets/Landing/girl_with_box.png')" />
                                 </div>
                             </div>
@@ -41,9 +43,9 @@
         </div>
         <div class="row form-section">
             <div class="col desktop-only"></div>
-            <div class="col-lg-7">
+            <div class="col-lg-7 col-xs-12">
                 <div class="row">
-                    <div class="col-lg-4 q-py-xl">
+                    <div class="col-lg-4 col-sm-6 col-xs-12 q-py-xl q-px-md">
                         <q-card style="border-left: solid 5px #FF5722">
                             <q-card-section>
                                 <div class="text-h5 text-center text-primary q-mb-xs">
