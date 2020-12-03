@@ -8,7 +8,6 @@
             :type="alertType"
             @accept="displayAlert = false"
         ></ygo-alert>
-        <SocialBar />
         <Navbar />
         <q-page-container v-if="Object.keys(userInformation).length > 0">
             <q-page>

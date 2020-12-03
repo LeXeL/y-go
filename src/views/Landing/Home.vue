@@ -10,32 +10,32 @@
         ></ygo-alert>
         <div class="row">
             <q-carousel
-            v-model="slide"
-            transition-prev="scale"
-            transition-next="scale"
-            swipeable
-            animated
-            infinite
-            height="260px"
-            class="bg-amber-8 text-white full-width"
-        >
-            <q-carousel-slide class="q-pa-none" name="slide_1">
-                <div class="row" style="height: 100%">
-                    <div class="col desktop-only"></div>
-                    <div class="col-lg-7">
-                        <div class="row" style="height: 100%">
-                            <div class="col-lg-8 column flex-center">
-                                <div class="text-h4 text-bold text-italic">
-                                    MENSAJE RAPIDOS<br/>FACIL BLA BLA BLA...
+                v-model="slide"
+                transition-prev="scale"
+                transition-next="scale"
+                swipeable
+                animated
+                infinite
+                height="260px"
+                class="bg-amber-8 text-white full-width"
+            >
+                <q-carousel-slide class="q-pa-none" name="slide_1">
+                    <div class="row" style="height: 100%">
+                        <div class="col desktop-only"></div>
+                        <div class="col-lg-7">
+                            <div class="row" style="height: 100%">
+                                <div class="col-lg-8 column flex-center">
+                                    <div class="text-h4 text-bold text-italic">
+                                        MENSAJE RAPIDOS<br />FACIL BLA BLA BLA...
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <q-img :src="require('@/assets/Landing/girl_with_box.png')" />
                                 </div>
                             </div>
-                            <div class="col-lg-4">
-                                <q-img :src="require('@/assets/Landing/girl_with_box.png')" />
-                            </div>
                         </div>
+                        <div class="col desktop-only"></div>
                     </div>
-                    <div class="col desktop-only"></div>
-                </div>
                 </q-carousel-slide>
             </q-carousel>
         </div>
@@ -54,8 +54,10 @@
                                     style="width: 150px; margin: 0 auto; height: 2px"
                                 />
                                 <div class="text-body1 text-center q-mt-md">
-                                    ¿Ya tienes cuenta con nosotros? <br/>Inicia sesión
-                                    <router-link to="/login" class="text-accent text-bold">aquí</router-link>.
+                                    ¿Ya tienes cuenta con nosotros? <br />Inicia sesión
+                                    <router-link to="/login" class="text-accent text-bold"
+                                        >aquí</router-link
+                                    >.
                                 </div>
                             </q-card-section>
                             <q-card-section>
@@ -95,10 +97,11 @@
                                 />
                             </q-card-section>
                             <q-card-actions>
-                                <q-space/>
+                                <q-space />
                                 <q-btn
                                     color="accent"
                                     label="Registrar"
+                                    class="text-bold"
                                     push
                                     @click="registerUser()"
                                 />

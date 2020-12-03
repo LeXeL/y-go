@@ -23,6 +23,18 @@
                     </div>
                     <div class="col-lg-2 column flex-center">
                         <div>
+                            <q-btn
+                                push
+                                label="Iniciar sesion"
+                                color="accent"
+                                class="text-bold"
+                                to="/user"
+                                v-if="$router.currentRoute.path == '/'"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-lg-2 column flex-center">
+                        <div>
                             <q-btn outline round color="accent" class="on-left">
                                 <i class="fab fa-facebook-f"></i>
                             </q-btn>
