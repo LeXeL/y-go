@@ -20,7 +20,14 @@ async function calculatePackagePrices(package) {
         }
         totalPrice += parseFloat(price)
         totalPrice = parseFloat(totalPrice).toFixed(2)
-        return {price, totalPrice}
+        return {
+            price,
+            totalPrice,
+            volumatricWeight:
+                package.weight > volumatricWeightTrunkNumber
+                    ? package.weight
+                    : volumatricWeightTrunkNumber,
+        }
     }
     let price = parseFloat(package.weight * rateForCurrentBox.rate).toFixed(2)
     let totalPrice = 0.0
@@ -31,7 +38,7 @@ async function calculatePackagePrices(package) {
     }
     totalPrice += parseFloat(price)
     totalPrice = parseFloat(totalPrice).toFixed(2)
-    return {price, totalPrice}
+    return {price, totalPrice, volumatricWeight: 0}
 }
 
 async function createPackage(package) {
@@ -52,6 +59,7 @@ async function createPackage(package) {
             supplierInvoiceDate: package.supplierInvoiceDate,
             aditionalCharges: package.aditionalCharges,
             invoice: null,
+            volumetricWeight: prices.volumatricWeight > 0 ? prices.volumatricWeight : 0,
             price: prices.price,
             totalPrice: prices.totalPrice,
         })
@@ -106,6 +114,7 @@ async function updateGroupPackages(packages) {
                 let prices = await calculatePackagePrices(package)
                 package.price = prices.price
                 package.totalPrice = prices.totalPrice
+                package.volumetricWeight = prices.volumatricWeight > 0 ? prices.volumatricWeight : 0
             }
             let id = package.id
             delete package.id
@@ -130,6 +139,7 @@ async function updatePackageById(id, Obj) {
         let prices = await calculatePackagePrices(Obj)
         Obj.price = prices.price
         Obj.totalPrice = prices.totalPrice
+        Obj.volumetricWeight = prices.volumatricWeight > 0 ? prices.volumatricWeight : 0
         return db
             .collection('packages')
             .doc(id)
