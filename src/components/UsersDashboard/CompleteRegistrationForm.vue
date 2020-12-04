@@ -19,7 +19,7 @@
                             <div class="col q-pa-sm">
                                 <q-input
                                     filled
-                                    label="Nombre"
+                                    label="Nombre *"
                                     v-model="registrationData.name"
                                     :rules="[val => val.length > 0 || 'El campo es obligatorio']"
                                 />
@@ -27,7 +27,7 @@
                             <div class="col q-pa-sm">
                                 <q-input
                                     filled
-                                    label="Apellido"
+                                    label="Apellido *"
                                     class="on-right"
                                     v-model="registrationData.lastName"
                                     :rules="[val => val.length > 0 || 'El campo es obligatorio']"
@@ -47,7 +47,7 @@
                             <div class="col-lg-10 q-pa-sm">
                                 <q-input
                                     filled
-                                    label="Celular"
+                                    label="Celular *"
                                     v-model="registrationData.phone"
                                     mask="####-####"
                                     fill-mask
@@ -59,7 +59,7 @@
                             <div class="col q-pa-sm">
                                 <q-select
                                     filled
-                                    label="Sucursal de preferencia"
+                                    label="Sucursal de preferencia *"
                                     :options="['Sucursal A', 'Sucursal B']"
                                     :rules="[val => val.length > 0 || 'El campo es obligatorio']"
                                     v-model="registrationData.subsidiary"
@@ -139,7 +139,7 @@
                             <div class="col q-pa-sm">
                                 <q-input
                                     filled
-                                    label="Direccion de entrega"
+                                    label="Direccion de entrega *"
                                     v-model="registrationData.address"
                                     :rules="[val => val.length > 0 || 'El campo es obligatorio']"
                                 />
@@ -149,7 +149,7 @@
                             <div class="col q-pa-sm">
                                 <q-input
                                     filled
-                                    label="Notas adicionales de dirección"
+                                    label="Notas adicionales de dirección *"
                                     v-model="registrationData.addressExtra"
                                     :rules="[val => val.length > 0 || 'El campo es obligatorio']"
                                 />
