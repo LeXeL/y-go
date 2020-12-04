@@ -89,7 +89,7 @@
                                     {{ props.row.weight }}
                                 </q-td>
                                 <q-td key="volumetricWeight" :props="props">
-                                    {{ calculateVolumetric(props.row) }}
+                                    {{ props.row.volumetricWeight }}
                                 </q-td>
                                 <q-td key="price" :props="props">
                                     $ {{ props.row.totalPrice }}
@@ -271,9 +271,7 @@ export default {
             this.packagesData.forEach(pckg => {
                 if (
                     pckg.box.includes(this.searchBox) &&
-                    moment(pckg.creationTime)
-                        .format('YYYY/MM/DD')
-                        .includes(this.searchDate) &&
+                    moment(pckg.creationTime).format('YYYY/MM/DD').includes(this.searchDate) &&
                     pckg.tracking.toLowerCase().includes(this.searchTracking.toLowerCase()) &&
                     pckg.invoice.toString(10).includes(this.searchInvoice)
                 )

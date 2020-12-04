@@ -4,6 +4,31 @@ const db = admin.firestore()
 async function calculatePackagePrices(package) {
     const users = require('./users')
     let rateForCurrentBox = await users.returnUserRateByBox(package.box)
+    if (rateForCurrentBox.calculateVolumetric) {
+        let volumetricWeight = (package.height * package.long * package.width) / 138.4
+        let volumatricWeightTrunkNumber = parseInt(volumetricWeight)
+        if (volumetricWeight > volumatricWeightTrunkNumber) volumatricWeightTrunkNumber += 1
+        let price =
+            package.weight > volumatricWeightTrunkNumber
+                ? parseFloat(package.weight * rateForCurrentBox.rate).toFixed(2)
+                : parseFloat(volumatricWeightTrunkNumber * rateForCurrentBox.rate).toFixed(2)
+        let totalPrice = 0.0
+        if (package.aditionalCharges.length > 0) {
+            package.aditionalCharges.forEach(el => {
+                totalPrice += el.chargeAmount
+            })
+        }
+        totalPrice += parseFloat(price)
+        totalPrice = parseFloat(totalPrice).toFixed(2)
+        return {
+            price,
+            totalPrice,
+            volumatricWeight:
+                package.weight > volumatricWeightTrunkNumber
+                    ? package.weight
+                    : volumatricWeightTrunkNumber,
+        }
+    }
     let price = parseFloat(package.weight * rateForCurrentBox.rate).toFixed(2)
     let totalPrice = 0.0
     if (package.aditionalCharges.length > 0) {
@@ -13,7 +38,7 @@ async function calculatePackagePrices(package) {
     }
     totalPrice += parseFloat(price)
     totalPrice = parseFloat(totalPrice).toFixed(2)
-    return {price, totalPrice}
+    return {price, totalPrice, volumatricWeight: 0}
 }
 
 async function createPackage(package) {
@@ -34,6 +59,7 @@ async function createPackage(package) {
             supplierInvoiceDate: package.supplierInvoiceDate,
             aditionalCharges: package.aditionalCharges,
             invoice: null,
+            volumetricWeight: prices.volumatricWeight > 0 ? prices.volumatricWeight : 0,
             price: prices.price,
             totalPrice: prices.totalPrice,
         })
@@ -88,6 +114,7 @@ async function updateGroupPackages(packages) {
                 let prices = await calculatePackagePrices(package)
                 package.price = prices.price
                 package.totalPrice = prices.totalPrice
+                package.volumetricWeight = prices.volumatricWeight > 0 ? prices.volumatricWeight : 0
             }
             let id = package.id
             delete package.id
@@ -112,6 +139,7 @@ async function updatePackageById(id, Obj) {
         let prices = await calculatePackagePrices(Obj)
         Obj.price = prices.price
         Obj.totalPrice = prices.totalPrice
+        Obj.volumetricWeight = prices.volumatricWeight > 0 ? prices.volumatricWeight : 0
         return db
             .collection('packages')
             .doc(id)

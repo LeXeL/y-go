@@ -125,14 +125,8 @@ async function returnAllUsers() {
 async function returnUserRateByBox(box) {
     let users = await returnAllUsers()
     let allRates = await rates.returnAllRates()
-    let currentSelectedUser = users.filter(user => {
-        if (user.box === box) return user
-    })[0]
-    return allRates.filter(rate => {
-        if (currentSelectedUser.rate === rate.id) {
-            return rate
-        }
-    })[0]
+    let currentSelectedUser = users.find(user => user.box === box)
+    return allRates.find(rate => currentSelectedUser.rate === rate.id)
 }
 
 async function returnUserUidByBox(box) {

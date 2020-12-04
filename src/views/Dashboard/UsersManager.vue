@@ -85,7 +85,7 @@
                 </div>
             </div>
         </div>
-        <q-dialog v-model="ratesDialog" persistent>
+        <!-- <q-dialog v-model="ratesDialog" persistent>
             <q-card style="width: 700px; max-width: 80vw">
                 <q-card-section>
                     <div class="text-h6">Tarifas existentes</div>
@@ -177,10 +177,10 @@
                     <q-btn flat label="Crear" @click="createNewRate()" />
                 </q-card-actions>
             </q-card>
-        </q-dialog>
-        <q-page-sticky position="bottom-right" :offset="[18, 18]">
+        </q-dialog> -->
+        <!-- <q-page-sticky position="bottom-right" :offset="[18, 18]">
             <q-btn fab icon="fas fa-dollar-sign" color="accent" @click="ratesDialog = true" />
-        </q-page-sticky>
+        </q-page-sticky> -->
     </q-page>
 </template>
 
