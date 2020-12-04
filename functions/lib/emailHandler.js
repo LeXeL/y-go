@@ -102,9 +102,10 @@ const sgMail = require('@sendgrid/mail')
 function templateInvoice01(info) {
     let packagesHtmlBody = ''
     info.packages.forEach(package => {
+        let weight = package.volumetricWeight === 0 ? package.weight : package.volumetricWeight
         packagesHtmlBody += `<tr>
         <td>${package.tracking}</td>
-        <td>${package.weight}</td>
+        <td>${weight}</td>
         <td style="text-align: right">$${package.price}</td>
       </tr>`
     })
