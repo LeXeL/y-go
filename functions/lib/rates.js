@@ -49,7 +49,6 @@ async function returnAllRates() {
     let rates = []
     await db
         .collection('rates')
-        .where('status', '==', 'active')
         .get()
         .then(snapshot => {
             if (snapshot.empty) {

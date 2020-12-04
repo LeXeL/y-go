@@ -4,6 +4,24 @@ const db = admin.firestore()
 async function calculatePackagePrices(package) {
     const users = require('./users')
     let rateForCurrentBox = await users.returnUserRateByBox(package.box)
+    if (rateForCurrentBox.calculateVolumetric) {
+        let volumetricWeight = (package.height * package.long * package.width) / 138.4
+        let volumatricWeightTrunkNumber = parseInt(volumetricWeight)
+        if (volumetricWeight > volumatricWeightTrunkNumber) volumatricWeightTrunkNumber += 1
+        let price =
+            package.weight > volumatricWeightTrunkNumber
+                ? parseFloat(package.weight * rateForCurrentBox.rate).toFixed(2)
+                : parseFloat(volumatricWeightTrunkNumber * rateForCurrentBox.rate).toFixed(2)
+        let totalPrice = 0.0
+        if (package.aditionalCharges.length > 0) {
+            package.aditionalCharges.forEach(el => {
+                totalPrice += el.chargeAmount
+            })
+        }
+        totalPrice += parseFloat(price)
+        totalPrice = parseFloat(totalPrice).toFixed(2)
+        return {price, totalPrice}
+    }
     let price = parseFloat(package.weight * rateForCurrentBox.rate).toFixed(2)
     let totalPrice = 0.0
     if (package.aditionalCharges.length > 0) {
