@@ -97,6 +97,14 @@
                                     class="q-mb-md"
                                     v-model="form.password"
                                 />
+                                <q-input
+                                    filled
+                                    label="Repetir contraseña"
+                                    type="password"
+                                    color="accent"
+                                    placeholder="********"
+                                    class="q-mb-md"
+                                />
                             </q-card-section>
                             <q-card-actions>
                                 <q-space />
