@@ -138,11 +138,19 @@
                         <div class="row">
                             <div class="col q-pa-sm">
                                 <q-input
-                                    type="textarea"
                                     filled
-                                    rows="4"
                                     label="Direccion de entrega"
                                     v-model="registrationData.address"
+                                    :rules="[val => val.length > 0 || 'El campo es obligatorio']"
+                                />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col q-pa-sm">
+                                <q-input
+                                    filled
+                                    label="Notas adicionales de dirección"
+                                    v-model="registrationData.addressExtra"
                                     :rules="[val => val.length > 0 || 'El campo es obligatorio']"
                                 />
                             </div>
@@ -197,6 +205,7 @@ export default {
                 phone: '',
                 selectedRateId: '',
                 address: '',
+                addressExtra: '',
                 subsidiary: '',
             },
             location: [],
