@@ -4,10 +4,14 @@
             <q-card style="width: 400px" class="q-pa-md rounded-borders">
                 <q-card-section>
                     <q-img :src="require('@/assets/logo_ygo.png')" class="q-mb-md" />
+                    <router-link to="/" class="text-grey-6">
+                        <i class="fas fa-long-arrow-alt-left"></i>
+                        Inicio
+                    </router-link>
                     <q-input
                         filled
                         label="Correo electronico"
-                        class="full-width q-mb-md"
+                        class="full-width q-mb-md q-mt-md"
                         type="text"
                         v-model="email"
                     />

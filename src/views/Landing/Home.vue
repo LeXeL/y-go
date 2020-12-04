@@ -1,5 +1,5 @@
 <template>
-    <q-page>
+    <q-page style="min-height: auto;">
         <loading-alert :display="displayLoading"></loading-alert>
         <ygo-alert
             :display="displayAlert"
@@ -9,126 +9,110 @@
             @accept="displayAlert = false"
         ></ygo-alert>
         <div class="row">
-            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <q-carousel
-                    arrows
-                    animated
-                    v-model="slide"
-                    class="full-width frontpage-carousell"
-                    transition-prev="slide-right"
-                    transition-next="slide-left"
-                    infinite
-                    autoplay
-                    swipeable
-                    control-color="accent"
-                >
-                    <q-carousel-slide
-                        v-for="(slide, i) in slidesContent"
-                        :key="i"
-                        :name="slide.name"
-                        :img-src="slide.pic"
-                    >
-                        <div class="absolute-center full-width custom-caption column flex-center">
-                            <div class="text-subtitle2 q-mb-sm">{{ slide.subtitle }}</div>
-                            <div class="text-h2 text-weight-bolder q-mb-md">{{ slide.title }}</div>
-                            <div class="text-subtitle1">
-                                {{ slide.text }}
+            <q-carousel
+                v-model="slide"
+                transition-prev="scale"
+                transition-next="scale"
+                swipeable
+                animated
+                infinite
+                height="260px"
+                class="bg-amber-8 text-white full-width"
+            >
+                <q-carousel-slide class="q-pa-none" name="slide_1" style="overflow: hidden;">
+                    <div class="row" style="height: 100%">
+                        <div class="col desktop-only"></div>
+                        <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+                            <div class="row" style="height: 100%">
+                                <div
+                                    class="col-lg-8 col-md-6 col-sm-6 col-xs-12 column flex-center q-pa-md"
+                                >
+                                    <div class="text-h4 text-bold text-italic">
+                                        MENSAJE RAPIDOS<br />FACIL BLA BLA BLA...
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <q-img :src="require('@/assets/Landing/girl_with_box.png')" />
+                                </div>
                             </div>
                         </div>
-                    </q-carousel-slide>
-                </q-carousel>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <div class="full-width bg-grey-2 column flex-center frontpage-hero">
-                    <div class="text-center" v-if="!showRegisterForm">
-                        <q-btn
-                            v-if="!isAuthenticated"
-                            color="accent"
-                            push
-                            label="Regístrate aquí"
-                            size="lg"
-                            class="q-mb-lg"
-                            @click="showRegisterForm = !showRegisterForm"
-                        />
-                        <q-btn
-                            v-if="isAuthenticated && user"
-                            push
-                            label="Mi casillero"
-                            color="accent"
-                            size="lg"
-                            to="/user"
-                            class="q-mb-lg"
-                        />
-                        <div class="text-h4 text-center text-primary text-weight-bolder q-mb-lg">
-                            ABRE TU CASILLERO GRATIS
-                        </div>
-                        <q-img
-                            :src="require('@/assets/logo_ygo.png')"
-                            class="q-mb-lg"
-                            style="width: 60%"
-                        />
-                        <div class="text-subtitle2 q-mb-lg">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                        </div>
+                        <div class="col desktop-only"></div>
                     </div>
-                    <div class="q-pa-lg full-width" v-else>
-                        <div class="text-h4 text-weight-bolder text-center text-primary q-mb-md">
-                            REGÍSTRATE
-                        </div>
-                        <q-separator
-                            color="accent"
-                            style="width: 150px; margin: 0 auto; height: 2px"
-                        />
-                        <div class="text-body1 text-center q-mt-md">
-                            ¿Ya tienes cuenta con nosotros? Inicia sesión
-                            <router-link to="/login" class="text-accent text-bold">aquí</router-link
-                            >.
-                        </div>
-                        <q-input
-                            filled
-                            label="Nombre"
-                            color="accent"
-                            placeholder="John"
-                            class="q-mb-md q-mt-xl"
-                            v-model="form.name"
-                        />
-                        <q-input
-                            filled
-                            label="Apellido"
-                            color="accent"
-                            placeholder="Doe"
-                            class="q-mb-md"
-                            v-model="form.lastName"
-                        />
-                        <q-input
-                            filled
-                            label="Correo"
-                            type="email"
-                            color="accent"
-                            placeholder="john.doe@gmail.com"
-                            class="q-mb-md"
-                            v-model="form.email"
-                        />
-                        <q-input
-                            filled
-                            label="Contraseña"
-                            type="password"
-                            color="accent"
-                            placeholder="********"
-                            class="q-mb-md"
-                            v-model="form.password"
-                        />
-                        <q-btn
-                            color="accent"
-                            label="Registrar"
-                            push
-                            style="float: right"
-                            size="lg"
-                            @click="registerUser()"
-                        />
+                </q-carousel-slide>
+            </q-carousel>
+        </div>
+        <div class="row form-section">
+            <div class="col desktop-only"></div>
+            <div class="col-lg-7 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 col-xs-12 q-py-xl q-px-md">
+                        <q-card style="border-left: solid 5px #FF5722">
+                            <q-card-section>
+                                <div class="text-h5 text-center text-primary q-mb-xs">
+                                    REGÍSTRATE
+                                </div>
+                                <q-separator
+                                    color="accent"
+                                    style="width: 150px; margin: 0 auto; height: 2px"
+                                />
+                                <div class="text-body1 text-center q-mt-md">
+                                    ¿Ya tienes cuenta con nosotros? <br />Inicia sesión
+                                    <router-link to="/login" class="text-accent text-bold"
+                                        >aquí</router-link
+                                    >.
+                                </div>
+                            </q-card-section>
+                            <q-card-section>
+                                <q-input
+                                    filled
+                                    label="Nombre"
+                                    color="accent"
+                                    placeholder="John"
+                                    class="q-mb-md"
+                                    v-model="form.name"
+                                />
+                                <q-input
+                                    filled
+                                    label="Apellido"
+                                    color="accent"
+                                    placeholder="Doe"
+                                    class="q-mb-md"
+                                    v-model="form.lastName"
+                                />
+                                <q-input
+                                    filled
+                                    label="Correo"
+                                    type="email"
+                                    color="accent"
+                                    placeholder="john.doe@gmail.com"
+                                    class="q-mb-md"
+                                    v-model="form.email"
+                                />
+                                <q-input
+                                    filled
+                                    label="Contraseña"
+                                    type="password"
+                                    color="accent"
+                                    placeholder="********"
+                                    class="q-mb-md"
+                                    v-model="form.password"
+                                />
+                            </q-card-section>
+                            <q-card-actions>
+                                <q-space />
+                                <q-btn
+                                    color="accent"
+                                    label="Registrar"
+                                    class="text-bold"
+                                    push
+                                    @click="registerUser()"
+                                />
+                            </q-card-actions>
+                        </q-card>
                     </div>
                 </div>
             </div>
+            <div class="col desktop-only"></div>
         </div>
     </q-page>
 </template>
@@ -143,35 +127,6 @@ export default {
         return {
             showRegisterForm: false,
             slide: 'slide_1',
-            slidesContent: [
-                {
-                    name: 'slide_1',
-                    pic:
-                        'https://www.lawdonut.co.uk/business/sites/lawdonut-business/files/courierservice1_0.jpg',
-                    title: 'This Is Title 1',
-                    subtitle: 'This is subtitle 1',
-                    text:
-                        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum slide 1.',
-                },
-                {
-                    name: 'slide_2',
-                    pic:
-                        'https://businessexpresscourier.com/wp-content/uploads/2019/08/Post-Office-vs.-Courier-Service.jpg',
-                    title: 'This Is Title 2',
-                    subtitle: 'This is subtitle 2',
-                    text:
-                        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum slide 2.',
-                },
-                {
-                    name: 'slide_3',
-                    pic:
-                        'https://images.jdmagicbox.com/comp/def_content/domestic_courier_services/default-domestic-courier-services-172.jpg?clr=#808080',
-                    title: 'This Is Title 3',
-                    subtitle: 'This is subtitle 3',
-                    text:
-                        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum slide 3.',
-                },
-            ],
             terms: false,
             displayLoading: false,
             confirmationDialog: false,

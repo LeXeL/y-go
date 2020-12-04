@@ -1,43 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,600;1,400&display=swap');
 
 .y-go-font {
-    font-family: 'Oswald', sans-serif;
-}
-
-.social-ribbon ul {
-    padding-left: 0;
-}
-
-.social-ribbon li {
-    display: inline-block;
-    margin-right: 20px;
-}
-
-.social-ribbon a {
-    text-decoration: none;
-    color: #fff;
-}
-
-.social-ribbon a:hover {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.navigation-bar ul {
-    float: right;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 .navigation-bar li {
     display: inline-block;
-    margin-right: 30px;
+    padding: 0 10px;
+    text-align: center;
 }
 
 .navigation-bar a {
     text-decoration: none;
-    color: #fff;
+    color: #ff5722;
 }
 
 .navigation-bar a:hover {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 87, 34, 0.7);
+}
+
+.form-section {
+    background-image: url('../assets/Landing/landing_bg.jpg');
+    height: 610px;
 }
 
 /* width */
