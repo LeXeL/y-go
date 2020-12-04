@@ -97,6 +97,15 @@
                                     class="q-mb-md"
                                     v-model="form.password"
                                 />
+                                <q-input
+                                    filled
+                                    label="Repetir contraseña"
+                                    type="password"
+                                    color="accent"
+                                    placeholder="********"
+                                    class="q-mb-md"
+                                    v-model="form.repassword"
+                                />
                             </q-card-section>
                             <q-card-actions>
                                 <q-space />
@@ -161,6 +170,7 @@ export default {
             this.form.email = ''
             this.form.contactPhone = ''
             this.form.password = ''
+            this.form.repassword = ''
         },
         getUrlParam(sParam) {
             var sPageURL = window.location.search.substring(1)
@@ -192,6 +202,13 @@ export default {
             ) {
                 this.alertTitle = 'Error'
                 this.alertMessage = 'Debes llenar todos los campos.'
+                this.alertType = 'error'
+                this.displayAlert = true
+                return
+            }
+            if (this.form.password != this.form.repassword) {
+                this.alertTitle = 'Error'
+                this.alertMessage = 'Las contraseñas con coinciden.'
                 this.alertType = 'error'
                 this.displayAlert = true
                 return

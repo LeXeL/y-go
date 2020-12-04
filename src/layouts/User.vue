@@ -42,31 +42,53 @@
                                         <div class="mobile-only q-pa-md"></div>
                                         <div class="col-lg-4 col-xs-12 column flex-center">
                                             <div class="row full-width q-mb-lg">
-                                                <div class="col">
+                                                <div class="col column flex-center">
                                                     <q-img
                                                         :src="require('@/assets/logo_ygo.png')"
                                                         style="width: 150px; display: inline-block"
                                                     />
                                                 </div>
                                                 <div class="col column flex-center">
-                                                    <div class="text-h3 text-primary">
-                                                        <strong>24</strong>
+                                                    <div class="text-center" v-if="!affiliated">
+                                                        <i
+                                                            class="far fa-star fa-3x q-mb-sm text-accent"
+                                                        ></i>
+                                                        <div
+                                                            class="text-subtitle2 text-bold text-center q-mb-sm"
+                                                        >
+                                                            Programa de lealtad
+                                                        </div>
+                                                        <q-btn
+                                                            label="Afiliate aquí"
+                                                            color="primary"
+                                                            class="text-bold"
+                                                            push
+                                                            size="sm"
+                                                            @click="loyaltyAffiliationDialog = true"
+                                                        />
                                                     </div>
-                                                    <div class="text-subtitle2 text-accent">
-                                                        <strong>Y-Go Libras</strong>
+                                                    <div class="text-center" v-else>
+                                                        <div class="text-h3 text-primary">
+                                                            <strong>24</strong>
+                                                        </div>
+                                                        <div
+                                                            class="text-subtitle2 text-center text-accent"
+                                                        >
+                                                            <strong>Y-Puntos</strong>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- <div class="text-h6 text-primary">Division Platino</div>
-                                        <q-linear-progress
-                                            stripe
-                                            rounded
-                                            size="15px"
-                                            :value="0.75"
-                                            color="accent"
-                                            class="q-mt-sm q-mb-xs"
-                                        />
-                                        <div class="text-caption">75/100 pts.</div> -->
+                                            <q-linear-progress
+                                                stripe
+                                                rounded
+                                                size="15px"
+                                                :value="0.75"
+                                                color="accent"
+                                                class="q-mt-sm q-mb-xs"
+                                            />
+                                            <div class="text-caption">75/100 pts.</div> -->
                                         </div>
                                     </div>
                                 </q-card-section>
@@ -139,6 +161,34 @@
             </q-page>
         </q-page-container>
         <Footer />
+        <q-dialog v-model="loyaltyAffiliationDialog">
+            <q-card class="y-go-font">
+                <q-card-section>
+                    <div class="text-h6 text-center text-bold">
+                        Afiliate a nuestro programa de lealtad!
+                    </div>
+                </q-card-section>
+                <q-card-section>
+                    <div class="text-subtitle1 text-center">
+                        Solo debes solicitar la tarjeta en su sucursal mas cercana, activarla con el
+                        numero en la cuenta y ya esta participando.
+                    </div>
+                </q-card-section>
+                <q-card-section>
+                    <q-input filled type="number" label="Registra tu tarjeta" color="primary" />
+                </q-card-section>
+                <q-card-actions>
+                    <q-btn
+                        color="accent"
+                        label="Registrar"
+                        push
+                        class="full-width text-bold"
+                        v-close-popup
+                        @click="affiliated = true"
+                    />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
         <q-dialog
             v-model="completeRegistrationDialog"
             persistent
@@ -188,6 +238,8 @@ export default {
             userName: '',
             needsUpdate: false,
             completeRegistrationDialog: false,
+            loyaltyAffiliationDialog: false,
+            affiliated: false,
         }
     },
     computed: {

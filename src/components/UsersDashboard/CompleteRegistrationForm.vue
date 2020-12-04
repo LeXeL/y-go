@@ -5,50 +5,65 @@
                 <i class="far fa-laugh-wink fa-5x text-primary"></i>
             </q-card-section>
             <q-card-section class="text-center">
-                <div class="text-h5 text-bold text-accent">¡Bienvenido!</div>
+                <div class="text-h5 text-bold text-accent">¡Y-GASTE!</div>
             </q-card-section>
             <q-card-section>
                 <div class="row">
                     <div class="col desktop-only"></div>
                     <div class="col-lg-5">
                         <div class="text-subtitle1 text-center q-mb-lg">
-                            Para continuar a tu casillero, porfavor termina de llenar la informacion
-                            personal de tu cuenta.
+                            Termina de llenar los siguientes campos y estarás listo para empezar a
+                            pedir con nosotros.
                         </div>
-                        <div class="row q-mb-sm">
-                            <div class="col">
+                        <div class="row">
+                            <div class="col q-pa-sm">
                                 <q-input
                                     filled
-                                    label="Nombre"
-                                    class="on-left"
+                                    label="Nombre *"
                                     v-model="registrationData.name"
-                                    :rules="[
-                                        val =>
-                                            val.length > 0 || 'El campo es obligatorio'
-                                    ]"
+                                    :rules="[val => val.length > 0 || 'El campo es obligatorio']"
                                 />
                             </div>
-                            <div class="col">
+                            <div class="col q-pa-sm">
                                 <q-input
                                     filled
-                                    label="Apellido"
+                                    label="Apellido *"
                                     class="on-right"
                                     v-model="registrationData.lastName"
-                                    :rules="[
-                                        val =>
-                                            val.length > 0 || 'El campo es obligatorio'
-                                    ]"
+                                    :rules="[val => val.length > 0 || 'El campo es obligatorio']"
                                 />
                             </div>
                         </div>
-                        <div class="row q-mb-sm">
-                            <div class="col">
-                                <q-input filled label="Celular" v-model="registrationData.phone"  mask="####-####" fill-mask :rules="[val =>val.length > 0 || 'El campo es obligatorio']"/>
+                        <div class="row">
+                            <div class="col-lg-2 q-pa-sm">
+                                <q-select
+                                    filled
+                                    label="Pais"
+                                    :options="countryCodes"
+                                    v-model="registrationData.countryCode"
+                                    emit-value
+                                />
+                            </div>
+                            <div class="col-lg-10 q-pa-sm">
+                                <q-input
+                                    filled
+                                    label="Celular *"
+                                    v-model="registrationData.phone"
+                                    mask="####-####"
+                                    fill-mask
+                                    :rules="[val => val.length > 0 || 'El campo es obligatorio']"
+                                />
                             </div>
                         </div>
-                        <div class="row q-mb-sm">
-                            <div class="col">
-                                <q-select filled label="Sucursal de preferencia" :options="['Sucursal A', 'Sucursal B']" :rules="[val =>val.length > 0 || 'El campo es obligatorio']" v-model="registrationData.subsidiary"/>
+                        <div class="row">
+                            <div class="col q-pa-sm">
+                                <q-select
+                                    filled
+                                    label="Sucursal de preferencia *"
+                                    :options="['Sucursal A', 'Sucursal B']"
+                                    :rules="[val => val.length > 0 || 'El campo es obligatorio']"
+                                    v-model="registrationData.subsidiary"
+                                />
                             </div>
                         </div>
                         <div class="row q-mb-md">
@@ -113,19 +128,30 @@
                                     />
                                 </div>
                             </div>
-                            <div class="text-body2 full-width text-red-8 text-bold q-px-sm" v-if="true">
+                            <div
+                                class="text-body2 full-width text-red-8 text-bold q-px-sm"
+                                v-if="true"
+                            >
                                 *** Debes seleccionar una tarifa ***
                             </div>
                         </div>
-                        <div class="row q-mb-sm">
-                            <div class="col">
+                        <div class="row">
+                            <div class="col q-pa-sm">
                                 <q-input
-                                    type="textarea"
                                     filled
-                                    rows="4"
-                                    label="Direccion de entrega"
+                                    label="Direccion de entrega *"
                                     v-model="registrationData.address"
-                                    :rules="[val =>val.length > 0 || 'El campo es obligatorio']"
+                                    :rules="[val => val.length > 0 || 'El campo es obligatorio']"
+                                />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col q-pa-sm">
+                                <q-input
+                                    filled
+                                    label="Notas adicionales de dirección *"
+                                    v-model="registrationData.addressExtra"
+                                    :rules="[val => val.length > 0 || 'El campo es obligatorio']"
                                 />
                             </div>
                         </div>
@@ -175,14 +201,17 @@ export default {
             registrationData: {
                 name: '',
                 lastName: '',
+                countryCode: '+507',
                 phone: '',
                 selectedRateId: '',
                 address: '',
-                subsidiary: ''
+                addressExtra: '',
+                subsidiary: '',
             },
             location: [],
             markers: [],
             center: {},
+            countryCodes: [],
         }
     },
     watch: {
@@ -272,6 +301,7 @@ export default {
     },
     async mounted() {
         this.geolocate()
+        this.countryCodes = require('@/assets/country_codes.json')
     },
 }
 </script>
