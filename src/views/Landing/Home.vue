@@ -114,6 +114,12 @@
                             </q-card-actions>
                         </q-card>
                     </div>
+                    <div class="col column flex-center desktop-only">
+                        <div class="text-h4 q-px-lg text-center text-white">
+                            Afiliate al programa de lealtad de <strong>Y-GO! <br /></strong>Y
+                            llevate libras <strong>GRATIS</strong> con tu primer pedido.
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col desktop-only"></div>
