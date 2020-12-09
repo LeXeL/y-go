@@ -13,7 +13,7 @@
         ></ygo-alert>
         <div class="row q-mb-lg">
             <div class="text-h5">
-                <div class="col q-px-md">Gestor de facturas</div>
+                <div class="col q-px-md">Facturas Y-Go</div>
             </div>
         </div>
         <div class="row q-mb-lg">

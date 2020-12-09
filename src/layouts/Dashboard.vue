@@ -76,17 +76,17 @@ export default {
                     icon: 'fas fa-home',
                 },
                 {
-                    name: 'Gestor de paquetes',
+                    name: 'Paquete registrados',
                     link: '/package-manager',
                     icon: 'fas fa-dolly',
                 },
                 {
-                    name: 'Gestor de facturas',
+                    name: 'Facturas Y-Go',
                     link: '/invoice-manager',
                     icon: 'fas fa-file-alt',
                 },
                 {
-                    name: 'Gestor de usuarios',
+                    name: 'Usuarios Y-Go',
                     link: '/users-manager',
                     icon: 'fas fa-user-circle',
                 },

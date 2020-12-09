@@ -18,7 +18,7 @@
         <div>
             <div class="row q-mb-lg">
                 <div class="text-h5">
-                    <div class="col q-px-md">Gestor de usuarios</div>
+                    <div class="col q-px-md">Usuarios Y-Go</div>
                 </div>
             </div>
             <div class="row q-mb-lg">
@@ -309,7 +309,7 @@ export default {
             try {
                 api.ReturnAllRates().then(response => {
                     this.ratesData = response.data.data
-                    this.ratesData = this.ratesData.sort(function (x, y) {
+                    this.ratesData = this.ratesData.sort(function(x, y) {
                         return x.name == 'Default' ? -1 : y.name == 'Default' ? 1 : 0
                     })
                 })
