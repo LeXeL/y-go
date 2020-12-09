@@ -67,7 +67,6 @@
                                     filled
                                     label="Nombre"
                                     color="accent"
-                                    placeholder="John"
                                     class="q-mb-md"
                                     v-model="form.name"
                                 />
@@ -75,7 +74,6 @@
                                     filled
                                     label="Apellido"
                                     color="accent"
-                                    placeholder="Doe"
                                     class="q-mb-md"
                                     v-model="form.lastName"
                                 />
@@ -84,7 +82,6 @@
                                     label="Correo"
                                     type="email"
                                     color="accent"
-                                    placeholder="john.doe@gmail.com"
                                     class="q-mb-md"
                                     v-model="form.email"
                                 />
@@ -93,7 +90,6 @@
                                     label="Contraseña"
                                     type="password"
                                     color="accent"
-                                    placeholder="********"
                                     class="q-mb-md"
                                     v-model="form.password"
                                 />
@@ -102,7 +98,6 @@
                                     label="Repetir contraseña"
                                     type="password"
                                     color="accent"
-                                    placeholder="********"
                                     class="q-mb-md"
                                     v-model="form.repassword"
                                 />
