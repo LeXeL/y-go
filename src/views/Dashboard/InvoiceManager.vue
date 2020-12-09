@@ -51,7 +51,7 @@
                 />
             </div>
             <div class="col-lg-2 q-px-md">
-                <q-input dense filled label="Factura" type="number" v-model="searchInvoice" />
+                <q-input dense filled label="Factura" v-model="searchInvoice" />
             </div>
         </div>
         <div>
