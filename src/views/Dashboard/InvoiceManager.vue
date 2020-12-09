@@ -84,11 +84,7 @@
                                     >
                                 </q-td>
                                 <q-td key="box" :props="props">
-                                    <router-link
-                                        :to="returnBoxId(props.row.box)"
-                                        class="text-primary"
-                                        >{{ props.row.box }}</router-link
-                                    >
+                                    {{ props.row.box }}
                                 </q-td>
                                 <q-td key="price" :props="props"> $ {{ props.row.price }} </q-td>
                                 <q-td key="status" :props="props">
