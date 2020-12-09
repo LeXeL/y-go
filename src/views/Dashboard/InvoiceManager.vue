@@ -185,7 +185,7 @@ import moment from 'moment'
 export default {
     data() {
         return {
-            searchStatus: 'unpaid',
+            searchStatus: '',
             statusDialog: false,
             searchBox: '',
             searchInvoice: '',
