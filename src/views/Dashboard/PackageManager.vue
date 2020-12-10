@@ -11,7 +11,7 @@
         <div>
             <div class="row q-mb-lg">
                 <div class="text-h5">
-                    <div class="col q-px-md">Gestor de paquetes</div>
+                    <div class="col q-px-md">Paquetes registrados</div>
                 </div>
             </div>
             <div class="row q-mb-lg">
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="col-lg-2 q-px-md">
-                    <q-input dense filled label="Factura" type="number" v-model="searchInvoice" />
+                    <q-input dense filled label="Factura" v-model="searchInvoice" />
                 </div>
             </div>
             <div class="row q-mb-xl">
@@ -271,7 +271,9 @@ export default {
             this.packagesData.forEach(pckg => {
                 if (
                     pckg.box.includes(this.searchBox) &&
-                    moment(pckg.creationTime).format('YYYY/MM/DD').includes(this.searchDate) &&
+                    moment(pckg.creationTime)
+                        .format('YYYY/MM/DD')
+                        .includes(this.searchDate) &&
                     pckg.tracking.toLowerCase().includes(this.searchTracking.toLowerCase()) &&
                     pckg.invoice.toString(10).includes(this.searchInvoice)
                 )

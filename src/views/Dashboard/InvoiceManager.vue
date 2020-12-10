@@ -13,7 +13,7 @@
         ></ygo-alert>
         <div class="row q-mb-lg">
             <div class="text-h5">
-                <div class="col q-px-md">Gestor de facturas</div>
+                <div class="col q-px-md">Facturas Y-Go</div>
             </div>
         </div>
         <div class="row q-mb-lg">
@@ -51,7 +51,7 @@
                 />
             </div>
             <div class="col-lg-2 q-px-md">
-                <q-input dense filled label="Factura" type="number" v-model="searchInvoice" />
+                <q-input dense filled label="Factura" v-model="searchInvoice" />
             </div>
         </div>
         <div>
@@ -84,11 +84,7 @@
                                     >
                                 </q-td>
                                 <q-td key="box" :props="props">
-                                    <router-link
-                                        :to="returnBoxId(props.row.box)"
-                                        class="text-primary"
-                                        >{{ props.row.box }}</router-link
-                                    >
+                                    {{ props.row.box }}
                                 </q-td>
                                 <q-td key="price" :props="props"> $ {{ props.row.price }} </q-td>
                                 <q-td key="status" :props="props">
@@ -189,7 +185,7 @@ import moment from 'moment'
 export default {
     data() {
         return {
-            searchStatus: 'unpaid',
+            searchStatus: '',
             statusDialog: false,
             searchBox: '',
             searchInvoice: '',

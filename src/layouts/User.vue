@@ -30,8 +30,18 @@
                                             </div>
                                             <div class="text-subtitle2">
                                                 <br />
-                                                2478 NW 89TH AVE SUITE
-                                                {{ userInformation.user.box }}
+                                                <span id="miaAddress">
+                                                    2478 NW 89TH AVE SUITE
+                                                    {{ userInformation.user.box }}
+                                                </span>
+
+                                                <span
+                                                    class="text-primary text-bold text-caption on-right"
+                                                    style="cursor: pointer;"
+                                                    @click="copyAddressToClipboard()"
+                                                >
+                                                    <i class="far fa-copy"></i
+                                                ></span>
                                                 <br />
                                                 DORAL, FLORIDA 33143
                                                 <br />
@@ -251,6 +261,17 @@ export default {
         },
     },
     methods: {
+        copyAddressToClipboard() {
+            let text = document.getElementById('miaAddress').innerHTML
+            navigator.clipboard.writeText(text).then(
+                function() {
+                    alert('Direccion copiada correctamente')
+                },
+                function(err) {
+                    console.error('Async: Could not copy text: ', err)
+                }
+            )
+        },
         async closeRegistrationDialogAndRefreshContent() {
             api.returnUserProfileInformation({uid: this.uid}).then(response => {
                 this.userInformation = response.data.data

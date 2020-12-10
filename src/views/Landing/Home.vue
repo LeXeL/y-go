@@ -67,7 +67,6 @@
                                     filled
                                     label="Nombre"
                                     color="accent"
-                                    placeholder="John"
                                     class="q-mb-md"
                                     v-model="form.name"
                                 />
@@ -75,7 +74,6 @@
                                     filled
                                     label="Apellido"
                                     color="accent"
-                                    placeholder="Doe"
                                     class="q-mb-md"
                                     v-model="form.lastName"
                                 />
@@ -84,7 +82,6 @@
                                     label="Correo"
                                     type="email"
                                     color="accent"
-                                    placeholder="john.doe@gmail.com"
                                     class="q-mb-md"
                                     v-model="form.email"
                                 />
@@ -93,7 +90,6 @@
                                     label="Contraseña"
                                     type="password"
                                     color="accent"
-                                    placeholder="********"
                                     class="q-mb-md"
                                     v-model="form.password"
                                 />
@@ -102,7 +98,6 @@
                                     label="Repetir contraseña"
                                     type="password"
                                     color="accent"
-                                    placeholder="********"
                                     class="q-mb-md"
                                     v-model="form.repassword"
                                 />
@@ -118,6 +113,12 @@
                                 />
                             </q-card-actions>
                         </q-card>
+                    </div>
+                    <div class="col column flex-center desktop-only">
+                        <div class="text-h4 q-px-lg text-center text-white">
+                            Afiliate al programa de lealtad de <strong>Y-GO! <br /></strong>Y
+                            llevate libras <strong>GRATIS</strong> con tu primer pedido.
+                        </div>
                     </div>
                 </div>
             </div>

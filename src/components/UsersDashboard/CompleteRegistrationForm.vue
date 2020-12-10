@@ -151,7 +151,6 @@
                                     filled
                                     label="Notas adicionales de dirección *"
                                     v-model="registrationData.addressExtra"
-                                    :rules="[val => val.length > 0 || 'El campo es obligatorio']"
                                 />
                             </div>
                         </div>
