@@ -1,5 +1,11 @@
 <template>
-    <q-table title="Mis facturas" :data="data" :columns="columns" row-key="name">
+    <q-table
+        title="Mis facturas"
+        :data="data"
+        :columns="columns"
+        row-key="name"
+        style="border-radius: 0"
+    >
         <template v-slot:header="props">
             <q-tr :props="props">
                 <q-th auto-width />

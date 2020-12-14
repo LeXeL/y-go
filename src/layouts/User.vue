@@ -9,20 +9,22 @@
             @accept="displayAlert = false"
         ></ygo-alert>
         <Navbar />
-        <q-page-container v-if="Object.keys(userInformation).length > 0">
+        <q-page-container v-if="Object.keys(userInformation).length > 0" class="pattern-bg">
             <q-page>
                 <div class="row q-mt-lg">
                     <div class="col desktop-only"></div>
-                    <div class="col-lg-7">
+                    <div class="col-lg-7 q-pt-lg">
                         <div class="q-pa-sm">
-                            <q-card class="q-mb-lg">
+                            <q-card class="q-mb-lg bronze-frame">
                                 <q-card-section>
                                     <div class="row">
                                         <div class="col-lg-8 col-xs-12 column">
-                                            <div class="text-primary">
+                                            <div class="text-accent">
                                                 <span class="text-h5">Bienvenido,</span>
                                                 &nbsp;
-                                                <span class="text-h4">{{ userName }}</span>
+                                                <span class="text-h4 text-bold">{{
+                                                    userName
+                                                }}</span>
                                             </div>
                                             <div class="text-h5 text-accent">
                                                 Casillero:
@@ -107,62 +109,66 @@
 
                         <div class="row">
                             <div class="col-lg-4 col-xs-12 q-pa-sm">
-                                <q-list bordered padding class="rounded-borders">
-                                    <q-item-label header>Menu</q-item-label>
-                                    <q-separator />
-                                    <q-item clickable v-ripple @click="showUserProfile = false">
-                                        <q-item-section avatar top>
-                                            <q-avatar color="primary" text-color="white">
-                                                <i class="fas fa-home"></i>
-                                            </q-avatar>
-                                        </q-item-section>
+                                <div class="bronze-frame">
+                                    <q-list bordered padding class="bg-white">
+                                        <q-item-label header>Menu</q-item-label>
+                                        <q-separator />
+                                        <q-item clickable v-ripple @click="showUserProfile = false">
+                                            <q-item-section avatar top>
+                                                <q-avatar color="primary" text-color="white">
+                                                    <i class="fas fa-box"></i>
+                                                </q-avatar>
+                                            </q-item-section>
 
-                                        <q-item-section>
-                                            <q-item-label lines="1">Inicio</q-item-label>
-                                        </q-item-section>
-                                    </q-item>
+                                            <q-item-section>
+                                                <q-item-label lines="1">Mis paquetes</q-item-label>
+                                            </q-item-section>
+                                        </q-item>
 
-                                    <q-item clickable v-ripple @click="showUserProfile = true">
-                                        <q-item-section avatar top>
-                                            <q-avatar color="primary" text-color="white">
-                                                <i class="fas fa-map-marker-alt"></i>
-                                            </q-avatar>
-                                        </q-item-section>
+                                        <q-item clickable v-ripple @click="showUserProfile = true">
+                                            <q-item-section avatar top>
+                                                <q-avatar color="primary" text-color="white">
+                                                    <i class="fas fa-map-marker-alt"></i>
+                                                </q-avatar>
+                                            </q-item-section>
 
-                                        <q-item-section>
-                                            <q-item-label lines="1"
-                                                >Perfil y direccion de entrega</q-item-label
-                                            >
-                                            <q-item-label caption
-                                                >Edita tu informacion y direccion de
-                                                entrega</q-item-label
-                                            >
-                                        </q-item-section>
-                                    </q-item>
-                                    <q-item clickable v-ripple>
-                                        <q-item-section avatar top>
-                                            <q-avatar color="accent" text-color="white">
-                                                <i class="fas fa-sign-out-alt"></i>
-                                            </q-avatar>
-                                        </q-item-section>
+                                            <q-item-section>
+                                                <q-item-label lines="1"
+                                                    >Perfil y direccion de entrega</q-item-label
+                                                >
+                                                <q-item-label caption
+                                                    >Edita tu informacion y direccion de
+                                                    entrega</q-item-label
+                                                >
+                                            </q-item-section>
+                                        </q-item>
+                                        <q-item clickable v-ripple>
+                                            <q-item-section avatar top>
+                                                <q-avatar color="accent" text-color="white">
+                                                    <i class="fas fa-sign-out-alt"></i>
+                                                </q-avatar>
+                                            </q-item-section>
 
-                                        <q-item-section @click="logout()">
-                                            <q-item-label lines="1">Cerrar sesion</q-item-label>
-                                        </q-item-section>
-                                    </q-item>
-                                </q-list>
+                                            <q-item-section @click="logout()">
+                                                <q-item-label lines="1">Cerrar sesion</q-item-label>
+                                            </q-item-section>
+                                        </q-item>
+                                    </q-list>
+                                </div>
                             </div>
                             <div class="col-lg-8 col-xs-12 q-pa-sm">
-                                <UserHome
-                                    v-if="!showUserProfile"
-                                    :data="userInformation.invoices"
-                                ></UserHome>
-                                <UserProfile
-                                    v-else
-                                    :userInformationData="userInformation"
-                                    :forceUpdateOnUser="needsUpdate"
-                                    @saveUserProfile="updateUserProfile"
-                                ></UserProfile>
+                                <div class="bronze-frame q-mb-xl">
+                                    <UserHome
+                                        v-if="!showUserProfile"
+                                        :data="userInformation.invoices"
+                                    ></UserHome>
+                                    <UserProfile
+                                        v-else
+                                        :userInformationData="userInformation"
+                                        :forceUpdateOnUser="needsUpdate"
+                                        @saveUserProfile="updateUserProfile"
+                                    ></UserProfile>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -345,3 +351,12 @@ export default {
     },
 }
 </script>
+
+<style>
+.bronze-frame {
+    border: 10px solid;
+    border-image-slice: 1;
+    border-width: 5px;
+    border-image-source: linear-gradient(to right, #f5c987, #b68d4c);
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-    <q-card class="q-mb-xl">
+    <q-card style="border-radius: 0;">
         <ygo-alert
             :display="displayAlert"
             :title="alertTitle"
