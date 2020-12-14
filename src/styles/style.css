@@ -24,6 +24,11 @@
     height: 675px;
 }
 
+.pattern-bg {
+    background-image: url('../assets/Landing/landing_bg.jpg');
+    height: 100vh;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 7px;
