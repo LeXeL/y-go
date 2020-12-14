@@ -53,54 +53,27 @@
                                         </div>
                                         <div class="mobile-only q-pa-md"></div>
                                         <div class="col-lg-4 col-xs-12 column flex-center">
-                                            <div class="row full-width q-mb-lg">
-                                                <div class="col column flex-center">
-                                                    <q-img
-                                                        :src="require('@/assets/logo_ygo.png')"
-                                                        style="width: 150px; display: inline-block"
-                                                    />
-                                                </div>
-                                                <div class="col column flex-center">
-                                                    <div class="text-center" v-if="!affiliated">
-                                                        <i
-                                                            class="far fa-star fa-3x q-mb-sm text-accent"
-                                                        ></i>
-                                                        <div
-                                                            class="text-subtitle2 text-bold text-center q-mb-sm"
-                                                        >
-                                                            Programa de lealtad
-                                                        </div>
-                                                        <q-btn
-                                                            label="Afiliate aquí"
-                                                            color="primary"
-                                                            class="text-bold"
-                                                            push
-                                                            size="sm"
-                                                            @click="loyaltyAffiliationDialog = true"
-                                                        />
-                                                    </div>
-                                                    <div class="text-center" v-else>
-                                                        <div class="text-h3 text-primary">
-                                                            <strong>24</strong>
-                                                        </div>
-                                                        <div
-                                                            class="text-subtitle2 text-center text-accent"
-                                                        >
-                                                            <strong>Y-Puntos</strong>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div class="text-h5 text-bold text-bronze">
+                                                BRONZE
                                             </div>
-                                            <!-- <div class="text-h6 text-primary">Division Platino</div>
-                                            <q-linear-progress
-                                                stripe
-                                                rounded
-                                                size="15px"
-                                                :value="0.75"
-                                                color="accent"
-                                                class="q-mt-sm q-mb-xs"
-                                            />
-                                            <div class="text-caption">75/100 pts.</div> -->
+                                            <q-circular-progress
+                                                show-value
+                                                class="text-white q-ma-md"
+                                                :value="value"
+                                                color="bronze"
+                                                center-color="blue-grey-10"
+                                                size="150px"
+                                                :thickness="0.175"
+                                            >
+                                                <div
+                                                    class="text-h4 text-bold full-width text-center"
+                                                >
+                                                    {{ value }}
+                                                </div>
+                                                <div class="text-h6 full-width text-center">
+                                                    Libras
+                                                </div>
+                                            </q-circular-progress>
                                         </div>
                                     </div>
                                 </q-card-section>
@@ -255,7 +228,8 @@ export default {
             needsUpdate: false,
             completeRegistrationDialog: false,
             loyaltyAffiliationDialog: false,
-            affiliated: false,
+            affiliated: true,
+            value: 15,
         }
     },
     computed: {
@@ -358,5 +332,12 @@ export default {
     border-image-slice: 1;
     border-width: 5px;
     border-image-source: linear-gradient(to right, #f5c987, #b68d4c);
+}
+
+.text-bronze {
+    color: #d0a665;
+}
+.bg-bronze {
+    background: #d0a665;
 }
 </style>
