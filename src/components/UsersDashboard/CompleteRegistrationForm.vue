@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col desktop-only"></div>
                 <div class="col-lg-6 y-go-font">
-                    <div class="text-center q-py-xl">
+                    <div class="text-center q-py-lg">
                         <q-img :src="require('@/assets/logo_ygo.png')" style="width: 150px;" />
                     </div>
                     <div class="text-h5 text-bold text-accent text-center">¡Y-GASTE!</div>
@@ -18,6 +18,7 @@
                         color="primary"
                         animated
                         style="border-top: solid 5px #ff5722"
+                        class="q-mb-xl"
                     >
                         <q-step :name="1" title="Informacion personal" :done="step > 1">
                             <div class="text-h4 text-center text-primary">
@@ -112,7 +113,7 @@
                                         "
                                         @click="registrationData.selectedRateId = 'plan_basico_id'"
                                     >
-                                        <i class="fas fa-weight fa-2x q-mb-sm"></i>
+                                        <i class="fas fa-box-open fa-2x q-mb-sm"></i>
                                         <div class="text-h6 q-mb-sm text-bold">Plan Basico</div>
                                         <q-separator
                                             class="q-mb-sm"
@@ -135,7 +136,7 @@
                                         "
                                         @click="registrationData.selectedRateId = 'plan_cerovol_id'"
                                     >
-                                        <i class="fas fa-ruler-combined fa-2x q-mb-sm"></i>
+                                        <i class="fas fa-weight-hanging fa-2x q-mb-sm"></i>
                                         <div class="text-h6 q-mb-sm text-bold">
                                             Plan Cero Volumen
                                         </div>
@@ -170,12 +171,6 @@
                                         />
                                     </div>
                                 </div>
-                                <div
-                                    class="text-body2 full-width text-red-8 text-bold q-px-sm"
-                                    v-if="true"
-                                >
-                                    *** Debes seleccionar una tarifa ***
-                                </div>
                             </div>
                         </q-step>
 
@@ -185,30 +180,67 @@
                             icon="fas fa-map-marker-alt"
                             :done="step > 3"
                         >
-                            An ad group contains one or more ads which target a shared set of
-                            keywords.
+                            <div class="text-h4 text-center text-primary">
+                                <span class="text-bold text-secondary">3.</span> Direccion de
+                                entrega
+                            </div>
+                            <q-separator
+                                color="accent"
+                                style="width: 50%; margin: 0 auto; height: 2px; margin-bottom: 20px;"
+                            />
+                            <div class="row">
+                                <div class="col q-pa-sm">
+                                    <q-input
+                                        filled
+                                        label="Direccion de entrega *"
+                                        v-model="registrationData.address"
+                                        :rules="[
+                                            val => val.length > 0 || 'El campo es obligatorio',
+                                        ]"
+                                    />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col q-pa-sm">
+                                    <q-input
+                                        filled
+                                        label="Notas adicionales de dirección"
+                                        v-model="registrationData.addressExtra"
+                                    />
+                                </div>
+                            </div>
+                            <div class="row q-mb-md">
+                                <div class="col q-pa-sm">
+                                    <GoogleMaps
+                                        class="q-mb-md"
+                                        @markerPosition="setMarkerPosition"
+                                        :editable="true"
+                                        :markers="markers"
+                                        :mapCenter="center"
+                                    ></GoogleMaps>
+                                </div>
+                            </div>
                         </q-step>
 
                         <q-step :name="4" title="Completado" icon="fas fa-check-double">
-                            Try out different ad text to see what brings in the most customers, and
-                            learn how to enhance your ads using features like ad extensions. If you
-                            run into any problems with your ads, find out how to tell if they're
-                            running and how to resolve approval issues.
+                            Loading animation and text
                         </q-step>
 
-                        <template v-slot:navigation>
+                        <template v-slot:navigation v-if="step <= 3">
                             <q-stepper-navigation>
                                 <q-btn
                                     @click="$refs.stepper.next()"
-                                    color="primary"
-                                    :label="step === 4 ? 'Finish' : 'Continue'"
+                                    color="accent"
+                                    push
+                                    class="text-bold"
+                                    :label="step === 3 ? 'Finalizar' : 'Siguiente'"
                                 />
                                 <q-btn
                                     v-if="step > 1"
                                     flat
                                     color="primary"
                                     @click="$refs.stepper.previous()"
-                                    label="Back"
+                                    label="Atras"
                                     class="q-ml-sm"
                                 />
                             </q-stepper-navigation>
@@ -255,7 +287,7 @@ export default {
             markers: [],
             center: {},
             countryCodes: [],
-            step: 2,
+            step: 1,
         }
     },
     watch: {
