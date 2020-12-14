@@ -1,5 +1,5 @@
 <template>
-    <q-card style="border-radius: 0;">
+    <div>
         <ygo-alert
             :display="displayAlert"
             :title="alertTitle"
@@ -7,153 +7,330 @@
             :type="alertType"
             @accept="displayAlert = false"
         ></ygo-alert>
-        <q-card-section>
-            <div class="text-h6">Mi Perfil</div>
-        </q-card-section>
-        <q-card-section>
-            <div class="row q-mb-md">
-                <div class="col">
-                    <q-input
-                        filled
-                        label="Nombre"
-                        class="on-left"
-                        v-model="userInformationData.user.name"
-                        :disable="!editInformation"
-                        ref="name"
-                    />
-                </div>
-                <div class="col">
-                    <q-input
-                        filled
-                        label="Apellido"
-                        class="on-right"
-                        v-model="userInformationData.user.lastName"
-                        :disable="!editInformation"
-                    />
-                </div>
-            </div>
-            <div class="row q-mb-md">
-                <div class="col">
-                    <q-input
-                        filled
-                        readonly
-                        label="Correo electronico"
-                        v-model="userInformationData.user.email"
-                    />
-                </div>
-            </div>
-            <div class="row q-mb-md">
-                <div class="col">
-                    <q-input
-                        filled
-                        label="Telefono"
-                        v-model="userInformationData.user.phone"
-                        :disable="!editInformation"
-                    />
-                </div>
-            </div>
-            <div class="row q-mb-md" v-if="editInformation">
-                <div class="col-lg-4 col-xs-12 q-pa-sm">
-                    <div
-                        :class="
-                            selectedRateId == 'plan_basico_id'
-                                ? 'rateTileSelected q-pa-md rounded-borders text-center'
-                                : 'rateTile q-pa-md rounded-borders text-center'
-                        "
-                        @click="selectedRateId = 'plan_basico_id'"
-                    >
-                        <i class="fas fa-weight fa-2x q-mb-sm"></i>
-                        <div class="text-h6 q-mb-sm text-bold">
-                            Plan Basico
-                        </div>
-                        <q-separator class="q-mb-sm" :dark="selectedRateId == 'plan_basico_id'" />
-                        <div class="text-subtitle2">Texto punto 1</div>
-                        <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
-                        <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
-                        <div class="text-h5 text-bold q-mt-md">$ 2.50</div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xs-12 q-pa-sm">
-                    <div
-                        :class="
-                            selectedRateId == 'plan_cerovol_id'
-                                ? 'rateTileSelected q-pa-md rounded-borders text-center'
-                                : 'rateTile q-pa-md rounded-borders text-center'
-                        "
-                        @click="selectedRateId = 'plan_cerovol_id'"
-                    >
-                        <i class="fas fa-ruler-combined fa-2x q-mb-sm"></i>
-                        <div class="text-h6 q-mb-sm text-bold">
-                            Plan Cero Volumen
-                        </div>
-                        <q-separator class="q-mb-sm" :dark="selectedRateId == 'plan_cerovol_id'" />
-                        <div class="text-subtitle2">Texto punto 1</div>
-                        <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
-                        <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
-                        <div class="text-h5 text-bold q-mt-md">$ 3.00</div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xs-12 q-pa-sm">
-                    <div class="bg-grey-3 q-pa-md rounded-borders text-center">
-                        <i class="fas fa-building fa-2x q-mb-md"></i>
-                        <div class="text-h6 q-mb-sm text-primary text-bold">Plan Business</div>
-                        <q-separator class="q-mb-sm" />
-                        <div class="text-subtitle2">Texto punto 1</div>
-                        <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
-                        <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
-                        <q-btn class="q-mt-md" label="Contactar" size="sm" color="accent" push />
-                    </div>
-                </div>
-            </div>
-            <div class="row q-mb-md" v-else>
-                <div class="col">
-                    <q-input
-                        filled
-                        label="Tarifa"
-                        bottom-slots
-                        v-model="userInformationData.user.rate"
-                        disable
-                    >
-                        <template v-slot:hint> Ultima actualizacion: 10/09/2020 </template>
-                    </q-input>
-                </div>
-            </div>
+        <q-tabs
+            v-model="tab"
+            inline-label
+            :breakpoint="0"
+            align="justify"
+            class="bg-white text-accent shadow-2"
+        >
+            <q-tab name="info" label="Informacion" />
+            <q-tab name="plan" label="Plan" />
+            <q-tab name="address" label="Direccion" />
+        </q-tabs>
 
-            <div class="row q-mb-md">
-                <div class="col">
-                    <q-input
-                        type="textarea"
-                        filled
-                        rows="4"
-                        label="Direccion de entrega"
-                        v-model="userInformationData.user.address"
-                        :disable="!editInformation"
-                    />
+        <q-tab-panels v-model="tab" animated>
+            <q-tab-panel name="info">
+                <div class="row q-mb-md">
+                    <div class="col q-pa-sm">
+                        <q-input
+                            filled
+                            label="Nombre"
+                            class="on-left"
+                            v-model="userInformationData.user.name"
+                            :disable="!editInformation"
+                            ref="name"
+                        />
+                    </div>
+                    <div class="col q-pa-sm">
+                        <q-input
+                            filled
+                            label="Apellido"
+                            class="on-right"
+                            v-model="userInformationData.user.lastName"
+                            :disable="!editInformation"
+                        />
+                    </div>
                 </div>
-            </div>
-            <div class="row q-mb-md">
-                <div class="col">
-                    <GoogleMaps
-                        class="q-mb-md"
-                        v-if="Object.keys(center).length > 0"
-                        @markerPosition="setMarkerPosition"
-                        :editable="editInformation"
-                        :markers="markers"
-                        :mapCenter="center"
-                    ></GoogleMaps>
+                <div class="row q-mb-md">
+                    <div class="col q-pa-sm">
+                        <q-input
+                            filled
+                            readonly
+                            label="Correo electronico"
+                            v-model="userInformationData.user.email"
+                        />
+                    </div>
                 </div>
-            </div>
-        </q-card-section>
-        <q-card-actions>
-            <q-space />
-            <q-btn
-                :label="editInformation ? 'Guardar' : 'Editar'"
-                color="primary"
-                flat
-                @click="handleData()"
-            />
-        </q-card-actions>
-    </q-card>
+                <div class="row">
+                    <div class="col-lg-2 q-pa-sm">
+                        <q-select
+                            filled
+                            label="Pais"
+                            :options="countryCodes"
+                            emit-value
+                            v-model="countryCode"
+                            :disable="!editInformation"
+                        />
+                    </div>
+                    <div class="col-lg-10 q-pa-sm">
+                        <q-input
+                            filled
+                            label="Celular *"
+                            v-model="userInformationData.user.phone"
+                            :disable="!editInformation"
+                            mask="####-####"
+                            fill-mask
+                            :rules="[val => val.length > 0 || 'El campo es obligatorio']"
+                        />
+                    </div>
+                </div>
+            </q-tab-panel>
+
+            <q-tab-panel name="plan">
+                <div class="row q-mb-md">
+                    <div class="col-lg-4 col-xs-12 q-pa-sm">
+                        <div
+                            :class="
+                                selectedRateId == 'plan_basico_id'
+                                    ? 'rateTileSelected q-pa-md rounded-borders text-center'
+                                    : 'rateTile q-pa-md rounded-borders text-center'
+                            "
+                            @click="selectedRateId = 'plan_basico_id'"
+                        >
+                            <i class="fas fa-weight fa-2x q-mb-sm"></i>
+                            <div class="text-h6 q-mb-sm text-bold">
+                                Plan Basico
+                            </div>
+                            <q-separator
+                                class="q-mb-sm"
+                                :dark="selectedRateId == 'plan_basico_id'"
+                            />
+                            <div class="text-subtitle2">Texto punto 1</div>
+                            <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
+                            <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
+                            <div class="text-h5 text-bold q-mt-md">$ 2.50</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-xs-12 q-pa-sm">
+                        <div
+                            :class="
+                                selectedRateId == 'plan_cerovol_id'
+                                    ? 'rateTileSelected q-pa-md rounded-borders text-center'
+                                    : 'rateTile q-pa-md rounded-borders text-center'
+                            "
+                            @click="selectedRateId = 'plan_cerovol_id'"
+                        >
+                            <i class="fas fa-ruler-combined fa-2x q-mb-sm"></i>
+                            <div class="text-h6 q-mb-sm text-bold">
+                                Plan Cero Volumen
+                            </div>
+                            <q-separator
+                                class="q-mb-sm"
+                                :dark="selectedRateId == 'plan_cerovol_id'"
+                            />
+                            <div class="text-subtitle2">Texto punto 1</div>
+                            <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
+                            <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
+                            <div class="text-h5 text-bold q-mt-md">$ 3.00</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-xs-12 q-pa-sm">
+                        <div class="bg-grey-3 q-pa-md rounded-borders text-center">
+                            <i class="fas fa-building fa-2x q-mb-md"></i>
+                            <div class="text-h6 q-mb-sm text-primary text-bold">Plan Business</div>
+                            <q-separator class="q-mb-sm" />
+                            <div class="text-subtitle2">Texto punto 1</div>
+                            <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
+                            <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
+                            <q-btn
+                                class="q-mt-md"
+                                label="Contactar"
+                                size="sm"
+                                color="accent"
+                                push
+                            />
+                        </div>
+                    </div>
+                </div>
+            </q-tab-panel>
+
+            <q-tab-panel name="address">
+                <div class="row q-mb-md">
+                    <div class="col">
+                        <q-input
+                            filled
+                            label="Direccion de entrega"
+                            v-model="userInformationData.user.address"
+                            :disable="!editInformation"
+                        />
+                    </div>
+                </div>
+                <div class="row q-mb-md">
+                    <div class="col">
+                        <GoogleMaps
+                            class="q-mb-md"
+                            v-if="Object.keys(center).length > 0"
+                            @markerPosition="setMarkerPosition"
+                            :editable="editInformation"
+                            :markers="markers"
+                            :mapCenter="center"
+                        ></GoogleMaps>
+                    </div>
+                </div>
+            </q-tab-panel>
+        </q-tab-panels>
+        <!-- <q-card style="border-radius: 0;">
+            <q-card-section>
+                <div class="text-h6">Mi Perfil</div>
+            </q-card-section>
+            <q-card-section>
+                <div class="row q-mb-md">
+                    <div class="col">
+                        <q-input
+                            filled
+                            label="Nombre"
+                            class="on-left"
+                            v-model="userInformationData.user.name"
+                            :disable="!editInformation"
+                            ref="name"
+                        />
+                    </div>
+                    <div class="col">
+                        <q-input
+                            filled
+                            label="Apellido"
+                            class="on-right"
+                            v-model="userInformationData.user.lastName"
+                            :disable="!editInformation"
+                        />
+                    </div>
+                </div>
+                <div class="row q-mb-md">
+                    <div class="col">
+                        <q-input
+                            filled
+                            readonly
+                            label="Correo electronico"
+                            v-model="userInformationData.user.email"
+                        />
+                    </div>
+                </div>
+                <div class="row q-mb-md">
+                    <div class="col">
+                        <q-input
+                            filled
+                            label="Telefono"
+                            v-model="userInformationData.user.phone"
+                            :disable="!editInformation"
+                        />
+                    </div>
+                </div>
+                <div class="row q-mb-md" v-if="editInformation">
+                    <div class="col-lg-4 col-xs-12 q-pa-sm">
+                        <div
+                            :class="
+                                selectedRateId == 'plan_basico_id'
+                                    ? 'rateTileSelected q-pa-md rounded-borders text-center'
+                                    : 'rateTile q-pa-md rounded-borders text-center'
+                            "
+                            @click="selectedRateId = 'plan_basico_id'"
+                        >
+                            <i class="fas fa-weight fa-2x q-mb-sm"></i>
+                            <div class="text-h6 q-mb-sm text-bold">
+                                Plan Basico
+                            </div>
+                            <q-separator
+                                class="q-mb-sm"
+                                :dark="selectedRateId == 'plan_basico_id'"
+                            />
+                            <div class="text-subtitle2">Texto punto 1</div>
+                            <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
+                            <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
+                            <div class="text-h5 text-bold q-mt-md">$ 2.50</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-xs-12 q-pa-sm">
+                        <div
+                            :class="
+                                selectedRateId == 'plan_cerovol_id'
+                                    ? 'rateTileSelected q-pa-md rounded-borders text-center'
+                                    : 'rateTile q-pa-md rounded-borders text-center'
+                            "
+                            @click="selectedRateId = 'plan_cerovol_id'"
+                        >
+                            <i class="fas fa-ruler-combined fa-2x q-mb-sm"></i>
+                            <div class="text-h6 q-mb-sm text-bold">
+                                Plan Cero Volumen
+                            </div>
+                            <q-separator
+                                class="q-mb-sm"
+                                :dark="selectedRateId == 'plan_cerovol_id'"
+                            />
+                            <div class="text-subtitle2">Texto punto 1</div>
+                            <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
+                            <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
+                            <div class="text-h5 text-bold q-mt-md">$ 3.00</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-xs-12 q-pa-sm">
+                        <div class="bg-grey-3 q-pa-md rounded-borders text-center">
+                            <i class="fas fa-building fa-2x q-mb-md"></i>
+                            <div class="text-h6 q-mb-sm text-primary text-bold">Plan Business</div>
+                            <q-separator class="q-mb-sm" />
+                            <div class="text-subtitle2">Texto punto 1</div>
+                            <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
+                            <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
+                            <q-btn
+                                class="q-mt-md"
+                                label="Contactar"
+                                size="sm"
+                                color="accent"
+                                push
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row q-mb-md" v-else>
+                    <div class="col">
+                        <q-input
+                            filled
+                            label="Tarifa"
+                            bottom-slots
+                            v-model="userInformationData.user.rate"
+                            disable
+                        >
+                            <template v-slot:hint> Ultima actualizacion: 10/09/2020 </template>
+                        </q-input>
+                    </div>
+                </div>
+
+                <div class="row q-mb-md">
+                    <div class="col">
+                        <q-input
+                            type="textarea"
+                            filled
+                            rows="4"
+                            label="Direccion de entrega"
+                            v-model="userInformationData.user.address"
+                            :disable="!editInformation"
+                        />
+                    </div>
+                </div>
+                <div class="row q-mb-md">
+                    <div class="col">
+                        <GoogleMaps
+                            class="q-mb-md"
+                            v-if="Object.keys(center).length > 0"
+                            @markerPosition="setMarkerPosition"
+                            :editable="editInformation"
+                            :markers="markers"
+                            :mapCenter="center"
+                        ></GoogleMaps>
+                    </div>
+                </div>
+            </q-card-section>
+            <q-card-actions>
+                <q-space />
+                <q-btn
+                    :label="editInformation ? 'Guardar' : 'Editar'"
+                    color="primary"
+                    flat
+                    @click="handleData()"
+                />
+            </q-card-actions>
+        </q-card> -->
+    </div>
 </template>
 <script>
 import GoogleMaps from '../../components/general/GoogleMaps'
@@ -180,6 +357,9 @@ export default {
             alertMessage: '',
             alertType: '',
             selectedRateId: 'plan_basico_id',
+            tab: 'info',
+            countryCodes: [],
+            countryCode: '+507',
         }
     },
     methods: {
@@ -248,6 +428,7 @@ export default {
         }
         this.center = this.userInformationData.user.coordinates
         this.markers.push({position: this.center})
+        this.countryCodes = require('@/assets/country_codes.json')
     },
 }
 </script>
