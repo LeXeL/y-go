@@ -2,7 +2,7 @@
     <q-card>
         <q-form @submit="submitForm()">
             <q-card-section class="text-center">
-                <i class="far fa-laugh-wink fa-5x text-primary"></i>
+                <!-- <i class="far fa-laugh-wink fa-5x text-primary"></i> -->
             </q-card-section>
             <q-card-section class="text-center">
                 <div class="text-h5 text-bold text-accent">¡Y-GASTE!</div>
