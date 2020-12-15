@@ -321,7 +321,7 @@ export default {
             markers: [],
             center: {},
             countryCodes: [],
-            step: 4,
+            step: 1,
             progress: 0.5,
         }
     },
