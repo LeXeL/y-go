@@ -223,7 +223,41 @@
                         </q-step>
 
                         <q-step :name="4" title="Completado" icon="fas fa-check-double">
-                            Loading animation and text
+                            <div class="full-width text-center q-mb-md">
+                                <q-spinner-puff color="primary" size="5em" v-if="true" />
+                                <i class="fas fa-check fa-4x text-secondary" v-else />
+                            </div>
+
+                            <div
+                                class="text-h5 text-center text-bold text-accent q-mb-md"
+                                v-if="true"
+                            >
+                                Estamos guardando to informacion<br />En unos momentos tu casillero
+                                estara listo.
+                            </div>
+                            <div class="text-h5 text-center text-bold text-accent q-mb-md" v-else>
+                                ¡GUARDADO CON EXITO!<br />
+                                Ya puedes acceder a tu casillero.
+                            </div>
+
+                            <q-linear-progress
+                                dark
+                                stripe
+                                rounded
+                                size="20px"
+                                :value="progress"
+                                color="primary"
+                                v-if="true"
+                            />
+                            <div class="full-width text-center" v-else>
+                                <!-- ESTE BOTON DEBE CERRAR EL DIALOG -->
+                                <q-btn
+                                    push
+                                    label="Ver mi casillero"
+                                    class="text-bold"
+                                    color="accent"
+                                />
+                            </div>
                         </q-step>
 
                         <template v-slot:navigation v-if="step <= 3">
@@ -287,7 +321,8 @@ export default {
             markers: [],
             center: {},
             countryCodes: [],
-            step: 1,
+            step: 4,
+            progress: 0.5,
         }
     },
     watch: {
