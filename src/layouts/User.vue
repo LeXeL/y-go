@@ -13,12 +13,12 @@
             <q-page>
                 <div class="row q-mt-lg">
                     <div class="col desktop-only"></div>
-                    <div class="col-lg-7 q-pt-lg">
+                    <div class="col-lg-7 col-md-9 q-pt-lg">
                         <div class="q-pa-sm">
                             <q-card class="q-mb-lg bronze-frame">
                                 <q-card-section>
                                     <div class="row">
-                                        <div class="col-lg-8 col-xs-12 column">
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 column">
                                             <div class="text-accent">
                                                 <span class="text-h5">Bienvenido,</span>
                                                 &nbsp;
@@ -52,7 +52,9 @@
                                             </div>
                                         </div>
                                         <div class="mobile-only q-pa-md"></div>
-                                        <div class="col-lg-4 col-xs-12 column flex-center">
+                                        <div
+                                            class="col-lg-4 col-md-4 col-sm-3 col-xs-12 column flex-center"
+                                        >
                                             <div class="text-h5 text-bold text-bronze">
                                                 BRONZE
                                             </div>
@@ -81,7 +83,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-4 col-xs-12 q-pa-sm">
+                            <div class="col-lg-4 col-md-4 col-xs-12 q-pa-sm">
                                 <div class="bronze-frame">
                                     <q-list bordered padding class="bg-white">
                                         <q-item-label header>Menu</q-item-label>
@@ -129,7 +131,7 @@
                                     </q-list>
                                 </div>
                             </div>
-                            <div class="col-lg-8 col-xs-12 q-pa-sm">
+                            <div class="col-lg-8 col-md-8 col-xs-12 q-pa-sm">
                                 <div class="bronze-frame q-mb-xl">
                                     <UserHome
                                         v-if="!showUserProfile"
