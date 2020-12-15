@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-2 q-pa-sm">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 q-pa-sm">
                         <q-select
                             filled
                             label="Pais"
@@ -63,7 +63,7 @@
                             :disable="!editInformation"
                         />
                     </div>
-                    <div class="col-lg-10 q-pa-sm">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-8 q-pa-sm">
                         <q-input
                             filled
                             label="Celular *"
