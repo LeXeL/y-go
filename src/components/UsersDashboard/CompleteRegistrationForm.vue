@@ -5,7 +5,7 @@
                 <div class="col desktop-only"></div>
                 <div class="col-lg-6 y-go-font">
                     <div class="text-center q-py-lg">
-                        <q-img :src="require('@/assets/logo_ygo.png')" style="width: 150px;" />
+                        <q-img :src="require('@/assets/logo_ygo.png')" style="width: 150px" />
                     </div>
                     <div class="text-h5 text-bold text-accent text-center">¡Y-GASTE!</div>
                     <div class="text-h6 text-center q-mb-lg">
@@ -23,11 +23,11 @@
                         <q-step :name="1" title="Informacion personal" :done="step > 1">
                             <div class="text-h4 text-center text-primary">
                                 <span class="text-bold text-secondary">1.</span> Informacion
-                                personal
+                                personallllll
                             </div>
                             <q-separator
                                 color="accent"
-                                style="width: 50%; margin: 0 auto; height: 2px; margin-bottom: 20px;"
+                                style="width: 50%; margin: 0 auto; height: 2px; margin-bottom: 20px"
                             />
                             <div class="row">
                                 <div class="col q-pa-sm">
@@ -88,7 +88,7 @@
                             </div>
                             <q-separator
                                 color="accent"
-                                style="width: 50%; margin: 0 auto; height: 2px; margin-bottom: 20px;"
+                                style="width: 50%; margin: 0 auto; height: 2px; margin-bottom: 20px"
                             />
                             <div class="row">
                                 <div class="col q-pa-sm">
@@ -186,7 +186,7 @@
                             </div>
                             <q-separator
                                 color="accent"
-                                style="width: 50%; margin: 0 auto; height: 2px; margin-bottom: 20px;"
+                                style="width: 50%; margin: 0 auto; height: 2px; margin-bottom: 20px"
                             />
                             <div class="row">
                                 <div class="col q-pa-sm">
