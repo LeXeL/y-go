@@ -39,7 +39,7 @@
 
                                                 <span
                                                     class="text-primary text-bold text-caption on-right"
-                                                    style="cursor: pointer;"
+                                                    style="cursor: pointer"
                                                     @click="copyAddressToClipboard()"
                                                 >
                                                     <i class="far fa-copy"></i
@@ -55,9 +55,7 @@
                                         <div
                                             class="col-lg-4 col-md-4 col-sm-3 col-xs-12 column flex-center"
                                         >
-                                            <div class="text-h5 text-bold text-bronze">
-                                                BRONZE
-                                            </div>
+                                            <div class="text-h5 text-bold text-bronze">BRONZE</div>
                                             <q-circular-progress
                                                 show-value
                                                 class="text-white q-ma-md"
@@ -246,10 +244,14 @@ export default {
         copyAddressToClipboard() {
             let text = document.getElementById('miaAddress').innerHTML
             navigator.clipboard.writeText(text).then(
-                function() {
-                    alert('Direccion copiada correctamente')
+                () => {
+                    this.displayLoading = false
+                    this.alertTitle = 'Copiado'
+                    this.alertMessage = 'Direccion copiada correctamente'
+                    this.alertType = 'success'
+                    this.displayAlert = true
                 },
-                function(err) {
+                function (err) {
                     console.error('Async: Could not copy text: ', err)
                 }
             )
