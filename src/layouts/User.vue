@@ -229,7 +229,7 @@ export default {
             completeRegistrationDialog: false,
             loyaltyAffiliationDialog: false,
             affiliated: true,
-            value: 15,
+            value: 0,
         }
     },
     computed: {
@@ -325,6 +325,7 @@ export default {
             this.userInformation = response.data.data
             this.displayLoading = false
             this.userName = `${this.userInformation.user.name} ${this.userInformation.user.lastName}`
+            this.value = this.userInformation.user.poundsCount
         })
     },
 }

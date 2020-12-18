@@ -77,6 +77,7 @@ async function createInvoice(by) {
                 let userEmail = await users.returnUserEmailByBox(box)
                 let emailBody = await emailHandler.templateHandler('Invoice-01', obj)
                 let userName = await users.returnUserNameByBox(box)
+                users.addPoundsToUid(uid, element)
                 emailHandler.sendEmail(
                     userEmail,
                     'Recepcion de Mercancia Y-Go 📦',
