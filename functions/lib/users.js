@@ -2,6 +2,19 @@ const admin = require('firebase-admin')
 const db = admin.firestore()
 const rates = require('./rates')
 
+async function addPoundsToUid(uid, packages) {
+    // Sum the pounds to uid
+    let pounds = 0
+    packages.forEach(package => {
+        pounds +=
+            package.volumetricWeight === 0
+                ? parseInt(package.weight)
+                : parseInt(package.volumetricWeight)
+    })
+    db.collection('users')
+        .doc(uid)
+        .update({poundsCount: admin.firestore.FieldValue.increment(parseInt(pounds))})
+}
 async function addToLastId() {
     // Sum the count of each shard in the subcollection
     return await db
@@ -46,6 +59,7 @@ async function updateDatabaseWithUserInfo(uid, obj) {
             lastName: obj.lastName,
             box: `YGO-${parseInt(lastId.lastId)}`,
             logs: [],
+            poundsCount: 0,
             isUpdated: false,
         })
         .then(() => {
@@ -146,6 +160,7 @@ async function returnUserNameByBox(box) {
         : 'none'
 }
 module.exports = {
+    addPoundsToUid,
     createDatabaseWithUserInfo,
     updateDatabaseWithUserInfo,
     returnUserById,
