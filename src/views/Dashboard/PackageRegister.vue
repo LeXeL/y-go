@@ -794,7 +794,7 @@ export default {
             if (input.includes('YGO')) {
                 return input
             }
-            return `YGO-${input}`
+            return `YGO${input}`
         },
         deletePackage() {
             this.displayLoading = true
