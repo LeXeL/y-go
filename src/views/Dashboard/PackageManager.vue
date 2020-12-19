@@ -46,7 +46,7 @@
                     </q-input>
                 </div>
                 <div class="col-lg-2 q-px-md">
-                    <q-input filled mask="date" label="Fecha inicial" dense v-model="dateTomorow">
+                    <q-input filled mask="date" label="Fecha final" dense v-model="dateTomorow">
                         <template v-slot:append>
                             <q-icon name="fas fa-calendar" class="cursor-pointer">
                                 <q-popup-proxy
