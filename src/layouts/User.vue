@@ -115,6 +115,24 @@
                                                 >
                                             </q-item-section>
                                         </q-item>
+                                        <q-item
+                                            v-if="user.role === 'admin'"
+                                            clickable
+                                            v-ripple
+                                            to="/admin"
+                                        >
+                                            <q-item-section avatar top>
+                                                <q-avatar color="primary" text-color="white">
+                                                    <i class="fas fa-cogs"></i>
+                                                </q-avatar>
+                                            </q-item-section>
+
+                                            <q-item-section>
+                                                <q-item-label lines="1"
+                                                    >Panel Administrativo</q-item-label
+                                                >
+                                            </q-item-section>
+                                        </q-item>
                                         <q-item clickable v-ripple>
                                             <q-item-section avatar top>
                                                 <q-avatar color="accent" text-color="white">
@@ -299,7 +317,7 @@ export default {
                 .signOut()
                 .then(async () => {
                     await this.$store.dispatch('UserLogout')
-                    this.$router.push('/login')
+                    this.$router.push('/')
                 })
                 .catch(error => {
                     console.log(error)
