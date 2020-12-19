@@ -14,7 +14,7 @@
                         <ul class="q-pa-none">
                             <li v-for="(link, i) in navLinks" :key="i">
                                 <router-link :to="link.route"
-                                    ><div class="text-h6" style="font-weight: 600;">
+                                    ><div class="text-h6" style="font-weight: 600">
                                         {{ link.text }}
                                     </div></router-link
                                 >
@@ -33,7 +33,7 @@
                             />
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  q-py-md  column flex-center">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 q-py-md column flex-center">
                         <div>
                             <q-btn outline round color="accent" class="on-left">
                                 <i class="fab fa-facebook-f"></i>
@@ -124,7 +124,7 @@ export default {
                 .signOut()
                 .then(async () => {
                     await this.$store.dispatch('UserLogout')
-                    this.$router.push('/login')
+                    this.$router.push('/')
                 })
                 .catch(error => {
                     console.log(error)
