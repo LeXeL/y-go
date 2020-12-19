@@ -21,7 +21,7 @@
                 <q-input dense filled label="Casillero" ref="box" v-model="searchBox" />
             </div>
             <div class="col-lg-2 q-px-md">
-                <q-input filled mask="date" label="Fecha" dense v-model="searchDate">
+                <q-input filled mask="date" label="Fecha inicial" dense v-model="dateToday">
                     <template v-slot:append>
                         <q-icon name="fas fa-calendar" class="cursor-pointer">
                             <q-popup-proxy
@@ -29,9 +29,31 @@
                                 transition-show="scale"
                                 transition-hide="scale"
                             >
-                                <q-date v-model="searchDate">
+                                <q-date v-model="dateToday" @input="() => $refs.qDateProxy.hide()">
                                     <div class="row items-center justify-end">
-                                        <q-btn v-close-popup label="Close" color="primary" flat />
+                                        <q-btn v-close-popup label="Cerrar" color="primary" flat />
+                                    </div>
+                                </q-date>
+                            </q-popup-proxy>
+                        </q-icon>
+                    </template>
+                </q-input>
+            </div>
+            <div class="col-lg-2 q-px-md">
+                <q-input filled mask="date" label="Fecha final" dense v-model="dateTomorow">
+                    <template v-slot:append>
+                        <q-icon name="fas fa-calendar" class="cursor-pointer">
+                            <q-popup-proxy
+                                ref="qDateProxyt"
+                                transition-show="scale"
+                                transition-hide="scale"
+                            >
+                                <q-date
+                                    v-model="dateTomorow"
+                                    @input="() => $refs.qDateProxyt.hide()"
+                                >
+                                    <div class="row items-center justify-end">
+                                        <q-btn v-close-popup label="Cerrar" color="primary" flat />
                                     </div>
                                 </q-date>
                             </q-popup-proxy>
@@ -96,11 +118,9 @@
                                         @click="assignWorkingInvoice(props.row)"
                                     >
                                         <i
-                                            :class="
-                                                `fas fa-${
-                                                    returnStatus(props.row.status).icon
-                                                } q-mr-sm`
-                                            "
+                                            :class="`fas fa-${
+                                                returnStatus(props.row.status).icon
+                                            } q-mr-sm`"
                                         ></i>
                                         {{ returnStatus(props.row.status).status }}
                                     </q-btn>
@@ -189,7 +209,8 @@ export default {
             statusDialog: false,
             searchBox: '',
             searchInvoice: '',
-            searchDate: '',
+            dateToday: '',
+            dateTomorow: '',
             statusOptions: [
                 {
                     label: 'Todo',
@@ -331,6 +352,16 @@ export default {
             if (status == 'payed') return {status: 'Pagado', color: 'green', icon: 'dollar-sign'}
             if (status == 'delivered') return {status: 'Entregado', color: 'primary', icon: 'box'}
         },
+        returnIfItemIsInDateRange(pckg) {
+            if (this.dateToday != '' || this.dateTomorow != '') {
+                let dataDate = moment(pckg.creationTime).format('YYYY/MM/DD')
+                return (
+                    moment(dataDate).isSameOrAfter(this.dateToday) &&
+                    moment(dataDate).isSameOrBefore(this.dateTomorow)
+                )
+            }
+            return true
+        },
     },
     computed: {
         filterTableData() {
@@ -338,10 +369,8 @@ export default {
             this.invoicesData.forEach(invoice => {
                 if (
                     invoice.No.toString(10).includes(this.searchInvoice) &&
+                    this.returnIfItemIsInDateRange(invoice) &&
                     invoice.box.includes(this.searchBox) &&
-                    moment(invoice.creationTime)
-                        .format('YYYY/MM/DD')
-                        .includes(this.searchDate) &&
                     invoice.status.includes(this.searchStatus)
                 )
                     data.push(invoice)

@@ -103,7 +103,7 @@ export default {
                 .signOut()
                 .then(async () => {
                     await this.$store.dispatch('UserLogout')
-                    this.$router.push('/login')
+                    this.$router.push('/')
                 })
                 .catch(error => {
                     console.log(error)
