@@ -75,6 +75,15 @@
                         />
                     </div>
                 </div>
+                <div class="row">
+                    <q-btn
+                        push
+                        size="sm"
+                        color="accent"
+                        label="Guardar"
+                        @click="$emit('saveUserProfile')"
+                    />
+                </div>
             </q-tab-panel>
 
             <q-tab-panel name="plan">
@@ -136,6 +145,7 @@
                         <q-input
                             filled
                             label="Notas adicionales de direccion"
+                            v-model="userInformationData.user.addressExtra"
                             :disable="!editInformation"
                         />
                     </div>
@@ -146,11 +156,21 @@
                             class="q-mb-md"
                             v-if="Object.keys(center).length > 0"
                             @markerPosition="setMarkerPosition"
+                            @newMarkerPosition="setNewMarkerPosition"
                             :editable="editInformation"
                             :markers="markers"
                             :mapCenter="center"
                         ></GoogleMaps>
                     </div>
+                </div>
+                <div class="row">
+                    <q-btn
+                        push
+                        size="sm"
+                        color="accent"
+                        label="Guardar"
+                        @click="sendAddressUpdate()"
+                    />
                 </div>
             </q-tab-panel>
         </q-tab-panels>
@@ -166,17 +186,13 @@ export default {
             type: Object,
             default: () => {},
         },
-        forceUpdateOnUser: {
-            type: Boolean,
-            default: false,
-        },
     },
     data() {
         return {
             location: [],
             markers: [],
             center: {},
-            editInformation: false,
+            editInformation: true,
             displayAlert: false,
             alertTitle: '',
             alertMessage: '',
@@ -208,35 +224,14 @@ export default {
                 classes += ' fas fa-building'
             return classes
         },
-        handleData() {
-            //Si editGeneralInfo es falso ponlo true y ya.
-            if (!this.editInformation) {
-                this.editInformation = true
-                return
-            }
-            this.editInformation = false
-            this.sendUpdate()
+        async sendAddressUpdate() {
+            if (Object.keys(this.location).length > 0)
+                this.userInformationData.user.coordinates = this.location
+            this.$emit('saveUserProfile')
         },
-        async sendUpdate() {
-            if (this.forceUpdateOnUser) {
-                if (
-                    this.userInformationData.user.phone === undefined ||
-                    this.userInformationData.user.address === undefined
-                ) {
-                    this.editInformation = true
-                    this.displayLoading = false
-                    this.alertTitle = 'Error'
-                    this.alertMessage =
-                        'No puedes dejar ningun campo vacio por favor llenalos todos con tus datos'
-                    this.alertType = 'error'
-                    this.displayAlert = true
-                    return
-                }
-            }
-            let obj = {...this.userInformationData.user}
-            obj.isUpdated = true
-            if (Object.keys(this.location).length > 0) obj.coordinates = this.location
-            this.$emit('saveUserProfile', obj)
+        setNewMarkerPosition(event) {
+            this.markers = [{position: event}]
+            this.location = event
         },
         setMarkerPosition(event) {
             this.location = event
@@ -264,9 +259,6 @@ export default {
         GoogleMaps,
     },
     async mounted() {
-        if (this.forceUpdateOnUser) {
-            this.editInformation = true
-        }
         if (this.userInformationData.user.coordinates === undefined) {
             this.geolocate()
             return

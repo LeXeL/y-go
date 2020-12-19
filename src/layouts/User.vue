@@ -264,12 +264,12 @@ export default {
                 this.completeRegistrationDialog = false
             })
         },
-        async updateUserProfile(obj) {
+        async updateUserProfile() {
             this.displayLoading = true
             this.displayAlert = false
             api.UpdateUserInformationById({
                 uid: this.uid,
-                user: obj,
+                user: this.userInformation.user,
             })
                 .then(async response => {
                     this.displayLoading = false
