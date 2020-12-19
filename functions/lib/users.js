@@ -57,7 +57,7 @@ async function updateDatabaseWithUserInfo(uid, obj) {
         .update({
             name: obj.name,
             lastName: obj.lastName,
-            box: `YGO-${parseInt(lastId.lastId)}`,
+            box: `YGO${parseInt(lastId.lastId)}`,
             logs: [],
             poundsCount: 0,
             isUpdated: false,
