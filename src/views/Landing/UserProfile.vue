@@ -59,7 +59,7 @@
                             label="Pais"
                             :options="countryCodes"
                             emit-value
-                            v-model="countryCode"
+                            v-model="userInformationData.user.countryCode"
                             :disable="!editInformation"
                         />
                     </div>
@@ -81,15 +81,18 @@
                 <div class="row q-mb-md">
                     <div class="col-lg-4 col-xs-12 q-pa-sm">
                         <div class="rateTileSelected q-pa-md rounded-borders text-center">
-                            <i class="fas fa-weight fa-2x q-mb-sm"></i>
+                            <i :class="returnIconAcordingToRate()"></i>
                             <div class="text-h6 q-mb-sm text-bold">
-                                Plan Basico
+                                {{ returnRateName() }}
                             </div>
                             <q-separator class="q-mb-sm" dark />
                             <div class="text-subtitle2">Texto punto 1</div>
                             <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
                             <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
-                            <div class="text-h5 text-bold q-mt-md">$ 2.50</div>
+                            <div class="text-h5 text-bold q-mt-md">
+                                $
+                                {{ returnRatePrice() }}
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 q-pa-sm">
@@ -98,7 +101,11 @@
                             filled
                             color="primary"
                             label="Sucursal"
-                            value="asdf"
+                            :value="
+                                userInformationData.user.subsidiary === 0
+                                    ? 'Cuidad de Panamá'
+                                    : 'Cuidad de Penonomé'
+                            "
                             class="q-mb-md"
                         />
                         <div class="text-body full-width">
@@ -151,6 +158,7 @@
 </template>
 <script>
 import GoogleMaps from '../../components/general/GoogleMaps'
+import * as api from '@/api/api'
 
 export default {
     props: {
@@ -173,13 +181,33 @@ export default {
             alertTitle: '',
             alertMessage: '',
             alertType: '',
-            selectedRateId: 'plan_basico_id',
             tab: 'info',
-            countryCodes: [],
-            countryCode: '+507',
+            countryCodes: require('@/assets/country_codes.json'),
+            allRates: [],
         }
     },
     methods: {
+        returnRateName() {
+            let rate = this.allRates.find(rate => rate.id === this.userInformationData.user.rate)
+            return !!rate ? rate.name : 'NaN'
+        },
+        returnRatePrice() {
+            let rate = this.allRates.find(rate => rate.id === this.userInformationData.user.rate)
+            return !!rate ? rate.rate.toFixed(2) : 'NaN'
+        },
+        returnIconAcordingToRate() {
+            let classes = 'fa-2x q-mb-sm'
+            let rateName = this.allRates.find(
+                rate => rate.id === this.userInformationData.user.rate
+            )
+            if (rateName != undefined && rateName.name === 'Plan Basico')
+                classes += ' fas fa-box-open'
+            if (rateName != undefined && rateName.name === 'Plan Cero Volumen')
+                classes += ' fas fa-weight-hanging'
+            if (rateName != undefined && rateName.name === 'Plan Business')
+                classes += ' fas fa-building'
+            return classes
+        },
         handleData() {
             //Si editGeneralInfo es falso ponlo true y ya.
             if (!this.editInformation) {
@@ -245,7 +273,7 @@ export default {
         }
         this.center = this.userInformationData.user.coordinates
         this.markers.push({position: this.center})
-        this.countryCodes = require('@/assets/country_codes.json')
+        api.ReturnAllRates().then(response => (this.allRates = response.data.data))
     },
 }
 </script>
