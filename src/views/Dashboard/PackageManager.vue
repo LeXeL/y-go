@@ -19,7 +19,7 @@
                     <q-input dense filled label="Casillero" ref="box" v-model="searchBox" />
                 </div>
                 <div class="col-lg-2 q-px-md">
-                    <q-input filled mask="date" label="Fecha" dense v-model="searchDate">
+                    <q-input filled mask="date" label="Fecha inicial" dense v-model="dateToday">
                         <template v-slot:append>
                             <q-icon name="fas fa-calendar" class="cursor-pointer">
                                 <q-popup-proxy
@@ -28,8 +28,35 @@
                                     transition-hide="scale"
                                 >
                                     <q-date
-                                        v-model="searchDate"
+                                        v-model="dateToday"
                                         @input="() => $refs.qDateProxy.hide()"
+                                    >
+                                        <div class="row items-center justify-end">
+                                            <q-btn
+                                                v-close-popup
+                                                label="Cerrar"
+                                                color="primary"
+                                                flat
+                                            />
+                                        </div>
+                                    </q-date>
+                                </q-popup-proxy>
+                            </q-icon>
+                        </template>
+                    </q-input>
+                </div>
+                <div class="col-lg-2 q-px-md">
+                    <q-input filled mask="date" label="Fecha inicial" dense v-model="dateTomorow">
+                        <template v-slot:append>
+                            <q-icon name="fas fa-calendar" class="cursor-pointer">
+                                <q-popup-proxy
+                                    ref="qDateProxyt"
+                                    transition-show="scale"
+                                    transition-hide="scale"
+                                >
+                                    <q-date
+                                        v-model="dateTomorow"
+                                        @input="() => $refs.qDateProxyt.hide()"
                                     >
                                         <div class="row items-center justify-end">
                                             <q-btn
@@ -175,7 +202,8 @@ export default {
             searchBox: '',
             searchInvoice: '',
             invoices: [],
-            searchDate: '',
+            dateToday: '',
+            dateTomorow: '',
             initialPagination: {
                 sortBy: 'desc',
                 descending: false,
@@ -264,6 +292,16 @@ export default {
         calculateVolumetric(row) {
             return parseInt(row.long) * parseInt(row.height) * parseInt(row.width)
         },
+        returnIfItemIsInDateRange(pckg) {
+            if (this.dateToday != '' || this.dateTomorow != '') {
+                let dataDate = moment(pckg.creationTime).format('YYYY/MM/DD')
+                return (
+                    moment(dataDate).isSameOrAfter(this.dateToday) &&
+                    moment(dataDate).isSameOrBefore(this.dateTomorow)
+                )
+            }
+            return true
+        },
     },
     computed: {
         filterTableData() {
@@ -271,9 +309,7 @@ export default {
             this.packagesData.forEach(pckg => {
                 if (
                     pckg.box.includes(this.searchBox) &&
-                    moment(pckg.creationTime)
-                        .format('YYYY/MM/DD')
-                        .includes(this.searchDate) &&
+                    this.returnIfItemIsInDateRange(pckg) &&
                     pckg.tracking.toLowerCase().includes(this.searchTracking.toLowerCase()) &&
                     pckg.invoice.toString(10).includes(this.searchInvoice)
                 )
