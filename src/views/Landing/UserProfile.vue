@@ -69,8 +69,6 @@
                             label="Celular *"
                             v-model="userInformationData.user.phone"
                             :disable="!editInformation"
-                            mask="####-####"
-                            fill-mask
                             :rules="[val => val.length > 0 || 'El campo es obligatorio']"
                         />
                     </div>
