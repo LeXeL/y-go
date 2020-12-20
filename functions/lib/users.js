@@ -61,6 +61,7 @@ async function updateDatabaseWithUserInfo(uid, obj) {
             logs: [],
             poundsCount: 0,
             isUpdated: false,
+            affiliateCardNo: null,
         })
         .then(() => {
             addToLastId()
@@ -135,6 +136,10 @@ async function returnAllUsers() {
         })
     return users
 }
+async function returnAllAffiliateCardNo() {
+    let users = await returnAllUsers()
+    return users.filter(user => user.affiliateCardNo != null).map(user => user.affiliateCardNo)
+}
 async function returnUserRateByBox(box) {
     let users = await returnAllUsers()
     let allRates = await rates.returnAllRates()
@@ -171,4 +176,5 @@ module.exports = {
     returnUserUidByBox,
     returnUserEmailByBox,
     returnUserNameByBox,
+    returnAllAffiliateCardNo,
 }
