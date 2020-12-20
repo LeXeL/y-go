@@ -203,8 +203,8 @@ export default {
     methods: {
         showPrice() {
             let rate = this.allRates.find(rate => rate.id === this.userInformationData.user.rate)
-            if (rate.name === 'Plan Business') {
-                if (!this.userInformationData.user.bussinesApproved) return false
+            if (!!rate && rate.name === 'Plan Business') {
+                if (!this.userInformationData.user.businessAproved) return false
             }
             return true
         },
