@@ -15,7 +15,13 @@
                     <div class="col desktop-only"></div>
                     <div class="col-lg-7 col-md-9 q-pt-lg">
                         <div class="q-pa-sm">
-                            <q-card class="q-mb-lg bronze-frame">
+                            <q-card
+                                :class="
+                                    userInformation.user.affiliateCardNo != null
+                                        ? 'q-mb-lg bronze-frame'
+                                        : 'q-mb-lg '
+                                "
+                            >
                                 <q-card-section>
                                     <div class="row">
                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 column">
@@ -54,7 +60,7 @@
                                         <div class="mobile-only q-pa-md"></div>
                                         <div
                                             class="col-lg-4 col-md-4 col-sm-3 col-xs-12 column flex-center"
-                                            v-if="affiliated"
+                                            v-if="userInformation.user.affiliateCardNo != null"
                                         >
                                             <div class="text-h5 text-bold text-bronze">BRONZE</div>
                                             <q-circular-progress
@@ -99,7 +105,13 @@
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-xs-12 q-pa-sm">
-                                <div class="bronze-frame">
+                                <div
+                                    :class="
+                                        userInformation.user.affiliateCardNo != null
+                                            ? 'bronze-frame'
+                                            : ''
+                                    "
+                                >
                                     <q-list bordered padding class="bg-white">
                                         <q-item-label header>Menu</q-item-label>
                                         <q-separator />
@@ -165,7 +177,13 @@
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-8 col-xs-12 q-pa-sm">
-                                <div class="bronze-frame q-mb-xl">
+                                <div
+                                    :class="
+                                        userInformation.user.affiliateCardNo != null
+                                            ? 'q-mb-xl bronze-frame'
+                                            : 'q-mb-xl '
+                                    "
+                                >
                                     <UserHome
                                         v-if="!showUserProfile"
                                         :data="userInformation.invoices"
@@ -187,30 +205,49 @@
         <Footer />
         <q-dialog v-model="loyaltyAffiliationDialog">
             <q-card class="y-go-font">
-                <q-card-section>
-                    <div class="text-h6 text-center text-bold">
-                        Afiliate a nuestro programa de lealtad!
-                    </div>
-                </q-card-section>
-                <q-card-section>
-                    <div class="text-subtitle1 text-center">
-                        Solo debes solicitar la tarjeta en su sucursal mas cercana, activarla con el
-                        numero en la cuenta y ya esta participando.
-                    </div>
-                </q-card-section>
-                <q-card-section>
-                    <q-input filled type="number" label="Registra tu tarjeta" color="primary" />
-                </q-card-section>
-                <q-card-actions>
-                    <q-btn
-                        color="accent"
-                        label="Registrar"
-                        push
-                        class="full-width text-bold"
-                        v-close-popup
-                        @click="affiliated = true"
-                    />
-                </q-card-actions>
+                <q-form @submit="sendAffiliatedNo">
+                    <q-card-section>
+                        <div class="text-h6 text-center text-bold">
+                            Afiliate a nuestro programa de lealtad!
+                        </div>
+                    </q-card-section>
+                    <q-card-section>
+                        <div class="text-subtitle1 text-center">
+                            Solo debes solicitar la tarjeta en su sucursal mas cercana, activarla
+                            con el numero en la cuenta y ya esta participando.
+                        </div>
+                    </q-card-section>
+                    <q-card-section>
+                        <q-input
+                            filled
+                            type="number"
+                            label="Registra tu tarjeta"
+                            color="primary"
+                            v-model="affiliatedNo"
+                            :rules="[
+                                val => val.length > 0 || 'El campo es obligatorio',
+                                val =>
+                                    !allAffiliatedNo.includes(parseInt(val)) ||
+                                    'Por favor revisa el numero introducido',
+                            ]"
+                        />
+                    </q-card-section>
+                    <q-card-actions>
+                        <q-btn
+                            color="accent"
+                            push
+                            class="full-width text-bold"
+                            type="submit"
+                            :disable="displayLoadingForAffiliated"
+                        >
+                            <span v-if="!displayLoadingForAffiliated">Registrar</span>
+                            <q-spinner-facebook
+                                v-if="displayLoadingForAffiliated"
+                                color="white"
+                                size="1em"
+                        /></q-btn>
+                    </q-card-actions>
+                </q-form>
             </q-card>
         </q-dialog>
         <q-dialog
@@ -263,8 +300,11 @@ export default {
             needsUpdate: false,
             completeRegistrationDialog: false,
             loyaltyAffiliationDialog: false,
-            affiliated: false,
+            allAffiliatedNo: [],
             value: 0,
+            affiliatedNo: '',
+            showAffiliateError: false,
+            displayLoadingForAffiliated: false,
         }
     },
     computed: {
@@ -276,6 +316,36 @@ export default {
         },
     },
     methods: {
+        sendAffiliatedNo() {
+            this.displayLoadingForAffiliated = true
+            this.userInformation.user.affiliateCardNo = parseInt(this.affiliatedNo)
+            api.UpdateUserInformationById({
+                uid: this.uid,
+                user: this.userInformation.user,
+            })
+                .then(async response => {
+                    this.displayLoadingForAffiliated = false
+                    this.loyaltyAffiliationDialog = false
+                    this.alertTitle = 'Exito!'
+                    this.alertMessage = 'Se ha actualizado con exito la informacion'
+                    this.alertType = 'success'
+                    this.displayAlert = true
+                    api.getUserInformationById({
+                        uid: this.uid,
+                    }).then(response => {
+                        this.$store.commit('SET_USER', response.data.data)
+                    })
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.displayLoadingForAffiliated = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage =
+                        'Hubo un error con la solicitud por favor inténtelo más tarde'
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                })
+        },
         copyAddressToClipboard() {
             let text = document.getElementById('miaAddress').innerHTML
             navigator.clipboard.writeText(text).then(
@@ -286,7 +356,7 @@ export default {
                     this.alertType = 'success'
                     this.displayAlert = true
                 },
-                function(err) {
+                function (err) {
                     console.error('Async: Could not copy text: ', err)
                 }
             )
@@ -361,6 +431,11 @@ export default {
             this.displayLoading = false
             this.userName = `${this.userInformation.user.name} ${this.userInformation.user.lastName}`
             this.value = this.userInformation.user.poundsCount
+            if (this.userInformation.user.affiliateCardNo == null) {
+                api.ReturnAllAffiliateCardNo().then(
+                    response => (this.allAffiliatedNo = response.data.data)
+                )
+            }
         })
     },
 }
