@@ -54,6 +54,7 @@
                                         <div class="mobile-only q-pa-md"></div>
                                         <div
                                             class="col-lg-4 col-md-4 col-sm-3 col-xs-12 column flex-center"
+                                            v-if="affiliated"
                                         >
                                             <div class="text-h5 text-bold text-bronze">BRONZE</div>
                                             <q-circular-progress
@@ -74,6 +75,22 @@
                                                     Libras
                                                 </div>
                                             </q-circular-progress>
+                                        </div>
+                                        <div
+                                            class="col-lg-4 col-md-4 col-sm-3 col-xs-12 column flex-center"
+                                            v-else
+                                        >
+                                            <i class="far fa-star fa-3x text-primary q-mb-md"></i>
+                                            <div class="text-h5 text-bold q-mb-md">
+                                                Programa de lealtad
+                                            </div>
+                                            <q-btn
+                                                push
+                                                label="Afiliate aqui"
+                                                color="accent"
+                                                size="sm"
+                                                @click="loyaltyAffiliationDialog = true"
+                                            />
                                         </div>
                                     </div>
                                 </q-card-section>
@@ -246,7 +263,7 @@ export default {
             needsUpdate: false,
             completeRegistrationDialog: false,
             loyaltyAffiliationDialog: false,
-            affiliated: true,
+            affiliated: false,
             value: 0,
         }
     },
@@ -269,7 +286,7 @@ export default {
                     this.alertType = 'success'
                     this.displayAlert = true
                 },
-                function (err) {
+                function(err) {
                     console.error('Async: Could not copy text: ', err)
                 }
             )

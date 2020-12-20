@@ -4,13 +4,8 @@
             <div class="row">
                 <div class="col desktop-only"></div>
                 <div class="col-lg-6 y-go-font">
-                    <div class="text-center q-py-lg">
+                    <div class="text-center q-py-lg q-mb-md">
                         <q-img :src="require('@/assets/logo_ygo.png')" style="width: 150px" />
-                    </div>
-                    <div class="text-h5 text-bold text-accent text-center">¡Y-GASTE!</div>
-                    <div class="text-h6 text-center q-mb-lg">
-                        Termina de llenar los siguientes campos y estarás listo para empezar a pedir
-                        con nosotros.
                     </div>
                     <q-form @submit="checkSteppers()">
                         <q-stepper
@@ -205,6 +200,7 @@
                                                 size="sm"
                                                 color="accent"
                                                 push
+                                                @click="businessRateDialog = true"
                                             />
                                         </div>
                                     </div>
@@ -342,6 +338,33 @@
                 <div class="col desktop-only"></div>
             </div>
         </div>
+        <q-dialog v-model="businessRateDialog" persistent>
+            <q-card>
+                <q-card-section class="text-center">
+                    <i class="fas fa-building fa-3x q-mb-sm text-accent" />
+                </q-card-section>
+                <q-card-section>
+                    <div class="text-h6 text-center">
+                        Se enviara una solicitud de Plan Business.
+                    </div>
+                </q-card-section>
+                <q-card-actions>
+                    <q-space />
+                    <q-btn
+                        flat
+                        color="red-7"
+                        label="cancelar"
+                        @click="businessRateDialog = false"
+                    />
+                    <q-btn
+                        flat
+                        color="primary"
+                        label="enviar"
+                        @click="businessRateDialog = false"
+                    />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
     </q-card>
 </template>
 
@@ -364,6 +387,7 @@ export default {
     },
     data() {
         return {
+            businessRateDialog: false,
             registrationData: {
                 name: '',
                 lastName: '',
@@ -429,7 +453,7 @@ export default {
             }
             return 'rateTile q-pa-md rounded-borders text-center'
         },
-        splitNParts: function* (num, parts) {
+        splitNParts: function*(num, parts) {
             let sumParts = 0
             for (let i = 0; i < parts - 1; i++) {
                 const pn = Math.ceil(Math.random() * (num - sumParts))

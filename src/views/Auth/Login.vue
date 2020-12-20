@@ -1,5 +1,10 @@
 <template>
     <q-page class="bg-primary">
+        <q-banner class="bg-green text-white text-center shadow-3">
+            <div class="text-bold">
+                Gracias por confirmar tu correo electronico, puedes proceder al perfil de tu cuenta.
+            </div>
+        </q-banner>
         <div class="absolute-center">
             <q-card style="width: 400px" class="q-pa-md rounded-borders">
                 <q-card-section>

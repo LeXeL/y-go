@@ -62,6 +62,13 @@
                             />
                             <q-select
                                 filled
+                                :disable="!editInformation"
+                                :options="['Panama', 'Penonome']"
+                                label="Sucursal"
+                                class="q-mb-md"
+                            />
+                            <q-select
+                                filled
                                 v-model="currentlySelectedRate"
                                 :disable="!editInformation"
                                 :options="
@@ -70,7 +77,19 @@
                                     })
                                 "
                                 label="Tarifa"
+                                class="q-mb-md"
                             />
+                            <div>
+                                <div class="text-caption q-mb-sm">Solicitud Plan Business</div>
+                                <q-btn
+                                    label="Aprobar"
+                                    color="primary"
+                                    outline
+                                    size="sm"
+                                    class="on-left"
+                                />
+                                <q-btn label="Rechazar" color="red-7" outline size="sm" />
+                            </div>
                         </q-card-section>
                         <q-separator />
                         <q-card-actions>
@@ -95,24 +114,18 @@
                     >
                         <template v-slot:header="props">
                             <q-tr :props="props">
-                                <q-th
-                                    v-for="col in props.cols"
-                                    :key="col.name"
-                                    :props="props"
-                                    >{{ col.label }}</q-th
-                                >
+                                <q-th v-for="col in props.cols" :key="col.name" :props="props">{{
+                                    col.label
+                                }}</q-th>
                                 <!-- <q-th>Eliminar</q-th> -->
                             </q-tr>
                         </template>
 
                         <template v-slot:body="props">
                             <q-tr :props="props">
-                                <q-td
-                                    v-for="col in props.cols"
-                                    :key="col.name"
-                                    :props="props"
-                                    >{{ col.value }}</q-td
-                                >
+                                <q-td v-for="col in props.cols" :key="col.name" :props="props">{{
+                                    col.value
+                                }}</q-td>
                                 <!-- <q-td auto-width>
                 <q-btn size="sm" color="red-7" round dense icon="fas fa-times" />
               </q-td>-->
@@ -216,8 +229,7 @@ export default {
                 .then(response => {
                     this.displayLoading = false
                     this.alertTitle = 'Exito!'
-                    this.alertMessage =
-                        'Se ha actualizado con exito la informacion'
+                    this.alertMessage = 'Se ha actualizado con exito la informacion'
                     this.alertType = 'success'
                     this.displayAlert = true
                 })
