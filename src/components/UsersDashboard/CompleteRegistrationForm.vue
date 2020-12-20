@@ -205,6 +205,7 @@
                                                 size="sm"
                                                 color="accent"
                                                 push
+                                                @click="businessRateDialog = true"
                                             />
                                         </div>
                                     </div>
@@ -342,6 +343,28 @@
                 <div class="col desktop-only"></div>
             </div>
         </div>
+        <q-dialog v-model="businessRateDialog" persistent>
+            <q-card>
+                <q-card-section class="text-center">
+                    <i class="fas fa-building fa-3x q-mb-sm text-accent" />
+                </q-card-section>
+                <q-card-section>
+                    <div class="text-h6 text-center">
+                        Hemos recibido tu solicitud de Plan Business.<br />
+                        Uno de nuestros representantes se pondra en contacto con usted prontamente.
+                    </div>
+                </q-card-section>
+                <q-card-actions>
+                    <q-space />
+                    <q-btn
+                        flat
+                        color="primary"
+                        label="aceptar"
+                        @click="businessRateDialog = false"
+                    />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
     </q-card>
 </template>
 
@@ -364,6 +387,7 @@ export default {
     },
     data() {
         return {
+            businessRateDialog: true,
             registrationData: {
                 name: '',
                 lastName: '',
@@ -381,7 +405,7 @@ export default {
             markers: [],
             center: {},
             countryCodes: require('@/assets/country_codes.json'),
-            step: 1,
+            step: 2,
             progress: 0,
             allRates: [],
             showRateWarning: false,
@@ -429,7 +453,7 @@ export default {
             }
             return 'rateTile q-pa-md rounded-borders text-center'
         },
-        splitNParts: function* (num, parts) {
+        splitNParts: function*(num, parts) {
             let sumParts = 0
             for (let i = 0; i < parts - 1; i++) {
                 const pn = Math.ceil(Math.random() * (num - sumParts))
