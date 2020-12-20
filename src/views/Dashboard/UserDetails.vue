@@ -69,8 +69,14 @@
                             />
                             <q-select
                                 filled
+                                v-model="data.subsidiary"
                                 :disable="!editInformation"
-                                :options="['Panama', 'Penonome']"
+                                :options="[
+                                    {value: 0, label: 'Panamá'},
+                                    {value: 1, label: 'Penonome'},
+                                ]"
+                                emit-value
+                                map-options
                                 label="Sucursal"
                                 class="q-mb-md"
                             />
@@ -79,14 +85,21 @@
                                 v-model="currentlySelectedRate"
                                 :disable="!editInformation"
                                 :options="
-                                    rates.map(rate => {
-                                        return rate.name
-                                    })
+                                    rates
+                                        .filter(rate => rate.subsidiary === data.subsidiary)
+                                        .map(rate => {
+                                            return rate.name
+                                        })
                                 "
                                 label="Tarifa"
                                 class="q-mb-md"
                             />
-                            <div>
+                            <div
+                                v-if="
+                                    currentlySelectedRate === 'Plan Business' &&
+                                    !data.businessAproved
+                                "
+                            >
                                 <div class="text-caption q-mb-sm">Solicitud Plan Business</div>
                                 <q-btn
                                     label="Aprobar"
@@ -94,8 +107,15 @@
                                     outline
                                     size="sm"
                                     class="on-left"
+                                    @click="approveBusinessRequest()"
                                 />
-                                <q-btn label="Rechazar" color="red-7" outline size="sm" />
+                                <q-btn
+                                    label="Rechazar"
+                                    color="red-7"
+                                    outline
+                                    size="sm"
+                                    @click="rejectBusinessRequest()"
+                                />
                             </div>
                         </q-card-section>
                         <q-separator />
@@ -207,6 +227,53 @@ export default {
         }
     },
     methods: {
+        rejectBusinessRequest() {
+            this.displayLoading = true
+            this.displayAlert = false
+            this.data.rate = this.rates.filter(
+                rate => rate.name === 'Plan Basico' && rate.subsidiary === this.data.subsidiary
+            ).id
+            api.UpdateUserInformationById({uid: this.$route.params.id, user: this.data})
+                .then(response => {
+                    this.displayLoading = false
+                    this.data.businessAproved = true
+                    this.alertTitle = 'Exito!'
+                    this.alertMessage = 'Se ha aprobado con exito la peticion'
+                    this.alertType = 'success'
+                    this.displayAlert = true
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage =
+                        'Hubo un error con la solicitud por favor inténtelo más tarde'
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                })
+        },
+        approveBusinessRequest() {
+            this.displayLoading = true
+            this.displayAlert = false
+            api.ApproveBusinessRequest({uid: this.$route.params.id})
+                .then(response => {
+                    this.displayLoading = false
+                    this.data.businessAproved = true
+                    this.alertTitle = 'Exito!'
+                    this.alertMessage = 'Se ha aprobado con exito la peticion'
+                    this.alertType = 'success'
+                    this.displayAlert = true
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage =
+                        'Hubo un error con la solicitud por favor inténtelo más tarde'
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                })
+        },
         handleData() {
             //Si editGeneralInfo es falso ponlo true y ya.
             if (!this.editInformation) {
@@ -218,17 +285,13 @@ export default {
         },
         async update() {
             let obj = this.data
-            obj.rate = this.currentlySelectedRate
             this.displayLoading = true
             this.displayAlert = false
             this.currentlySelectedRole === 'Administrador'
                 ? (obj.role = 'admin')
                 : (obj.role = 'user')
-            obj.rate = this.rates.filter(rate => {
-                if (rate.name === obj.rate) {
-                    return rate
-                }
-            })[0].id
+            obj.rate = this.rates.find(rate => rate.name === this.currentlySelectedRate).id
+            if (this.currentlySelectedRate === 'Plan Business') obj.businessAproved = true
             api.UpdateUserInformationById({
                 uid: this.$route.params.id,
                 user: obj,
