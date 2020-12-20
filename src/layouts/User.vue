@@ -24,7 +24,30 @@
                             >
                                 <q-card-section>
                                     <div class="row">
-                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 column">
+                                        <div
+                                            class="col-lg-8 col-md-8 col-sm-8 col-xs-12 column"
+                                            v-if="
+                                                !userInformation.user.businessAproved &&
+                                                allRates.find(
+                                                    rate => rate.id === userInformation.user.rate
+                                                ).name === 'Plan Business'
+                                            "
+                                        >
+                                            <div class="text-accent">
+                                                <span class="text-h5">Bienvenido,</span>
+                                                &nbsp;
+                                                <span class="text-h4 text-bold">{{
+                                                    userName
+                                                }}</span>
+                                            </div>
+                                            <div class="text-h5 q-mt-lg">
+                                                Tu peticion de plan business esta en proceso.
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="col-lg-8 col-md-8 col-sm-8 col-xs-12 column"
+                                            v-else
+                                        >
                                             <div class="text-accent">
                                                 <span class="text-h5">Bienvenido,</span>
                                                 &nbsp;
@@ -305,6 +328,7 @@ export default {
             affiliatedNo: '',
             showAffiliateError: false,
             displayLoadingForAffiliated: false,
+            allRates: [],
         }
     },
     computed: {
@@ -437,6 +461,7 @@ export default {
                 )
             }
         })
+        api.ReturnAllRates().then(response => (this.allRates = response.data.data))
     },
 }
 </script>
