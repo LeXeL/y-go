@@ -77,7 +77,19 @@
                                     })
                                 "
                                 label="Tarifa"
+                                class="q-mb-md"
                             />
+                            <div>
+                                <div class="text-caption q-mb-sm">Solicitud Plan Business</div>
+                                <q-btn
+                                    label="Aprobar"
+                                    color="primary"
+                                    outline
+                                    size="sm"
+                                    class="on-left"
+                                />
+                                <q-btn label="Rechazar" color="red-7" outline size="sm" />
+                            </div>
                         </q-card-section>
                         <q-separator />
                         <q-card-actions>
