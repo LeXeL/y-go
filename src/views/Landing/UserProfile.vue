@@ -291,5 +291,6 @@ export default {
 .rateTileSelected {
     background-color: #ff5722;
     color: #fff;
+    cursor: pointer;
 }
 </style>
