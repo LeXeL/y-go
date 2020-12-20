@@ -27,6 +27,10 @@ export const ReturnAllUsers = data =>
     Request.post('/ReturnAllUsers', data, {
         'Content-Type': 'application/json',
     })
+export const ReturnAllAffiliateCardNo = data =>
+    Request.post('/ReturnAllAffiliateCardNo', data, {
+        'Content-Type': 'application/json',
+    })
 //PACKAGES
 export const CreatePackageOnDatabase = data =>
     Request.post('/CreatePackageOnDatabase', data, {

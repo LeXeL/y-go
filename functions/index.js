@@ -100,6 +100,20 @@ exports.ReturnAllUsers = functions.https.onRequest(async (req, res) => {
         }
     })
 })
+exports.ReturnAllAffiliateCardNo = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await users.returnAllAffiliateCardNo()
+            functions.logger.info('ReturnAllAffiliateCardNo')
+            res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('ReturnAllAffiliateCardNo', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
 
 //PACKAGES
 exports.CreatePackageOnDatabase = functions.https.onRequest(async (req, res) => {
