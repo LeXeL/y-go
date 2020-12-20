@@ -129,7 +129,7 @@ function templateInvoice01(info) {
 }
 function templateBusiness01(info) {
     let emailBody = `<div style="padding: 15px;">
-    <p> User Name: ${info.name} ${info.lastName}</p>
+    
     <h3><strong>Quiere una peticion de Business Plan</h3>
   </div>`
     return emailBody
@@ -250,23 +250,7 @@ async function sendEmailForUserPetition(to, subject, template, name) {
             </p>
           </div>
             ${template}
-          <div style="padding: 15px">
-            <a href="https://y-go.com.pa/user" style="padding: 10px;
-            background-color: #ff5722;
-            color: #fff;
-            text-decoration: none;
-            border: none;
-            border-radius: 5px;
-            margin-top: 25px;
-            display: block;
-            margin: 0 auto;
-            text-align: center;">IR A MI CASILLERO</a>
-            <br />
-            <p>GRACIAS POR PREFERIRNOS</p>
-            <p style="color: #ff5722; text-align: center">
-              ***FAVOR NO RESPONDER ESTE CORREO***
-            </p>
-          </div>
+         
         </body>
       </html>
       `,
