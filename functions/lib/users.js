@@ -93,7 +93,17 @@ async function updateUserInfo(uid, userObj) {
     if (userObj.rate === 'lUCeno2AKMbUH7tydxFk' || userObj.rate === 'b4sjdrZNdlnRaPTpMps3') {
         //TODO:Tengo que mandar un correo para que lo revisen
         // console.log(userObj)
-        if (userObj.businessAproved === undefined) userObj.businessAproved = false
+        if (userObj.businessAproved === undefined) {
+            const emailHandler = require('./emailHandler')
+            let emailBody = await emailHandler.templateHandler('Business-01', obj)
+            emailHandler.sendEmailForUserPetition(
+                'lexelEZ@gmail.com',
+                'Recepcion de Mercancia Y-Go 📦',
+                emailBody,
+                userName
+            )
+            userObj.businessAproved = false
+        }
     }
     return db
         .collection('users')
