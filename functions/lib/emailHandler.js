@@ -130,7 +130,6 @@ function templateInvoice01(info) {
 function templateBusiness01(info) {
     let emailBody = `<div style="padding: 15px;">
     <p> User Name: ${info.name} ${info.lastName}</p>
-    <p> email: ${info.email}</p>
     <h3><strong>Quiere una peticion de Business Plan</h3>
   </div>`
     return emailBody
