@@ -338,9 +338,9 @@ export default {
         showBusinessNotApproved() {
             let rate = this.allRates.find(rate => rate.id === this.userInformation.user.rate)
             if (!!rate && rate.name === 'Plan Business') {
-                if (!this.userInformation.user.businessAproved) return false
+                if (!this.userInformation.user.businessAproved) return true
             }
-            return true
+            return false
         },
         sendAffiliatedNo() {
             this.displayLoadingForAffiliated = true
