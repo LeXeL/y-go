@@ -230,7 +230,7 @@ export default {
         rejectBusinessRequest() {
             this.displayLoading = true
             this.displayAlert = false
-            this.data.rate = this.rates.filter(
+            this.data.rate = this.rates.find(
                 rate => rate.name === 'Plan Basico' && rate.subsidiary === this.data.subsidiary
             ).id
             api.UpdateUserInformationById({uid: this.$route.params.id, user: this.data})
