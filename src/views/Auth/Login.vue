@@ -1,11 +1,56 @@
 <template>
     <q-page class="bg-primary">
-        <q-banner class="bg-green text-white text-center shadow-3">
+        <q-banner v-if="showVerifyBanner" class="bg-green text-white text-center shadow-3">
             <div class="text-bold">
                 Gracias por confirmar tu correo electronico, puedes proceder al perfil de tu cuenta.
             </div>
         </q-banner>
-        <div class="absolute-center">
+        <q-banner v-if="showPasswordBanner" class="bg-green text-white text-center shadow-3">
+            <div class="text-bold">Hemos cambiado la contraseña con exito</div>
+        </q-banner>
+        <q-card class="absolute-center" v-if="mode === 'resetPassword'">
+            <q-form @submit.prevent.stop="requestForgotPassword()">
+                <q-card-section class="text-center">
+                    <q-img :src="require('@/assets/logo_ygo.png')" width="200px" />
+                </q-card-section>
+                <q-card-section>
+                    <div class="text-h5 text-center text-bold q-mb-md">
+                        Restablece tu contraseña
+                    </div>
+                    <div class="text-subtitle2">
+                        Ingresa tu nueva contraseña para acceder a tu cuenta.
+                    </div>
+                </q-card-section>
+                <q-card-section>
+                    <q-input
+                        class="q-mb-md"
+                        ref="password"
+                        filled
+                        label="Contraseña"
+                        type="password"
+                        placeholder="**********"
+                        v-model="newPassword"
+                        lazy-rules
+                        :rules="[val => !!val || 'Este campo es obligatorio.']"
+                    />
+                    <q-input
+                        ref="repassword"
+                        filled
+                        label="Repite tu contraseña"
+                        type="password"
+                        placeholder="**********"
+                        v-model="repassword"
+                        lazy-rules
+                        :rules="[val => !!val || 'Este campo es obligatorio.']"
+                    />
+                </q-card-section>
+                <q-card-actions>
+                    <q-space />
+                    <q-btn type="submit" color="accent" label="Restablecer" push class="q-mr-sm" />
+                </q-card-actions>
+            </q-form>
+        </q-card>
+        <div class="absolute-center" v-else>
             <q-card style="width: 400px" class="q-pa-md rounded-borders">
                 <q-card-section>
                     <q-img :src="require('@/assets/logo_ygo.png')" class="q-mb-md" />
@@ -85,9 +130,42 @@ export default {
             errorMessage: '',
             currentUser: '',
             displayLoading: false,
+            mode: '',
+            actionCode: '',
+            showVerifyBanner: false,
+            showPasswordBanner: false,
+            newPassword: '',
+            repassword: '',
         }
     },
     methods: {
+        requestForgotPassword() {
+            if (this.newPassword === this.repassword) {
+                firebase
+                    .auth()
+                    .confirmPasswordReset(this.actionCode, this.newPassword)
+                    .then(resp => {
+                        firebase
+                            .auth()
+                            .signOut()
+                            .then(async () => {
+                                await this.$store.dispatch('UserLogout')
+                                this.mode = ''
+                                this.showPasswordBanner = true
+                            })
+                            .catch(error => {
+                                console.log(error)
+                            })
+                    })
+                    .catch(error => {
+                        this.dismissCountDown = this.dismissSecs
+                        this.errorMessage = error
+                    })
+            } else {
+                this.dismissCountDown = this.dismissSecs
+                this.errorMessage = 'Las Contraseñas no son iguales'
+            }
+        },
         async login() {
             this.displayLoading = true
             firebase
@@ -115,7 +193,6 @@ export default {
                         this.displayLoading = false
                     }
                 })
-
                 .catch(error => {
                     this.dismissCountDown = this.dismissSecs
                     this.displayLoading = false
@@ -145,6 +222,31 @@ export default {
         },
     },
     mounted() {
+        this.mode = this.$route.query.mode
+        this.actionCode = this.$route.query.oobCode
+        if (this.mode === 'verifyEmail') {
+            firebase
+                .auth()
+                .applyActionCode(this.actionCode)
+                .then(() => {
+                    this.showVerifyBanner = true
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        }
+        if (this.mode === 'resetPassword') {
+            firebase
+                .auth()
+                .verifyPasswordResetCode(this.actionCode)
+                .then(email => {
+                    this.email = email
+                })
+                .catch(error => {
+                    this.dismissCountDown = this.dismissSecs
+                    this.errorMessage = error
+                })
+        }
         if (this.isAuthenticated && this.role === 'admin') this.$router.push('/admin')
         if (this.isAuthenticated && this.role === 'user') this.$router.push('/profile')
     },

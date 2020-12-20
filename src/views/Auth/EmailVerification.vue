@@ -153,15 +153,6 @@ export default {
                 })
             return
         }
-        firebase
-            .auth()
-            .applyActionCode(actionCode)
-            .then(() => {
-                console.log('Email is verified')
-            })
-            .catch(error => {
-                console.log(error)
-            })
     },
 }
 </script>
