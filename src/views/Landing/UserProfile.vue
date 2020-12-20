@@ -96,7 +96,14 @@
                             <div class="text-subtitle2">Texto punto 1</div>
                             <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
                             <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
-                            <div class="text-h5 text-bold q-mt-md">
+                            <div
+                                class="text-h5 text-bold q-mt-md"
+                                v-if="
+                                    userInformationData.user.businessAproved &&
+                                    allRates.find(rate => rate.id === userInformationData.user.rate)
+                                        .name === 'Plan Business'
+                                "
+                            >
                                 $
                                 {{ returnRatePrice() }}
                             </div>
