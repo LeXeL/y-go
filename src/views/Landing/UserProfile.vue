@@ -96,14 +96,7 @@
                             <div class="text-subtitle2">Texto punto 1</div>
                             <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
                             <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
-                            <div
-                                class="text-h5 text-bold q-mt-md"
-                                v-if="
-                                    userInformationData.user.businessAproved &&
-                                    allRates.find(rate => rate.id === userInformationData.user.rate)
-                                        .name === 'Plan Business'
-                                "
-                            >
+                            <div class="text-h5 text-bold q-mt-md" v-if="showPrice()">
                                 $
                                 {{ returnRatePrice() }}
                             </div>
@@ -208,6 +201,16 @@ export default {
         }
     },
     methods: {
+        showPrice() {
+            let rate = this.allRates.find(rate => rate.id === this.userInformationData.user.rate)
+            if (
+                rate &&
+                rate.name === 'Plan Business' &&
+                !this.userInformationData.user.bussinesApproved
+            )
+                return false
+            return true
+        },
         returnRateName() {
             let rate = this.allRates.find(rate => rate.id === this.userInformationData.user.rate)
             return !!rate ? rate.name : 'NaN'
