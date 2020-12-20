@@ -52,6 +52,13 @@
                                 rows="3"
                                 class="q-mb-md"
                             />
+                            <q-input
+                                filled
+                                label="Numero de Affiliado"
+                                v-model.number="data.affiliateCardNo"
+                                :disable="!editInformation"
+                                class="q-mb-md"
+                            />
                             <q-select
                                 filled
                                 v-model="currentlySelectedRole"
