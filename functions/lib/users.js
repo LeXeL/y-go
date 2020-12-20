@@ -95,12 +95,12 @@ async function updateUserInfo(uid, userObj) {
         // console.log(userObj)
         if (userObj.businessAproved === undefined) {
             const emailHandler = require('./emailHandler')
-            let emailBody = await emailHandler.templateHandler('Business-01', obj)
+            let emailBody = await emailHandler.templateHandler('Business-01', userObj)
             emailHandler.sendEmailForUserPetition(
                 'lexelEZ@gmail.com',
-                'Recepcion de Mercancia Y-Go 📦',
+                'Peticion de Usuario',
                 emailBody,
-                userName
+                `${userObj.name} ${userObj.lastName}`
             )
             userObj.businessAproved = false
         }
