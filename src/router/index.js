@@ -94,10 +94,10 @@ const routes = [
                 name: 'Login',
                 component: Login,
             },
-            {
-                path: '/emailverification',
-                component: EmailVerification,
-            },
+            // {
+            //     path: '/emailverification',
+            //     component: EmailVerification,
+            // },
             {
                 path: '/forgot-password',
                 component: ForgotPassword,
