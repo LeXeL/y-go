@@ -24,7 +24,25 @@
                             >
                                 <q-card-section>
                                     <div class="row">
-                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 column">
+                                        <div
+                                            class="col-lg-8 col-md-8 col-sm-8 col-xs-12 column"
+                                            v-if="showBusinessNotApproved()"
+                                        >
+                                            <div class="text-accent">
+                                                <span class="text-h5">Bienvenido,</span>
+                                                &nbsp;
+                                                <span class="text-h4 text-bold">{{
+                                                    userName
+                                                }}</span>
+                                            </div>
+                                            <div class="text-h5 q-mt-lg">
+                                                Tu peticion de plan business esta en proceso.
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="col-lg-8 col-md-8 col-sm-8 col-xs-12 column"
+                                            v-else
+                                        >
                                             <div class="text-accent">
                                                 <span class="text-h5">Bienvenido,</span>
                                                 &nbsp;
@@ -305,6 +323,7 @@ export default {
             affiliatedNo: '',
             showAffiliateError: false,
             displayLoadingForAffiliated: false,
+            allRates: [],
         }
     },
     computed: {
@@ -316,6 +335,13 @@ export default {
         },
     },
     methods: {
+        showBusinessNotApproved() {
+            let rate = this.allRates.find(rate => rate.id === this.userInformation.user.rate)
+            if (!!rate && rate.name === 'Plan Business') {
+                if (!this.userInformation.user.businessAproved) return true
+            }
+            return false
+        },
         sendAffiliatedNo() {
             this.displayLoadingForAffiliated = true
             this.userInformation.user.affiliateCardNo = parseInt(this.affiliatedNo)
@@ -437,6 +463,7 @@ export default {
                 )
             }
         })
+        api.ReturnAllRates().then(response => (this.allRates = response.data.data))
     },
 }
 </script>

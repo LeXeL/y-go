@@ -127,10 +127,20 @@ function templateInvoice01(info) {
   </div>`
     return emailBody
 }
+function templateBusiness01(info) {
+    let emailBody = `<div style="padding: 15px;">
+    
+    <h3><strong>Quiere una peticion de Business Plan</h3>
+  </div>`
+    return emailBody
+}
 
 async function templateHandler(id, information) {
     if (id === 'Invoice-01') {
         return templateInvoice01(information)
+    }
+    if (id === 'Business-01') {
+        return templateBusiness01(information)
     }
 }
 
@@ -206,8 +216,61 @@ async function sendEmail(to, subject, template, name) {
             }
         })
 }
+async function sendEmailForUserPetition(to, subject, template, name) {
+    sgMail.setApiKey(functions.config().emailservice.key)
+    const msg = {
+        to: to,
+        from: 'no-replay@y-go.com.pa', // Use the email address or domain you verified above
+        subject: subject,
+        html: `<html>
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        </head>
+        <body style="margin: 0;">
+          <div style="background-color: #01bcd4;
+          padding: 15px;
+          color: #fff;">
+            <div>
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/y-go-9fa3f.appspot.com/o/logo_ygo.png?alt=media&token=421f6d76-60aa-4006-9494-f001b8650b77"
+                width="70px"
+                style="margin: 0 auto; display: block; margin-bottom: 10px"
+              />
+            </div>
+            <div>
+              <h3 style="text-align: center; margin: 0">PETICION DE USUARIO</h3>
+            </div>
+          </div>
+          <div style="padding: 15px;">
+            <p>
+              <strong
+                >El cliente
+                <span style="color: #ff5722">${name}</span></strong
+              >
+            </p>
+          </div>
+            ${template}
+         
+        </body>
+      </html>
+      `,
+    }
+    sgMail
+        .send(msg)
+        .then(response => {
+            console.log(`Emails Sent to ${to} with status:${response}`)
+        })
+        .catch(error => {
+            console.error(error)
+
+            if (error.response) {
+                console.error(error.response.body)
+            }
+        })
+}
 
 module.exports = {
     templateHandler,
     sendEmail,
+    sendEmailForUserPetition,
 }

@@ -114,6 +114,22 @@ exports.ReturnAllAffiliateCardNo = functions.https.onRequest(async (req, res) =>
         }
     })
 })
+exports.ApproveBusinessRequest = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            await users.approveBusinessRequest(req.body.uid)
+            functions.logger.info('ApproveBusinessRequest', {
+                uid: req.body.uid,
+            })
+            res.status(200).send({data: 'Ok'})
+        } catch (err) {
+            functions.logger.error('ApproveBusinessRequest', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
 
 //PACKAGES
 exports.CreatePackageOnDatabase = functions.https.onRequest(async (req, res) => {

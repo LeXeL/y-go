@@ -69,8 +69,6 @@
                             label="Celular *"
                             v-model="userInformationData.user.phone"
                             :disable="!editInformation"
-                            mask="####-####"
-                            fill-mask
                             :rules="[val => val.length > 0 || 'El campo es obligatorio']"
                         />
                     </div>
@@ -98,7 +96,7 @@
                             <div class="text-subtitle2">Texto punto 1</div>
                             <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
                             <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
-                            <div class="text-h5 text-bold q-mt-md">
+                            <div class="text-h5 text-bold q-mt-md" v-if="showPrice()">
                                 $
                                 {{ returnRatePrice() }}
                             </div>
@@ -203,6 +201,13 @@ export default {
         }
     },
     methods: {
+        showPrice() {
+            let rate = this.allRates.find(rate => rate.id === this.userInformationData.user.rate)
+            if (!!rate && rate.name === 'Plan Business') {
+                if (!this.userInformationData.user.businessAproved) return false
+            }
+            return true
+        },
         returnRateName() {
             let rate = this.allRates.find(rate => rate.id === this.userInformationData.user.rate)
             return !!rate ? rate.name : 'NaN'
@@ -291,5 +296,6 @@ export default {
 .rateTileSelected {
     background-color: #ff5722;
     color: #fff;
+    cursor: pointer;
 }
 </style>
