@@ -92,7 +92,8 @@ async function returnUserById(uid) {
 async function updateUserInfo(uid, userObj) {
     if (userObj.rate === 'lUCeno2AKMbUH7tydxFk' || userObj.rate === 'b4sjdrZNdlnRaPTpMps3') {
         //TODO:Tengo que mandar un correo para que lo revisen
-        userObj.businessAproved = false
+        // console.log(userObj)
+        if (userObj.businessAproved === undefined) userObj.businessAproved = false
     }
     return db
         .collection('users')
@@ -106,6 +107,21 @@ async function updateUserInfo(uid, userObj) {
             console.error('Error writing document: ', error)
             return error
         })
+}
+async function approveBusinessRequest(uid) {
+    try {
+        return db
+            .collection('users')
+            .doc(uid)
+            .update({businessAproved: true})
+            .then(() => {
+                console.log('Document successfully written!')
+                return 'Succesfull'
+            })
+    } catch (error) {
+        console.log(error)
+        return error
+    }
 }
 async function changeVerified(uid, user) {
     return db
@@ -175,6 +191,7 @@ module.exports = {
     returnUserById,
     updateUserInfo,
     changeVerified,
+    approveBusinessRequest,
     returnAllUsers,
     returnUserRateByBox,
     returnUserUidByBox,
