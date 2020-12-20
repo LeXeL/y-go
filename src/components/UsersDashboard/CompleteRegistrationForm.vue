@@ -125,10 +125,7 @@
                                         >
                                             <i class="fas fa-box-open fa-2x q-mb-sm"></i>
                                             <div class="text-h6 q-mb-sm text-bold">Plan Basico</div>
-                                            <q-separator
-                                                class="q-mb-sm"
-                                                :dark="registrationData.rate == 'plan_basico_id'"
-                                            />
+                                            <q-separator class="q-mb-sm" dark />
                                             <div class="text-subtitle2">Texto punto 1</div>
                                             <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
                                             <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
@@ -160,10 +157,7 @@
                                             <div class="text-h6 q-mb-sm text-bold">
                                                 Plan Cero Volumen
                                             </div>
-                                            <q-separator
-                                                class="q-mb-sm"
-                                                :dark="registrationData.rate == 'plan_cerovol_id'"
-                                            />
+                                            <q-separator class="q-mb-sm" dark />
                                             <div class="text-subtitle2">Texto punto 1</div>
                                             <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
                                             <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
@@ -184,21 +178,30 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-xs-12 q-pa-sm">
-                                        <div class="bg-grey-3 q-pa-md rounded-borders text-center">
+                                        <div
+                                            :class="returnRateClass('Plan Business')"
+                                            @click="
+                                                selectedSubsidiary !== ''
+                                                    ? (registrationData.rate = ratesAcordingToSelectedSubsidiary.find(
+                                                          rate => rate.name === 'Plan Business'
+                                                      ).id)
+                                                    : ''
+                                            "
+                                        >
                                             <i class="fas fa-building fa-2x q-mb-sm"></i>
-                                            <div class="text-h6 q-mb-sm text-primary text-bold">
+                                            <div class="text-h6 q-mb-sm text-bold">
                                                 Plan Business
                                             </div>
-                                            <q-separator class="q-mb-sm" />
+                                            <q-separator class="q-mb-sm" dark />
                                             <div class="text-subtitle2">Texto punto 1</div>
                                             <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
                                             <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
                                             <q-btn
                                                 v-if="selectedSubsidiary !== ''"
                                                 class="q-mt-md"
-                                                label="Contactar"
+                                                label="Mas info"
                                                 size="sm"
-                                                color="accent"
+                                                color="primary"
                                                 push
                                                 @click="businessRateDialog = true"
                                             />
@@ -453,7 +456,7 @@ export default {
             }
             return 'rateTile q-pa-md rounded-borders text-center'
         },
-        splitNParts: function*(num, parts) {
+        splitNParts: function* (num, parts) {
             let sumParts = 0
             for (let i = 0; i < parts - 1; i++) {
                 const pn = Math.ceil(Math.random() * (num - sumParts))
