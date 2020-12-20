@@ -238,7 +238,7 @@ export default {
                     this.displayLoading = false
                     this.data.businessAproved = true
                     this.alertTitle = 'Exito!'
-                    this.alertMessage = 'Se ha aprobado con exito la peticion'
+                    this.alertMessage = 'Se ha cancelado con exito la peticion'
                     this.alertType = 'success'
                     this.displayAlert = true
                 })
