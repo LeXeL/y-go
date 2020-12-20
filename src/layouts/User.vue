@@ -26,12 +26,7 @@
                                     <div class="row">
                                         <div
                                             class="col-lg-8 col-md-8 col-sm-8 col-xs-12 column"
-                                            v-if="
-                                                !userInformation.user.businessAproved &&
-                                                allRates.find(
-                                                    rate => rate.id === userInformation.user.rate
-                                                ).name === 'Plan Business'
-                                            "
+                                            v-if="showBusinessNotApproved()"
                                         >
                                             <div class="text-accent">
                                                 <span class="text-h5">Bienvenido,</span>
@@ -340,6 +335,13 @@ export default {
         },
     },
     methods: {
+        showBusinessNotApproved() {
+            let rate = this.allRates.find(rate => rate.id === this.userInformation.user.rate)
+            if (!!rate && rate.name === 'Plan Business') {
+                if (!this.userInformation.user.businessAproved) return false
+            }
+            return true
+        },
         sendAffiliatedNo() {
             this.displayLoadingForAffiliated = true
             this.userInformation.user.affiliateCardNo = parseInt(this.affiliatedNo)
