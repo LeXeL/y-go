@@ -90,6 +90,10 @@ async function returnUserById(uid) {
         })
 }
 async function updateUserInfo(uid, userObj) {
+    if (userObj.rate === 'lUCeno2AKMbUH7tydxFk' || userObj.rate === 'b4sjdrZNdlnRaPTpMps3') {
+        //TODO:Tengo que mandar un correo para que lo revisen
+        userObj.businessAproved = false
+    }
     return db
         .collection('users')
         .doc(uid)
