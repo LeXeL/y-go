@@ -8,13 +8,6 @@
             :type="alertType"
             @accept="displayAlert = false"
         ></ygo-alert>
-        <confirm-dialog
-            :display="displayConfirm"
-            :title="alertTitle"
-            :message="alertMessage"
-            @accept="deleteRate"
-            @cancel="displayConfirm = false"
-        ></confirm-dialog>
         <div>
             <div class="row q-mb-lg">
                 <div class="text-h5">
@@ -22,27 +15,23 @@
                 </div>
             </div>
             <div class="row q-mb-lg">
-                <q-space />
+                <div class="col-lg-2 q-px-md">
+                    <q-input dense filled label="Casillero" v-model="searchBox" ref="box" />
+                </div>
+                <div class="col-lg-2 q-px-md">
+                    <q-input dense filled label="Correo" v-model="searchEmail" />
+                </div>
                 <div class="col-lg-2 q-px-md">
                     <q-input dense filled label="Nombre" v-model="searchName" />
                 </div>
                 <div class="col-lg-2 q-px-md">
                     <q-input dense filled label="Apellido" v-model="searchLastName" />
                 </div>
-                <div class="col-lg-2 q-px-md">
-                    <q-input dense filled label="Correo" v-model="searchEmail" />
-                </div>
-                <div class="col-lg-2 q-px-md">
-                    <q-input dense filled label="Casillero" v-model="searchBox" />
-                </div>
-                <div class="col-lg-1 q-px-md">
-                    <q-btn color="primary" label="Buscar" @click="filterContent()" />
-                </div>
             </div>
             <div class="row q-mb-xl">
                 <div class="col q-px-md">
                     <q-table
-                        :data="filteredUserData"
+                        :data="filterUserTable"
                         :columns="usersColumns"
                         row-key="name"
                         :pagination.sync="initialPagination"
@@ -85,102 +74,6 @@
                 </div>
             </div>
         </div>
-        <!-- <q-dialog v-model="ratesDialog" persistent>
-            <q-card style="width: 700px; max-width: 80vw">
-                <q-card-section>
-                    <div class="text-h6">Tarifas existentes</div>
-                </q-card-section>
-                <q-card-section>
-                    <q-table
-                        :data="ratesData"
-                        :columns="ratesColumns"
-                        row-key="name"
-                        :pagination.sync="initialPagination"
-                        class="full-width"
-                    >
-                        <template v-slot:header="props">
-                            <q-tr :props="props">
-                                <q-th v-for="col in props.cols" :key="col.name" :props="props">{{
-                                    col.label
-                                }}</q-th>
-                                <q-th>Eliminar</q-th>
-                            </q-tr>
-                        </template>
-
-                        <template v-slot:body="props">
-                            <q-tr :props="props">
-                                <q-td key="name" :props="props">{{ props.row.name }}</q-td>
-                                <q-td key="rate" :props="props"
-                                    >$
-                                    {{ parseFloat(props.row.rate).toFixed(2) }}
-                                    <q-popup-edit
-                                        v-model="props.row.rate"
-                                        @save="updateRate(props.row.id, props.row.rate)"
-                                        title="Actualizar Tarifa"
-                                        buttons
-                                    >
-                                        <q-input
-                                            type="text"
-                                            v-model="props.row.rate"
-                                            dense
-                                            autofocus
-                                            :rules="[
-                                                val => !!val || 'El campo es obligatorio',
-                                            ]" /></q-popup-edit
-                                ></q-td>
-                                <q-td auto-width>
-                                    <q-btn
-                                        v-if="props.row.name !== 'Default'"
-                                        size="sm"
-                                        color="red-7"
-                                        round
-                                        dense
-                                        icon="fas fa-times"
-                                        flat
-                                        @click="askForDeleteRate(props.row.id)"
-                                    />
-                                </q-td>
-                            </q-tr>
-                        </template>
-                    </q-table>
-                </q-card-section>
-                <q-separator />
-                <q-card-section>
-                    <div class="text-h6">Crear nueva tarifa</div>
-                </q-card-section>
-                <q-card-section>
-                    <div class="row">
-                        <div class="col-6">
-                            <q-input
-                                filled
-                                dense
-                                label="Nombre"
-                                v-model="rateName"
-                                class="on-left"
-                            />
-                        </div>
-                        <div class="col-6">
-                            <q-input
-                                filled
-                                dense
-                                label="Tarifa"
-                                type="number"
-                                v-model.number="rateRate"
-                                class="on-right"
-                            />
-                        </div>
-                    </div>
-                </q-card-section>
-
-                <q-card-actions align="right" class="text-primary">
-                    <q-btn flat color="red-7" label="Cerrar" v-close-popup />
-                    <q-btn flat label="Crear" @click="createNewRate()" />
-                </q-card-actions>
-            </q-card>
-        </q-dialog> -->
-        <!-- <q-page-sticky position="bottom-right" :offset="[18, 18]">
-            <q-btn fab icon="fas fa-dollar-sign" color="accent" @click="ratesDialog = true" />
-        </q-page-sticky> -->
     </q-page>
 </template>
 
@@ -256,22 +149,6 @@ export default {
                     sortable: true,
                 },
             ],
-            ratesColumns: [
-                {
-                    name: 'name',
-                    align: 'left',
-                    label: 'Nombre',
-                    field: 'name',
-                    sortable: true,
-                },
-                {
-                    name: 'rate',
-                    align: 'left',
-                    label: 'Tarifa',
-                    field: 'rate',
-                    sortable: true,
-                },
-            ],
             ratesData: [],
             usersData: [],
             filteredUserData: [],
@@ -281,29 +158,6 @@ export default {
         returnRateName(rateId) {
             let rateName = this.ratesData.find(rate => rate.id === rateId)
             return rateName !== undefined ? rateName.name : 'NaN'
-        },
-        updateRate(id, rate) {
-            this.displayLoading = true
-            this.displayAlert = false
-            api.UpdateRateInformationById({
-                id: id,
-                rate: {rate: parseFloat(rate)},
-            })
-                .then(() => {
-                    this.displayLoading = false
-                    this.alertTitle = 'Exito!'
-                    this.alertMessage = 'Se ha cambiado la tarifa con exito'
-                    this.alertType = 'success'
-                    this.displayAlert = true
-                })
-                .catch(error => {
-                    console.log(error)
-                    this.displayLoading = false
-                    this.alertTitle = 'Error'
-                    this.alertMessage = 'Hubo un error con tu peticion intentalo mas tarde.'
-                    this.alertType = 'error'
-                    this.displayAlert = true
-                })
         },
         getAllRates() {
             try {
@@ -316,105 +170,6 @@ export default {
             } catch (error) {
                 console.log(error)
             }
-        },
-        deleteRate() {
-            this.displayLoading = true
-            this.displayAlert = false
-            this.displayConfirm = false
-            api.DeleteRateOnDatabase({
-                id: this.workingDeletedId,
-            })
-                .then(() => {
-                    this.displayLoading = false
-                    this.alertTitle = 'Exito!'
-                    this.alertMessage = 'Se ha eliminado la tarifa con exito'
-                    this.alertType = 'success'
-                    this.displayAlert = true
-                    this.getAllRates()
-                })
-                .catch(error => {
-                    console.log(error)
-                    this.displayLoading = false
-                    this.alertTitle = 'Error'
-                    this.alertMessage = error
-                    this.alertType = 'error'
-                    this.displayAlert = true
-                })
-        },
-        askForDeleteRate(id) {
-            this.alertTitle = 'Esta seguro?'
-            this.alertMessage = 'Se va a proceder a eliminar este paquete'
-            this.workingDeletedId = id
-            this.displayConfirm = true
-        },
-        createNewRate() {
-            this.displayLoading = true
-            if (this.rateName === '' || this.rateRate === '') {
-                this.displayLoading = false
-                this.alertTitle = 'Error'
-                this.alertMessage =
-                    'Por favor asegurate que llenaste los datos de nombre y precio correctamente'
-                this.alertType = 'error'
-                this.displayAlert = true
-                return
-            }
-            api.CreateRateOnDatabase({
-                rate: {name: this.rateName, rate: this.rateRate},
-            }).then(response => {
-                this.displayLoading = false
-                this.alertTitle = 'Exito!'
-                this.alertMessage = 'Se ha creado con exito la tarifa'
-                this.alertType = 'success'
-                this.displayAlert = true
-                this.getAllRates()
-                this.rateName = ''
-                this.rateRate = ''
-            })
-        },
-        clear() {
-            this.searchName = ''
-            this.searchLastName = ''
-            this.searchEmail = ''
-            this.searchBox = ''
-        },
-        filterContent() {
-            if (
-                this.searchName === '' &&
-                this.searchLastName === '' &&
-                this.searchEmail === '' &&
-                this.searchBox === ''
-            )
-                this.filteredUserData = this.usersData
-            if (this.searchName) {
-                this.filteredUserData = this.usersData.filter(user => {
-                    if (user.name.toLowerCase().includes(this.searchName.toLowerCase())) {
-                        return user
-                    }
-                })
-            }
-            if (this.searchLastName) {
-                this.filteredUserData = this.usersData.filter(user => {
-                    if (user.lastName.toLowerCase().includes(this.searchLastName.toLowerCase())) {
-                        return user
-                    }
-                })
-            }
-            if (this.searchEmail) {
-                this.filteredUserData = this.usersData.filter(user => {
-                    if (user.email.toLowerCase().includes(this.searchEmail.toLowerCase())) {
-                        return user
-                    }
-                })
-            }
-            if (this.searchBox) {
-                this.filteredUserData = this.usersData.filter(user => {
-                    if (user.box.toLowerCase().includes(this.searchBox.toLowerCase())) {
-                        return user
-                    }
-                })
-            }
-
-            this.clear()
         },
         addToUsers(id, data) {
             data.id = id
@@ -438,12 +193,28 @@ export default {
             })
         },
     },
+    computed: {
+        filterUserTable() {
+            let filteredData = []
+            this.usersData.forEach(user => {
+                if (
+                    user.box.includes(this.searchBox) &&
+                    user.email.toLowerCase().includes(this.searchEmail.toLowerCase()) &&
+                    user.name.toLowerCase().includes(this.searchName.toLowerCase()) &&
+                    user.lastName.toLowerCase().includes(this.searchLastName.toLowerCase())
+                )
+                    filteredData.push(user)
+            })
+            return filteredData
+        },
+    },
     watch: {
         usersData(newValue, oldValue) {
             this.filteredUserData = newValue
         },
     },
     mounted() {
+        this.$refs.box.focus()
         let db = firebase.firestore()
         this.getAllRates()
         db.collection('users').onSnapshot(
