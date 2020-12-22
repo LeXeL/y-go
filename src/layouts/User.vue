@@ -345,6 +345,8 @@ export default {
         sendAffiliatedNo() {
             this.displayLoadingForAffiliated = true
             this.userInformation.user.affiliateCardNo = parseInt(this.affiliatedNo)
+            this.userInformation.user.poundsCount = 0
+            this.value = 0
             api.UpdateUserInformationById({
                 uid: this.uid,
                 user: this.userInformation.user,
