@@ -133,23 +133,6 @@
             <q-tab-panel name="address">
                 <div class="row q-mb-md">
                     <div class="col">
-                        <q-input
-                            filled
-                            label="Direccion de entrega"
-                            class="q-mb-md"
-                            v-model="userInformationData.user.address"
-                            :disable="!editInformation"
-                        />
-                        <q-input
-                            filled
-                            label="Notas adicionales de direccion"
-                            v-model="userInformationData.user.addressExtra"
-                            :disable="!editInformation"
-                        />
-                    </div>
-                </div>
-                <div class="row q-mb-md">
-                    <div class="col">
                         <GoogleMaps
                             class="q-mb-md"
                             v-if="Object.keys(center).length > 0"
@@ -161,6 +144,24 @@
                         ></GoogleMaps>
                     </div>
                 </div>
+                <div class="row q-mb-md">
+                    <div class="col">
+                        <q-input
+                            filled
+                            label="Direccion de entrega"
+                            class="q-mb-md"
+                            v-model="userInformationData.user.address"
+                            readonly
+                        />
+                        <q-input
+                            filled
+                            label="Notas adicionales de direccion"
+                            v-model="userInformationData.user.addressExtra"
+                            :disable="!editInformation"
+                        />
+                    </div>
+                </div>
+
                 <div class="row">
                     <q-btn
                         push
@@ -230,8 +231,21 @@ export default {
             return classes
         },
         async sendAddressUpdate() {
-            if (Object.keys(this.location).length > 0)
+            if (Object.keys(this.location).length > 0) {
                 this.userInformationData.user.coordinates = this.location
+                fetch(
+                    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.location.lat},${this.location.lng}&key=AIzaSyCDzDbwg-PqYOIAMgNE7A70gauYHeOel5A`
+                )
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status !== 'REQUEST_DENIED') {
+                            this.userInformationData.user.address =
+                                data.results[0].formatted_address
+                            this.locationVerified = true
+                        }
+                    })
+                    .catch(error => console.log(error))
+            }
             this.$emit('saveUserProfile')
         },
         setNewMarkerPosition(event) {

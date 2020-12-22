@@ -3,7 +3,7 @@
         title="Mis facturas"
         :data="data"
         :columns="columns"
-        row-key="name"
+        row-key="No"
         style="border-radius: 0"
     >
         <template v-slot:header="props">
@@ -25,10 +25,10 @@
                         dense
                         @click="props.expand = !props.expand"
                     >
-                        <i :class="props.row.expand ? 'fas fa-minus' : 'fas fa-plus'"></i>
+                        <i :class="props.expand ? 'fas fa-minus' : 'fas fa-plus'"></i>
                     </q-btn>
                 </q-td>
-                <q-td key="No" :props="props">
+                <q-td :key="'No'" :props="props">
                     {{ props.row.No }}
                 </q-td>
                 <q-td key="price" :props="props">
@@ -64,9 +64,6 @@
                         <div class="col-2">{{ pckg.weight }}lbs</div>
                         <div class="col-2">$ {{ pckg.price }}</div>
                     </div>
-                    <!-- <div class="text-left" v-for="(pckg, i) in props.row.packages" :key="i">
-                        {{ pckg.weight }}lbs - {{ pckg.tracking }}
-                    </div> -->
                 </q-td>
             </q-tr>
         </template>

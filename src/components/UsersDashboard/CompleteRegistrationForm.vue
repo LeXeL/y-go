@@ -237,13 +237,22 @@
                                 />
                                 <div class="row">
                                     <div class="col q-pa-sm">
+                                        <GoogleMaps
+                                            @markerPosition="setMarkerPosition"
+                                            @newMarkerPosition="setNewMarkerPosition"
+                                            :editable="true"
+                                            :markers="markers"
+                                            :mapCenter="center"
+                                        ></GoogleMaps>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col q-pa-sm">
                                         <q-input
                                             filled
-                                            label="Direccion de entrega *"
+                                            label="Direccion de entrega"
                                             v-model="registrationData.address"
-                                            :rules="[
-                                                val => val.length > 0 || 'El campo es obligatorio',
-                                            ]"
+                                            readonly
                                         />
                                     </div>
                                 </div>
@@ -256,17 +265,7 @@
                                         />
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col q-pa-sm">
-                                        <GoogleMaps
-                                            @markerPosition="setMarkerPosition"
-                                            @newMarkerPosition="setNewMarkerPosition"
-                                            :editable="true"
-                                            :markers="markers"
-                                            :mapCenter="center"
-                                        ></GoogleMaps>
-                                    </div>
-                                </div>
+
                                 <div
                                     v-if="showMapPinWarning"
                                     class="row q-px-md text-red text-bold text-h6"
@@ -319,6 +318,15 @@
                             <template v-slot:navigation v-if="step <= 3">
                                 <q-stepper-navigation>
                                     <q-btn
+                                        v-if="!locationVerified && step === 3"
+                                        color="accent"
+                                        push
+                                        class="text-bold"
+                                        label="Validar Dirrecion"
+                                        @click="validateLocation()"
+                                    />
+                                    <q-btn
+                                        v-else
                                         color="accent"
                                         push
                                         class="text-bold"
@@ -414,6 +422,7 @@ export default {
             showRateWarning: false,
             showMapPinWarning: false,
             successResponse: false,
+            locationVerified: false,
         }
     },
     watch: {
@@ -542,6 +551,23 @@ export default {
         setNewMarkerPosition(event) {
             this.markers = [{position: event}]
             this.location = event
+        },
+        validateLocation() {
+            if (this.location.length <= 0) {
+                this.showMapPinWarning = true
+                return
+            }
+            fetch(
+                `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.location.lat},${this.location.lng}&key=AIzaSyCDzDbwg-PqYOIAMgNE7A70gauYHeOel5A`
+            )
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status !== 'REQUEST_DENIED') {
+                        this.registrationData.address = data.results[0].formatted_address
+                        this.locationVerified = true
+                    }
+                })
+                .catch(error => console.log(error))
         },
     },
     components: {
