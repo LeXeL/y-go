@@ -438,6 +438,17 @@
                 <q-btn fab icon="fas fa-file-alt" color="accent"  />
             </q-page-sticky> -->
         </div>
+        <q-dialog v-model="subsidiaryDialog">
+            <q-card>
+                <q-card-section>
+                    <div class="text-h6 text-center">Seleccione sucursal a enviar</div>
+                </q-card-section>
+                <q-card-section>
+                    <q-btn label="Panama" color="primary" class="full-width q-mb-md" push />
+                    <q-btn label="Penonome" color="accent" class="full-width" push />
+                </q-card-section>
+            </q-card>
+        </q-dialog>
     </q-page>
 </template>
 
@@ -452,6 +463,7 @@ import * as api from '@/api/api'
 export default {
     data() {
         return {
+            subsidiaryDialog: true,
             activeRowIndex: null,
             additionalChargesDialog: false,
             uploadFile: null,
