@@ -166,6 +166,11 @@ async function returnAllUsers() {
         })
     return users
 }
+async function returnAllUserInformationByBox(box) {
+    let users = await returnAllUsers()
+    let currentSelectedUser = users.find(user => user.box === box)
+    return currentSelectedUser
+}
 async function returnAllAffiliateCardNo() {
     let users = await returnAllUsers()
     return users.filter(user => user.affiliateCardNo != null).map(user => user.affiliateCardNo)
@@ -177,23 +182,6 @@ async function returnUserRateByBox(box) {
     return allRates.find(rate => currentSelectedUser.rate === rate.id)
 }
 
-async function returnUserUidByBox(box) {
-    let users = await returnAllUsers()
-    let currentSelectedUser = users.find(user => user.box === box)
-    return currentSelectedUser !== undefined ? currentSelectedUser.id : 'none'
-}
-async function returnUserEmailByBox(box) {
-    let users = await returnAllUsers()
-    let currentSelectedUser = users.find(user => user.box === box)
-    return currentSelectedUser !== undefined ? currentSelectedUser.email : 'none'
-}
-async function returnUserNameByBox(box) {
-    let users = await returnAllUsers()
-    let currentSelectedUser = users.find(user => user.box === box)
-    return currentSelectedUser !== undefined
-        ? `${currentSelectedUser.name} ${currentSelectedUser.lastName}`
-        : 'none'
-}
 module.exports = {
     addPoundsToUid,
     createDatabaseWithUserInfo,
@@ -203,9 +191,7 @@ module.exports = {
     changeVerified,
     approveBusinessRequest,
     returnAllUsers,
+    returnAllUserInformationByBox,
     returnUserRateByBox,
-    returnUserUidByBox,
-    returnUserEmailByBox,
-    returnUserNameByBox,
     returnAllAffiliateCardNo,
 }

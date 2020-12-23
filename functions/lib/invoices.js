@@ -49,17 +49,18 @@ async function createInvoice(by) {
                 const element = groupedPackages[box]
                 let lastInvoiceId = await getLastInvoiceId()
                 let price = await calculatePriceForGroupedPackages(element)
-                let uid = await users.returnUserUidByBox(box)
+                let userFromBox = await users.returnAllUserInformationByBox(box)
                 let obj = {
                     No: parseInt(lastInvoiceId.lastInvoiceId),
                     box: box,
-                    userId: uid,
+                    userId: userFromBox.id,
                     creationTime: Date.now(),
                     packages: element,
                     paidTime: '',
                     status: 'unpaid', //paid, unpaid
                     price: price,
                     by: by,
+                    isAffiliate: userFromBox.affiliateCardNo === null ? false : true,
                 }
                 await db
                     .collection('invoices')
@@ -74,15 +75,13 @@ async function createInvoice(by) {
                         return error
                     })
                 await addToLastInvoiceId()
-                let userEmail = await users.returnUserEmailByBox(box)
                 let emailBody = await emailHandler.templateHandler('Invoice-01', obj)
-                let userName = await users.returnUserNameByBox(box)
-                users.addPoundsToUid(uid, element)
+                users.addPoundsToUid(userFromBox.id, element)
                 emailHandler.sendEmail(
-                    userEmail,
+                    userFromBox.email,
                     'Recepcion de Mercancia Y-Go 📦',
                     emailBody,
-                    userName
+                    `${userFromBox.name} ${userFromBox.lastName}`
                 )
             }
         }
