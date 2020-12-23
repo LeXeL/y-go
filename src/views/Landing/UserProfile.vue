@@ -241,7 +241,6 @@ export default {
                         if (data.status !== 'REQUEST_DENIED') {
                             this.userInformationData.user.address =
                                 data.results[0].formatted_address
-                            this.locationVerified = true
                         }
                     })
                     .catch(error => console.log(error))

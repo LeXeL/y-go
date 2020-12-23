@@ -546,9 +546,11 @@ export default {
             )
         },
         setMarkerPosition(event) {
+            this.locationVerified = false
             this.location = event
         },
         setNewMarkerPosition(event) {
+            this.locationVerified = false
             this.markers = [{position: event}]
             this.location = event
         },
