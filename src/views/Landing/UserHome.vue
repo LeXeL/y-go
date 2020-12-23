@@ -61,7 +61,12 @@
                     <br />
                     <div class="row text-left" v-for="(pckg, i) in props.row.packages" :key="i">
                         <div class="col-8">{{ pckg.tracking }}</div>
-                        <div class="col-2">{{ pckg.weight }}lbs</div>
+                        <div class="col-2">
+                            {{
+                                pckg.volumetricWeight === 0 ? pckg.weight : pckg.volumetricWeight
+                            }}
+                            lbs
+                        </div>
                         <div class="col-2">$ {{ pckg.price }}</div>
                     </div>
                 </q-td>
