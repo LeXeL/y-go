@@ -324,11 +324,15 @@ exports.ReturnAllRates = functions.https.onRequest(async (req, res) => {
 exports.CreateInvoiceOnDatabase = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
         try {
-            let response = await invoices.createInvoice(req.body.by)
-            functions.logger.info('CreateRateOnDatabase')
+            let response = await invoices.createInvoice(req.body.by, req.body.packages)
+            functions.logger.info('CreateInvoiceOnDatabase', {
+                by: req.body.by,
+                packages: req.body.packages,
+            })
             res.status(200).send({data: response})
         } catch (err) {
-            functions.logger.error('CreateRateOnDatabase', {
+            console.log(err)
+            functions.logger.error('CreateInvoiceOnDatabase', {
                 error: err,
             })
             res.status(400).send({err: err})

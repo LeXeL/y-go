@@ -37,12 +37,13 @@ function groupPackagesByBox(packages) {
     })
     return groupedPackages
 }
-async function createInvoice(by) {
+async function createInvoice(by, pckgs) {
     const packages = require('./packages')
     const users = require('./users')
     const emailHandler = require('./emailHandler')
     try {
-        let allPackages = await packages.returnAllPackagesWithoutInvoice()
+        // let allPackages = await packages.returnAllPackagesWithoutInvoice()
+        let allPackages = pckgs
         let groupedPackages = await groupPackagesByBox(allPackages)
         for (const box in groupedPackages) {
             if (groupedPackages.hasOwnProperty(box)) {
