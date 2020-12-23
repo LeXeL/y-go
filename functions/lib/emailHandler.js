@@ -100,7 +100,9 @@ const sgMail = require('@sendgrid/mail')
 //   </div>`
 // }
 function templateInvoice01(info) {
+    console.log(`INFO: ${JSON.stringify(info)}`)
     let packagesHtmlBody = ''
+    let totalPoundsEarn = 0
     info.packages.forEach(package => {
         let weight = package.volumetricWeight === 0 ? package.weight : package.volumetricWeight
         packagesHtmlBody += `<tr>
@@ -108,6 +110,7 @@ function templateInvoice01(info) {
         <td>${weight}</td>
         <td style="text-align: right">$${package.price}</td>
       </tr>`
+        totalPoundsEarn += parseInt(weight)
     })
 
     let emailBody = `<div style="padding: 15px;">
@@ -124,6 +127,11 @@ function templateInvoice01(info) {
       </tbody>
     </table>
     <h3 style="text-align: right"><strong>Total: $ ${info.price}</strong></h3>
+   ${
+       info.isAffiliate
+           ? `<h4 style="text-align: right"><strong>Puntos obtenidos: ${totalPoundsEarn}</strong></h4>`
+           : ''
+   }
   </div>`
     return emailBody
 }
