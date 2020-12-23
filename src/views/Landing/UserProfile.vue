@@ -131,46 +131,114 @@
             </q-tab-panel>
 
             <q-tab-panel name="address">
-                <div class="row q-mb-md">
-                    <div class="col">
-                        <GoogleMaps
-                            class="q-mb-md"
-                            v-if="Object.keys(center).length > 0"
-                            @markerPosition="setMarkerPosition"
-                            @newMarkerPosition="setNewMarkerPosition"
-                            :editable="editInformation"
-                            :markers="markers"
-                            :mapCenter="center"
-                        ></GoogleMaps>
-                    </div>
-                </div>
-                <div class="row q-mb-md">
-                    <div class="col">
-                        <q-input
-                            filled
-                            label="Direccion de entrega"
-                            class="q-mb-md"
-                            v-model="userInformationData.user.address"
-                            readonly
-                        />
-                        <q-input
-                            filled
-                            label="Notas adicionales de direccion"
-                            v-model="userInformationData.user.addressExtra"
-                            :disable="!editInformation"
-                        />
-                    </div>
-                </div>
+                <q-list bordered class="rounded-borders q-mb-md">
+                    <q-expansion-item
+                        expand-separator
+                        label="Direccion 1"
+                        class="text-bold text-white"
+                        default-opened
+                        group="addressGroup"
+                        header-class="bg-primary text-white"
+                        expand-icon-class="text-white"
+                    >
+                        <q-card>
+                            <q-card-section>
+                                <div class="row q-mb-md">
+                                    <div class="col">
+                                        <GoogleMaps
+                                            class="q-mb-md"
+                                            v-if="Object.keys(center).length > 0"
+                                            @markerPosition="setMarkerPosition"
+                                            @newMarkerPosition="setNewMarkerPosition"
+                                            :editable="editInformation"
+                                            :markers="markers"
+                                            :mapCenter="center"
+                                        ></GoogleMaps>
+                                    </div>
+                                </div>
+                                <div class="row q-mb-md">
+                                    <div class="col">
+                                        <q-input
+                                            filled
+                                            label="Direccion de entrega"
+                                            class="q-mb-md"
+                                            v-model="userInformationData.user.address"
+                                            readonly
+                                        />
+                                        <q-input
+                                            filled
+                                            label="Notas adicionales de direccion"
+                                            v-model="userInformationData.user.addressExtra"
+                                            :disable="!editInformation"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <q-btn
+                                        push
+                                        size="sm"
+                                        color="accent"
+                                        label="Guardar"
+                                        @click="sendAddressUpdate()"
+                                    />
+                                </div>
+                            </q-card-section>
+                        </q-card>
+                    </q-expansion-item>
 
-                <div class="row">
-                    <q-btn
-                        push
-                        size="sm"
-                        color="accent"
-                        label="Guardar"
-                        @click="sendAddressUpdate()"
-                    />
-                </div>
+                    <q-expansion-item
+                        expand-separator
+                        label="Direccion 2"
+                        class="text-bold"
+                        group="addressGroup"
+                        header-class="bg-primary text-white"
+                        expand-icon-class="text-white"
+                    >
+                        <q-card>
+                            <q-card-section>
+                                <div class="row q-mb-md">
+                                    <div class="col">
+                                        <GoogleMaps
+                                            class="q-mb-md"
+                                            v-if="Object.keys(center).length > 0"
+                                            @markerPosition="setMarkerPosition"
+                                            @newMarkerPosition="setNewMarkerPosition"
+                                            :editable="editInformation"
+                                            :markers="markers"
+                                            :mapCenter="center"
+                                        ></GoogleMaps>
+                                    </div>
+                                </div>
+                                <div class="row q-mb-md">
+                                    <div class="col">
+                                        <q-input
+                                            filled
+                                            label="Direccion de entrega"
+                                            class="q-mb-md"
+                                            v-model="userInformationData.user.address"
+                                            readonly
+                                        />
+                                        <q-input
+                                            filled
+                                            label="Notas adicionales de direccion"
+                                            v-model="userInformationData.user.addressExtra"
+                                            :disable="!editInformation"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <q-btn
+                                        push
+                                        size="sm"
+                                        color="accent"
+                                        label="Guardar"
+                                        @click="sendAddressUpdate()"
+                                    />
+                                </div>
+                            </q-card-section>
+                        </q-card>
+                    </q-expansion-item>
+                </q-list>
             </q-tab-panel>
         </q-tab-panels>
     </div>
