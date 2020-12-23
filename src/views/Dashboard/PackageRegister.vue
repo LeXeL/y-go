@@ -751,13 +751,21 @@ export default {
                 pckg => pckg.subsidiary === subsidiary
             )
             this.subsidiaryDialog = false
+            if (filteredPackagesBySelectedSubsidiary.length <= 0) {
+                this.displayLoading = false
+                this.alertTitle = 'Hubo un Error!'
+                this.alertMessage = 'No hay ningun paquete pendiente para esta subsidiaria'
+                this.alertType = 'error'
+                this.displayAlert = true
+                return
+            }
             api.UpdateGroupPackages({
-                packages: filteredPackagesBySelectedSubsidiary,
+                packages: this.filteredPackagesData,
             })
                 .then(() => {
                     api.CreateInvoiceOnDatabase({
                         by: this.user,
-                        packages: filteredPackagesBySelectedSubsidiary,
+                        subsidiary: subsidiary,
                     })
                         .then(() => {
                             this.displayLoading = false

@@ -100,7 +100,6 @@ const sgMail = require('@sendgrid/mail')
 //   </div>`
 // }
 function templateInvoice01(info) {
-    console.log(`INFO: ${JSON.stringify(info)}`)
     let packagesHtmlBody = ''
     let totalPoundsEarn = 0
     info.packages.forEach(package => {

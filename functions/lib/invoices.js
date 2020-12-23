@@ -37,14 +37,16 @@ function groupPackagesByBox(packages) {
     })
     return groupedPackages
 }
-async function createInvoice(by, pckgs) {
+async function createInvoice(by, subsidiary) {
     const packages = require('./packages')
     const users = require('./users')
     const emailHandler = require('./emailHandler')
     try {
-        // let allPackages = await packages.returnAllPackagesWithoutInvoice()
-        let allPackages = pckgs
-        let groupedPackages = await groupPackagesByBox(allPackages)
+        let allPackages = await packages.returnAllPackagesWithoutInvoice()
+        let filteredPackagesBySubsidiary = allPackages.filter(
+            pckg => pckg.subsidiary === subsidiary
+        )
+        let groupedPackages = await groupPackagesByBox(filteredPackagesBySubsidiary)
         for (const box in groupedPackages) {
             if (groupedPackages.hasOwnProperty(box)) {
                 const element = groupedPackages[box]
