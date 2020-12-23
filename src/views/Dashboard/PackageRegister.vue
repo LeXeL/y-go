@@ -47,7 +47,12 @@
                     >
                 </div>
                 <div class="col-lg-2 q-px-md">
-                    <q-btn color="primary" push class="full-width" @click="handleInvoices()">
+                    <q-btn
+                        color="primary"
+                        push
+                        class="full-width"
+                        @click="checkPackagesBeforeInvoiceGeneration()"
+                    >
                         <i class="fas fa-mail-bulk on-left"></i>
                         Guardar y enviar
                     </q-btn>
@@ -444,8 +449,20 @@
                     <div class="text-h6 text-center">Seleccione sucursal a enviar</div>
                 </q-card-section>
                 <q-card-section>
-                    <q-btn label="Panama" color="primary" class="full-width q-mb-md" push />
-                    <q-btn label="Penonome" color="accent" class="full-width" push />
+                    <q-btn
+                        label="Panamá"
+                        color="primary"
+                        class="full-width q-mb-md"
+                        push
+                        @click="generateInvoiceBySubsidiary(0)"
+                    />
+                    <q-btn
+                        label="Penonomé"
+                        color="accent"
+                        class="full-width"
+                        push
+                        @click="generateInvoiceBySubsidiary(1)"
+                    />
                 </q-card-section>
             </q-card>
         </q-dialog>
@@ -463,7 +480,6 @@ import * as api from '@/api/api'
 export default {
     data() {
         return {
-            subsidiaryDialog: true,
             activeRowIndex: null,
             additionalChargesDialog: false,
             uploadFile: null,
@@ -553,6 +569,7 @@ export default {
                     field: 'chargeAmount',
                 },
             ],
+            subsidiaryDialog: false,
         }
     },
     computed: {
@@ -712,7 +729,7 @@ export default {
             }
             return isEmpty
         },
-        async handleInvoices() {
+        async checkPackagesBeforeInvoiceGeneration() {
             this.displayLoading = true
             this.displayAlert = false
             if (await this.checkIfEmpty()) {
@@ -723,11 +740,24 @@ export default {
                 this.displayAlert = true
                 return
             }
+            this.subsidiaryDialog = true
+        },
+        generateInvoiceBySubsidiary(subsidiary) {
+            this.filteredPackagesData.forEach((pckg, index) => {
+                let user = this.usersRegistered.find(user => user.box === pckg.box)
+                this.filteredPackagesData[index].subsidiary = user.subsidiary
+            })
+            let filteredPackagesBySelectedSubsidiary = this.filteredPackagesData.filter(
+                pckg => pckg.subsidiary === subsidiary
+            )
             api.UpdateGroupPackages({
-                packages: this.filteredPackagesData,
+                packages: filteredPackagesBySelectedSubsidiary,
             })
                 .then(() => {
-                    api.CreateInvoiceOnDatabase({by: this.user})
+                    api.CreateInvoiceOnDatabase({
+                        by: this.user,
+                        packages: filteredPackagesBySelectedSubsidiary,
+                    })
                         .then(() => {
                             this.displayLoading = false
                             this.alertTitle = 'Exito!'
