@@ -750,6 +750,7 @@ export default {
             let filteredPackagesBySelectedSubsidiary = this.filteredPackagesData.filter(
                 pckg => pckg.subsidiary === subsidiary
             )
+            this.subsidiaryDialog = false
             api.UpdateGroupPackages({
                 packages: filteredPackagesBySelectedSubsidiary,
             })
