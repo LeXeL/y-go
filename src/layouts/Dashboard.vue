@@ -7,7 +7,7 @@
                 <q-toolbar-title>
                     <img
                         src="@/assets/logo_ygo.png"
-                        width="4%"
+                        width="8%"
                         style="padding-top: 5px; cursor: pointer"
                     />
                 </q-toolbar-title>
