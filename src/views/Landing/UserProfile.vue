@@ -131,46 +131,114 @@
             </q-tab-panel>
 
             <q-tab-panel name="address">
-                <div class="row q-mb-md">
-                    <div class="col">
-                        <GoogleMaps
-                            class="q-mb-md"
-                            v-if="Object.keys(center).length > 0"
-                            @markerPosition="setMarkerPosition"
-                            @newMarkerPosition="setNewMarkerPosition"
-                            :editable="editInformation"
-                            :markers="markers"
-                            :mapCenter="center"
-                        ></GoogleMaps>
-                    </div>
-                </div>
-                <div class="row q-mb-md">
-                    <div class="col">
-                        <q-input
-                            filled
-                            label="Direccion de entrega"
-                            class="q-mb-md"
-                            v-model="userInformationData.user.address"
-                            readonly
-                        />
-                        <q-input
-                            filled
-                            label="Notas adicionales de direccion"
-                            v-model="userInformationData.user.addressExtra"
-                            :disable="!editInformation"
-                        />
-                    </div>
-                </div>
+                <q-list bordered class="rounded-borders q-mb-md">
+                    <q-expansion-item
+                        expand-separator
+                        label="Direccion 1"
+                        class="text-bold text-white"
+                        default-opened
+                        group="addressGroup"
+                        header-class="bg-primary text-white"
+                        expand-icon-class="text-white"
+                    >
+                        <q-card>
+                            <q-card-section>
+                                <div class="row q-mb-md">
+                                    <div class="col">
+                                        <GoogleMaps
+                                            class="q-mb-md"
+                                            v-if="Object.keys(center).length > 0"
+                                            @markerPosition="setMarkerPosition"
+                                            @newMarkerPosition="setNewMarkerPosition"
+                                            :editable="editInformation"
+                                            :markers="markers"
+                                            :mapCenter="center"
+                                        ></GoogleMaps>
+                                    </div>
+                                </div>
+                                <div class="row q-mb-md">
+                                    <div class="col">
+                                        <q-input
+                                            filled
+                                            label="Direccion de entrega"
+                                            class="q-mb-md"
+                                            v-model="userInformationData.user.address"
+                                            readonly
+                                        />
+                                        <q-input
+                                            filled
+                                            label="Notas adicionales de direccion"
+                                            v-model="userInformationData.user.addressExtra"
+                                            :disable="!editInformation"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <q-btn
+                                        push
+                                        size="sm"
+                                        color="accent"
+                                        label="Guardar"
+                                        @click="sendAddressUpdate()"
+                                    />
+                                </div>
+                            </q-card-section>
+                        </q-card>
+                    </q-expansion-item>
 
-                <div class="row">
-                    <q-btn
-                        push
-                        size="sm"
-                        color="accent"
-                        label="Guardar"
-                        @click="sendAddressUpdate()"
-                    />
-                </div>
+                    <q-expansion-item
+                        expand-separator
+                        label="Direccion 2"
+                        class="text-bold"
+                        group="addressGroup"
+                        header-class="bg-primary text-white"
+                        expand-icon-class="text-white"
+                    >
+                        <q-card>
+                            <q-card-section>
+                                <div class="row q-mb-md">
+                                    <div class="col">
+                                        <GoogleMaps
+                                            class="q-mb-md"
+                                            v-if="Object.keys(center2).length > 0"
+                                            @markerPosition="setMarkerPosition2"
+                                            @newMarkerPosition="setNewMarkerPosition2"
+                                            :editable="editInformation"
+                                            :markers="markers2"
+                                            :mapCenter="center2"
+                                        ></GoogleMaps>
+                                    </div>
+                                </div>
+                                <div class="row q-mb-md">
+                                    <div class="col">
+                                        <q-input
+                                            filled
+                                            label="Direccion de entrega"
+                                            class="q-mb-md"
+                                            v-model="userInformationData.user.address2"
+                                            readonly
+                                        />
+                                        <q-input
+                                            filled
+                                            label="Notas adicionales de direccion"
+                                            v-model="userInformationData.user.addressExtra2"
+                                            :disable="!editInformation"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <q-btn
+                                        push
+                                        size="sm"
+                                        color="accent"
+                                        label="Guardar"
+                                        @click="sendAddress2Update()"
+                                    />
+                                </div>
+                            </q-card-section>
+                        </q-card>
+                    </q-expansion-item>
+                </q-list>
             </q-tab-panel>
         </q-tab-panels>
     </div>
@@ -191,6 +259,9 @@ export default {
             location: [],
             markers: [],
             center: {},
+            location2: [],
+            markers2: [],
+            center2: {},
             editInformation: true,
             displayAlert: false,
             alertTitle: '',
@@ -233,13 +304,30 @@ export default {
         async sendAddressUpdate() {
             if (Object.keys(this.location).length > 0) {
                 this.userInformationData.user.coordinates = this.location
-                fetch(
+                await fetch(
                     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.location.lat},${this.location.lng}&key=AIzaSyCDzDbwg-PqYOIAMgNE7A70gauYHeOel5A`
                 )
                     .then(response => response.json())
                     .then(data => {
                         if (data.status !== 'REQUEST_DENIED') {
                             this.userInformationData.user.address =
+                                data.results[0].formatted_address
+                        }
+                    })
+                    .catch(error => console.log(error))
+            }
+            this.$emit('saveUserProfile')
+        },
+        async sendAddress2Update() {
+            if (Object.keys(this.location2).length > 0) {
+                this.userInformationData.user.coordinates2 = this.location2
+                await fetch(
+                    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.location2.lat},${this.location2.lng}&key=AIzaSyCDzDbwg-PqYOIAMgNE7A70gauYHeOel5A`
+                )
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status !== 'REQUEST_DENIED') {
+                            this.userInformationData.user.address2 =
                                 data.results[0].formatted_address
                         }
                     })
@@ -254,21 +342,28 @@ export default {
         setMarkerPosition(event) {
             this.location = event
         },
+        setNewMarkerPosition2(event) {
+            this.markers2 = [{position: event}]
+            this.location2 = event
+        },
+        setMarkerPosition2(event) {
+            this.location2 = event
+        },
         geolocate() {
             navigator.geolocation.getCurrentPosition(
                 position => {
-                    this.center = {
+                    this.center2 = {
                         lat: parseFloat(position.coords.latitude),
                         lng: parseFloat(position.coords.longitude),
                     }
-                    this.markers.push({position: this.center})
+                    this.markers2.push({position: this.center2})
                 },
                 error => {
-                    this.center = {
+                    this.center2 = {
                         lat: parseFloat(9.068463),
                         lng: parseFloat(-79.452694),
                     }
-                    this.markers.push({position: this.center})
+                    this.markers2.push({position: this.center2})
                 }
             )
         },
@@ -277,12 +372,15 @@ export default {
         GoogleMaps,
     },
     async mounted() {
-        if (this.userInformationData.user.coordinates === undefined) {
-            this.geolocate()
-            return
-        }
         this.center = this.userInformationData.user.coordinates
         this.markers.push({position: this.center})
+        if (this.userInformationData.user.coordinates2 === undefined) {
+            this.geolocate()
+            return
+        } else {
+            this.center2 = this.userInformationData.user.coordinates2
+            this.markers2.push({position: this.center2})
+        }
         api.ReturnAllRates().then(response => (this.allRates = response.data.data))
     },
 }
