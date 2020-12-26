@@ -34,6 +34,7 @@
                                     <div class="col q-pa-sm">
                                         <q-input
                                             filled
+                                            class="y-go-1x"
                                             label="Nombre *"
                                             v-model="registrationData.name"
                                             :rules="[
@@ -45,7 +46,7 @@
                                         <q-input
                                             filled
                                             label="Apellido *"
-                                            class="on-right"
+                                            class="on-right y-go-1x"
                                             v-model="registrationData.lastName"
                                             :rules="[
                                                 val => val.length > 0 || 'El campo es obligatorio',
@@ -57,6 +58,7 @@
                                     <div class="col-lg-2 q-pa-sm">
                                         <q-select
                                             filled
+                                            class="y-go-1x"
                                             label="Pais"
                                             :options="countryCodes"
                                             v-model="registrationData.countryCode"
@@ -66,6 +68,7 @@
                                     <div class="col-lg-10 q-pa-sm">
                                         <q-input
                                             filled
+                                            class="y-go-1x"
                                             label="Celular *"
                                             v-model="registrationData.phone"
                                             fill-mask
@@ -99,6 +102,7 @@
                                     <div class="col q-pa-sm">
                                         <q-select
                                             filled
+                                            class="y-go-1x"
                                             label="Sucursal de preferencia *"
                                             :options="[
                                                 'Sucursal de Panamá',
@@ -250,6 +254,7 @@
                                     <div class="col q-pa-sm">
                                         <q-input
                                             filled
+                                            class="y-go-1x"
                                             label="Direccion de entrega"
                                             v-model="registrationData.address"
                                             readonly
@@ -260,6 +265,7 @@
                                     <div class="col q-pa-sm">
                                         <q-input
                                             filled
+                                            class="y-go-1x"
                                             label="Notas adicionales de dirección"
                                             v-model="registrationData.addressExtra"
                                         />
@@ -465,7 +471,7 @@ export default {
             }
             return 'rateTile q-pa-md rounded-borders text-center'
         },
-        splitNParts: function* (num, parts) {
+        splitNParts: function*(num, parts) {
             let sumParts = 0
             for (let i = 0; i < parts - 1; i++) {
                 const pn = Math.ceil(Math.random() * (num - sumParts))
