@@ -133,8 +133,8 @@
                                             : ''
                                     "
                                 >
-                                    <q-list bordered padding class="bg-white">
-                                        <q-item-label header>Menu</q-item-label>
+                                    <q-list bordered padding class="bg-white y-go-1x">
+                                        <q-item-label header class="text-bold">Menú</q-item-label>
                                         <q-separator />
                                         <q-item clickable v-ripple @click="showUserProfile = false">
                                             <q-item-section avatar top>
