@@ -99,7 +99,7 @@
                                                     {{ value }}
                                                 </div>
                                                 <div class="text-h6 full-width text-center">
-                                                    Libras
+                                                    Puntos
                                                 </div>
                                             </q-circular-progress>
                                         </div>
