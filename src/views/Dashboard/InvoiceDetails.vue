@@ -31,7 +31,7 @@
                             />
                             <q-input
                                 filled
-                                label="Monto"
+                                label="Total de factura"
                                 readonly
                                 class="q-mb-md"
                                 v-model="form.price"
@@ -98,25 +98,15 @@
                                         :offset="[10, 10]"
                                     >
                                         <div class="text-subtitle2">
-                                            <strong
-                                                >$ {{ props.row.price }}</strong
-                                            >
+                                            <strong>$ {{ props.row.price }}</strong>
                                             - Costo
                                         </div>
                                         <div
                                             class="text-subtitle2"
-                                            v-for="(addchrg, i) in props.row
-                                                .aditionalCharges"
+                                            v-for="(addchrg, i) in props.row.aditionalCharges"
                                             :key="i"
                                         >
-                                            <strong
-                                                >$
-                                                {{
-                                                    addchrg.chargeAmount.toFixed(
-                                                        2
-                                                    )
-                                                }}</strong
-                                            >
+                                            <strong>$ {{ addchrg.chargeAmount.toFixed(2) }}</strong>
                                             - {{ addchrg.chargeName }}
                                         </div>
                                     </q-tooltip>
