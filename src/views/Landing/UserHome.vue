@@ -10,7 +10,7 @@
             <q-tr :props="props">
                 <q-th auto-width />
                 <q-th v-for="col in props.cols" :key="col.name" :props="props">
-                    {{ col.label }}
+                    <span class="text-bold">{{ col.label }}</span>
                 </q-th>
             </q-tr>
         </template>
@@ -28,17 +28,11 @@
                         <i :class="props.expand ? 'fas fa-minus' : 'fas fa-plus'"></i>
                     </q-btn>
                 </q-td>
-                <q-td :key="'No'" :props="props">
+                <q-td :key="'No'" :props="props" class="y-go-1x">
                     {{ props.row.No }}
                 </q-td>
-                <q-td key="price" :props="props">
+                <q-td key="price" :props="props" class="y-go-1x">
                     $ {{ parseFloat(props.row.price).toFixed(2) }}
-                </q-td>
-                <q-td key="packages" :props="props">
-                    {{ props.row.packages.length }}
-                </q-td>
-                <q-td key="creationTime" :props="props">
-                    {{ returnFormatedTime(props.row.creationTime) }}
                 </q-td>
                 <q-td key="status" :props="props">
                     <q-badge :color="returnStatus(props.row.status).color">
@@ -47,7 +41,7 @@
                 </q-td>
             </q-tr>
             <q-tr v-show="props.expand" :props="props">
-                <q-td colspan="100%">
+                <q-td colspan="100%" class="y-go-1x">
                     <div>
                         Fecha:
                         <span class="text-bold text-accent">{{
@@ -62,9 +56,7 @@
                     <div class="row text-left" v-for="(pckg, i) in props.row.packages" :key="i">
                         <div class="col-8">{{ pckg.tracking }}</div>
                         <div class="col-2">
-                            {{
-                                pckg.volumetricWeight === 0 ? pckg.weight : pckg.volumetricWeight
-                            }}
+                            {{ pckg.volumetricWeight === 0 ? pckg.weight : pckg.volumetricWeight }}
                             lbs
                         </div>
                         <div class="col-2">$ {{ pckg.price }}</div>

@@ -1,6 +1,6 @@
 <template>
     <q-page class="bg-primary">
-        <q-banner v-if="showVerifyBanner" class="bg-green text-white text-center shadow-3">
+        <q-banner v-if="showVerifyBanner" class="bg-accent text-white text-center shadow-3">
             <div class="text-bold">
                 Gracias por confirmar tu correo electronico, puedes proceder al perfil de tu cuenta.
             </div>

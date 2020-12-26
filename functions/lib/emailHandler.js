@@ -199,7 +199,7 @@ async function sendEmail(to, subject, template, name) {
             margin-top: 25px;
             display: block;
             margin: 0 auto;
-            text-align: center;">IR A MI CASILLERO</a>
+            text-align: center;">REALIZAR PAGO</a>
             <br />
             <p>GRACIAS POR PREFERIRNOS</p>
             <p style="color: #ff5722; text-align: center">

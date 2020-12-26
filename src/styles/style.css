@@ -4,6 +4,10 @@
     font-family: 'Josefin Sans', sans-serif;
 }
 
+.y-go-1x {
+    font-size: 1rem !important;
+}
+
 .navigation-bar li {
     display: inline-block;
     padding: 0 10px;

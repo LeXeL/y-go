@@ -56,18 +56,21 @@
                                             </div>
                                             <div class="text-subtitle2">
                                                 <br />
-                                                <span id="miaAddress">
-                                                    2478 NW 89TH AVE SUITE
-                                                    {{ userInformation.user.box }}
-                                                </span>
+                                                2478 NW 89TH AVE SUITE
+                                                {{ userInformation.user.box }}
 
-                                                <span
-                                                    class="text-primary text-bold text-caption on-right"
-                                                    style="cursor: pointer"
-                                                    @click="copyAddressToClipboard()"
-                                                >
-                                                    <i class="far fa-copy"></i
-                                                ></span>
+                                                <span class=" text-caption on-right">
+                                                    <i
+                                                        class="fas fa-plane-departure text-primary"
+                                                        style="cursor: pointer; margin-right: 3px;"
+                                                        @click="copyAddressToClipboard('air')"
+                                                    ></i>
+                                                    <i
+                                                        class="fas fa-ship text-primary"
+                                                        style="cursor: pointer; margin-left: 3px;"
+                                                        @click="copyAddressToClipboard('ship')"
+                                                    ></i>
+                                                </span>
                                                 <br />
                                                 DORAL, FLORIDA 33143
                                                 <br />
@@ -96,7 +99,7 @@
                                                     {{ value }}
                                                 </div>
                                                 <div class="text-h6 full-width text-center">
-                                                    Libras
+                                                    Puntos
                                                 </div>
                                             </q-circular-progress>
                                         </div>
@@ -130,8 +133,8 @@
                                             : ''
                                     "
                                 >
-                                    <q-list bordered padding class="bg-white">
-                                        <q-item-label header>Menu</q-item-label>
+                                    <q-list bordered padding class="bg-white y-go-1x">
+                                        <q-item-label header class="text-bold">Menú</q-item-label>
                                         <q-separator />
                                         <q-item clickable v-ripple @click="showUserProfile = false">
                                             <q-item-section avatar top>
@@ -374,17 +377,25 @@ export default {
                     this.displayAlert = true
                 })
         },
-        copyAddressToClipboard() {
-            let text = document.getElementById('miaAddress').innerHTML
+        copyAddressToClipboard(type) {
+            let text = ''
+            if (type == 'air') {
+                text = `air address ${this.userInformation.user.box}`
+            }
+            if (type == 'ship') {
+                text = `ship address ${this.userInformation.user.box}`
+            }
             navigator.clipboard.writeText(text).then(
                 () => {
                     this.displayLoading = false
                     this.alertTitle = 'Copiado'
-                    this.alertMessage = 'Direccion copiada correctamente'
+                    this.alertMessage = `Direccion ${
+                        type == 'air' ? 'aérea' : 'marítima'
+                    } copiada correctamente`
                     this.alertType = 'success'
                     this.displayAlert = true
                 },
-                function (err) {
+                function(err) {
                     console.error('Async: Could not copy text: ', err)
                 }
             )
