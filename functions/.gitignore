@@ -1,4 +1,5 @@
 node_modules/
 *.log
 credentials.json
-.runtimeconfig.json
+output.json
+/emulators.backup
