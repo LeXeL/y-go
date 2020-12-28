@@ -1,11 +1,16 @@
 <template>
     <q-table
         title="Mis facturas"
-        :data="data"
+        :data="filterInvoices"
         :columns="columns"
         row-key="No"
         style="border-radius: 0"
     >
+        <template v-slot:top-right>
+            <q-input dense debounce="300" v-model="searchTracking" placeholder="Tracking">
+                <q-icon slot="append" name="fas fa-search" />
+            </q-input>
+        </template>
         <template v-slot:header="props">
             <q-tr :props="props">
                 <q-th auto-width />
@@ -78,6 +83,7 @@ export default {
     },
     data() {
         return {
+            searchTracking: '',
             columns: [
                 {name: 'No', label: 'No. Factura', field: 'No', sortable: true},
                 {name: 'price', label: 'Monto ($)', field: 'price', sortable: true},
@@ -95,6 +101,21 @@ export default {
             if (status == 'unpaid') return {status: 'Pendiente', color: 'red', icon: 'dollar-sign'}
             if (status == 'payed') return {status: 'Pagado', color: 'green', icon: 'dollar-sign'}
             if (status == 'delivered') return {status: 'Entregado', color: 'primary', icon: 'box'}
+        },
+    },
+    computed: {
+        filterInvoices() {
+            let filteredInvoices = []
+            this.data.forEach(inv => {
+                inv.packages.forEach(pckg => {
+                    if (pckg.tracking.toLowerCase().includes(this.searchTracking.toLowerCase())) {
+                        if (!filteredInvoices.includes(inv)) {
+                            filteredInvoices.push(inv)
+                        }
+                    }
+                })
+            })
+            return filteredInvoices
         },
     },
 }
