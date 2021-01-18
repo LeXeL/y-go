@@ -145,7 +145,7 @@ export default {
 
     methods: {
         clickEvent(event) {
-            if (event.Za != undefined) {
+            if (event.Ya != undefined) {
                 this.markerPosition = {
                     lat: event.latLng.lat(),
                     lng: event.latLng.lng(),
