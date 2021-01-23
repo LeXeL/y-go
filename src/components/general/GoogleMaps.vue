@@ -145,13 +145,11 @@ export default {
 
     methods: {
         clickEvent(event) {
-            if (event.Ya != undefined) {
-                this.markerPosition = {
-                    lat: event.latLng.lat(),
-                    lng: event.latLng.lng(),
-                }
-                this.$emit('newMarkerPosition', this.markerPosition)
+            this.markerPosition = {
+                lat: event.latLng.lat(),
+                lng: event.latLng.lng(),
             }
+            this.$emit('newMarkerPosition', this.markerPosition)
         },
         setMarkerPosition(location) {
             this.markerPosition = {
