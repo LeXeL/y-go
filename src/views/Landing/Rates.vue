@@ -28,9 +28,9 @@
                     />
                     <q-space />
                 </div>
-                <div class="row">
+                <div class="row q-mb-xl">
                     <div class="col-lg-4 q-pa-lg">
-                        <q-card class="text-center" flat>
+                        <q-card class="text-center" flat style="border-left: solid 5px #ff5722">
                             <q-card-section>
                                 <i class="fas fa-box-open fa-2x text-grey-8"></i>
                             </q-card-section>
@@ -55,7 +55,7 @@
                         </q-card>
                     </div>
                     <div class="col-lg-4 q-pa-lg">
-                        <q-card class="text-center" flat>
+                        <q-card class="text-center" flat style="border-left: solid 5px #ff5722">
                             <q-card-section>
                                 <i class="fas fa-weight-hanging fa-2x text-grey-8"></i>
                             </q-card-section>
@@ -80,7 +80,7 @@
                         </q-card>
                     </div>
                     <div class="col-lg-4 q-pa-lg">
-                        <q-card class="text-center" flat>
+                        <q-card class="text-center" flat style="border-left: solid 5px #ff5722">
                             <q-card-section>
                                 <i class="fas fa-building fa-2x text-grey-8"></i>
                             </q-card-section>
@@ -107,6 +107,18 @@
                             </q-card-section>
                         </q-card>
                     </div>
+                </div>
+                <div class="row">
+                    <q-space />
+                    <q-btn
+                        label="¡Abre tu casillero YA!"
+                        no-caps
+                        push
+                        color="accent"
+                        class="text-bold"
+                        to="/"
+                    />
+                    <q-space />
                 </div>
             </div>
             <q-space />
