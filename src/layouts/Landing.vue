@@ -7,6 +7,32 @@
         <!-- NAVIGATION BAR -->
         <Navbar :navLinks="navLinks" @open-drawer="drawer = true" />
         <!-- END NAVIGATION BAR -->
+
+        <!-- RECYCLE BANNER -->
+        <div class="row bg-green-7" v-if="!$route.fullPath.includes('ygo-reciclando')">
+            <q-space />
+            <div class="col-lg-7 q-px-lg q-pt-md q-pb-sm">
+                <div class="row">
+                    <q-space />
+                    <div class="text-h6 text-white text-right on-left text-bold">
+                        <i class="fas fa-recycle"></i>
+                        Recicla tus cajas con nosotros.
+                    </div>
+                    <q-btn
+                        label="Leer mas"
+                        no-caps
+                        outline
+                        color="white"
+                        rounded
+                        class="text-bold on-right"
+                        to="/ygo-reciclando"
+                    />
+                </div>
+            </div>
+            <q-space />
+        </div>
+        <!-- END RECYCLE BANNER -->
+
         <q-page-container>
             <router-view />
         </q-page-container>
