@@ -10,9 +10,9 @@
     },
     "dependencies": {
         "@quasar/extras": "^1.0.0",
-        "axios": "^0.20.0",
+        "axios": "^0.21.1",
         "core-js": "^3.6.5",
-        "firebase": "^7.23.0",
+        "firebase": "^8.2.9",
         "moment": "^2.29.0",
         "quasar": "^1.0.0",
         "vue": "^2.6.11",

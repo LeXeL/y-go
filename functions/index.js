@@ -415,3 +415,58 @@ exports.sendEmail = functions.https.onRequest(async (req, res) => {
         }
     })
 })
+//SEEDS
+exports.populateAuthUsers = functions.https.onRequest(async (req, res) => {
+    if (!process.env['FUNCTIONS_EMULATOR']) {
+        return res
+            .status(403)
+            .send('ACCESS DENIED. This function is ONLY available via an emulator')
+    }
+    const users = [
+        //Admins
+        {
+            uid: 'jixSzZzd7pMxjESSA3HVEiLyFLG2',
+            email: 'alejandromillan29@live.com',
+            password: 'BlueBalloon123!',
+        },
+        {
+            uid: 'HsaCxRLNSgcGoRSjqh4hlgYmjar2',
+            email: 'diego.r2892@gmail.com',
+            password: 'BlueBalloon123!',
+        },
+        //User
+        {
+            uid: '9OGCZUWZd3fRziSs8UU3zHmcyAu1',
+            email: 'amilland29@gmail.com',
+            password: 'BlueBalloon123!',
+        },
+        {
+            uid: 'lFtus3KR8zP8fSsYPymhzXHz6Bo2',
+            email: 'lexelEZ@gmail.com',
+            password: 'BlueBalloon123!',
+        },
+        // put all test users you want populated here
+    ]
+
+    const results = []
+    const promises = []
+    for (let user of users) {
+        let promise = admin
+            .auth()
+            .createUser(user)
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error.message // continue on errors (eg duplicate users)
+            })
+
+        promises.push(promise)
+    }
+    await Promise.all(promises).then(result => {
+        results.push(result)
+        return
+    })
+    res.header('Content-type', 'application/json')
+    return res.status(200).send(JSON.stringify(results))
+})

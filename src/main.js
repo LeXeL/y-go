@@ -10,6 +10,7 @@ import Confirm from '@/components/general/Confirm'
 
 import './quasar'
 import firebase from 'firebase/app'
+import 'firebase/auth'
 
 import * as VueGoogleMaps from 'vue2-google-maps'
 
@@ -37,6 +38,11 @@ Vue.use(VueGoogleMaps, {
 })
 firebase.initializeApp(firebaseConfig)
 
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'testing') {
+    firebase.auth().useEmulator('http://localhost:9099/')
+    firebase.firestore().useEmulator('localhost', 8081)
+}
+
 firebase.auth().onAuthStateChanged(user => {
     store.dispatch('setCurrentUser', user)
     api.getUserInformationById({uid: user.uid}).then(response => {
@@ -47,7 +53,7 @@ firebase.auth().onAuthStateChanged(user => {
 new Vue({
     router,
     store,
-    render: function(h) {
+    render: function (h) {
         return h(App)
     },
 }).$mount('#app')
