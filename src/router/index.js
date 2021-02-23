@@ -21,6 +21,7 @@ import EmailVerification from '@/views/Auth/EmailVerification'
 import ForgotPassword from '@/views/Auth/ForgotPassword'
 import ResetPassword from '@/views/Auth/ResetPassword'
 import Home from '@/views/Landing/Home'
+import Rates from '@/views/Landing/Rates'
 
 import store from '@/store'
 
@@ -115,8 +116,13 @@ const routes = [
         children: [
             {
                 path: '/',
-                name: 'Landing Home',
+                name: 'LandingHome',
                 component: Home,
+            },
+            {
+                path: '/tarifas',
+                name: 'tarfias',
+                component: Rates,
             },
         ],
     },

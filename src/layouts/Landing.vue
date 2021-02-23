@@ -8,38 +8,8 @@
         <Navbar :navLinks="navLinks" @open-drawer="drawer = true" />
         <!-- END NAVIGATION BAR -->
         <q-page-container>
-            <router-view />            
+            <router-view />
         </q-page-container>
-        <q-drawer
-            v-model="drawer"
-            side="right"
-            overlay
-            behavior="mobile"
-            elevated
-            class="hide-in-desktop"
-        >
-            <div class="bg-primary text-white" style="height: 100vh">
-                <div class="row q-pa-md">
-                    <div class="text-h6 text-weight-bolder">Menu</div>
-                    <q-space />
-                    <q-btn flat color="secondary" round size="sm" @click="drawer = false">
-                        <i class="fas fa-times fa-2x"></i>
-                    </q-btn>
-                </div>
-                <q-separator dark class="q-mb-lg" />
-                <div class="q-px-md">
-                    <ul class="drawer-link">
-                        <li v-for="(link, i) in navLinks" :key="i">
-                            <router-link
-                                :to="link.route"
-                                style="text-decoration: none; color: #fff;"
-                                >{{ link.text }}</router-link
-                            >
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </q-drawer>
         <!-- FOOTER -->
         <Footer />
         <!-- END FOOTER -->
@@ -62,7 +32,7 @@ export default {
                 },
                 {
                     text: 'Tarifas',
-                    route: '/',
+                    route: '/tarifas',
                 },
                 {
                     text: 'Nosotros',

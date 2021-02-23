@@ -122,7 +122,6 @@ export default {
     data() {
         return {
             showRegisterForm: false,
-            slide: 'slide_1',
             terms: false,
             displayLoading: false,
             confirmationDialog: false,
