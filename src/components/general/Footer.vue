@@ -19,7 +19,7 @@
                         >
                         <router-link
                             to="/politicas-de-privacidad"
-                            class="text-primary text-bold"
+                            class="q-mb-sm text-primary text-bold"
                             style="text-decoration: none; display: block"
                             >Politicas de privacidad</router-link
                         >
@@ -55,7 +55,7 @@
                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
                         <div class="text-body2 adicon-font-2 text-bold q-mb-sm">Siguenos</div>
                         <a
-                            href="https://www.instagram.com/blueballoon.io/"
+                            href="#"
                             rel="noopener"
                             target="_blank"
                             class="q-mb-sm text-primary"
@@ -63,7 +63,7 @@
                             ><i class="fab fa-instagram"></i>&nbsp;y-go-panama</a
                         >
                         <a
-                            href="https://twitter.com/BlueBalloon_io"
+                            href="#"
                             rel="noopener"
                             target="_blank"
                             class="q-mb-sm text-primary"
