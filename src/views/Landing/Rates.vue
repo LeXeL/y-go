@@ -133,5 +133,8 @@ export default {
             ratesOnDisplay: 'aero',
         }
     },
+    mounted() {
+        window.scrollTo(0, 0)
+    },
 }
 </script>

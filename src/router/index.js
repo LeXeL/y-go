@@ -25,6 +25,8 @@ import Rates from '@/views/Landing/Rates'
 import YgoRecycle from '@/views/Landing/YgoRecycle'
 import Contact from '@/views/Landing/Contact'
 import About from '@/views/Landing/About'
+import TermsAndConditions from '@/views/Landing/TermsAndConditions'
+import PrivacyPolicies from '@/views/Landing/PrivacyPolicies'
 
 import store from '@/store'
 
@@ -141,6 +143,16 @@ const routes = [
                 path: '/ygo-reciclando',
                 name: 'Ygo-Reciclando',
                 component: YgoRecycle,
+            },
+            {
+                path: '/terminos-y-condiciones',
+                name: 'Terminos-Y-Condiciones',
+                component: TermsAndConditions,
+            },
+            {
+                path: '/politicas-de-privacidad',
+                name: 'Privacy-Policies',
+                component: PrivacyPolicies,
             },
         ],
     },

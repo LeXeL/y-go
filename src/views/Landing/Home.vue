@@ -269,7 +269,7 @@ export default {
         },
     },
     mounted() {
-        if (this.getUrlParam('reg') == 'true') this.showRegisterForm = true
+        window.scrollTo(0, 0)
     },
 }
 </script>
