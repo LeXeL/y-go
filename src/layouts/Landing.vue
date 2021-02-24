@@ -62,11 +62,11 @@ export default {
                 },
                 {
                     text: 'Nosotros',
-                    route: '/',
+                    route: '/nosotros',
                 },
                 {
                     text: 'Contacto',
-                    route: '/',
+                    route: '/contacto',
                 },
             ],
         }

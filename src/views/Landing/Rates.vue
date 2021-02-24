@@ -100,7 +100,7 @@
                                 <div
                                     class="text-h5 text-bold text-accent"
                                     style="cursor: pointer; text-decoration: underline"
-                                    @click="$router.push('/contact')"
+                                    @click="$router.push('/contacto')"
                                 >
                                     Escribenos
                                 </div>

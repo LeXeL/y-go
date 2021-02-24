@@ -23,6 +23,8 @@ import ResetPassword from '@/views/Auth/ResetPassword'
 import Home from '@/views/Landing/Home'
 import Rates from '@/views/Landing/Rates'
 import YgoRecycle from '@/views/Landing/YgoRecycle'
+import Contact from '@/views/Landing/Contact'
+import About from '@/views/Landing/About'
 
 import store from '@/store'
 
@@ -124,6 +126,16 @@ const routes = [
                 path: '/tarifas',
                 name: 'Tarfias',
                 component: Rates,
+            },
+            {
+                path: '/contacto',
+                name: 'Contacto',
+                component: Contact,
+            },
+            {
+                path: '/nosotros',
+                name: 'Nosotros',
+                component: About,
             },
             {
                 path: '/ygo-reciclando',
