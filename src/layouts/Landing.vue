@@ -36,7 +36,7 @@
                         Recicla tus cajas con nosotros.
                     </div>
                     <q-btn
-                        label="Leer mas"
+                        label="Leer más"
                         no-caps
                         outline
                         color="white"
