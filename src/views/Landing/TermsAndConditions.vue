@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             <q-space />
-            <div class="col-lg-7 text-justify">
+            <div class="col-lg-7 col-md-10 text-justify q-px-lg">
                 <p class="text-bold">
                     ¡Bienvenido a Y-GO! Gracias por elegirnos para traer tus compras por internet,
                     facilitando tu experiencia y brindando el mejor servicio posible.

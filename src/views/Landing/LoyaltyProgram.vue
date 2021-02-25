@@ -2,14 +2,14 @@
     <q-page style="min-height: auto !important">
         <div class="row bg-amber-8">
             <q-space />
-            <div class="col-lg-7 q-px-lg q-py-xl">
+            <div class="col-lg-7 col-md-10 q-px-lg q-py-xl">
                 <div class="text-h4 text-white text-italic">PROGRAMA DE LEALTAD</div>
             </div>
             <q-space />
         </div>
         <div class="row bg-grey-3">
             <q-space />
-            <div class="col-lg-7">
+            <div class="col-lg-7 col-md-10">
                 <div class="row q-pa-lg q-mt-xl">
                     <div class="text-h4 text-bold text-accent full-width">Beneficios</div>
                     <div class="text-h6 text-italic text-primary">Costo anual: $25.00</div>

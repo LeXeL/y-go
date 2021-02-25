@@ -2,14 +2,14 @@
     <q-page style="min-height: auto !important">
         <div class="row bg-green-7">
             <q-space />
-            <div class="col-lg-7 q-px-lg q-py-xl">
+            <div class="col-lg-7 col-md-10 q-px-lg q-py-xl">
                 <div class="text-h4 text-white text-italic">Y-Go Reciclando</div>
             </div>
             <q-space />
         </div>
         <div class="row bg-grey-3">
             <q-space />
-            <div class="col-lg-7 q-pa-lg">
+            <div class="col-lg-7 col-md-10 q-pa-lg">
                 <div class="row">
                     <q-space />
                     <q-img

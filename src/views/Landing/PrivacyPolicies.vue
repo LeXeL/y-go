@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             <q-space />
-            <div class="col-lg-7">
+            <div class="col-lg-7 col-md-10 q-px-lg">
                 <p class="text-bold">
                     Las presentes Políticas de Privacidad regulan la recopilación, tratamiento y
                     acceso a los datos proporcionados por los Clientes en la de la página web
