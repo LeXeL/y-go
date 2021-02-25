@@ -31,7 +31,7 @@
             <q-space />
             <div class="col-lg-7 col-md-9 col-xs-12 q-px-md">
                 <div class="row">
-                    <div class="col-lg-4 col-sm-6 col-xs-12 q-py-xl q-px-md">
+                    <div class="col-lg-4 col-sm-6 col-xs-12 q-py-lg q-px-md">
                         <q-card style="border-left: solid 5px #ff5722">
                             <q-card-section>
                                 <div class="text-h5 text-center text-primary q-mb-xs">
@@ -84,9 +84,20 @@
                                     label="Repetir contraseña"
                                     type="password"
                                     color="accent"
-                                    class="q-mb-md"
                                     v-model="form.repassword"
                                 />
+                            </q-card-section>
+                            <q-card-section>
+                                <div class="text-body2">
+                                    Al hacer clic en
+                                    <span class="text-bold">"REGISTRAR"</span> acepto los terminos y
+                                    condiciones. Leer
+                                    <router-link
+                                        to="/terminos-y-condiciones"
+                                        class="text-bold text-accent"
+                                        >aqui.</router-link
+                                    >
+                                </div>
                             </q-card-section>
                             <q-card-actions>
                                 <q-space />
