@@ -2,7 +2,7 @@
     <q-page style="min-height: auto !important">
         <div class="row bg-amber-8">
             <q-space />
-            <div class="col-lg-7 q-px-lg q-py-xl">
+            <div class="col-lg-7 col-xs-12 q-px-lg q-py-xl">
                 <div class="text-h4 text-white text-italic">CONOCE NUESTRAS TARIFAS</div>
             </div>
             <q-space />
