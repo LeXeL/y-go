@@ -1,5 +1,5 @@
 <template>
-    <q-page>
+    <q-page style="min-height: auto !important">
         <loading-alert :display="displayLoading"></loading-alert>
         <ygo-alert
             :display="displayAlert"
@@ -105,7 +105,13 @@
                             Afiliate al programa de lealtad de <strong>Y-GO! <br /></strong>Y
                             llevate libras <strong>GRATIS</strong> con tu primer pedido.
                         </div>
-                        <q-btn label="Conoce mas" color="accent" push class="text-bold" />
+                        <q-btn
+                            label="Conoce mas"
+                            color="accent"
+                            push
+                            class="text-bold"
+                            to="/programa-de-lealtad"
+                        />
                     </div>
                 </div>
             </div>

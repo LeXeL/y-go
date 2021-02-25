@@ -41,6 +41,12 @@
                         >
                         <router-link
                             class="q-mb-sm text-primary"
+                            to="/programa-de-lealtad"
+                            style="text-decoration: none; display: block"
+                            >Programa de lealtad</router-link
+                        >
+                        <router-link
+                            class="q-mb-sm text-primary"
                             to="/nosotros"
                             style="text-decoration: none; display: block"
                             >Nosotros</router-link

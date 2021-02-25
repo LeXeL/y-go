@@ -25,6 +25,7 @@ import Rates from '@/views/Landing/Rates'
 import YgoRecycle from '@/views/Landing/YgoRecycle'
 import Contact from '@/views/Landing/Contact'
 import About from '@/views/Landing/About'
+import LoyaltyProgram from '@/views/Landing/LoyaltyProgram'
 import TermsAndConditions from '@/views/Landing/TermsAndConditions'
 import PrivacyPolicies from '@/views/Landing/PrivacyPolicies'
 
@@ -153,6 +154,11 @@ const routes = [
                 path: '/politicas-de-privacidad',
                 name: 'Privacy-Policies',
                 component: PrivacyPolicies,
+            },
+            {
+                path: '/programa-de-lealtad',
+                name: 'Loyalty-Program',
+                component: LoyaltyProgram,
             },
         ],
     },

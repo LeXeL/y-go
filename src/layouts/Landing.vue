@@ -79,7 +79,7 @@ export default {
                 },
                 {
                     text: 'Programa de lealtad',
-                    route: '/tarifas',
+                    route: '/programa-de-lealtad',
                 },
                 {
                     text: 'Nosotros',
