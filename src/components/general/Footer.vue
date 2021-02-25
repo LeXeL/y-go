@@ -15,13 +15,13 @@
                             to="/terminos-y-condiciones"
                             class="q-mb-sm text-primary text-bold"
                             style="text-decoration: none; display: block"
-                            >Terminos y Condiciones</router-link
+                            >Términos y Condiciones</router-link
                         >
                         <router-link
                             to="/politicas-de-privacidad"
                             class="q-mb-sm text-primary text-bold"
                             style="text-decoration: none; display: block"
-                            >Politicas de privacidad</router-link
+                            >Políticas de privacidad</router-link
                         >
                     </div>
                     <q-space />
@@ -78,7 +78,7 @@
                         >
                     </div>
                     <div class="col-lg-3">
-                        <div class="text-body2 adicon-font-2 text-bold q-mb-sm">Contactanos</div>
+                        <div class="text-body2 adicon-font-2 text-bold q-mb-sm">Contáctanos</div>
                         <a
                             href="tel:6565-6565"
                             target="_blank"

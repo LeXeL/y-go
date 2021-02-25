@@ -13,7 +13,7 @@
                 <div class="row q-pa-lg q-mt-xl">
                     <div class="text-h5 q-mb-md">Llena el formulario:</div>
                     <q-input label="Nombre completo" class="full-width q-mb-md" filled />
-                    <q-input label="Correo electronico" class="full-width q-mb-md" filled />
+                    <q-input label="Correo electrónico" class="full-width q-mb-md" filled />
                     <q-input label="Asunto" class="full-width q-mb-md" filled />
                     <q-input label="Mensaje" type="textarea" rows="5" class="full-width" filled />
                 </div>

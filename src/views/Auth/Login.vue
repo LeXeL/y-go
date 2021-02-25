@@ -60,7 +60,7 @@
                     </router-link>
                     <q-input
                         filled
-                        label="Correo electronico"
+                        label="Correo electrónico"
                         class="full-width q-mb-md q-mt-md"
                         type="text"
                         v-model="email"
@@ -80,7 +80,7 @@
                         @click="login"
                         :disable="displayLoading"
                     >
-                        <span v-if="!displayLoading">Iniciar sesion</span>
+                        <span v-if="!displayLoading">Iniciar sesión</span>
                         <q-spinner-facebook v-if="displayLoading" color="white" size="1em"
                     /></q-btn>
                     <q-card-section v-if="dismissCountDown > 0" class="q-px-none">
@@ -95,7 +95,7 @@
                     </q-card-section>
                     <div class="text-body2">
                         ¿Olvidaste tu contraseña? Haz click
-                        <router-link to="/forgot-password">aqui</router-link>.
+                        <router-link to="/forgot-password">aquí</router-link>.
                     </div>
                 </q-card-section>
             </q-card>

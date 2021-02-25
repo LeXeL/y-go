@@ -36,14 +36,14 @@
                             </q-card-section>
                             <q-card-section>
                                 <div class="text-h6 text-bold text-center text-primary">
-                                    Plan Basico
-                                    {{ ratesOnDisplay == 'aero' ? 'Aereo' : 'Maritimo' }}
+                                    Plan Básico
+                                    {{ ratesOnDisplay == 'aero' ? 'Aéreo' : 'Marítimo' }}
                                 </div>
                             </q-card-section>
                             <q-card-section>
                                 <div class="text-subtitle2 text-bold">
                                     Calculamos el costo de tu paquete en base al peso real o
-                                    volumetrico.
+                                    volumétrico.
                                 </div>
                             </q-card-section>
                             <q-separator />
@@ -62,12 +62,12 @@
                             <q-card-section>
                                 <div class="text-h6 text-bold text-center text-primary">
                                     Plan Cero Volumen
-                                    {{ ratesOnDisplay == 'aero' ? 'Aereo' : 'Maritimo' }}
+                                    {{ ratesOnDisplay == 'aero' ? 'Aéreo' : 'Marítimo' }}
                                 </div>
                             </q-card-section>
                             <q-card-section>
                                 <div class="text-subtitle2 text-bold">
-                                    Trae tu mercancia y despreocupate por el volumen de tus
+                                    Trae tu mercancia y despreocúpate por el volumen de tus
                                     paquetes.
                                 </div>
                             </q-card-section>
@@ -87,12 +87,12 @@
                             <q-card-section>
                                 <div class="text-h6 text-bold text-center text-primary">
                                     Plan Business
-                                    {{ ratesOnDisplay == 'aero' ? 'Aereo' : 'Maritimo' }}
+                                    {{ ratesOnDisplay == 'aero' ? 'Aéreo' : 'Marítimo' }}
                                 </div>
                             </q-card-section>
                             <q-card-section>
                                 <div class="text-subtitle2 text-bold">
-                                    Especial para negocios. Contactanos para mas informacion.
+                                    Especial para negocios. Contactanos para más información.
                                 </div>
                             </q-card-section>
                             <q-separator />
@@ -102,7 +102,7 @@
                                     style="cursor: pointer; text-decoration: underline"
                                     @click="$router.push('/contacto')"
                                 >
-                                    Escribenos
+                                    Escríbenos
                                 </div>
                             </q-card-section>
                         </q-card>
