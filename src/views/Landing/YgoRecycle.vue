@@ -1,5 +1,5 @@
 <template>
-    <q-page style="min-height: auto">
+    <q-page style="min-height: auto !important">
         <div class="row bg-green-7">
             <q-space />
             <div class="col-lg-7 q-px-lg q-py-xl">
@@ -7,7 +7,7 @@
             </div>
             <q-space />
         </div>
-        <div class="row bg-grey-3" style="height: 675px">
+        <div class="row bg-grey-3">
             <q-space />
             <div class="col-lg-7 q-pa-lg">
                 <div class="row">

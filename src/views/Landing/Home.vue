@@ -1,5 +1,5 @@
 <template>
-    <q-page style="min-height: auto">
+    <q-page>
         <loading-alert :display="displayLoading"></loading-alert>
         <ygo-alert
             :display="displayAlert"
@@ -10,7 +10,7 @@
         ></ygo-alert>
         <div class="row bg-amber-8">
             <q-space />
-            <div class="col-lg-7 col-md-9 col-sm-12 q-px-md">
+            <div class="col-lg-7 col-md-10 col-sm-12 q-px-md">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 flex flex-center">
                         <div class="text-h4 text-white text-italic q-my-lg">
@@ -100,11 +100,12 @@
                             </q-card-actions>
                         </q-card>
                     </div>
-                    <div class="col column flex-center xs-hide">
-                        <div class="text-h4 q-px-lg text-center text-white">
+                    <div class="col-lg-8 col-xs-12 column flex-center xs-hide">
+                        <div class="text-h4 q-px-lg text-center text-white q-mb-lg">
                             Afiliate al programa de lealtad de <strong>Y-GO! <br /></strong>Y
                             llevate libras <strong>GRATIS</strong> con tu primer pedido.
                         </div>
+                        <q-btn label="Conoce mas" color="accent" push class="text-bold" />
                     </div>
                 </div>
             </div>

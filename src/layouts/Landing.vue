@@ -11,8 +11,25 @@
         <!-- RECYCLE BANNER -->
         <div class="row bg-green-7" v-if="!$route.fullPath.includes('ygo-reciclando')">
             <q-space />
-            <div class="col-lg-7 q-px-lg q-pt-md q-pb-sm">
-                <div class="row">
+            <div class="col-lg-7 col-md-10 col-sm-12 col-xs-12 q-px-lg q-pt-md q-pb-sm">
+                <div class="row sm-hide md-hide lg-hide xl-hide">
+                    <q-space />
+                    <div class="text-text2 text-white text-right on-left text-bold">
+                        <i class="fas fa-recycle"></i>
+                        Recicla tus cajas con nosotros.
+                    </div>
+                    <q-btn
+                        label="Leer mas"
+                        no-caps
+                        outline
+                        color="white"
+                        size="sm"
+                        rounded
+                        class="text-bold on-right"
+                        to="/ygo-reciclando"
+                    />
+                </div>
+                <div class="row xs-hide">
                     <q-space />
                     <div class="text-h6 text-white text-right on-left text-bold">
                         <i class="fas fa-recycle"></i>
@@ -58,6 +75,10 @@ export default {
                 },
                 {
                     text: 'Tarifas',
+                    route: '/tarifas',
+                },
+                {
+                    text: 'Programa de lealtad',
                     route: '/tarifas',
                 },
                 {

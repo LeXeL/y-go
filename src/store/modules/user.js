@@ -25,7 +25,7 @@ export default {
         },
     },
     actions: {
-        setCurrentUser: async ({commit, dispatch}, user) => {
+        setCurrentUser: async ({ commit, dispatch }, user) => {
             try {
                 let token = await user.getIdToken()
                 commit('SET_UID', user.uid)
@@ -38,7 +38,7 @@ export default {
                 return error
             }
         },
-        UserLogout: async ({commit, dispatch}) => {
+        UserLogout: async ({ commit, dispatch }) => {
             commit('SET_USER', '')
             commit('SET_UID', '')
             commit('SET_TOEKN', '')

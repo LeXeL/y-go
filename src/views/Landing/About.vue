@@ -1,5 +1,5 @@
 <template>
-    <q-page style="min-height: auto">
+    <q-page style="min-height: auto !important">
         <div class="row bg-amber-8">
             <q-space />
             <div class="col-lg-7 q-px-lg q-py-xl">
@@ -7,7 +7,7 @@
             </div>
             <q-space />
         </div>
-        <div class="row bg-grey-3" style="height: 675px">
+        <div class="row bg-grey-3">
             <q-space />
             <div class="col-lg-7">
                 <div class="row q-pa-lg q-mt-xl">
@@ -24,20 +24,24 @@
                     </div>
                 </div>
                 <div class="row q-pa-lg">
-                    <q-btn
-                        label="Conoce nuestras tarifas"
-                        push
-                        color="primary"
-                        to="/tarifas"
-                        class="text-bold on-left"
-                    />
-                    <q-btn
-                        label="Abre tu casillero"
-                        push
-                        color="accent"
-                        to="/"
-                        class="text-bold on-right"
-                    />
+                    <div class="q-mb-md">
+                        <q-btn
+                            label="Conoce nuestras tarifas"
+                            push
+                            color="primary"
+                            to="/tarifas"
+                            class="text-bold on-left"
+                        />
+                    </div>
+                    <div>
+                        <q-btn
+                            label="Abre tu casillero"
+                            push
+                            color="accent"
+                            to="/"
+                            class="text-bold"
+                        />
+                    </div>
                 </div>
             </div>
             <q-space />

@@ -1,6 +1,6 @@
 <template>
     <section>
-        <div class="row gradient-two q-py-xl">
+        <div class="row q-py-xl">
             <q-space />
             <div class="col-lg-7 col-md-9 q-py-md q-px-xl">
                 <div class="row q-mb-lg">
