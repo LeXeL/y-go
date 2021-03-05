@@ -17,14 +17,98 @@
                             @click="mobileDrawer = true"
                         />
                     </div>
-                    <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12 column flex-center xs-hide">
+                    <div class="col-lg-9 col-md-7 col-sm-12 col-xs-12 column flex-center xs-hide">
                         <ul class="q-pa-none">
-                            <li v-for="(link, i) in navLinks" :key="i">
-                                <router-link :to="link.route"
-                                    ><div class="text-h6" style="font-weight: 600">
-                                        {{ link.text }}
-                                    </div></router-link
-                                >
+                            <li>
+                                <router-link to="/">
+                                    <div class="text-caption" style="font-weight: 600">INICIO</div>
+                                </router-link>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <div class="text-caption" style="font-weight: 600">
+                                        INFORMACION
+                                    </div>
+                                    <q-menu fit anchor="bottom right" self="top right">
+                                        <q-list style="min-width: 100px">
+                                            <q-item clickable v-close-popup>
+                                                <q-item-section>
+                                                    <router-link
+                                                        to="/nosotros"
+                                                        style="text-decoration: none; color: #000"
+                                                    >
+                                                        <div
+                                                            class="text-caption y-go-font text-bold text-right"
+                                                        >
+                                                            QUIENES SOMOS
+                                                        </div>
+                                                    </router-link>
+                                                </q-item-section>
+                                            </q-item>
+                                            <q-item clickable v-close-popup>
+                                                <q-item-section>
+                                                    <router-link
+                                                        to="/terminos-y-condiciones"
+                                                        style="text-decoration: none; color: #000"
+                                                    >
+                                                        <div
+                                                            class="text-caption y-go-font text-bold text-right"
+                                                        >
+                                                            TERMINOS Y CONDICIONES
+                                                        </div>
+                                                    </router-link>
+                                                </q-item-section>
+                                            </q-item>
+                                            <q-item clickable v-close-popup>
+                                                <q-item-section>
+                                                    <router-link
+                                                        to="/politicas-de-privacidad"
+                                                        style="text-decoration: none; color: #000"
+                                                    >
+                                                        <div
+                                                            class="text-caption y-go-font text-bold text-right"
+                                                        >
+                                                            POLITICAS DE PRIVACIDAD
+                                                        </div>
+                                                    </router-link>
+                                                </q-item-section>
+                                            </q-item>
+                                        </q-list>
+                                    </q-menu>
+                                </a>
+                            </li>
+                            <li>
+                                <router-link to="/tarifas">
+                                    <div class="text-caption" style="font-weight: 600">PLANES</div>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/programa-de-lealtad">
+                                    <div class="text-caption" style="font-weight: 600">
+                                        PROGRAMA DE LEALTAD
+                                    </div>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/ygo-reciclando">
+                                    <div class="text-caption" style="font-weight: 600">
+                                        Y-GA Y RECICLA
+                                    </div>
+                                </router-link>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <div class="text-caption" style="font-weight: 600">
+                                        HERRAMIENTAS
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <router-link to="/contacto">
+                                    <div class="text-caption" style="font-weight: 600">
+                                        CONTACTANOS
+                                    </div>
+                                </router-link>
                             </li>
                         </ul>
                     </div>
@@ -38,7 +122,7 @@
                             v-if="$router.currentRoute.path == '/'"
                         />
                     </div>
-                    <div
+                    <!-- <div
                         class="col-lg-1 col-md-1 col-sm-12 col-xs-12 q-py-md column flex-center xs-hide"
                     >
                         <div>
@@ -49,7 +133,7 @@
                                 <i class="fab fa-instagram"></i>
                             </q-btn>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <q-space />
@@ -66,13 +150,7 @@
             <q-card class="bg-accent">
                 <q-card-actions>
                     <q-space />
-                    <q-btn
-                        flat
-                        color="white"
-                        round
-                        icon="fas fa-times"
-                        @click="mobileDrawer = false"
-                    />
+                    <q-btn flat color="white" round icon="fas fa-times" />
                 </q-card-actions>
                 <q-card-section class="text-right">
                     <div v-for="(link, i) in navLinks" :key="i" @click="mobileDrawer = false">

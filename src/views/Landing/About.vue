@@ -33,15 +33,6 @@
                             class="text-bold on-left"
                         />
                     </div>
-                    <div>
-                        <q-btn
-                            label="Abre tu casillero"
-                            push
-                            color="accent"
-                            to="/"
-                            class="text-bold"
-                        />
-                    </div>
                 </div>
             </div>
             <q-space />

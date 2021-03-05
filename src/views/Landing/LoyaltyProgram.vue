@@ -3,7 +3,9 @@
         <div class="row bg-amber-8">
             <q-space />
             <div class="col-lg-7 col-md-10 q-px-lg q-py-xl">
-                <div class="text-h4 text-white text-italic">PROGRAMA DE LEALTAD</div>
+                <div class="text-h4 text-white text-italic">
+                    REGISTRATE A NUESTRO PROGRAMA DE LEALTAD Y GANA PUNTOS CON CADA LIBRA QUE TRAES.
+                </div>
             </div>
             <q-space />
         </div>
@@ -11,8 +13,10 @@
             <q-space />
             <div class="col-lg-7 col-md-10">
                 <div class="row q-pa-lg q-mt-xl">
-                    <div class="text-h4 text-bold text-accent full-width">Beneficios</div>
-                    <div class="text-h6 text-italic text-primary">Costo anual: $25.00</div>
+                    <div class="text-h4 text-bold text-accent full-width">
+                        POR TAN SOLO $25.00 ANUALES PUEDES PERTENECER A NUESTRO PROGRAMA REWARDS Y
+                        LLEVARTE ESTOS BENEFICIOS:
+                    </div>
                     <q-separator />
                 </div>
                 <div class="row q-pa-lg">

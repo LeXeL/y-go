@@ -36,8 +36,7 @@
                             </q-card-section>
                             <q-card-section>
                                 <div class="text-h6 text-bold text-center text-primary">
-                                    Plan Básico
-                                    {{ ratesOnDisplay == 'aero' ? 'Aéreo' : 'Marítimo' }}
+                                    Plan Standard
                                 </div>
                             </q-card-section>
                             <q-card-section>
@@ -61,8 +60,7 @@
                             </q-card-section>
                             <q-card-section>
                                 <div class="text-h6 text-bold text-center text-primary">
-                                    Plan Cero Volumen
-                                    {{ ratesOnDisplay == 'aero' ? 'Aéreo' : 'Marítimo' }}
+                                    Plan Premium
                                 </div>
                             </q-card-section>
                             <q-card-section>
@@ -87,7 +85,6 @@
                             <q-card-section>
                                 <div class="text-h6 text-bold text-center text-primary">
                                     Plan Business
-                                    {{ ratesOnDisplay == 'aero' ? 'Aéreo' : 'Marítimo' }}
                                 </div>
                             </q-card-section>
                             <q-card-section>
