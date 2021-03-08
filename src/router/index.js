@@ -6,6 +6,7 @@ import Dashboard from '@/layouts/Dashboard'
 import Auth from '@/layouts/Auth'
 import Landing from '@/layouts/Landing'
 import User from '@/layouts/User'
+import Checkout from '@/layouts/Checkout'
 
 //Views
 import DashboardIndex from '@/views/Dashboard/Index'
@@ -21,6 +22,7 @@ import EmailVerification from '@/views/Auth/EmailVerification'
 import ForgotPassword from '@/views/Auth/ForgotPassword'
 import ResetPassword from '@/views/Auth/ResetPassword'
 import Home from '@/views/Landing/Home'
+import UserCheckout from '@/views/Landing/UserCheckout'
 
 import store from '@/store'
 
@@ -130,6 +132,18 @@ const routes = [
         component: User,
         beforeEnter: ifAuthenticated,
     },
+    {
+        path: '/checkout',
+        component: Checkout,
+        beforeEnter: ifAuthenticated,
+        children: [
+            {
+                path: '/checkout',
+                name: 'UserCheckout',
+                component: UserCheckout
+            }
+        ]
+    }
 ]
 
 const router = new VueRouter({
