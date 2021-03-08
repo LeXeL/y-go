@@ -150,7 +150,13 @@
             <q-card class="bg-accent">
                 <q-card-actions>
                     <q-space />
-                    <q-btn flat color="white" round icon="fas fa-times" />
+                    <q-btn
+                        flat
+                        color="white"
+                        round
+                        icon="fas fa-times"
+                        @click="mobileDrawer = false"
+                    />
                 </q-card-actions>
                 <q-card-section class="text-right">
                     <div v-for="(link, i) in navLinks" :key="i" @click="mobileDrawer = false">
