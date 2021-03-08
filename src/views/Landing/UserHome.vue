@@ -7,10 +7,20 @@
         style="border-radius: 0"
     >
         <template v-slot:top-right>
-            <q-input dense debounce="300" v-model="searchTracking" placeholder="Tracking">
+            <q-input dense debounce="300" v-model="searchTracking" placeholder="Buscar tracking">
                 <q-icon slot="append" name="fas fa-search" />
             </q-input>
+            <q-btn
+                label="Pagar facturas"
+                color="accent"
+                push
+                size="sm"
+                class="text-bold q-ml-lg"
+                icon-right="fas fa-dollar-sign"
+                to="/checkout"
+            />
         </template>
+
         <template v-slot:header="props">
             <q-tr :props="props">
                 <q-th auto-width />
