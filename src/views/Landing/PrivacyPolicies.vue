@@ -1,13 +1,13 @@
 <template>
-    <q-page>
-        <div class="row">
-            <div class="text-h4 text-bold text-center full-width q-my-xl">
-                Politicas de privacidad
+    <q-page style="min-height: auto !important">
+        <div class="row bg-amber-8 q-mb-xl">
+            <div class="col-lg-7 col-xs-12 q-pa-lg text-center full-width">
+                <div class="text-h4 text-white text-bold">POLITICAS DE PRIVACIDAD</div>
             </div>
         </div>
         <div class="row">
             <q-space />
-            <div class="col-lg-7 col-md-10 q-px-lg">
+            <div class="col-lg-7 col-md-10 q-px-lg" style="height: 500px; overflow-y: scroll;">
                 <p class="text-bold">
                     Las presentes Políticas de Privacidad regulan la recopilación, tratamiento y
                     acceso a los datos proporcionados por los Clientes en la de la página web
