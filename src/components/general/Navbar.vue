@@ -21,13 +21,22 @@
                         <ul class="q-pa-none">
                             <li>
                                 <router-link to="/">
-                                    <div class="text-caption" style="font-weight: 600">INICIO</div>
+                                    <div
+                                        class="text-caption text-bold"
+                                        :style="
+                                            $route.fullPath == '/'
+                                                ? 'border-bottom: solid 3px #01bcd4'
+                                                : 'border-bottom: solid 3px #fff'
+                                        "
+                                    >
+                                        INICIO
+                                    </div>
                                 </router-link>
                             </li>
                             <li>
                                 <a href="javascript:void(0)">
                                     <div class="text-caption" style="font-weight: 600">
-                                        INFORMACION
+                                        INFORMACION <i class="fas fa-caret-down"></i>
                                     </div>
                                     <q-menu fit anchor="bottom right" self="top right">
                                         <q-list style="min-width: 100px">
@@ -79,19 +88,42 @@
                             </li>
                             <li>
                                 <router-link to="/tarifas">
-                                    <div class="text-caption" style="font-weight: 600">PLANES</div>
+                                    <div
+                                        class="text-caption text-bold"
+                                        :style="
+                                            $route.fullPath.includes('/tarifas')
+                                                ? 'border-bottom: solid 3px #01bcd4'
+                                                : 'border-bottom: solid 3px #fff'
+                                        "
+                                    >
+                                        PLANES
+                                    </div>
                                 </router-link>
                             </li>
                             <li>
                                 <router-link to="/programa-de-lealtad">
-                                    <div class="text-caption" style="font-weight: 600">
+                                    <div
+                                        class="text-caption text-bold"
+                                        :style="
+                                            $route.fullPath.includes('/programa-de-lealtad')
+                                                ? 'border-bottom: solid 3px #01bcd4'
+                                                : 'border-bottom: solid 3px #fff'
+                                        "
+                                    >
                                         PROGRAMA DE LEALTAD
                                     </div>
                                 </router-link>
                             </li>
                             <li>
                                 <router-link to="/ygo-reciclando">
-                                    <div class="text-caption" style="font-weight: 600">
+                                    <div
+                                        class="text-caption text-bold"
+                                        :style="
+                                            $route.fullPath.includes('/ygo-reciclando')
+                                                ? 'border-bottom: solid 3px #01bcd4'
+                                                : 'border-bottom: solid 3px #fff'
+                                        "
+                                    >
                                         Y-GA Y RECICLA
                                     </div>
                                 </router-link>
@@ -105,7 +137,14 @@
                             </li>
                             <li>
                                 <router-link to="/contacto">
-                                    <div class="text-caption" style="font-weight: 600">
+                                    <div
+                                        class="text-caption text-bold"
+                                        :style="
+                                            $route.fullPath.includes('/contacto')
+                                                ? 'border-bottom: solid 3px #01bcd4'
+                                                : 'border-bottom: solid 3px #fff'
+                                        "
+                                    >
                                         CONTACTANOS
                                     </div>
                                 </router-link>
