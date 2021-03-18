@@ -125,56 +125,68 @@
                                     map-options
                                     emit-value
                                 />
-                                <div class="row q-mb-md">
-                                    <div class="col on-left">
-                                        <q-input
-                                            label="Nombre"
-                                            filled
-                                            class="full-width"
-                                            v-model="paymentInfo.name"
-                                        />
+                                <template v-if="paymentInfo.method && paymentInfo.method != 'ach'">
+                                    <div class="row q-mb-md">
+                                        <div class="col on-left">
+                                            <q-input
+                                                label="Nombre"
+                                                filled
+                                                class="full-width"
+                                                v-model="paymentInfo.name"
+                                            />
+                                        </div>
+                                        <div class="col">
+                                            <q-input
+                                                label="Apellido"
+                                                filled
+                                                class="full-width"
+                                                v-model="paymentInfo.lastName"
+                                            />
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <q-input
-                                            label="Apellido"
-                                            filled
-                                            class="full-width"
-                                            v-model="paymentInfo.lastName"
-                                        />
+                                    <q-input
+                                        label="Numero de tarjeta"
+                                        class="full-width q-mb-md"
+                                        filled
+                                        v-model="paymentInfo.cardNo"
+                                    />
+                                    <div class="row">
+                                        <div class="col on-left">
+                                            <q-input
+                                                label="Fecha de expiracion"
+                                                filled
+                                                class="full-width"
+                                                v-model="paymentInfo.expDate"
+                                            />
+                                        </div>
+                                        <div class="col">
+                                            <q-input
+                                                label="Codigo de seguridad"
+                                                filled
+                                                class="full-width"
+                                                v-model="paymentInfo.code"
+                                            />
+                                        </div>
+                                        <div
+                                            class="col on-right"
+                                            v-if="paymentInfo.method == 'clave'"
+                                        >
+                                            <q-input
+                                                label="PIN"
+                                                filled
+                                                class="full-width"
+                                                v-model="paymentInfo.pin"
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                                <q-input
-                                    label="Numero de tarjeta"
-                                    class="full-width q-mb-md"
-                                    filled
-                                    v-model="paymentInfo.cardNo"
-                                />
-                                <div class="row">
-                                    <div class="col on-left">
-                                        <q-input
-                                            label="Fecha de expiracion"
-                                            filled
-                                            class="full-width"
-                                            v-model="paymentInfo.expDate"
-                                        />
-                                    </div>
-                                    <div class="col">
-                                        <q-input
-                                            label="Codigo de seguridad"
-                                            filled
-                                            class="full-width"
-                                            v-model="paymentInfo.code"
-                                        />
-                                    </div>
-                                    <div class="col on-right" v-if="paymentInfo.method == 'clave'">
-                                        <q-input
-                                            label="PIN"
-                                            filled
-                                            class="full-width"
-                                            v-model="paymentInfo.pin"
-                                        />
-                                    </div>
-                                </div>
+                                </template>
+                                <template v-if="paymentInfo.method == 'ach'">
+                                    <q-file outlined v-model="paymentInfo.proofOfPayment">
+                                        <template v-slot:prepend>
+                                            <q-icon name="fas fa-paperclip" />
+                                        </template>
+                                    </q-file>
+                                </template>
                             </q-card-section>
                             <q-separator />
                             <q-card-actions v-if="step == 2">
@@ -253,6 +265,10 @@ export default {
                     label: 'Clave',
                     value: 'clave',
                 },
+                {
+                    label: 'Yappy / Transferencia / ACH',
+                    value: 'ach',
+                },
             ],
             paymentInfo: {
                 method: '',
@@ -262,6 +278,7 @@ export default {
                 expDate: '',
                 code: '',
                 pin: '',
+                proofOfPayment: null,
             },
         }
     },
