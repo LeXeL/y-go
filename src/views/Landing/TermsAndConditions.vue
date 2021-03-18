@@ -1,13 +1,17 @@
 <template>
-    <q-page>
-        <div class="row">
-            <div class="text-h4 text-bold text-center full-width q-my-xl">
-                Terminos y condiciones
+    <q-page style="min-height: auto !important">
+        <div class="row bg-amber-8 q-mb-xl">
+            <div class="col-lg-7 col-xs-12 q-pa-lg text-center full-width">
+                <div class="text-h4 text-white text-bold">TERMINOS Y CONDICIONES</div>
             </div>
         </div>
+
         <div class="row">
             <q-space />
-            <div class="col-lg-7 col-md-10 text-justify q-px-lg">
+            <div
+                class="col-lg-7 col-md-10 text-justify q-px-lg"
+                style="height: 500px; overflow-y: scroll;"
+            >
                 <p class="text-bold">
                     ¡Bienvenido a Y-GO! Gracias por elegirnos para traer tus compras por internet,
                     facilitando tu experiencia y brindando el mejor servicio posible.
