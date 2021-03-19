@@ -6,6 +6,7 @@ import Dashboard from '@/layouts/Dashboard'
 import Auth from '@/layouts/Auth'
 import Landing from '@/layouts/Landing'
 import User from '@/layouts/User'
+import Checkout from '@/layouts/Checkout'
 
 //Views
 import DashboardIndex from '@/views/Dashboard/Index'
@@ -28,7 +29,7 @@ import About from '@/views/Landing/About'
 import LoyaltyProgram from '@/views/Landing/LoyaltyProgram'
 import TermsAndConditions from '@/views/Landing/TermsAndConditions'
 import PrivacyPolicies from '@/views/Landing/PrivacyPolicies'
-
+import UserCheckout from '@/views/Landing/UserCheckout'
 import store from '@/store'
 
 Vue.use(VueRouter)
@@ -172,6 +173,18 @@ const routes = [
         component: User,
         beforeEnter: ifAuthenticated,
     },
+    {
+        path: '/checkout',
+        component: Checkout,
+        beforeEnter: ifAuthenticated,
+        children: [
+            {
+                path: '/checkout',
+                name: 'UserCheckout',
+                component: UserCheckout
+            }
+        ]
+    }
 ]
 
 const router = new VueRouter({
