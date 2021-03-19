@@ -1,5 +1,5 @@
 <template>
-    <q-page style="min-height: auto;">
+    <q-page style="min-height: auto !important">
         <loading-alert :display="displayLoading"></loading-alert>
         <ygo-alert
             :display="displayAlert"
@@ -8,45 +8,31 @@
             :type="alertType"
             @accept="displayAlert = false"
         ></ygo-alert>
-        <div class="row">
-            <q-carousel
-                v-model="slide"
-                transition-prev="scale"
-                transition-next="scale"
-                swipeable
-                animated
-                infinite
-                height="260px"
-                class="bg-amber-8 text-white full-width"
-            >
-                <q-carousel-slide class="q-pa-none" name="slide_1" style="overflow: hidden;">
-                    <div class="row" style="height: 100%">
-                        <div class="col desktop-only"></div>
-                        <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
-                            <div class="row" style="height: 100%">
-                                <div
-                                    class="col-lg-8 col-md-8 col-sm-6 col-xs-12 column flex-center q-pa-md"
-                                >
-                                    <div class="text-h4 text-bold text-italic">
-                                        MENSAJE RAPIDOS<br />FACIL BLA BLA BLA...
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <q-img :src="require('@/assets/Landing/girl_with_box.png')" />
-                                </div>
-                            </div>
+        <div class="row bg-amber-8">
+            <q-space />
+            <div class="col-lg-7 col-md-10 col-sm-12 q-px-md">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 flex flex-center">
+                        <div class="text-h4 text-white text-italic q-my-lg">
+                            DE LA WEB A TUS MANOS
                         </div>
-                        <div class="col desktop-only"></div>
                     </div>
-                </q-carousel-slide>
-            </q-carousel>
+                    <div class="col-lg-6 col-md-6 col-sm-6 flex flex-center xs-hide">
+                        <q-img
+                            :src="require('@/assets/Landing/girl_with_box.png')"
+                            style="width: 300px"
+                        />
+                    </div>
+                </div>
+            </div>
+            <q-space />
         </div>
         <div class="row form-section">
-            <div class="col desktop-only"></div>
-            <div class="col-lg-7 col-xs-12">
+            <q-space />
+            <div class="col-lg-7 col-md-9 col-xs-12 q-px-md">
                 <div class="row">
-                    <div class="col-lg-4 col-sm-6 col-xs-12 q-py-xl q-px-md">
-                        <q-card style="border-left: solid 5px #FF5722">
+                    <div class="col-lg-4 col-sm-6 col-xs-12 q-py-lg q-px-md">
+                        <q-card style="border-left: solid 5px #ff5722">
                             <q-card-section>
                                 <div class="text-h5 text-center text-primary q-mb-xs">
                                     REGÍSTRATE
@@ -98,9 +84,20 @@
                                     label="Repetir contraseña"
                                     type="password"
                                     color="accent"
-                                    class="q-mb-md"
                                     v-model="form.repassword"
                                 />
+                            </q-card-section>
+                            <q-card-section>
+                                <div class="text-body2">
+                                    Al hacer clic en
+                                    <span class="text-bold">"REGISTRAR"</span> acepto los terminos y
+                                    condiciones. Leer
+                                    <router-link
+                                        to="/terminos-y-condiciones"
+                                        class="text-bold text-accent"
+                                        >aqui.</router-link
+                                    >
+                                </div>
                             </q-card-section>
                             <q-card-actions>
                                 <q-space />
@@ -114,15 +111,22 @@
                             </q-card-actions>
                         </q-card>
                     </div>
-                    <div class="col column flex-center desktop-only">
-                        <div class="text-h4 q-px-lg text-center text-white">
+                    <div class="col-lg-8 col-xs-12 column flex-center xs-hide">
+                        <div class="text-h4 q-px-lg text-center text-white q-mb-lg">
                             Afiliate al programa de lealtad de <strong>Y-GO! <br /></strong>Y
                             llevate libras <strong>GRATIS</strong> con tu primer pedido.
                         </div>
+                        <q-btn
+                            label="Conoce mas"
+                            color="accent"
+                            push
+                            class="text-bold"
+                            to="/programa-de-lealtad"
+                        />
                     </div>
                 </div>
             </div>
-            <div class="col desktop-only"></div>
+            <q-space />
         </div>
     </q-page>
 </template>
@@ -136,7 +140,6 @@ export default {
     data() {
         return {
             showRegisterForm: false,
-            slide: 'slide_1',
             terms: false,
             displayLoading: false,
             confirmationDialog: false,
@@ -284,7 +287,7 @@ export default {
         },
     },
     mounted() {
-        if (this.getUrlParam('reg') == 'true') this.showRegisterForm = true
+        window.scrollTo(0, 0)
     },
 }
 </script>

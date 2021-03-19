@@ -54,38 +54,3 @@
     background: #dd2c00;
 }
 
-/* Extra small devices (phones, 768px and down) */
-@media only screen and (max-width: 768px) {
-    .frontpage-hero {
-        height: 600px;
-    }
-    .frontpage-carousell {
-        height: 300px !important;
-    }
-    .hide-in-mobile {
-        display: none !important;
-    }
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-    .frontpage-hero {
-        height: 750px;
-    }
-    .frontpage-carousell {
-        height: 300px !important;
-    }
-    .hide-in-desktop {
-        display: none !important;
-    }
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-    .frontpage-hero {
-        height: 100vh;
-    }
-    .frontpage-carousell {
-        height: 100vh !important;
-    }
-}

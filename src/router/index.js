@@ -22,8 +22,14 @@ import EmailVerification from '@/views/Auth/EmailVerification'
 import ForgotPassword from '@/views/Auth/ForgotPassword'
 import ResetPassword from '@/views/Auth/ResetPassword'
 import Home from '@/views/Landing/Home'
+import Rates from '@/views/Landing/Rates'
+import YgoRecycle from '@/views/Landing/YgoRecycle'
+import Contact from '@/views/Landing/Contact'
+import About from '@/views/Landing/About'
+import LoyaltyProgram from '@/views/Landing/LoyaltyProgram'
+import TermsAndConditions from '@/views/Landing/TermsAndConditions'
+import PrivacyPolicies from '@/views/Landing/PrivacyPolicies'
 import UserCheckout from '@/views/Landing/UserCheckout'
-
 import store from '@/store'
 
 Vue.use(VueRouter)
@@ -117,8 +123,43 @@ const routes = [
         children: [
             {
                 path: '/',
-                name: 'Landing Home',
+                name: 'LandingHome',
                 component: Home,
+            },
+            {
+                path: '/tarifas',
+                name: 'Tarfias',
+                component: Rates,
+            },
+            {
+                path: '/contacto',
+                name: 'Contacto',
+                component: Contact,
+            },
+            {
+                path: '/nosotros',
+                name: 'Nosotros',
+                component: About,
+            },
+            {
+                path: '/ygo-reciclando',
+                name: 'Ygo-Reciclando',
+                component: YgoRecycle,
+            },
+            {
+                path: '/terminos-y-condiciones',
+                name: 'Terminos-Y-Condiciones',
+                component: TermsAndConditions,
+            },
+            {
+                path: '/politicas-de-privacidad',
+                name: 'Privacy-Policies',
+                component: PrivacyPolicies,
+            },
+            {
+                path: '/programa-de-lealtad',
+                name: 'Loyalty-Program',
+                component: LoyaltyProgram,
             },
         ],
     },
