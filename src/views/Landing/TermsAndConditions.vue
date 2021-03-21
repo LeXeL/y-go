@@ -215,7 +215,7 @@
                     </li>
                 </ol>
 
-                <p class="text-bold">viii. Reclamos y seguros:</p>
+                <p class="text-bold" id="reclamos-y-seguros">viii. Reclamos y seguros:</p>
                 <ol type="a" class="text-bold">
                     <li>
                         El Cliente acepta que cualquier reclamo por destrucción de bienes asegurados

@@ -48,8 +48,12 @@
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     Vuelos diarios Miami - Panam&aacute;
                                 </div>
-                                <div class="text-subtitle2 text-primary text-bold q-mb-sm">
-                                    Paqueteria asegurada
+                                <div class="text-subtitle2 text-bold q-mb-sm">
+                                    <a
+                                        class="text-primary"
+                                        href="/terminos-y-condiciones#reclamos-y-seguros"
+                                        >Paqueteria asegurada</a
+                                    >
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     Entrega a domicilio (ciudad y provincia)
@@ -102,8 +106,12 @@
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     Vuelos diarios Miami - Panam&aacute;
                                 </div>
-                                <div class="text-subtitle2 text-primary text-bold q-mb-sm">
-                                    Paqueteria asegurada
+                                <div class="text-subtitle2 text-bold q-mb-sm">
+                                    <a
+                                        class="text-primary"
+                                        href="/terminos-y-condiciones#reclamos-y-seguros"
+                                        >Paqueteria asegurada</a
+                                    >
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     Entrega a domicilio (ciudad y provincia)

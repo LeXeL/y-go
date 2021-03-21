@@ -5,7 +5,12 @@
             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 q-px-md">
                 <div class="row full-width q-my-sm">
                     <div class="col-lg-1 col-md-1 col-sm-12 col-xs-3 column flex-center">
-                        <q-img :src="require('@/assets/logo_ygo.png')" style="width: 75px;" />
+                        <router-link to="/">
+                            <q-img
+                                :src="require('@/assets/logo_ygo.png')"
+                                style="width: 75px; cursor: pointer"
+                            />
+                        </router-link>
                     </div>
                     <q-space />
                     <div class="col-xs-2 column flex-center sm-hide md-hide lg-hide xl-hide">
