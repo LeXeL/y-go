@@ -104,7 +104,7 @@
                     <div class="text-body2 text-center full-width">
                         Desarrollado por
                         <a
-                            href="https://www.blueballoonpa.com"
+                            href="https://www.blueballoon.io"
                             class="text-accent text-bold"
                             target="_blank"
                             >Blue Balloon Inc.</a

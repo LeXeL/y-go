@@ -17,17 +17,17 @@
                     facilitando tu experiencia y brindando el mejor servicio posible.
                 </p>
                 <p class="text-bold">
-                    En este documento podrás conocer los términos y condiciones que aplican cada vez
+                    En este documento podrás conocer los Términos y Condiciones que aplican cada vez
                     que utilices nuestros servicios.
                 </p>
                 <p class="text-bold">
-                    Los presentes Términos y Condiciones regulan el servicio de transporte aéreo y
-                    marítimo de cargas, paquetes y documentos de Miami, Estados Unidos de América a
-                    la República de Panamá, servicio que presta Y-GO, S.A. a los Clientes, bajo las
-                    tarifas estipuladas más adelante. El servicio ofrecido por Y-GO, S.A. está
-                    sujeto a los presentes Términos y Condiciones, y cualquier persona que no acepte
-                    estos Términos y Condiciones, los cuales son obligatorios y vinculantes, deberá
-                    optar por no utilizar los servicios de Y-GO, S.A.
+                    Los presentes Términos y Condiciones constituyen el Contrato que regula el
+                    servicio de transporte aéreo y marítimo de cargas, paquetes y documentos de
+                    Miami, Estados Unidos de América a la República de Panamá, entre Y-GO, S.A. y
+                    los Clientes. El servicio ofrecido por Y-GO, S.A. está sujeto a los presentes
+                    Términos y Condiciones, y cualquier persona que no acepte estos Términos y
+                    Condiciones, los cuales son obligatorios y vinculantes, deberá optar por no
+                    utilizar los servicios de Y-GO, S.A.
                 </p>
                 <p class="text-bold">i. Definiciones</p>
                 <p class="text-bold">
@@ -40,15 +40,28 @@
                         155701028, de la Sección de Mercantil del Registro Público.
                     </li>
                     <li>
+                        Operador Aduanero: Es Krystal Logistics, una sociedad constituida de
+                        conformidad con las leyes de la República de Panamá. El Operador Aduanero
+                        posee un Permiso de Importación otorgado por la Autoridad Nacional de
+                        Aduanas, y a su vez, mantiene un contrato con la Empresa para ofrecerle al
+                        Cliente un servicio íntegro de envío y entrega de Mercancía.
+                    </li>
+                    <li>
                         Cliente: Toda persona natural o jurídica, con capacidad para contratar, que
                         haga uso de los servicios de la Empresa, o las personas naturales o
                         jurídicas a las que el Cliente le de acceso a su cuenta.
                     </li>
                     <li>
+                        Servicio: Es la operación que se describe en los presentes Términos y
+                        Condiciones, que abarca toda la relación entre el Cliente y la Empresa,
+                        desde que el Cliente se registra con la Empresa, hasta que ésta última le
+                        hace entrega de su Mercancía.
+                    </li>
+                    <li>
                         Número de Cuenta: Todo Cliente se deberá registrar con la Empresa a través
                         de la página web http://www.y-go.com.pa. La Empresa le dará al Cliente un
-                        número de Cuenta con el cual identificará su el casillero para su uso o de
-                        las personas autorizadas por el Cliente.
+                        Número de Cuenta con el cual identificará el casillero para su uso o de las
+                        personas autorizadas por el Cliente.
                     </li>
                     <li>
                         Plataforma: Es el sitio de internet http://www.y-go.com.pa, operado por la
@@ -56,27 +69,38 @@
                     </li>
                     <li>
                         Políticas de Privacidad: Son las Políticas de Privacidad de la Plataforma,
-                        las cuales se encuentran en el siguiente enlace: XXXXX
+                        las cuales se encuentran en el siguiente enlace:
+                        <router-link to="/politicas-de-privacidad"
+                            >Políticas de privacidad</router-link
+                        >
                     </li>
                     <li>
-                        Términos y Condiciones: Son los términos y condiciones que regulan la
-                        relación entre el Cliente y la Empresa.
+                        Términos y Condiciones: Son el Contrato que regula la relación entre el
+                        Cliente y la Empresa, el cual es vinculante y de obligatorio cumplimiento.
                     </li>
                     <li>
                         Mercancía (paquetes, pedidos, carga): La mercancía (paquetes, pedidos,
-                        carga) son los bienes que el Cliente envia a la bodega de Miami, Estados
+                        carga) son los bienes que el Cliente envía a la bodega de Miami, Estados
                         Unidos de América para luego ser transportados a la República de Panamá.
                     </li>
                 </ol>
                 <p class="text-bold">ii. Condiciones Generales:</p>
                 <ol type="a" class="text-bold">
                     <li>
+                        El Cliente acepta que el Operador Aduanero será el receptor inicial de la
+                        mercancía en los Estados Unidos de América, y quien la transporta
+                        posteriormente a Panamá. Una vez la mercancía llega a Panamá la Empresa se
+                        encarga de entregarla al Cliente.
+                    </li>
+                    <li>
                         El Cliente acepta que la Empresa y las empresas de valoración de riesgos y
                         transacciones por internet que trabajan con la Empresa accedan a y utilicen
                         la comunicación pertinente para poder proveer los servicios necesarios para
                         realizar las transacciones referentes a la compra del cliente.
                     </li>
-                    <li>La Empresa no prestará sus servicios a personas menores de edad.</li>
+                    <li>
+                        La Empresa no prestará sus servicios a personas menores de edad.
+                    </li>
                 </ol>
 
                 <p class="text-bold">iii. Registro:</p>
@@ -84,15 +108,15 @@
                     <li>
                         El Cliente iniciará su proceso de registro en la Plataforma, en donde creará
                         un usuario con clave personal y única. En este proceso, se le asignará al
-                        Cliente un número de casillero, que será único para el Cliente. Este lo
+                        Cliente un Número de Cuenta, que será único para el Cliente. Este lo
                         utilizará a fin de identificar su Mercancía al momento de pedirla en línea y
                         al momento de entrega en Panamá.
                     </li>
                     <li>
-                        El Cliente podrá compartir, a su propio riesgo y discrecionalidad, su número
-                        de casillero con personas allegadas al Cliente. El Cliente se responsabiliza
-                        plenamente de las acciones de las personas con quienes comparte su número de
-                        casillero.
+                        El Cliente podrá compartir, a su propio riesgo y discrecionalidad, su Número
+                        de Cuenta con personas allegadas al Cliente. El Cliente se responsabiliza
+                        plenamente de las acciones de las personas con quienes comparte su Número de
+                        Cuenta.
                     </li>
                 </ol>
 
@@ -105,8 +129,9 @@
                         que todas las cargas, cualquiera que fuese su forma, mantiene dos
                         características que son libras reales y/o libras volumétricas, y que para
                         efectos de facturación de carga aérea se consideraran los siguientes
-                        parámetros: a.) la libra real únicamente y b.) el mayor entre ambas
-                        (real/volumen) como el peso facturable.
+                        parámetros: a.) la libra real únicamente, para el caso de nuestra tarifa
+                        VIP; y b.) el mayor entre ambas, es decir, entre la libra real o la libra
+                        volumétrica, para el caso de nuestra tarifa estándar.
                     </li>
                     <li>
                         La Empresa podrá modificar sus tarifas de servicio cuando lo considere
@@ -136,19 +161,23 @@
                         El Cliente acepta que la Empresa se reservará el derecho de aceptar o no los
                         cheques que desee utilizar para pagar los servicios.
                     </li>
-                    <li>El Cliente acepta que todo cargo debe ser pagado de contado.</li>
+                    <li>
+                        El Cliente acepta que la Empresa se reservará el derecho de aceptar o no los
+                        cheques que desee utilizar para pagar los servicios.
+                    </li>
                 </ol>
 
                 <p class="text-bold">vi. Impuestos:</p>
                 <ol type="a" class="text-bold">
                     <li>
                         La Empresa desalmacenará y pagará impuestos de toda la Mercancía que esté
-                        transportando para los Clientes, cuyo valor no exceda de mil dólares
-                        americanos ($1,000.00).
+                        transportando para los Clientes, sujeto a la tarifa oficial que determina
+                        los derechos que se han de pagar en varios ramos conforme a la Ley 26 de 17
+                        de abril de 2013.
                     </li>
                     <li>
-                        Es política de la Empresa no desalmacenar paquetes que hayan permanecido más
-                        de 25 días en el Almacén Fiscal.
+                        Es política de la Empresa no desalmacenar Mercancía que hayan permanecido
+                        más de 25 días en el Almacén Fiscal.
                     </li>
                     <li>
                         El Cliente reconoce que toda importación que ingrese al territorio nacional
@@ -215,21 +244,15 @@
                     </li>
                 </ol>
 
-                <p class="text-bold">viii. Reclamos y seguros:</p>
+                <p class="text-bold" id="reclamos-y-seguros">viii. Reclamos y seguros:</p>
                 <ol type="a" class="text-bold">
-                    <li>
-                        El Cliente acepta que cualquier reclamo por destrucción de bienes asegurados
-                        deberá ser presentado a la Empresa durante los cien (100) días calendario
-                        posteriores al momento en que la Mercancía esté disponible para ser
-                        entregado.
-                    </li>
                     <li>
                         El Cliente acepta que cualquier reclamo deberá ser presentado a la Empresa
                         durante los quince (15) días hábiles posteriores al momento en que la
                         Mercancía haya sido entregada a la bodega en Miami y dirigido a
                         reclamos@y-go.com.pa, proporcionando la siguiente información: titularidad
-                        de la carga (Factura comercial), numero de rastreo, descripción de reclamo.
-                        Esta será analizada y en caso de tener validez, la empresa aceptara la
+                        de la carga (Factura comercial), número de rastreo, descripción de reclamo.
+                        Esta será analizada y en caso de tener validez, la empresa aceptará la
                         cobertura al 100% de dicho reclamo.
                     </li>
                     <li>
@@ -241,8 +264,8 @@
                     </li>
                     <li>
                         En caso tal de que la Mercancía no esté asegurada, la Empresa asumirá el
-                        valor máximo de doscientos dólares americanos ($US 200.00). Si un Cliente
-                        transportará Mercancía que exceda del valor máximo, el cliente deberá dar a
+                        valor máximo de doscientos dólares americanos (US$200.00). Si un Cliente
+                        transportará Mercancía que exceda del valor máximo, el Cliente deberá dar a
                         la Empresa un preaviso vía email (seguros@y-go.com.pa) donde exprese la
                         intención de que los bienes sean asegurados. Éste seguro tendrá un valor del
                         15 % del valor de la Mercancía y será cobrado al contado en la factura del
@@ -250,18 +273,18 @@
                     </li>
                     <li>
                         La Empresa se reserva el derecho de no hacerse responsable por mercancía mal
-                        empacada por el proveedor o vendedor. Por paquetes que lleguen a nuestra
-                        bodega en Miami rotos, deteriorados o en mal estado. Por paquetes que sufran
-                        daños por mal embalaje del proveedor, Carga delicada (frágil) que no cuente
-                        con su debida notificación impresa (label) y mercancía perdida que no llego
-                        a nuestra bodega en Miami.
+                        empacada por el proveedor o vendedor. Por Mercancía que lleguen a nuestra
+                        bodega en Miami rotos, deteriorados o en mal estado. Por Mercancía que
+                        sufran daños por mal embalaje del proveedor, carga delicada (frágil) que no
+                        cuente con su debida notificación impresa (label) y mercancía perdida que no
+                        llegó a nuestra bodega en Miami.
                     </li>
                 </ol>
 
                 <p class="text-bold">ix. Reservas y prohibiciones</p>
                 <ol type="a" class="text-bold">
                     <li>
-                        La Empresa se reserva el derecho de rechazar paquetes que considere
+                        La Empresa se reserva el derecho de rechazar Mercancía que considere
                         sospechosos, que hayan sido manipulados, abiertos, dañados antes.
                     </li>
                     <li>
@@ -270,7 +293,7 @@
                         portador.
                     </li>
                     <li>
-                        La empresa se reserva el derecho de rechazar paquetes con mercancía
+                        La empresa se reserva el derecho de rechazar Mercancía con mercancía
                         restringida para ingreso al país de Panamá. Siendo como tal artículos que
                         contienen/son: Acetona, animales vivos, agroquímicos, armas (municiones,
                         accesorios o partes), armas de juguete, cadáveres, cigarrillos electrónicos
@@ -299,10 +322,10 @@
                         desodorante en aerosol, enjuague bucal, esmalte de uñas, perfumes, productos
                         en aerosol, sustancias que trabajan a presión o a gas de expulsión. Si el
                         cliente mantiene alguna duda sobre un producto que no aparece dentro de la
-                        lista, tendrá que notificarnos via email a info@y-go.com.pa
+                        lista, tendrá que notificarnos vía email a info@y-go.com.pa
                     </li>
                     <li>
-                        La Empresa se reserva el derecho de abrir los paquetes para su respectiva
+                        La Empresa se reserva el derecho de abrir los Mercancía para su respectiva
                         inspección y verificación de acuerdo con las normativas legales
                         internacionales de transporte bajo las leyes de Los Estados Unidos de
                         América y Panamá.

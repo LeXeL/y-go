@@ -2,10 +2,15 @@
     <div class="navigation-bar bg-white text-white" style="padding: 5px 0">
         <div class="row">
             <q-space />
-            <div class="col-lg-9 col-md-10 col-sm-12 col-xs-12 q-px-md">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 q-px-md">
                 <div class="row full-width q-my-sm">
                     <div class="col-lg-1 col-md-1 col-sm-12 col-xs-3 column flex-center">
-                        <q-img :src="require('@/assets/logo_ygo.png')" />
+                        <router-link to="/">
+                            <q-img
+                                :src="require('@/assets/logo_ygo.png')"
+                                style="width: 75px; cursor: pointer"
+                            />
+                        </router-link>
                     </div>
                     <q-space />
                     <div class="col-xs-2 column flex-center sm-hide md-hide lg-hide xl-hide">
@@ -17,7 +22,7 @@
                             @click="mobileDrawer = true"
                         />
                     </div>
-                    <div class="col-lg-9 col-md-7 col-sm-12 col-xs-12 column flex-center xs-hide">
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 column flex-center xs-hide">
                         <ul class="q-pa-none">
                             <li>
                                 <router-link to="/">
@@ -158,7 +163,10 @@
                             color="accent"
                             class="text-bold"
                             to="/user"
-                            v-if="$router.currentRoute.path == '/'"
+                            v-if="
+                                $router.currentRoute.path != '/user' ||
+                                    $router.currentRoute.path != '/checkout'
+                            "
                         />
                     </div>
                     <!-- <div

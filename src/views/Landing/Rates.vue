@@ -29,8 +29,8 @@
                     <q-space />
                 </div>
                 <div class="row">
-                    <div class="col-lg-3 q-pa-md">
-                        <q-card flat>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
+                        <q-card flat style="height: 625px;">
                             <q-card-section class="text-center">
                                 <i class="fas fa-box fa-4x q-mb-md text-grey-7"></i>
                                 <div class="text-h6 text-bold text-accent">
@@ -48,11 +48,15 @@
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     Vuelos diarios Miami - Panam&aacute;
                                 </div>
-                                <div class="text-subtitle2 text-primary text-bold q-mb-sm">
-                                    Paqueteria asegurada
+                                <div class="text-subtitle2 text-bold q-mb-sm">
+                                    <a
+                                        class="text-primary"
+                                        href="/terminos-y-condiciones#reclamos-y-seguros"
+                                        >Paqueteria asegurada</a
+                                    >
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
-                                    Entrega a domicilio (ciudad y provincia
+                                    Entrega a domicilio (ciudad y provincia)
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     Servicio de retorno
@@ -75,7 +79,7 @@
                                     *$ <strong>10.00</strong>/pie<sup>3</sup>
                                 </div>
                             </q-card-section>
-                            <q-card-section class="text-center">
+                            <q-card-section class="text-center" v-if="ratesOnDisplay == 'air'">
                                 <div class="text-caption">
                                     La libra a considerar es la mayor entre el peso real y el peso
                                     volumetrico del paquete.
@@ -83,8 +87,8 @@
                             </q-card-section>
                         </q-card>
                     </div>
-                    <div class="col-lg-3 q-pa-md">
-                        <q-card flat>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
+                        <q-card flat style="height: 625px;">
                             <q-card-section class="text-center">
                                 <i class="fas fa-ruler-combined fa-4x q-mb-md text-grey-7"></i>
                                 <div class="text-h6 text-bold text-accent">
@@ -102,11 +106,15 @@
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     Vuelos diarios Miami - Panam&aacute;
                                 </div>
-                                <div class="text-subtitle2 text-primary text-bold q-mb-sm">
-                                    Paqueteria asegurada
+                                <div class="text-subtitle2 text-bold q-mb-sm">
+                                    <a
+                                        class="text-primary"
+                                        href="/terminos-y-condiciones#reclamos-y-seguros"
+                                        >Paqueteria asegurada</a
+                                    >
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
-                                    Entrega a domicilio (ciudad y provincia
+                                    Entrega a domicilio (ciudad y provincia)
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     Servicio de retorno
@@ -129,15 +137,15 @@
                                     *$ <strong>10.00</strong>/pie<sup>3</sup>
                                 </div>
                             </q-card-section>
-                            <q-card-section class="text-center">
+                            <q-card-section class="text-center" v-if="ratesOnDisplay == 'air'">
                                 <div class="text-caption">
                                     La libra a considerar es unicamente el peso real del paquete.
                                 </div>
                             </q-card-section>
                         </q-card>
                     </div>
-                    <div class="col-lg-3 q-pa-md">
-                        <q-card flat>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
+                        <q-card flat style="height: 625px;">
                             <q-card-section class="text-center">
                                 <i class="fas fa-building fa-4x q-mb-md text-grey-7"></i>
                                 <div class="text-h6 text-bold text-accent">
@@ -164,8 +172,8 @@
                             </q-card-section>
                         </q-card>
                     </div>
-                    <div class="col-lg-3 q-pa-md">
-                        <q-card flat>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
+                        <q-card flat style="height: 625px;">
                             <q-card-section class="text-center">
                                 <i class="fas fa-building fa-4x q-mb-md text-grey-7"></i>
                                 <div class="text-h6 text-bold text-accent">
@@ -214,7 +222,7 @@
 export default {
     data() {
         return {
-            ratesOnDisplay: 'air',
+            ratesOnDisplay: 'sea',
         }
     },
     mounted() {
