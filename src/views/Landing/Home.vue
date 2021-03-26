@@ -8,7 +8,7 @@
             :type="alertType"
             @accept="displayAlert = false"
         ></ygo-alert>
-        <div class="row bg-amber-8">
+        <!-- <div class="row bg-amber-8">
             <q-space />
             <div class="col-lg-7 col-md-10 col-sm-12 q-px-md">
                 <div class="row">
@@ -26,7 +26,28 @@
                 </div>
             </div>
             <q-space />
-        </div>
+        </div> -->
+        <q-carousel
+            v-model="slide"
+            transition-prev="slide-right"
+            transition-next="slide-left"
+            swipeable
+            animated
+            infinite
+            arrows
+            height="auto"
+            autoplay
+        >
+            <q-carousel-slide :name="1" class="q-pa-none">
+                <q-img :src="require('@/assets/Landing/BANNER-03.svg')" />
+            </q-carousel-slide>
+            <q-carousel-slide :name="2" class="q-pa-none">
+                <q-img :src="require('@/assets/Landing/BANNER-01.svg')" />
+            </q-carousel-slide>
+            <q-carousel-slide :name="3" class="q-pa-none">
+                <q-img :src="require('@/assets/Landing/BANNER-02.svg')" />
+            </q-carousel-slide>
+        </q-carousel>
         <div class="row form-section">
             <q-space />
             <div class="col-lg-7 col-md-9 col-xs-12 q-px-md">
@@ -140,6 +161,7 @@ import 'firebase/auth'
 export default {
     data() {
         return {
+            slide: 1,
             showRegisterForm: false,
             terms: false,
             displayLoading: false,
