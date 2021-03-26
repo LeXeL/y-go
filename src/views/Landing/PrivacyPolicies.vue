@@ -1,7 +1,7 @@
 <template>
     <q-page style="min-height: auto !important">
-        <div class="row bg-amber-8 q-mb-xl">
-            <div class="col-lg-7 col-xs-12 q-pa-lg text-center full-width">
+        <div class="row bg-primary q-mb-xl">
+            <div class="col-lg-7 col-xs-12 q-pt-md q-pb-sm text-center full-width">
                 <div class="text-h4 text-white text-bold">POLITICAS DE PRIVACIDAD</div>
             </div>
         </div>
