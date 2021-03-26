@@ -59,12 +59,14 @@
                     </li>
                     <li>
                         Número de Cuenta: Todo Cliente se deberá registrar con la Empresa a través
-                        de la página web http://www.y-go.com.pa. La Empresa le dará al Cliente un
-                        Número de Cuenta con el cual identificará el casillero para su uso o de las
-                        personas autorizadas por el Cliente.
+                        de la página web
+                        <a href="https://y-go.com.pa">https://www.y-go.com.pa</a>. La Empresa le
+                        dará al Cliente un Número de Cuenta con el cual identificará el casillero
+                        para su uso o de las personas autorizadas por el Cliente.
                     </li>
                     <li>
-                        Plataforma: Es el sitio de internet http://www.y-go.com.pa, operado por la
+                        Plataforma: Es el sitio de internet
+                        <a href="https://y-go.com.pa">https://www.y-go.com.pa</a>, operado por la
                         Empresa, donde los Clientes podrán contratar los servicios de la Empresa.
                     </li>
                     <li>
@@ -250,10 +252,11 @@
                         El Cliente acepta que cualquier reclamo deberá ser presentado a la Empresa
                         durante los quince (15) días hábiles posteriores al momento en que la
                         Mercancía haya sido entregada a la bodega en Miami y dirigido a
-                        reclamos@y-go.com.pa, proporcionando la siguiente información: titularidad
-                        de la carga (Factura comercial), número de rastreo, descripción de reclamo.
-                        Esta será analizada y en caso de tener validez, la empresa aceptará la
-                        cobertura al 100% de dicho reclamo.
+                        <a href="mailto:reclamos@y-go.com.pa">reclamos@y-go.com.pa</a>,
+                        proporcionando la siguiente información: titularidad de la carga (Factura
+                        comercial), número de rastreo, descripción de reclamo. Esta será analizada y
+                        en caso de tener validez, la empresa aceptará la cobertura al 100% de dicho
+                        reclamo.
                     </li>
                     <li>
                         El Cliente acepta que el propósito del seguro de Mercancías es garantizar la
@@ -266,10 +269,11 @@
                         En caso tal de que la Mercancía no esté asegurada, la Empresa asumirá el
                         valor máximo de doscientos dólares americanos (US$200.00). Si un Cliente
                         transportará Mercancía que exceda del valor máximo, el Cliente deberá dar a
-                        la Empresa un preaviso vía email (seguros@y-go.com.pa) donde exprese la
-                        intención de que los bienes sean asegurados. Éste seguro tendrá un valor del
-                        15 % del valor de la Mercancía y será cobrado al contado en la factura del
-                        servicio.
+                        la Empresa un preaviso vía email (<a href="mailto:seguros@y-go.com.pa"
+                            >seguros@y-go.com.pa</a
+                        >) donde exprese la intención de que los bienes sean asegurados. Éste seguro
+                        tendrá un valor del 15 % del valor de la Mercancía y será cobrado al contado
+                        en la factura del servicio.
                     </li>
                     <li>
                         La Empresa se reserva el derecho de no hacerse responsable por mercancía mal
@@ -322,7 +326,8 @@
                         desodorante en aerosol, enjuague bucal, esmalte de uñas, perfumes, productos
                         en aerosol, sustancias que trabajan a presión o a gas de expulsión. Si el
                         cliente mantiene alguna duda sobre un producto que no aparece dentro de la
-                        lista, tendrá que notificarnos vía email a info@y-go.com.pa
+                        lista, tendrá que notificarnos vía email a
+                        <a href="mailto:info@y-go.com.pa">info@y-go.com.pa</a>
                     </li>
                     <li>
                         La Empresa se reserva el derecho de abrir los Mercancía para su respectiva

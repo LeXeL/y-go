@@ -35,8 +35,8 @@
                                         label="Ver"
                                         flat
                                         rounded
+                                        class="text-bold"
                                         color="primary"
-                                        size="sm"
                                         v-if="step > 0"
                                         @click="step = 0"
                                     />
@@ -83,7 +83,7 @@
                                         flat
                                         rounded
                                         color="primary"
-                                        size="sm"
+                                        class="text-bold"
                                         v-if="step > 1"
                                         @click="step = 1"
                                     />

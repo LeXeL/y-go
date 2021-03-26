@@ -11,7 +11,8 @@
                 <p class="text-bold">
                     Las presentes Políticas de Privacidad regulan la recopilación, tratamiento y
                     acceso a los datos proporcionados por los Clientes en la de la página web
-                    http://www.y-go.com.pa, de conformidad con la legislación vigente.
+                    <a href="https://y-go.com.pa">https://www.y-go.com.pa</a>, de conformidad con la
+                    legislación vigente.
                 </p>
                 <p class="text-bold">i. Política de Privacidad</p>
                 <p class="text-bold q-pl-lg">
