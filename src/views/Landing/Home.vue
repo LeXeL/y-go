@@ -92,10 +92,11 @@
                                     Al hacer clic en
                                     <span class="text-bold">"REGISTRAR"</span> acepto los terminos y
                                     condiciones. Leer
-                                    <router-link
-                                        to="/terminos-y-condiciones"
+                                    <a
+                                        href="/terminos-y-condiciones"
+                                        target="_blank"
                                         class="text-bold text-accent"
-                                        >aqui.</router-link
+                                        >aqui.</a
                                     >
                                 </div>
                             </q-card-section>
