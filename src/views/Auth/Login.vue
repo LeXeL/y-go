@@ -191,6 +191,15 @@ export default {
                         this.errorMessage =
                             'La cuenta aun no se ha verificado, por favor revisa tu correo'
                         this.displayLoading = false
+                        firebase
+                            .auth()
+                            .signOut()
+                            .then(async () => {
+                                await this.$store.dispatch('UserLogout')
+                            })
+                            .catch(error => {
+                                console.log(error)
+                            })
                     }
                 })
                 .catch(error => {
