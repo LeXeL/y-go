@@ -176,7 +176,7 @@
                                     label="ESCRIBENOS"
                                     color="accent"
                                     class="text-bold q-px-md"
-                                    push
+                                    unelevated
                                     to="/contacto"
                                 />
                             </q-card-section>
@@ -189,26 +189,26 @@
                                     src="@/assets/Landing/icons/ICO_lealtad.svg"
                                     style="width: 65px;"
                                 />
-                                <div class="text-h6 text-bold text-accent">
+                                <div class="text-h6 text-bold loyalty-text">
                                     PROGRAMA DE LEALTAD
                                 </div>
                             </q-card-section>
                             <q-separator />
                             <q-card-section class="text-center">
-                                <div class="text-subtitle2 text-bold text-primary">
+                                <div class="text-subtitle2 text-bold loyalty-text">
                                     AFILIATE AL PROGRAMA DE LEALTAD Y-GO Y OBTEN MAS BENEFICIOS
                                 </div>
-                                <div style="padding: 95px 0">
-                                    <div class="text-subtitle2 text-bold">
+                                <div style="padding: 75px 0" class="loyalty-text">
+                                    <div class="text-subtitle3 text-bold q-mb-sm">
                                         Entrega a domicilio gratis
                                     </div>
-                                    <div class="text-subtitle2 text-bold">
+                                    <div class="text-subtitle3 text-bold q-mb-sm">
                                         Acumula puntos por cada traida
                                     </div>
-                                    <div class="text-subtitle2 text-bold">
+                                    <div class="text-subtitle3 text-bold q-mb-sm">
                                         Canjea tus puntos por libra
                                     </div>
-                                    <div class="text-subtitle2 text-bold">
+                                    <div class="text-subtitle3 text-bold q-mb-sm">
                                         Sube de rango haciendo pedidos
                                     </div>
                                 </div>
@@ -218,7 +218,7 @@
                                     label="Inscribete"
                                     color="accent"
                                     class="text-bold q-px-md"
-                                    push
+                                    unelevated
                                     to="/"
                                 />
                             </q-card-section>
@@ -250,5 +250,14 @@ export default {
     border-image-slice: 1;
     border-width: 7px;
     border-image-source: linear-gradient(to right, #f5c987, #b68d4c);
+}
+.loyalty-text {
+    background: linear-gradient(to top right, #333, #969696, #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: solid 1px 3000;
+}
+.text-subtitle3 {
+    font-size: 15px;
 }
 </style>
