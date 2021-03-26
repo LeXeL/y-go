@@ -36,6 +36,12 @@
                                 <img
                                     src="@/assets/Landing/icons/ICO_standard.svg"
                                     style="width: 65px;"
+                                    v-if="ratesOnDisplay == 'air'"
+                                />
+                                <img
+                                    src="@/assets/Landing/icons/ICO_m_standard.svg"
+                                    style="width: 65px;"
+                                    v-else
                                 />
                                 <div class="text-h6 text-bold text-accent">
                                     PLAN STANDARD
@@ -97,6 +103,12 @@
                                 <img
                                     src="@/assets/Landing/icons/ICO_premium.svg"
                                     style="width: 65px;"
+                                    v-if="ratesOnDisplay == 'air'"
+                                />
+                                <img
+                                    src="@/assets/Landing/icons/ICO_m_premium.svg"
+                                    style="width: 65px;"
+                                    v-else
                                 />
                                 <div class="text-h6 text-bold text-accent">
                                     PLAN PREMIUM
@@ -157,6 +169,12 @@
                                 <img
                                     src="@/assets/Landing/icons/ICO_business.svg"
                                     style="width: 65px;"
+                                    v-if="ratesOnDisplay == 'air'"
+                                />
+                                <img
+                                    src="@/assets/Landing/icons/ICO_m_business.svg"
+                                    style="width: 65px;"
+                                    v-else
                                 />
                                 <div class="text-h6 text-bold text-accent">
                                     PLAN BUSINESS
@@ -216,8 +234,7 @@
                             <q-card-section class="text-center">
                                 <q-btn
                                     label="Inscribete"
-                                    color="accent"
-                                    class="text-bold q-px-md"
+                                    class="text-bold q-px-md loyalty-cta text-white"
                                     unelevated
                                     to="/"
                                 />
@@ -256,6 +273,9 @@ export default {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     border: solid 1px 3000;
+}
+.loyalty-cta {
+    background: linear-gradient(to top right, #333, #bfbfbf, #333) !important;
 }
 .text-subtitle3 {
     font-size: 15px;
