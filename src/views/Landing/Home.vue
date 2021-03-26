@@ -34,7 +34,6 @@
             swipeable
             animated
             infinite
-            arrows
             height="auto"
             autoplay
         >
