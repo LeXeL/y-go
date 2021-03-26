@@ -32,7 +32,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
                         <q-card flat style="height: 625px;">
                             <q-card-section class="text-center">
-                                <i class="fas fa-box fa-4x q-mb-md text-grey-7"></i>
+                                <i class="fas fa-box-open fa-4x q-mb-md text-grey-7"></i>
                                 <div class="text-h6 text-bold text-accent">
                                     PLAN STANDARD
                                 </div>

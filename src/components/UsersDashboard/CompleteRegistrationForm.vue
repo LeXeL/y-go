@@ -128,11 +128,42 @@
                                             "
                                         >
                                             <i class="fas fa-box-open fa-2x q-mb-sm"></i>
-                                            <div class="text-h6 q-mb-sm text-bold">Plan Basico</div>
+                                            <div class="text-h6 q-mb-sm text-bold">
+                                                PLAN STANDARD
+                                            </div>
                                             <q-separator class="q-mb-sm" dark />
-                                            <div class="text-subtitle2">Texto punto 1</div>
-                                            <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
-                                            <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                PO Box personal en Miami
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                Carga aerea y carga maritima
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                Vuelos diarios Miami - Panam&aacute;
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                <a
+                                                    class="text-primary"
+                                                    href="/terminos-y-condiciones#reclamos-y-seguros"
+                                                    target="_blank"
+                                                    >Paqueteria asegurada</a
+                                                >
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                Entrega a domicilio (ciudad y provincia)
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                Servicio de retorno
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                Servicio de compra de internet
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                Notificaci&oacute;n via web
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                Acceso a tu perfil personal
+                                            </div>
                                             <div
                                                 v-if="selectedSubsidiary !== ''"
                                                 class="text-h5 text-bold q-mt-md"
@@ -143,6 +174,13 @@
                                                         .find(rate => rate.name === 'Plan Basico')
                                                         .rate.toFixed(2)
                                                 }}
+                                            </div>
+                                            <div
+                                                class="text-caption"
+                                                v-if="selectedSubsidiary !== ''"
+                                            >
+                                                La libra a considerar es la mayor entre el peso real
+                                                y el peso volumetrico del paquete.
                                             </div>
                                         </div>
                                     </div>
@@ -157,14 +195,43 @@
                                                     : ''
                                             "
                                         >
-                                            <i class="fas fa-weight-hanging fa-2x q-mb-sm"></i>
+                                            <i class="fas fa-ruler-combined fa-2x q-mb-sm"></i>
                                             <div class="text-h6 q-mb-sm text-bold">
-                                                Plan Cero Volumen
+                                                PLAN PREMIUM
                                             </div>
                                             <q-separator class="q-mb-sm" dark />
-                                            <div class="text-subtitle2">Texto punto 1</div>
-                                            <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
-                                            <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                PO Box personal en Miami
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                Carga aerea y carga maritima
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                Vuelos diarios Miami - Panam&aacute;
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                <a
+                                                    class="text-primary"
+                                                    href="/terminos-y-condiciones#reclamos-y-seguros"
+                                                    target="_blank"
+                                                    >Paqueteria asegurada</a
+                                                >
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                Entrega a domicilio (ciudad y provincia)
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                Servicio de retorno
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                Servicio de compra de internet
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                Notificaci&oacute;n via web
+                                            </div>
+                                            <div class="text-subtitle2 text-bold q-mb-sm">
+                                                Acceso a tu perfil personal
+                                            </div>
                                             <div
                                                 v-if="selectedSubsidiary !== ''"
                                                 class="text-h5 text-bold q-mt-md"
@@ -178,6 +245,13 @@
                                                         )
                                                         .rate.toFixed(2)
                                                 }}
+                                            </div>
+                                            <div
+                                                class="text-caption"
+                                                v-if="selectedSubsidiary !== ''"
+                                            >
+                                                La libra a considerar es unicamente el peso real del
+                                                paquete.
                                             </div>
                                         </div>
                                     </div>
@@ -194,18 +268,20 @@
                                         >
                                             <i class="fas fa-building fa-2x q-mb-sm"></i>
                                             <div class="text-h6 q-mb-sm text-bold">
-                                                Plan Business
+                                                PLAN BUSINESS
                                             </div>
                                             <q-separator class="q-mb-sm" dark />
-                                            <div class="text-subtitle2">Texto punto 1</div>
-                                            <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
-                                            <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
+                                            <div class="text-subtitle2 text-bold text-primary">
+                                                ESPECIAL PARA NEGOCIOS
+                                            </div>
+                                            <div class="text-h4" style="padding: 75px 0">
+                                                Contactanos para mas informaci&oacute;n
+                                            </div>
                                             <q-btn
-                                                v-if="selectedSubsidiary !== ''"
-                                                class="q-mt-md"
                                                 label="Mas info"
-                                                size="sm"
+                                                v-if="selectedSubsidiary !== ''"
                                                 color="primary"
+                                                class="text-bold q-px-md"
                                                 push
                                                 @click="businessRateDialog = true"
                                             />
