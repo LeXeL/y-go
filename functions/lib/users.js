@@ -62,6 +62,7 @@ async function updateDatabaseWithUserInfo(uid, obj) {
             poundsCount: 0,
             isUpdated: false,
             affiliateCardNo: null,
+            birthdate: null,
         })
         .then(() => {
             addToLastId()
