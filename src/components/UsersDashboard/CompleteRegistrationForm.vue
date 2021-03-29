@@ -433,26 +433,27 @@
         </div>
         <q-dialog v-model="businessRateDialog" persistent>
             <q-card>
-                <q-card-section class="text-center">
-                    <i class="fas fa-building fa-3x q-mb-sm text-accent" />
-                </q-card-section>
+                <!-- <q-card-section class="text-center">
+                    <i class="fas fa-building fa-3x q-mb-sm" />
+                </q-card-section> -->
                 <q-card-section>
                     <div class="text-h6 text-center">
-                        Se enviara una solicitud de Plan Business.
+                        Al seleccionar este plan se enviara una solicitud para ser revisada por uno
+                        de nuestros administradores.
                     </div>
                 </q-card-section>
                 <q-card-actions>
                     <q-space />
-                    <q-btn
+                    <!-- <q-btn
                         flat
                         color="red-7"
                         label="cancelar"
                         @click="businessRateDialog = false"
-                    />
+                    /> -->
                     <q-btn
                         flat
                         color="primary"
-                        label="enviar"
+                        label="Aceptar"
                         @click="businessRateDialog = false"
                     />
                 </q-card-actions>
