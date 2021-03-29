@@ -428,22 +428,26 @@ exports.populateAuthUsers = functions.https.onRequest(async (req, res) => {
             uid: 'jixSzZzd7pMxjESSA3HVEiLyFLG2',
             email: 'alejandromillan29@live.com',
             password: 'BlueBalloon123!',
+            emailVerified: true,
         },
         {
             uid: 'HsaCxRLNSgcGoRSjqh4hlgYmjar2',
             email: 'diego.r2892@gmail.com',
             password: 'BlueBalloon123!',
+            emailVerified: true,
         },
         //User
         {
             uid: '9OGCZUWZd3fRziSs8UU3zHmcyAu1',
             email: 'amilland29@gmail.com',
             password: 'BlueBalloon123!',
+            emailVerified: true,
         },
         {
             uid: 'lFtus3KR8zP8fSsYPymhzXHz6Bo2',
             email: 'lexelEZ@gmail.com',
             password: 'BlueBalloon123!',
+            emailVerified: true,
         },
         // put all test users you want populated here
     ]

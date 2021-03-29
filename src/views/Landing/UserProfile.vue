@@ -74,6 +74,39 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 q-pa-sm">
+                        <q-input
+                            filled
+                            label="Fecha de Nacimiento"
+                            v-model="userInformationData.user.birthdate"
+                            mask="date"
+                            :rules="['date']"
+                            :disable="!editInformation"
+                        >
+                            <template v-slot:append>
+                                <q-icon name="fas fa-calendar" class="cursor-pointer">
+                                    <q-popup-proxy
+                                        ref="qDateProxy"
+                                        transition-show="scale"
+                                        transition-hide="scale"
+                                    >
+                                        <q-date v-model="userInformationData.user.birthdate">
+                                            <div class="row items-center justify-end">
+                                                <q-btn
+                                                    v-close-popup
+                                                    label="Close"
+                                                    color="primary"
+                                                    flat
+                                                />
+                                            </div>
+                                        </q-date>
+                                    </q-popup-proxy>
+                                </q-icon>
+                            </template>
+                        </q-input>
+                    </div>
+                </div>
+                <div class="row">
                     <q-btn
                         push
                         size="sm"
