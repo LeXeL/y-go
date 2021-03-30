@@ -9,45 +9,73 @@
         </div>
         <div class="row bg-grey-3">
             <q-space />
-            <div class="col-lg-7 col-md-10 q-pa-lg">
+            <div class="col-lg-8 col-md-10 q-pa-lg">
                 <div class="row">
                     <q-space />
                     <q-img
-                        :src="require('@/assets/Landing/ygo-reciclando.webp')"
+                        :src="require('@/assets/Landing/ICO_logo_rec.svg')"
                         style="width: 200px"
-                        class="q-mt-md q-mb-xl"
+                        class="q-mt-md"
                     />
                     <q-space />
                 </div>
-                <div class="text-body2 text-bold q-mb-lg">
+                <div class="text-h6 text-bold q-mb-lg recycle-text text-center">
                     El Programa "Y-GO RECICLANDO" tiene como objetivo general reducir la disposición
                     de residuos a través de la implementación de las llamadas tres erres (reducir,
                     reutilizar y reciclar)
                 </div>
-                <div class="text-h6 text-bold">¿Como funciona?</div>
-                <div class="text-body2 text-bold q-mb-lg">
-                    - Por cada caja de carton o material que pueda ser reclicado, sumaras para
-                    puntos a tu cuenta del programa de lealtad.
+                <div class="row q-mb-lg">
+                    <div class="col-lg-3 col-md-3 col-sm-6 q-pa-md">
+                        <div class="recycle-bg recycle-tile text-center flex flex-center">
+                            <div>
+                                <i class="fas fa-leaf fa-3x q-mb-lg" />
+                                <div class="text-body2 text-bold">
+                                    Por cada caja de carton o material que pueda ser reclicado,
+                                    sumaras para puntos a tu cuenta del programa de lealtad.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 q-pa-md">
+                        <div class="recycle-bg recycle-tile text-center flex flex-center">
+                            <div>
+                                <div class="text-body2 text-bold q-mb-md" style="font-size: 16px;">
+                                    ¿En que estado deben estar las cajas al momento de entregar?
+                                </div>
+                                <div class="text-body2">
+                                    Al momento de entrega las cajas (carton, carton corrugado)
+                                    pueden tener la cinta adhesiva y labels en ella. Fijate que
+                                    tengan el simbolo de reciclaje en ella para garantizar que en
+                                    efecto la caja puede ser reciclada.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 q-pa-md">
+                        <div class="recycle-bg recycle-tile text-center flex flex-center">
+                            <div>
+                                <div class="text-body2">
+                                    Deben ser entregadas ya desarmadas o "aplanada" y remover
+                                    cualquier otro material de empaque utilizado (bubblewrap,etc.).
+                                    Si tu caja esta abollada, golpeada, dañada o doblada, no hay
+                                    problema! Todavia la puedes traer para canjearla por puntos.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 q-pa-md">
+                        <div class="recycle-bg recycle-tile text-center flex flex-center">
+                            <div>
+                                <i class="fas fa-leaf fa-3x q-mb-lg" />
+                                <div class="text-body2 text-bold">
+                                    Sin embargo, si la caja ha sido mojada, manchada con quimicos y
+                                    grasas, no podremos recibirla para su debido proceso.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="text-h6 text-bold">
-                    ¿En que estado deben estar las cajas al momento de entregar?
-                </div>
-                <div class="text-body2 text-bold q-mb-sm">
-                    - Al momento de entrega las cajas (carton, carton corrugado) pueden tener la
-                    cinta adhesiva y labels en ella. Fijate que tengan el simbolo de reciclaje en
-                    ella para garantizar que en efecto la caja puede ser reciclada.
-                </div>
-                <div class="text-body2 text-bold q-mb-sm">
-                    - Deben ser entregadas ya desarmadas o "aplanada" y remover cualquier otro
-                    material de empaque utilizado (bubblewrap,etc.). Si tu caja esta abollada,
-                    golpeada, dañada o doblada, no hay problema! Todavia la puedes traer para
-                    canjearla por puntos.
-                </div>
-                <div class="text-body2 text-bold q-mb-lg">
-                    - Sin embargo, si la caja ha sido mojada, manchada con quimicos y grasas, no
-                    podremos recibirla para su debido proceso.
-                </div>
-                <div class="text-h6 text-bold text-green-7 q-mb-lg">
+                <div class="text-h5 recycle-text text-bold text-center">
                     Y recuerda ¡Recicla porque el planeta lo vale!
                 </div>
             </div>
@@ -68,3 +96,17 @@ export default {
     },
 }
 </script>
+
+<style>
+.recycle-text {
+    color: #70be44;
+}
+.recycle-bg {
+    background-color: #70be44;
+}
+.recycle-tile {
+    height: 250px;
+    padding: 15px;
+    color: white;
+}
+</style>

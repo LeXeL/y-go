@@ -1,8 +1,8 @@
 <template>
     <q-page style="min-height: auto !important">
-        <div class="row bg-amber-8">
+        <div class="row bg-primary">
             <q-space />
-            <div class="col-lg-7 col-xs-12 q-pa-lg text-center">
+            <div class="col-lg-7 col-xs-12 q-pt-md q-mb-sm text-center">
                 <div class="text-h4 text-white text-bold">NUESTRAS TARIFAS</div>
             </div>
             <q-space />
@@ -16,14 +16,14 @@
                         label="tarifa aerea"
                         :color="ratesOnDisplay == 'air' ? 'primary' : 'grey-5'"
                         class="text-bold on-left"
-                        push
+                        unelevated
                         @click="ratesOnDisplay = 'air'"
                     />
                     <q-btn
                         label="tarifa maritima"
                         :color="ratesOnDisplay == 'sea' ? 'primary' : 'grey-5'"
                         class="text-bold on-right"
-                        push
+                        unelevated
                         @click="ratesOnDisplay = 'sea'"
                     />
                     <q-space />
@@ -32,12 +32,22 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
                         <q-card flat style="height: 625px;">
                             <q-card-section class="text-center">
-                                <i class="fas fa-box-open fa-4x q-mb-md text-grey-7"></i>
+                                <!-- <i class="fas fa-box-open fa-4x q-mb-md text-grey-7"></i> -->
+                                <img
+                                    src="@/assets/Landing/icons/ICO_standard.svg"
+                                    style="width: 65px;"
+                                    v-if="ratesOnDisplay == 'air'"
+                                />
+                                <img
+                                    src="@/assets/Landing/icons/ICO_m_standard.svg"
+                                    style="width: 65px;"
+                                    v-else
+                                />
                                 <div class="text-h6 text-bold text-accent">
                                     PLAN STANDARD
                                 </div>
                             </q-card-section>
-                            <q-separator />
+                            <q-separator color="primary" />
                             <q-card-section class="text-center">
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     PO Box personal en Miami
@@ -90,12 +100,21 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
                         <q-card flat style="height: 625px;">
                             <q-card-section class="text-center">
-                                <i class="fas fa-ruler-combined fa-4x q-mb-md text-grey-7"></i>
+                                <img
+                                    src="@/assets/Landing/icons/ICO_premium.svg"
+                                    style="width: 65px;"
+                                    v-if="ratesOnDisplay == 'air'"
+                                />
+                                <img
+                                    src="@/assets/Landing/icons/ICO_m_premium.svg"
+                                    style="width: 65px;"
+                                    v-else
+                                />
                                 <div class="text-h6 text-bold text-accent">
                                     PLAN PREMIUM
                                 </div>
                             </q-card-section>
-                            <q-separator />
+                            <q-separator color="primary" />
                             <q-card-section class="text-center">
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     PO Box personal en Miami
@@ -147,18 +166,27 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
                         <q-card flat style="height: 625px;">
                             <q-card-section class="text-center">
-                                <i class="fas fa-building fa-4x q-mb-md text-grey-7"></i>
+                                <img
+                                    src="@/assets/Landing/icons/ICO_business.svg"
+                                    style="width: 65px;"
+                                    v-if="ratesOnDisplay == 'air'"
+                                />
+                                <img
+                                    src="@/assets/Landing/icons/ICO_m_business.svg"
+                                    style="width: 65px;"
+                                    v-else
+                                />
                                 <div class="text-h6 text-bold text-accent">
                                     PLAN BUSINESS
                                 </div>
                             </q-card-section>
-                            <q-separator />
+                            <q-separator color="primary" />
                             <q-card-section class="text-center">
                                 <div class="text-subtitle2 text-bold text-primary">
                                     ESPECIAL PARA NEGOCIOS
                                 </div>
                                 <div class="text-h4" style="padding: 117px 0">
-                                    Contactanos para mas informaci&oacute;n
+                                    Contactanos para m&aacute;s informaci&oacute;n
                                 </div>
                             </q-card-section>
                             <q-card-section class="text-center">
@@ -166,36 +194,39 @@
                                     label="ESCRIBENOS"
                                     color="accent"
                                     class="text-bold q-px-md"
-                                    push
+                                    unelevated
                                     to="/contacto"
                                 />
                             </q-card-section>
                         </q-card>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
-                        <q-card flat style="height: 625px;">
+                        <q-card flat style="height: 625px;" class="loyalty-frame">
                             <q-card-section class="text-center">
-                                <i class="fas fa-building fa-4x q-mb-md text-grey-7"></i>
-                                <div class="text-h6 text-bold text-accent">
+                                <img
+                                    src="@/assets/Landing/icons/ICO_lealtad.svg"
+                                    style="width: 65px;"
+                                />
+                                <div class="text-h6 text-bold loyalty-text">
                                     PROGRAMA DE LEALTAD
                                 </div>
                             </q-card-section>
                             <q-separator />
                             <q-card-section class="text-center">
-                                <div class="text-subtitle2 text-bold text-primary">
+                                <div class="text-subtitle2 text-bold loyalty-text">
                                     AFILIATE AL PROGRAMA DE LEALTAD Y-GO Y OBTEN MAS BENEFICIOS
                                 </div>
-                                <div style="padding: 111px 0">
-                                    <div class="text-subtitle2 text-bold">
+                                <div style="padding: 75px 0" class="loyalty-text">
+                                    <div class="text-subtitle3 text-bold q-mb-sm">
                                         Entrega a domicilio gratis
                                     </div>
-                                    <div class="text-subtitle2 text-bold">
+                                    <div class="text-subtitle3 text-bold q-mb-sm">
                                         Acumula puntos por cada traida
                                     </div>
-                                    <div class="text-subtitle2 text-bold">
+                                    <div class="text-subtitle3 text-bold q-mb-sm">
                                         Canjea tus puntos por libra
                                     </div>
-                                    <div class="text-subtitle2 text-bold">
+                                    <div class="text-subtitle3 text-bold q-mb-sm">
                                         Sube de rango haciendo pedidos
                                     </div>
                                 </div>
@@ -203,9 +234,8 @@
                             <q-card-section class="text-center">
                                 <q-btn
                                     label="Inscribete"
-                                    color="accent"
-                                    class="text-bold q-px-md"
-                                    push
+                                    class="text-bold q-px-md loyalty-cta text-white"
+                                    unelevated
                                     to="/"
                                 />
                             </q-card-section>
@@ -222,7 +252,7 @@
 export default {
     data() {
         return {
-            ratesOnDisplay: 'sea',
+            ratesOnDisplay: 'air',
         }
     },
     mounted() {
@@ -230,3 +260,24 @@ export default {
     },
 }
 </script>
+
+<style>
+.loyalty-frame {
+    border: 10px solid;
+    border-image-slice: 1;
+    border-width: 7px;
+    border-image-source: linear-gradient(to right, #f5c987, #b68d4c);
+}
+.loyalty-text {
+    background: linear-gradient(to top right, #333, #969696, #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: solid 1px 3000;
+}
+.loyalty-cta {
+    background: linear-gradient(to top right, #333, #bfbfbf, #333) !important;
+}
+.text-subtitle3 {
+    font-size: 15px;
+}
+</style>

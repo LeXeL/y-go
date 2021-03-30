@@ -1,41 +1,125 @@
 <template>
     <q-page style="min-height: auto !important">
-        <div class="row bg-amber-8">
+        <div class="row bg-primary">
             <q-space />
-            <div class="col-lg-7 col-md-10 q-px-lg q-py-xl">
-                <div class="text-h4 text-white text-italic">
-                    REGISTRATE A NUESTRO PROGRAMA DE LEALTAD Y GANA PUNTOS CON CADA LIBRA QUE TRAES.
-                </div>
+            <div class="col-lg-7 col-xs-12 q-pt-md q-mb-sm text-center">
+                <div class="text-h4 text-white text-bold">PROGRAMA DE LEALTAD</div>
             </div>
             <q-space />
         </div>
-        <div class="row bg-grey-3">
+        <div class="row form-section" style="height: auto;">
             <q-space />
-            <div class="col-lg-7 col-md-10">
-                <div class="row q-pa-lg q-mt-xl">
-                    <div class="text-h4 text-bold text-accent full-width">
-                        POR TAN SOLO $25.00 ANUALES PUEDES PERTENECER A NUESTRO PROGRAMA REWARDS Y
-                        LLEVARTE ESTOS BENEFICIOS:
-                    </div>
-                    <q-separator />
-                </div>
-                <div class="row q-pa-lg">
-                    <div class="text-h5 text-bold q-mb-lg">
-                        Al afiliarte a nuestro programa de lealtad tendras acceso a los siguientes
-                        beneficios:
-                    </div>
-                    <div
-                        class="text-body2 text-bold text-grey-7 on-right q-mb-md full-width"
-                        v-for="(benefit, i) in benefits"
-                        :key="i"
-                    >
-                        - {{ benefit }}
+            <div class="col-lg-9 col-md-10">
+                <div class="row q-mt-xl q-mb-xl">
+                    <div class="text-h4 text-bold text-white full-width text-center">
+                        POR TAN SOLO <span class="text-accent">$25.00 ANUALES</span> PUEDES
+                        PERTENECER A NUESTRO PROGRAMA REWARDS Y LLEVARTE ESTOS BENEFICIOS:
                     </div>
                 </div>
-                <div class="row q-pa-md q-mb-lg">
+                <div class="row q-mb-xl">
+                    <div class="text-h4 text-bold text-white full-width text-center">
+                        CANJEA TUS PUNTOS POR LIBRA.<br />ENVIO GRATIS EN LA CIUDAD DE PANAMA
+                    </div>
+                </div>
+            </div>
+            <q-space />
+            <q-space />
+            <div class="col-lg-12">
+                <div class="row q-mb-xl">
                     <q-space />
-                    <q-btn label="Abre tu casillero" push color="accent" to="/" class="text-bold" />
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 q-pa-md">
+                        <div class="reward-card-shopper">
+                            <div class="reward-header-shopper">
+                                <div class="text-h6 text-bold text-center">Y-GO SHOPPER</div>
+                            </div>
+                            <div class="reward-card-body">
+                                <div class="text-h6 text-bold text-center q-py-md">
+                                    2lb gratis de bienvenida
+                                </div>
+                                <q-separator color="white" style="width: 90%; margin: 0 auto;" />
+
+                                <div class="text-h6 text-bold text-center q-py-md">
+                                    ACUMULA PUNTOS POR CADA LIBRA
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 q-pa-md">
+                        <div class="reward-card-bronze">
+                            <div class="reward-header-bronze">
+                                <div class="text-h6 text-bold text-center">BRONZE</div>
+                            </div>
+                            <div class="reward-card-body">
+                                <div class="text-h6 text-bold text-center q-py-md">
+                                    GIFT CARD $10
+                                </div>
+                                <q-separator color="white" style="width: 90%; margin: 0 auto;" />
+
+                                <div class="text-h6 text-bold text-center q-py-md">
+                                    ACUMULA PUNTOS POR CADA LIBRA
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 q-pa-md">
+                        <div class="reward-card-silver">
+                            <div class="reward-header-silver">
+                                <div class="text-h6 text-bold text-center">SILVER</div>
+                            </div>
+                            <div class="reward-card-body">
+                                <div class="text-h6 text-bold text-center q-py-md">
+                                    GIFT CARD $25
+                                </div>
+                                <q-separator color="white" style="width: 90%; margin: 0 auto;" />
+
+                                <div class="text-h6 text-bold text-center q-py-md">
+                                    ACUMULA PUNTOS POR CADA LIBRA
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 q-pa-md">
+                        <div class="reward-card-gold">
+                            <div class="reward-header-gold">
+                                <div class="text-h6 text-bold text-center">GOLD</div>
+                            </div>
+                            <div class="reward-card-body">
+                                <div class="text-h6 text-bold text-center q-py-md">
+                                    GIFT CARD $25
+                                </div>
+                                <q-separator color="white" style="width: 90%; margin: 0 auto;" />
+
+                                <div class="text-h6 text-bold text-center q-py-md">
+                                    ACUMULA PUNTOS POR CADA LIBRA
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 q-pa-md">
+                        <div class="reward-card-platinum">
+                            <div class="reward-header-platinum">
+                                <div class="text-h6 text-bold text-center">PLATINUM</div>
+                            </div>
+                            <div class="reward-card-body">
+                                <div class="text-h6 text-bold text-center q-py-md">
+                                    GIFT CARD $25
+                                </div>
+                                <q-separator color="white" style="width: 90%; margin: 0 auto;" />
+
+                                <div class="text-h6 text-bold text-center q-py-md">
+                                    ACUMULA PUNTOS POR CADA LIBRA
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <q-space />
+                </div>
+                <div class="row q-mb-xl">
+                    <div class="text-h5 text-bold text-white full-width text-center">
+                        <span class="text-accent">RECICLA TUS CAJAS</span> CON NOSOTROS Y
+                        <span class="text-accent">SUMA PUNTOS</span> A TU CUENTA REWARDS Y PARTICIPA
+                        PARA MAS PREMIOS CON TUS PUNTOS ACUMULADOS.
+                    </div>
                 </div>
             </div>
             <q-space />
@@ -46,31 +130,156 @@
 <script>
 export default {
     data() {
-        return {
-            benefits: [
-                'ENVIO GRATIS DE PAQUETES DE PANAMÁ PACIFICO A 24 DE DICIEMBRE',
-                'STATUS/RANK: Y-GO SHOPPER INMEDIATO',
-                'POR CADA LIBRA TRAIDA ACUMULAS 1 PUNTO AL PROGRAMA REWARDS',
-                'ENTRE MAS TRAES SUBES DE RANKING EN EL REWARDS PROGRAM Y GANAS PREMIOS',
-                'BRONZE (200 LBS) Y RECIBES: $10 GIFT CARD',
-                'SILVER (400 LBS) Y RECIBES: $25 GIFT CARD',
-                'GOLD (600 LBS) Y RECIBES:  $50 GIFT CARD',
-                'PLATINUM (800 LBS) Y RECIBES: $120 AMAZON PRIME ANUALIDAD MEMBRESIA',
-                'PODRAS CANJEAR TUS PUNTOS POR LBS',
-                'Y-GO SHOPPER: XX PTS = 1 LB',
-                'BRONZE: XX PTS = 1 LB',
-                'SILVER: XX PTS = 1 LB',
-                'GOLD : XX PTS = 1 LBGOLD : XX PTS = 1 LB',
-                'PLATINUM: XX PTS = 1 LB',
-                'RECICLA TUS CAJAS CON NOSOTROS Y SUMA PUNTOS A TU CUENTA REWARDS',
-                'LIBRAS GRATIS EN TU CUMPLEAÑOS (3 LBS)',
-                'PARTICIPACIÓN PARA GIVEAWAY MENSUAL ($100.00) POR CADA PUNTO ACUMULADO ',
-                'PARTICIPACIÓN PARA GIVEAWAY DICIEMBRE PASAJE AÉREO 2 PERSONAS POR CADA PUNTO ACUMULADO ',
-            ],
-        }
+        return {}
     },
     mounted() {
         window.scrollTo(0, 0)
     },
 }
 </script>
+
+<style>
+.reward-card-body {
+    color: #fff;
+}
+
+.reward-card-shopper {
+    border: solid 3px #fff;
+}
+.reward-header-shopper {
+    padding: 7px;
+    background-color: #fff;
+    color: #000;
+}
+
+.reward-card-bronze {
+    border: solid 3px #db9c55;
+}
+.reward-header-bronze {
+    padding: 7px;
+    background: rgb(219, 156, 85);
+    background: -moz-linear-gradient(
+        90deg,
+        rgba(219, 156, 85, 1) 0%,
+        rgba(227, 95, 58, 1) 23%,
+        rgba(219, 156, 85, 1) 50%,
+        rgba(227, 95, 58, 1) 68%,
+        rgba(219, 156, 85, 1) 100%
+    );
+    background: -webkit-linear-gradient(
+        90deg,
+        rgba(219, 156, 85, 1) 0%,
+        rgba(227, 95, 58, 1) 23%,
+        rgba(219, 156, 85, 1) 50%,
+        rgba(227, 95, 58, 1) 68%,
+        rgba(219, 156, 85, 1) 100%
+    );
+    background: linear-gradient(
+        90deg,
+        rgba(219, 156, 85, 1) 0%,
+        rgba(227, 95, 58, 1) 23%,
+        rgba(219, 156, 85, 1) 50%,
+        rgba(227, 95, 58, 1) 68%,
+        rgba(219, 156, 85, 1) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#db9c55",endColorstr="#db9c55",GradientType=1);
+    color: #000;
+}
+.reward-card-silver {
+    border: solid 3px #cad0d4;
+}
+
+.reward-header-silver {
+    padding: 7px;
+    background: rgb(202, 208, 212);
+    background: -moz-linear-gradient(
+        90deg,
+        rgba(202, 208, 212, 1) 0%,
+        rgba(157, 158, 162, 1) 23%,
+        rgba(202, 208, 212, 1) 50%,
+        rgba(157, 158, 162, 1) 68%,
+        rgba(202, 208, 212, 1) 100%
+    );
+    background: -webkit-linear-gradient(
+        90deg,
+        rgba(202, 208, 212, 1) 0%,
+        rgba(157, 158, 162, 1) 23%,
+        rgba(202, 208, 212, 1) 50%,
+        rgba(157, 158, 162, 1) 68%,
+        rgba(202, 208, 212, 1) 100%
+    );
+    background: linear-gradient(
+        90deg,
+        rgba(202, 208, 212, 1) 0%,
+        rgba(157, 158, 162, 1) 23%,
+        rgba(202, 208, 212, 1) 50%,
+        rgba(157, 158, 162, 1) 68%,
+        rgba(202, 208, 212, 1) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cad0d4",endColorstr="#cad0d4",GradientType=1);
+}
+.reward-card-gold {
+    border: solid 3px #feca77;
+}
+.reward-header-gold {
+    padding: 7px;
+    background: rgb(254, 202, 119);
+    background: -moz-linear-gradient(
+        90deg,
+        rgba(254, 202, 119, 1) 0%,
+        rgba(198, 129, 71, 1) 23%,
+        rgba(254, 202, 119, 1) 50%,
+        rgba(198, 129, 71, 1) 68%,
+        rgba(254, 202, 119, 1) 100%
+    );
+    background: -webkit-linear-gradient(
+        90deg,
+        rgba(254, 202, 119, 1) 0%,
+        rgba(198, 129, 71, 1) 23%,
+        rgba(254, 202, 119, 1) 50%,
+        rgba(198, 129, 71, 1) 68%,
+        rgba(254, 202, 119, 1) 100%
+    );
+    background: linear-gradient(
+        90deg,
+        rgba(254, 202, 119, 1) 0%,
+        rgba(198, 129, 71, 1) 23%,
+        rgba(254, 202, 119, 1) 50%,
+        rgba(198, 129, 71, 1) 68%,
+        rgba(254, 202, 119, 1) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#feca77",endColorstr="#feca77",GradientType=1);
+}
+.reward-card-platinum {
+    border: solid 3px #ccdfe6;
+}
+.reward-header-platinum {
+    padding: 7px;
+    background: rgb(204, 223, 230);
+    background: -moz-linear-gradient(
+        90deg,
+        rgba(204, 223, 230, 1) 0%,
+        rgba(126, 147, 160, 1) 23%,
+        rgba(204, 223, 230, 1) 50%,
+        rgba(126, 147, 160, 1) 68%,
+        rgba(204, 223, 230, 1) 100%
+    );
+    background: -webkit-linear-gradient(
+        90deg,
+        rgba(204, 223, 230, 1) 0%,
+        rgba(126, 147, 160, 1) 23%,
+        rgba(204, 223, 230, 1) 50%,
+        rgba(126, 147, 160, 1) 68%,
+        rgba(204, 223, 230, 1) 100%
+    );
+    background: linear-gradient(
+        90deg,
+        rgba(204, 223, 230, 1) 0%,
+        rgba(126, 147, 160, 1) 23%,
+        rgba(204, 223, 230, 1) 50%,
+        rgba(126, 147, 160, 1) 68%,
+        rgba(204, 223, 230, 1) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ccdfe6",endColorstr="#ccdfe6",GradientType=1);
+}
+</style>
