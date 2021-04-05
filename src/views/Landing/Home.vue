@@ -27,6 +27,8 @@
             </div>
             <q-space />
         </div> -->
+
+        <!-- DESKTOP SLIDES -->
         <q-carousel
             v-model="slide"
             transition-prev="slide-right"
@@ -36,6 +38,7 @@
             infinite
             height="auto"
             autoplay
+            class="xs-hide"
         >
             <q-carousel-slide :name="1" class="q-pa-none">
                 <q-img :src="require('@/assets/Landing/BANNER-03.svg')" />
@@ -47,6 +50,31 @@
                 <q-img :src="require('@/assets/Landing/BANNER-02.svg')" />
             </q-carousel-slide>
         </q-carousel>
+        <!-- /DESKTOP SLIDES -->
+
+        <!-- MOBILE SLIDES -->
+        <q-carousel
+            v-model="slide"
+            transition-prev="slide-right"
+            transition-next="slide-left"
+            swipeable
+            animated
+            infinite
+            height="auto"
+            autoplay
+            class="sm-hide md-hide lg-hide xl-hide"
+        >
+            <q-carousel-slide :name="1" class="q-pa-none">
+                <q-img :src="require('@/assets/Landing/BANNER_mobile-03.svg')" />
+            </q-carousel-slide>
+            <q-carousel-slide :name="2" class="q-pa-none">
+                <q-img :src="require('@/assets/Landing/BANNER_mobile-01.svg')" />
+            </q-carousel-slide>
+            <q-carousel-slide :name="3" class="q-pa-none">
+                <q-img :src="require('@/assets/Landing/BANNER_mobile-02.svg')" />
+            </q-carousel-slide>
+        </q-carousel>
+        <!-- /MOBILE SLIDES -->
         <div class="row form-section">
             <q-space />
             <div class="col-lg-7 col-md-9 col-xs-12 q-px-md">
