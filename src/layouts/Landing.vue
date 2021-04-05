@@ -36,7 +36,11 @@ export default {
                     route: '/tarifas',
                 },
                 {
-                    text: 'Programa de lealtad',
+                    text: 'Y-Ga y Recicla',
+                    route: '/ygo-reciclando',
+                },
+                {
+                    text: 'Programa de Lealtad',
                     route: '/programa-de-lealtad',
                 },
                 {
