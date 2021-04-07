@@ -45,48 +45,48 @@
                                     </div>
                                     <q-menu fit anchor="bottom right" self="top right">
                                         <q-list style="min-width: 100px">
-                                            <q-item clickable v-close-popup>
-                                                <q-item-section>
-                                                    <router-link
-                                                        to="/nosotros"
-                                                        style="text-decoration: none; color: #000"
-                                                    >
+                                            <router-link
+                                                to="/nosotros"
+                                                style="text-decoration: none; color: #000"
+                                            >
+                                                <q-item clickable v-close-popup>
+                                                    <q-item-section>
                                                         <div
                                                             class="text-caption y-go-font text-bold text-right"
                                                         >
                                                             QUIENES SOMOS
                                                         </div>
-                                                    </router-link>
-                                                </q-item-section>
-                                            </q-item>
-                                            <q-item clickable v-close-popup>
-                                                <q-item-section>
-                                                    <router-link
-                                                        to="/terminos-y-condiciones"
-                                                        style="text-decoration: none; color: #000"
-                                                    >
+                                                    </q-item-section>
+                                                </q-item>
+                                            </router-link>
+                                            <router-link
+                                                to="/terminos-y-condiciones"
+                                                style="text-decoration: none; color: #000"
+                                            >
+                                                <q-item clickable v-close-popup>
+                                                    <q-item-section>
                                                         <div
                                                             class="text-caption y-go-font text-bold text-right"
                                                         >
                                                             TERMINOS Y CONDICIONES
                                                         </div>
-                                                    </router-link>
-                                                </q-item-section>
-                                            </q-item>
-                                            <q-item clickable v-close-popup>
-                                                <q-item-section>
-                                                    <router-link
-                                                        to="/politicas-de-privacidad"
-                                                        style="text-decoration: none; color: #000"
-                                                    >
+                                                    </q-item-section>
+                                                </q-item>
+                                            </router-link>
+                                            <router-link
+                                                to="/politicas-de-privacidad"
+                                                style="text-decoration: none; color: #000"
+                                            >
+                                                <q-item clickable v-close-popup>
+                                                    <q-item-section>
                                                         <div
                                                             class="text-caption y-go-font text-bold text-right"
                                                         >
                                                             POLITICAS DE PRIVACIDAD
                                                         </div>
-                                                    </router-link>
-                                                </q-item-section>
-                                            </q-item>
+                                                    </q-item-section>
+                                                </q-item>
+                                            </router-link>
                                         </q-list>
                                     </q-menu>
                                 </a>
@@ -165,7 +165,7 @@
                             to="/user"
                             v-if="
                                 $router.currentRoute.path != '/user' ||
-                                    $router.currentRoute.path != '/checkout'
+                                $router.currentRoute.path != '/checkout'
                             "
                         />
                     </div>
