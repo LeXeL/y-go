@@ -307,18 +307,29 @@ export default {
     },
     methods: {
         advanceStep() {
-            if (this.step === 2) {
-                switch (this.paymentInfo.method) {
-                    case 'clave':
-                        this.test()
-                        break
-                }
+            switch (this.step) {
+                case 0:
+                    this.step++
+                    break
+                case 1:
+                    if (!!this.group) this.step++
+                    break
+                case 2:
+                    switch (this.paymentInfo.method) {
+                        case 'clave':
+                            this.test()
+                            break
+                        case 'ach':
+                            this.test()
+                            break
+                    }
+                    break
             }
-            this.step++
         },
         test() {
             let accessTokenApi = process.env.VUE_APP_YGO_PAGUELOFACILAPI
             let cclw = process.env.VUE_APP_YGO_PAGUELOFACILCCLW
+            console.log(accessTokenApi, cclw)
             pfClave.useAsSandbox(true) //en caso de que desee realizar transacciones para pruebas.
 
             pfClave
@@ -328,46 +339,43 @@ export default {
                 })
                 .then(
                     function (merchantSetup) {
-                        startMerchantForm(merchantSetup)
+                        this.startMerchantForm(merchantSetup)
                     },
                     function (error) {
                         console.log(error)
                     }
                 )
-
-            let sdk
-            function startMerchantForm(merchantSetup) {
-                let paymentInfo = {
-                    amount: 15.0, //Monto de la compra
-                    taxAmount: 0.0, //Monto de los impuestos
-                    description: 'descripcion personalizada', //Descripción corta del motivo del pago
-                }
-                let userInfo = {
-                    email: 'alam@brito.com', //Correo electrónico del usuario que realiza la compra
-                    phone: '+50761111111', //Teléfono movil del usuario que realiza la compra
-                }
-
-                let setup = {
-                    lang: 'es', //Idioma los valores posibles son "es", "en"
-                    embedded: false, // sí desea que se embebido o muestre un botón.
-                    container: 'container-form', //Elemento html donde se introducirá el formulario de pago de clave
-                    onError: function (data) {
-                        console.error('onError errors', data)
-                    },
-                    onTxSuccess: function (data) {
-                        console.log('onTxSuccess', data)
-                        window.location.href =
-                            pfClave.pfHostViews + `/pf/default-receipt/${data?.Oper}`
-                    },
-                    onTxError: function (data) {
-                        console.error('when the onTxError, in other process', data)
-                    },
-                    onClose: function () {
-                        console.log('onClose called')
-                    },
-                }
-                sdk = merchantSetup.init(merchantSetup.dataMerchant, paymentInfo, setup, userInfo)
+        },
+        startMerchantForm(merchantSetup) {
+            let paymentInfo = {
+                amount: 15.0, //Monto de la compra
+                taxAmount: 0.0, //Monto de los impuestos
+                description: 'descripcion personalizada', //Descripción corta del motivo del pago
             }
+            let userInfo = {
+                email: 'alam@brito.com', //Correo electrónico del usuario que realiza la compra
+                phone: '+50761111111', //Teléfono movil del usuario que realiza la compra
+            }
+
+            let setup = {
+                lang: 'es', //Idioma los valores posibles son "es", "en"
+                embedded: false, // sí desea que se embebido o muestre un botón.
+                container: 'container-form', //Elemento html donde se introducirá el formulario de pago de clave
+                onError: function (data) {
+                    console.error('onError errors', data)
+                },
+                onTxSuccess: function (data) {
+                    console.log('onTxSuccess', data)
+                    window.location.href = pfClave.pfHostViews + `/pf/default-receipt/${data?.Oper}`
+                },
+                onTxError: function (data) {
+                    console.error('when the onTxError, in other process', data)
+                },
+                onClose: function () {
+                    console.log('onClose called')
+                },
+            }
+            merchantSetup.init(merchantSetup.dataMerchant, paymentInfo, setup, userInfo)
         },
         async payWithClave() {
             // this.orderNo = await this.generateOrder()
