@@ -478,6 +478,10 @@ export default {
         }
         api.returnUserProfileInformation({uid: this.uid}).then(response => {
             this.userInformation = response.data.data
+            this.$store.commit(
+                'SET_CART',
+                this.userInformation.invoices.filter(inv => inv.status === 'unpaid')
+            )
             this.displayLoading = false
             this.userName = `${this.userInformation.user.name} ${this.userInformation.user.lastName}`
             this.value = this.userInformation.user.poundsCount
