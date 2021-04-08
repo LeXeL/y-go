@@ -6,6 +6,7 @@ export default {
         isVerified: '',
         token: localStorage.getItem('user-token') || '',
         uid: localStorage.getItem('uid') || '',
+        cart: '',
     },
     mutations: {
         SET_USER: (state, payload) => {
@@ -17,15 +18,15 @@ export default {
         SET_TOEKN: (state, payload) => {
             state.token = payload
         },
-        ADD_CART: (state, payload) => {
-            state.user.cart.push(payload)
+        SET_CART: (state, payload) => {
+            state.cart = payload
         },
         SET_VERIFIED: (state, payload) => {
             state.isVerified = payload
         },
     },
     actions: {
-        setCurrentUser: async ({ commit, dispatch }, user) => {
+        setCurrentUser: async ({commit, dispatch}, user) => {
             try {
                 let token = await user.getIdToken()
                 commit('SET_UID', user.uid)
@@ -38,7 +39,7 @@ export default {
                 return error
             }
         },
-        UserLogout: async ({ commit, dispatch }) => {
+        UserLogout: async ({commit, dispatch}) => {
             commit('SET_USER', '')
             commit('SET_UID', '')
             commit('SET_TOEKN', '')
@@ -52,6 +53,6 @@ export default {
         isVerified: state => state.isVerified,
         isAuthenticated: state => !!state.token,
         role: state => state.user.role,
-        cart: state => (state.user.cart ? state.user.cart : []),
+        cart: state => state.cart,
     },
 }

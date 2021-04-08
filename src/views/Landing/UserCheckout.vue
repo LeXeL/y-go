@@ -44,19 +44,20 @@
                             </q-card-section>
                             <q-separator />
                             <q-card-section v-if="step == 0">
-                                <div class="q-mb-sm" v-for="(inv, i) in 2" :key="i">
+                                <div class="q-mb-sm" v-for="(inv, i) in cart" :key="i">
                                     <div class="text-body2 text-bold q-mb-sm full-width">
-                                        <span class="text-accent">Factura No. 4456</span> - $ 23.67
+                                        <span class="text-accent">Factura No. {{ inv.No }}</span> -
+                                        $ {{ inv.price }}
                                     </div>
-                                    <div class="row" v-for="(pkg, i) in 3" :key="i">
+                                    <div class="row" v-for="(pkg, i) in inv.packages" :key="i">
                                         <div class="col">
-                                            <div class="text-body">TBD4293879234</div>
+                                            <div class="text-body">{{ pkg.tracking }}</div>
                                         </div>
                                         <div class="col">
-                                            <div class="text-body">5 lb.</div>
+                                            <div class="text-body">{{ pkg.weight }} lb.</div>
                                         </div>
                                         <div class="col">
-                                            <div class="text-body">$ 3.00</div>
+                                            <div class="text-body">$ {{ pkg.price }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -209,9 +210,11 @@
                             <q-separator />
                             <q-card-section>
                                 <div class="row q-mb-sm">
-                                    <div class="text-body2">Facturas a pagar: (3)</div>
+                                    <div class="text-body2">
+                                        Facturas a pagar: ({{ totalItemsToPay }})
+                                    </div>
                                     <q-space />
-                                    <div class="text-body2">$ 34.56</div>
+                                    <div class="text-body2">$ {{ totalAmount }}</div>
                                 </div>
                                 <div class="row q-mb-sm">
                                     <div class="text-body2">Delivery</div>
@@ -221,7 +224,7 @@
                                 <div class="row">
                                     <div class="text-body2">ITBMS:</div>
                                     <q-space />
-                                    <div class="text-body2">$ 5.67</div>
+                                    <div class="text-body2">$ {{ itbms }}</div>
                                 </div>
                             </q-card-section>
                             <q-separator />
@@ -229,7 +232,7 @@
                                 <div class="row">
                                     <div class="text-body2">TOTAL:</div>
                                     <q-space />
-                                    <div class="text-body2 text-bold">$ 35.98</div>
+                                    <div class="text-body2 text-bold">$ {{ totalAmountToPay }}</div>
                                 </div>
                             </q-card-section>
                         </q-card>
@@ -247,11 +250,7 @@ export default {
         return {
             step: 0,
             group: null,
-            options: [
-                {label: 'Recoger en local', value: 'pickup'},
-                {label: 'Delivery - Direccion de entrega 1', value: 'delivery_1'},
-                {label: 'Delivery - Direccion de entrega 2', value: 'delivery_2'},
-            ],
+            options: [{label: 'Recoger en local', value: 'pickup'}],
             paymentMethod: [
                 {
                     label: 'Visa',
@@ -280,11 +279,202 @@ export default {
                 pin: '',
                 proofOfPayment: null,
             },
+            totalItemsToPay: 0,
+            totalAmount: 0.0,
+            itbms: 10.51,
+            totalAmountToPay: 0,
         }
+    },
+    computed: {
+        user() {
+            const user = this.$store.getters.user
+            if (!user.hasOwnProperty('businessAproved')) {
+                this.options.push({label: `Delivery - ${user.address}`, value: 'delivery_1'})
+                if (user.address2)
+                    this.options.push({label: `Delivery - ${user.address2}`, value: 'delivery_2'})
+            }
+            return user
+        },
+        cart() {
+            const cart = this.$store.getters.cart
+            this.totalItemsToPay = cart.length
+            cart.forEach(inv => {
+                this.totalAmount += parseFloat(inv.price)
+            })
+            this.totalAmountToPay = this.totalAmount + this.itbms
+            return cart
+        },
     },
     methods: {
         advanceStep() {
+            if (this.step === 2) {
+                switch (this.paymentInfo.method) {
+                    case 'clave':
+                        this.test()
+                        break
+                }
+            }
             this.step++
+        },
+        test() {
+            let accessTokenApi = process.env.VUE_APP_YGO_PAGUELOFACILAPI
+            let cclw = process.env.VUE_APP_YGO_PAGUELOFACILCCLW
+            pfClave.useAsSandbox(true) //en caso de que desee realizar transacciones para pruebas.
+
+            pfClave
+                .openService({
+                    apiKey: accessTokenApi,
+                    cclw: cclw,
+                })
+                .then(
+                    function (merchantSetup) {
+                        startMerchantForm(merchantSetup)
+                    },
+                    function (error) {
+                        console.log(error)
+                    }
+                )
+
+            let sdk
+            function startMerchantForm(merchantSetup) {
+                let paymentInfo = {
+                    amount: 15.0, //Monto de la compra
+                    taxAmount: 0.0, //Monto de los impuestos
+                    description: 'descripcion personalizada', //Descripción corta del motivo del pago
+                }
+                let userInfo = {
+                    email: 'alam@brito.com', //Correo electrónico del usuario que realiza la compra
+                    phone: '+50761111111', //Teléfono movil del usuario que realiza la compra
+                }
+
+                let setup = {
+                    lang: 'es', //Idioma los valores posibles son "es", "en"
+                    embedded: false, // sí desea que se embebido o muestre un botón.
+                    container: 'container-form', //Elemento html donde se introducirá el formulario de pago de clave
+                    onError: function (data) {
+                        console.error('onError errors', data)
+                    },
+                    onTxSuccess: function (data) {
+                        console.log('onTxSuccess', data)
+                        window.location.href =
+                            pfClave.pfHostViews + `/pf/default-receipt/${data?.Oper}`
+                    },
+                    onTxError: function (data) {
+                        console.error('when the onTxError, in other process', data)
+                    },
+                    onClose: function () {
+                        console.log('onClose called')
+                    },
+                }
+                sdk = merchantSetup.init(merchantSetup.dataMerchant, paymentInfo, setup, userInfo)
+            }
+        },
+        async payWithClave() {
+            // this.orderNo = await this.generateOrder()
+            let payload = await this.buildPayload()
+            console.log(`payload:${JSON.stringify(payload)}`)
+            pfClave.useAsSandbox(true)
+            pfClave
+                .openService({
+                    apiKey: process.env.VUE_APP_YGO_PAGUELOFACILAPI,
+                    cclw: process.env.VUE_APP_YGO_PAGUELOFACILCCLW,
+                })
+                .then(merchantSetup => {
+                    console.log(merchantSetup)
+                    // let paymentInfo = {
+                    //     amount: 15.0, //Monto de la compra
+                    //     taxAmount: 0.0, //Monto de los impuestos
+                    //     description: 'descripcion personalizada', //Descripción corta del motivo del pago
+                    // }
+
+                    // let userInfo = {
+                    //     email: 'alam@brito.com', //Correo electrónico del usuario que realiza la compra
+                    //     phone: '+50761111111', //Teléfono movil del usuario que realiza la compra
+                    // }
+
+                    // let setup = {
+                    //     lang: 'es', //Idioma los valores posibles son "es", "en"
+                    //     embedded: false, // sí desea que se embebido o muestre un botón.
+                    //     container: 'container-form', //Elemento html donde se introducirá el formulario de pago de clave
+                    //     onError: function (data) {
+                    //         console.error('onError errors', data)
+                    //     },
+                    //     onTxSuccess: function (data) {
+                    //         console.log('onTxSuccess', data)
+                    //     },
+                    //     onTxError: function (data) {
+                    //         console.error('when the onTxError, in other process', data)
+                    //     },
+                    //     onClose: function () {
+                    //         console.log('onClose called')
+                    //     },
+                    // }
+                    // merchantSetup.init(merchantSetup.dataMerchant, paymentInfo, setup, userInfo)
+                    // },
+                    // function (error) {
+                    //     console.log(error)
+                })
+                .catch(e => console.log(e))
+            // this.loadingRequest = true
+            // fetch(process.env.VUE_APP_YGO_PAGUELOFACILLINK, {
+            //     method: 'POST',
+            //     mode: 'cors', // no-cors, *cors, same-origin
+            //     cache: 'no-cache',
+            //     credentials: 'same-origin',
+            //     headers: {
+            //         authorization: process.env.VUE_APP_YGO_PAGUELOFACILAPI,
+            //         'content-type': 'application/json',
+            //     },
+            //     body: JSON.stringify(payload),
+            // })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         if (data.success) {
+            //             console.log(data)
+            //         }
+            //         if (!data.success) {
+            //             console.log(data)
+            //             this.loadingRequest = false
+            //             this.errorPayment = true
+            //             if (data.headerStatus.code === 607)
+            //                 this.errMsg = 'La tarjeta de Credito no es valida'
+            //             if (data.headerStatus.code === 605)
+            //                 this.errMsg = 'La tarjeta de Credito no es valida'
+            //             if (data.headerStatus.code === 611)
+            //                 this.errMsg = 'El numero de telefono no es valido, por favor chekealo!'
+            //             if (data.headerStatus.code === 609)
+            //                 this.errMsg =
+            //                     'El nombre de la tarjeta tiene un error, por favor chekealo!'
+            //             if (data.headerStatus.code === 551)
+            //                 this.errMsg =
+            //                     'La informacion suministrada tiene un error, por favor chekeala!'
+            //         }
+            //     })
+        },
+
+        async buildPayload() {
+            let payload = {
+                cclw: process.env.VUE_APP_YGO_PAGUELOFACILCCLW,
+                amount: this.totalAmountToPay,
+                taxAmount: 1.0,
+                email: this.user.email,
+                phone: this.user.phone,
+                address: this.group,
+                concept: `this.orderNo`,
+                description: `this.orderNo`,
+                lang: 'ES',
+                cardInformation: {
+                    cardNumber: this.paymentInfo.cardNo.replaceAll(' ', ''),
+                    expMonth: this.paymentInfo.expDate.split('/')[0],
+                    expYear: this.paymentInfo.expDate.split('/')[1],
+                    cvv: this.paymentInfo.code,
+                    firstName: this.paymentInfo.name,
+                    lastName: this.paymentInfo.lastName,
+                    cardType: 'CLAVE',
+                    pin: this.paymentInfo.method === 'clave' ? this.paymentInfo.pin : '',
+                },
+            }
+            return payload
         },
     },
 }
