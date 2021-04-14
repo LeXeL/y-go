@@ -123,15 +123,22 @@
                         <div class="rateTileSelected q-pa-md rounded-borders text-center">
                             <i :class="returnIconAcordingToRate()"></i>
                             <div class="text-h6 q-mb-sm text-bold">
-                                {{ returnRateName() }}
+                                <!-- {{ returnRateName() }} -->
+                                PLAN STANDARD
                             </div>
                             <q-separator class="q-mb-sm" dark />
-                            <div class="text-subtitle2">Texto punto 1</div>
-                            <div class="text-subtitle2 q-mt-sm">Texto punto 2</div>
-                            <div class="text-subtitle2 q-mt-sm">Texto punto 3</div>
-                            <div class="text-h5 text-bold q-mt-md" v-if="showPrice()">
-                                $
-                                {{ returnRatePrice() }}
+                            <div class="text-h5 text-bold q-mt-md q-mb-md" v-if="showPrice()">
+                                *$
+                                <!-- {{ returnRatePrice() }} -->
+                                3.50
+                            </div>
+                            <div class="text-body2">
+                                * La libra a considerar es la mayor entre el peso real y el peso
+                                volumetrico del paquete. <br />[MOSTRAR ESTO SI ES PLAN STANDARD]
+                            </div>
+                            <div class="text-body2">
+                                * La libra a considerar es unicamente el peso real del paquete.
+                                <br />[MOSTRAR ESTO SI ES PLAN PREMIUM]
                             </div>
                         </div>
                     </div>
