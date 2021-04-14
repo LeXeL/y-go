@@ -37,7 +37,7 @@
             animated
             infinite
             height="auto"
-            autoplay
+            :autoplay="10000"
             class="xs-hide"
         >
             <q-carousel-slide :name="1" class="q-pa-none">
@@ -61,7 +61,7 @@
             animated
             infinite
             height="auto"
-            autoplay
+            :autoplay="10000"
             class="sm-hide md-hide lg-hide xl-hide"
         >
             <q-carousel-slide :name="1" class="q-pa-none">

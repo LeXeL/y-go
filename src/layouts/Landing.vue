@@ -10,6 +10,11 @@
 
         <q-page-container>
             <router-view />
+            <q-page-sticky position="bottom-right" :offset="[30, 30]">
+                <a href="https://wa.me/50767210200" target="_blank" style="text-decoration: none;">
+                    <q-btn fab icon="fab fa-whatsapp" color="accent" push />
+                </a>
+            </q-page-sticky>
         </q-page-container>
         <!-- FOOTER -->
         <Footer />
@@ -36,7 +41,7 @@ export default {
                     route: '/tarifas',
                 },
                 {
-                    text: 'Y-Ga y Recicla',
+                    text: 'Y-GO Reciclando',
                     route: '/ygo-reciclando',
                 },
                 {
