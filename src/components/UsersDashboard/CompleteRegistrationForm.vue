@@ -156,7 +156,7 @@
                                                 Servicio de retorno
                                             </div>
                                             <div class="text-subtitle2 text-bold q-mb-sm">
-                                                Servicio de compra de internet
+                                                Servicio de compras por internet
                                             </div>
                                             <div class="text-subtitle2 text-bold q-mb-sm">
                                                 Notificaci&oacute;n via web
@@ -179,8 +179,8 @@
                                                 class="text-caption"
                                                 v-if="selectedSubsidiary !== ''"
                                             >
-                                                La libra a considerar es la mayor entre el peso real
-                                                y el peso volumetrico del paquete.
+                                                * La libra a considerar es la mayor entre el peso
+                                                real y el peso volumetrico del paquete.
                                             </div>
                                         </div>
                                     </div>
@@ -224,7 +224,7 @@
                                                 Servicio de retorno
                                             </div>
                                             <div class="text-subtitle2 text-bold q-mb-sm">
-                                                Servicio de compra de internet
+                                                Servicio de compras por internet
                                             </div>
                                             <div class="text-subtitle2 text-bold q-mb-sm">
                                                 Notificaci&oacute;n via web
@@ -250,8 +250,8 @@
                                                 class="text-caption"
                                                 v-if="selectedSubsidiary !== ''"
                                             >
-                                                La libra a considerar es unicamente el peso real del
-                                                paquete.
+                                                * La libra a considerar es unicamente el peso real
+                                                del paquete.
                                             </div>
                                         </div>
                                     </div>

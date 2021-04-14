@@ -43,7 +43,7 @@
                             </div>
                             <div class="reward-card-body">
                                 <div class="text-h6 text-bold text-center q-py-md">
-                                    2lb gratis de bienvenida
+                                    2lb Welcome
                                 </div>
                                 <q-separator color="white" style="width: 90%; margin: 0 auto;" />
 
