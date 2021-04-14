@@ -178,6 +178,10 @@ async function returnAllInvoiceByUid(uid) {
         })
     return invoices
 }
+async function payInvoices(invoices) {
+    console.log(invoices)
+    return invoices
+}
 module.exports = {
     createInvoice,
     updateInvoice,
@@ -185,4 +189,5 @@ module.exports = {
     returnAllInvoices,
     returnInvoiceById,
     returnAllInvoiceByUid,
+    payInvoices,
 }

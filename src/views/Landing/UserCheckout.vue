@@ -23,7 +23,9 @@
                         </q-card-section>
                     </q-card>
                 </div>
-
+                <div align="center">
+                    <div id="container-form" style="width: 100%; height: 800px"></div>
+                </div>
                 <div class="row">
                     <div class="col-md-8 col-xs-12 q-pa-md">
                         <q-card class="q-mb-md">
@@ -245,6 +247,7 @@
 </template>
 
 <script>
+import * as api from '@/api/api'
 export default {
     data() {
         return {
@@ -320,12 +323,13 @@ export default {
                             this.test()
                             break
                         case 'ach':
-                            this.test()
+                            this.uploadPayment()
                             break
                     }
                     break
             }
         },
+        uploadPayment() {},
         test() {
             let accessTokenApi = process.env.VUE_APP_YGO_PAGUELOFACILAPI
             let cclw = process.env.VUE_APP_YGO_PAGUELOFACILCCLW
@@ -339,125 +343,81 @@ export default {
                 })
                 .then(
                     function (merchantSetup) {
-                        this.startMerchantForm(merchantSetup)
+                        let paymentInfo = {
+                            amount: 15.0, //Monto de la compra
+                            taxAmount: 0.0, //Monto de los impuestos
+                            description: 'descripcion personalizada', //Descripción corta del motivo del pago
+                        }
+                        let userInfo = {
+                            email: 'diego.r2892@gmail.com', //Correo electrónico del usuario que realiza la compra
+                            phone: '+50764806778', //Teléfono movil del usuario que realiza la compra
+                        }
+
+                        let setup = {
+                            lang: 'es', //Idioma los valores posibles son "es", "en"
+                            embedded: true, // sí desea que se embebido o muestre un botón.
+                            container: 'container-form', //Elemento html donde se introducirá el formulario de pago de clave
+                            onError: function (data) {
+                                console.error('onError errors', data)
+                            },
+                            onTxSuccess: function (data) {
+                                console.log('onTxSuccess', data)
+                                window.location.href =
+                                    pfClave.pfHostViews + `/pf/default-receipt/${data?.Oper}`
+                            },
+                            onTxError: function (data) {
+                                console.error('when the onTxError, in other process', data)
+                            },
+                            onClose: function () {
+                                console.log('onClose called')
+                            },
+                        }
+                        merchantSetup.init(merchantSetup.dataMerchant, paymentInfo, setup, userInfo)
                     },
                     function (error) {
                         console.log(error)
                     }
                 )
         },
-        startMerchantForm(merchantSetup) {
-            let paymentInfo = {
-                amount: 15.0, //Monto de la compra
-                taxAmount: 0.0, //Monto de los impuestos
-                description: 'descripcion personalizada', //Descripción corta del motivo del pago
-            }
-            let userInfo = {
-                email: 'alam@brito.com', //Correo electrónico del usuario que realiza la compra
-                phone: '+50761111111', //Teléfono movil del usuario que realiza la compra
-            }
-
-            let setup = {
-                lang: 'es', //Idioma los valores posibles son "es", "en"
-                embedded: false, // sí desea que se embebido o muestre un botón.
-                container: 'container-form', //Elemento html donde se introducirá el formulario de pago de clave
-                onError: function (data) {
-                    console.error('onError errors', data)
-                },
-                onTxSuccess: function (data) {
-                    console.log('onTxSuccess', data)
-                    window.location.href = pfClave.pfHostViews + `/pf/default-receipt/${data?.Oper}`
-                },
-                onTxError: function (data) {
-                    console.error('when the onTxError, in other process', data)
-                },
-                onClose: function () {
-                    console.log('onClose called')
-                },
-            }
-            merchantSetup.init(merchantSetup.dataMerchant, paymentInfo, setup, userInfo)
-        },
         async payWithClave() {
             // this.orderNo = await this.generateOrder()
             let payload = await this.buildPayload()
             console.log(`payload:${JSON.stringify(payload)}`)
-            pfClave.useAsSandbox(true)
-            pfClave
-                .openService({
-                    apiKey: process.env.VUE_APP_YGO_PAGUELOFACILAPI,
-                    cclw: process.env.VUE_APP_YGO_PAGUELOFACILCCLW,
+            this.loadingRequest = true
+            fetch(process.env.VUE_APP_YGO_PAGUELOFACILLINK, {
+                method: 'POST',
+                mode: 'cors', // no-cors, *cors, same-origin
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    authorization: process.env.VUE_APP_YGO_PAGUELOFACILAPI,
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log(data)
+                    }
+                    if (!data.success) {
+                        console.log(data)
+                        this.loadingRequest = false
+                        this.errorPayment = true
+                        if (data.headerStatus.code === 607)
+                            this.errMsg = 'La tarjeta de Credito no es valida'
+                        if (data.headerStatus.code === 605)
+                            this.errMsg = 'La tarjeta de Credito no es valida'
+                        if (data.headerStatus.code === 611)
+                            this.errMsg = 'El numero de telefono no es valido, por favor chekealo!'
+                        if (data.headerStatus.code === 609)
+                            this.errMsg =
+                                'El nombre de la tarjeta tiene un error, por favor chekealo!'
+                        if (data.headerStatus.code === 551)
+                            this.errMsg =
+                                'La informacion suministrada tiene un error, por favor chekeala!'
+                    }
                 })
-                .then(merchantSetup => {
-                    console.log(merchantSetup)
-                    // let paymentInfo = {
-                    //     amount: 15.0, //Monto de la compra
-                    //     taxAmount: 0.0, //Monto de los impuestos
-                    //     description: 'descripcion personalizada', //Descripción corta del motivo del pago
-                    // }
-
-                    // let userInfo = {
-                    //     email: 'alam@brito.com', //Correo electrónico del usuario que realiza la compra
-                    //     phone: '+50761111111', //Teléfono movil del usuario que realiza la compra
-                    // }
-
-                    // let setup = {
-                    //     lang: 'es', //Idioma los valores posibles son "es", "en"
-                    //     embedded: false, // sí desea que se embebido o muestre un botón.
-                    //     container: 'container-form', //Elemento html donde se introducirá el formulario de pago de clave
-                    //     onError: function (data) {
-                    //         console.error('onError errors', data)
-                    //     },
-                    //     onTxSuccess: function (data) {
-                    //         console.log('onTxSuccess', data)
-                    //     },
-                    //     onTxError: function (data) {
-                    //         console.error('when the onTxError, in other process', data)
-                    //     },
-                    //     onClose: function () {
-                    //         console.log('onClose called')
-                    //     },
-                    // }
-                    // merchantSetup.init(merchantSetup.dataMerchant, paymentInfo, setup, userInfo)
-                    // },
-                    // function (error) {
-                    //     console.log(error)
-                })
-                .catch(e => console.log(e))
-            // this.loadingRequest = true
-            // fetch(process.env.VUE_APP_YGO_PAGUELOFACILLINK, {
-            //     method: 'POST',
-            //     mode: 'cors', // no-cors, *cors, same-origin
-            //     cache: 'no-cache',
-            //     credentials: 'same-origin',
-            //     headers: {
-            //         authorization: process.env.VUE_APP_YGO_PAGUELOFACILAPI,
-            //         'content-type': 'application/json',
-            //     },
-            //     body: JSON.stringify(payload),
-            // })
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         if (data.success) {
-            //             console.log(data)
-            //         }
-            //         if (!data.success) {
-            //             console.log(data)
-            //             this.loadingRequest = false
-            //             this.errorPayment = true
-            //             if (data.headerStatus.code === 607)
-            //                 this.errMsg = 'La tarjeta de Credito no es valida'
-            //             if (data.headerStatus.code === 605)
-            //                 this.errMsg = 'La tarjeta de Credito no es valida'
-            //             if (data.headerStatus.code === 611)
-            //                 this.errMsg = 'El numero de telefono no es valido, por favor chekealo!'
-            //             if (data.headerStatus.code === 609)
-            //                 this.errMsg =
-            //                     'El nombre de la tarjeta tiene un error, por favor chekealo!'
-            //             if (data.headerStatus.code === 551)
-            //                 this.errMsg =
-            //                     'La informacion suministrada tiene un error, por favor chekeala!'
-            //         }
-            //     })
         },
 
         async buildPayload() {
