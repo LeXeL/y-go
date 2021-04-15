@@ -216,7 +216,7 @@
                             <q-separator />
                             <q-card-section class="text-center">
                                 <div class="text-subtitle2 text-bold loyalty-text">
-                                    AFILIATE AL PROGRAMA DE LEALTAD Y-GO Y OBTÉN MÁS BENEFICIOS
+                                    AFÍLIATE AL PROGRAMA DE LEALTAD Y-GO Y OBTÉN MÁS BENEFICIOS
                                 </div>
                                 <div style="padding: 75px 0" class="loyalty-text">
                                     <div class="text-subtitle3 text-bold q-mb-sm">
