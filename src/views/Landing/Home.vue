@@ -144,7 +144,7 @@
                                         href="/terminos-y-condiciones"
                                         target="_blank"
                                         class="text-bold text-accent"
-                                        >aqui.</a
+                                        >aquí.</a
                                     >
                                 </div>
                             </q-card-section>
@@ -166,7 +166,7 @@
                             llevate libras <strong>GRATIS</strong> con tu primer pedido.
                         </div>
                         <q-btn
-                            label="Conoce mas"
+                            label="Conoce más"
                             color="accent"
                             push
                             class="text-bold"

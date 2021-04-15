@@ -26,7 +26,7 @@
                     <q-space />
                     <div class="col-lg-9 col-md-10">
                         <div class="text-h4 text-bold text-white full-width text-center">
-                            CANJEA TUS PUNTOS POR LIBRA.<br />ENVIO GRATIS EN LA CIUDAD DE PANAMA
+                            CANJEA TUS PUNTOS POR LIBRA.<br />ENVIO GRATIS EN LA CIUDAD DE PANAMÁ
                         </div>
                     </div>
                     <q-space />

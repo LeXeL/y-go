@@ -136,7 +136,7 @@
                                                 PO Box personal en Miami
                                             </div>
                                             <div class="text-subtitle2 text-bold q-mb-sm">
-                                                Carga aerea y carga maritima
+                                                Carga aérea y carga maritima
                                             </div>
                                             <div class="text-subtitle2 text-bold q-mb-sm">
                                                 Vuelos diarios Miami - Panam&aacute;
@@ -204,7 +204,7 @@
                                                 PO Box personal en Miami
                                             </div>
                                             <div class="text-subtitle2 text-bold q-mb-sm">
-                                                Carga aerea y carga maritima
+                                                Carga aérea y carga maritima
                                             </div>
                                             <div class="text-subtitle2 text-bold q-mb-sm">
                                                 Vuelos diarios Miami - Panam&aacute;
