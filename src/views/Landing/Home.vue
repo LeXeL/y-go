@@ -144,7 +144,7 @@
                                         href="/terminos-y-condiciones"
                                         target="_blank"
                                         class="text-bold text-accent"
-                                        >aqui.</a
+                                        >aquí.</a
                                     >
                                 </div>
                             </q-card-section>
@@ -162,11 +162,11 @@
                     </div>
                     <div class="col-lg-8 col-md-7 col-sm-6 col-xs-12 column flex-center xs-hide">
                         <div class="text-h4 q-px-lg text-center text-white q-mb-lg">
-                            Afiliate al programa de lealtad de <strong>Y-GO! <br /></strong>Y
+                            Afíliate al programa de lealtad de <strong>Y-GO! <br /></strong>Y
                             llevate libras <strong>GRATIS</strong> con tu primer pedido.
                         </div>
                         <q-btn
-                            label="Conoce mas"
+                            label="Conoce más"
                             color="accent"
                             push
                             class="text-bold"

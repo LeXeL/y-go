@@ -13,14 +13,14 @@
                 <div class="row q-py-lg">
                     <q-space />
                     <q-btn
-                        label="tarifa aerea"
+                        label="tarifa aérea"
                         :color="ratesOnDisplay == 'air' ? 'primary' : 'grey-5'"
                         class="text-bold on-left"
                         unelevated
                         @click="ratesOnDisplay = 'air'"
                     />
                     <q-btn
-                        label="tarifa maritima"
+                        label="tarifa marítima"
                         :color="ratesOnDisplay == 'sea' ? 'primary' : 'grey-5'"
                         class="text-bold on-right"
                         unelevated
@@ -53,7 +53,7 @@
                                     PO Box personal en Miami
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
-                                    Carga aerea y carga maritima
+                                    Carga aérea y carga marítima
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     Vuelos diarios Miami - Panam&aacute;
@@ -76,7 +76,7 @@
                                     Servicio de compras por internet
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
-                                    Notificaci&oacute;n via web
+                                    Notificaci&oacute;n vía web
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     Acceso a tu perfil personal
@@ -93,7 +93,7 @@
                             <q-card-section class="text-center" v-if="ratesOnDisplay == 'air'">
                                 <div class="text-caption">
                                     * La libra a considerar es la mayor entre el peso real y el peso
-                                    volumetrico del paquete.
+                                    volumétrico del paquete.
                                 </div>
                             </q-card-section>
                         </q-card>
@@ -121,7 +121,7 @@
                                     PO Box personal en Miami
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
-                                    Carga aerea y carga maritima
+                                    Carga aérea y carga marítima
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     Vuelos diarios Miami - Panam&aacute;
@@ -144,7 +144,7 @@
                                     Servicio de compras por internet
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
-                                    Notificaci&oacute;n via web
+                                    Notificaci&oacute;n vía web
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     Acceso a tu perfil personal
@@ -188,12 +188,12 @@
                                     ESPECIAL PARA NEGOCIOS
                                 </div>
                                 <div class="text-h4" style="padding: 117px 0">
-                                    Contactanos para m&aacute;s informaci&oacute;n
+                                    Contáctanos para m&aacute;s informaci&oacute;n
                                 </div>
                             </q-card-section>
                             <q-card-section class="text-center">
                                 <q-btn
-                                    label="ESCRIBENOS"
+                                    label="ESCRÍBENOS"
                                     color="accent"
                                     class="text-bold q-px-md"
                                     unelevated
@@ -216,7 +216,7 @@
                             <q-separator />
                             <q-card-section class="text-center">
                                 <div class="text-subtitle2 text-bold loyalty-text">
-                                    AFILIATE AL PROGRAMA DE LEALTAD Y-GO Y OBTEN MAS BENEFICIOS
+                                    AFÍLIATE AL PROGRAMA DE LEALTAD Y-GO Y OBTÉN MÁS BENEFICIOS
                                 </div>
                                 <div style="padding: 75px 0" class="loyalty-text">
                                     <div class="text-subtitle3 text-bold q-mb-sm">
@@ -235,7 +235,7 @@
                             </q-card-section>
                             <q-card-section class="text-center">
                                 <q-btn
-                                    label="Inscribete"
+                                    label="Inscríbete"
                                     class="text-bold q-px-md loyalty-cta text-white"
                                     unelevated
                                     to="/"

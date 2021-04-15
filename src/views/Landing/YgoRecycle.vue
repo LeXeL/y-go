@@ -30,8 +30,8 @@
                             <div>
                                 <i class="fas fa-leaf fa-3x q-mb-lg" />
                                 <div class="text-body2 text-bold">
-                                    Por cada caja de carton o material que pueda ser reclicado,
-                                    sumaras para puntos a tu cuenta del programa de lealtad.
+                                    Por cada caja de cartón o material que pueda ser reclicado,
+                                    sumarás para puntos a tu cuenta del programa de lealtad.
                                 </div>
                             </div>
                         </div>
@@ -40,12 +40,12 @@
                         <div class="recycle-bg recycle-tile text-center flex flex-center">
                             <div>
                                 <div class="text-body2 text-bold q-mb-md" style="font-size: 16px;">
-                                    ¿En que estado deben estar las cajas al momento de entregar?
+                                    ¿En qué estado deben estar las cajas al momento de entregar?
                                 </div>
                                 <div class="text-body2 text-bold">
-                                    Al momento de entrega las cajas (carton, carton corrugado)
-                                    pueden tener la cinta adhesiva y labels en ella. Fijate que
-                                    tengan el simbolo de reciclaje en ella para garantizar que en
+                                    Al momento de entrega las cajas (cartón, cartón corrugado)
+                                    pueden tener la cinta adhesiva y labels en ella. Fíjate que
+                                    tengan el símbolo de reciclaje en ella para garantizar que en
                                     efecto la caja puede ser reciclada.
                                 </div>
                             </div>
@@ -55,10 +55,10 @@
                         <div class="recycle-bg recycle-tile text-center flex flex-center">
                             <div>
                                 <div class="text-body2 text-bold">
-                                    Deben ser entregadas ya desarmadas o "aplanada" y remover
-                                    cualquier otro material de empaque utilizado (bubblewrap,etc.).
-                                    Si tu caja esta abollada, golpeada, dañada o doblada, no hay
-                                    problema! Todavia la puedes traer para canjearla por puntos.
+                                    Deben ser entregadas ya desarmadas o "aplanadas" y remover
+                                    cualquier otro material de empaque utilizado (bubblewrap, etc.).
+                                    Si tu caja está abollada, golpeada, dañada o doblada, ¡No hay
+                                    problema! Todavía la puedes traer para canjearla por puntos.
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                             <div>
                                 <i class="fas fa-leaf fa-3x q-mb-lg" />
                                 <div class="text-body2 text-bold">
-                                    Sin embargo, si la caja ha sido mojada, manchada con quimicos y
+                                    Sin embargo, si la caja ha sido mojada, manchada con químicos y
                                     grasas, no podremos recibirla para su debido proceso.
                                 </div>
                             </div>
