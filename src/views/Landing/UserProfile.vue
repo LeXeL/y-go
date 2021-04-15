@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="!loading">
         <ygo-alert
             :display="displayAlert"
             :title="alertTitle"
@@ -123,22 +123,22 @@
                         <div class="rateTileSelected q-pa-md rounded-borders text-center">
                             <i :class="returnIconAcordingToRate()"></i>
                             <div class="text-h6 q-mb-sm text-bold">
-                                <!-- {{ returnRateName() }} -->
-                                PLAN STANDARD
+                                {{ returnRateName() }}
+                                <!-- PLAN STANDARD -->
                             </div>
                             <q-separator class="q-mb-sm" dark />
                             <div class="text-h5 text-bold q-mt-md q-mb-md" v-if="showPrice()">
                                 *$
-                                <!-- {{ returnRatePrice() }} -->
-                                3.50
+                                {{ returnRatePrice() }}
+                                <!-- 3.50 -->
                             </div>
-                            <div class="text-body2">
-                                * La libra a considerar es la mayor entre el peso real y el peso
-                                volumetrico del paquete. <br />[MOSTRAR ESTO SI ES PLAN STANDARD]
-                            </div>
-                            <div class="text-body2">
+                            <div class="text-body2" v-if="returnRateName() === 'Plan Cero Volumen'">
                                 * La libra a considerar es unicamente el peso real del paquete.
-                                <br />[MOSTRAR ESTO SI ES PLAN PREMIUM]
+                                <br />
+                            </div>
+                            <div class="text-body2" v-else>
+                                * La libra a considerar es la mayor entre el peso real y el peso
+                                volumetrico del paquete. <br />
                             </div>
                         </div>
                     </div>
@@ -310,6 +310,7 @@ export default {
             tab: 'info',
             countryCodes: require('@/assets/country_codes.json'),
             allRates: [],
+            loading: false,
         }
     },
     methods: {
@@ -411,17 +412,19 @@ export default {
     components: {
         GoogleMaps,
     },
-    async mounted() {
+    mounted() {
+        this.loading = true
         this.center = this.userInformationData.user.coordinates
         this.markers.push({position: this.center})
         if (this.userInformationData.user.coordinates2 === undefined) {
             this.geolocate()
-            return
         } else {
             this.center2 = this.userInformationData.user.coordinates2
             this.markers2.push({position: this.center2})
         }
-        api.ReturnAllRates().then(response => (this.allRates = response.data.data))
+        api.ReturnAllRates()
+            .then(response => (this.allRates = response.data.data))
+            .then(() => (this.loading = false))
     },
 }
 </script>
