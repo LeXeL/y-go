@@ -3,7 +3,7 @@
         <div class="row bg-green-7">
             <q-space />
             <div class="col-lg-7 col-xs-12 q-pa-lg text-center">
-                <div class="text-h4 text-white text-bold">PROGRAMA Y-GA Y RECICLA</div>
+                <div class="text-h4 text-white text-bold">PROGRAMA Y-GO RECICLANDO</div>
             </div>
             <q-space />
         </div>
@@ -42,7 +42,7 @@
                                 <div class="text-body2 text-bold q-mb-md" style="font-size: 16px;">
                                     ¿En que estado deben estar las cajas al momento de entregar?
                                 </div>
-                                <div class="text-body2">
+                                <div class="text-body2 text-bold">
                                     Al momento de entrega las cajas (carton, carton corrugado)
                                     pueden tener la cinta adhesiva y labels en ella. Fijate que
                                     tengan el simbolo de reciclaje en ella para garantizar que en
@@ -54,7 +54,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 q-pa-md">
                         <div class="recycle-bg recycle-tile text-center flex flex-center">
                             <div>
-                                <div class="text-body2">
+                                <div class="text-body2 text-bold">
                                     Deben ser entregadas ya desarmadas o "aplanada" y remover
                                     cualquier otro material de empaque utilizado (bubblewrap,etc.).
                                     Si tu caja esta abollada, golpeada, dañada o doblada, no hay
@@ -105,7 +105,7 @@ export default {
     background-color: #70be44;
 }
 .recycle-tile {
-    height: 250px;
+    height: 300px;
     padding: 15px;
     color: white;
 }

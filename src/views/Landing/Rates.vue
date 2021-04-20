@@ -62,6 +62,7 @@
                                     <a
                                         class="text-primary"
                                         href="/terminos-y-condiciones#reclamos-y-seguros"
+                                        target="_blank"
                                         >Paqueteria asegurada</a
                                     >
                                 </div>
@@ -72,7 +73,7 @@
                                     Servicio de retorno
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
-                                    Servicio de compra de internet
+                                    Servicio de compras por internet
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     Notificaci&oacute;n via web
@@ -91,7 +92,7 @@
                             </q-card-section>
                             <q-card-section class="text-center" v-if="ratesOnDisplay == 'air'">
                                 <div class="text-caption">
-                                    La libra a considerar es la mayor entre el peso real y el peso
+                                    * La libra a considerar es la mayor entre el peso real y el peso
                                     volumetrico del paquete.
                                 </div>
                             </q-card-section>
@@ -129,6 +130,7 @@
                                     <a
                                         class="text-primary"
                                         href="/terminos-y-condiciones#reclamos-y-seguros"
+                                        target="_blank"
                                         >Paqueteria asegurada</a
                                     >
                                 </div>
@@ -139,7 +141,7 @@
                                     Servicio de retorno
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
-                                    Servicio de compra de internet
+                                    Servicio de compras por internet
                                 </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     Notificaci&oacute;n via web
@@ -158,7 +160,7 @@
                             </q-card-section>
                             <q-card-section class="text-center" v-if="ratesOnDisplay == 'air'">
                                 <div class="text-caption">
-                                    La libra a considerar es unicamente el peso real del paquete.
+                                    * La libra a considerar es unicamente el peso real del paquete.
                                 </div>
                             </q-card-section>
                         </q-card>

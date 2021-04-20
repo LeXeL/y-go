@@ -8,7 +8,7 @@
                         <router-link to="/">
                             <q-img
                                 :src="require('@/assets/logo_ygo.png')"
-                                style="width: 75px; cursor: pointer"
+                                style="width: 135px; cursor: pointer"
                             />
                         </router-link>
                     </div>
@@ -129,7 +129,7 @@
                                                 : 'border-bottom: solid 3px #fff'
                                         "
                                     >
-                                        Y-GA Y RECICLA
+                                        Y-GO RECICLANDO
                                     </div>
                                 </router-link>
                             </li>

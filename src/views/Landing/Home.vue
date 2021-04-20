@@ -27,6 +27,8 @@
             </div>
             <q-space />
         </div> -->
+
+        <!-- DESKTOP SLIDES -->
         <q-carousel
             v-model="slide"
             transition-prev="slide-right"
@@ -35,7 +37,8 @@
             animated
             infinite
             height="auto"
-            autoplay
+            :autoplay="10000"
+            class="xs-hide"
         >
             <q-carousel-slide :name="1" class="q-pa-none">
                 <q-img :src="require('@/assets/Landing/BANNER-03.svg')" />
@@ -47,11 +50,36 @@
                 <q-img :src="require('@/assets/Landing/BANNER-02.svg')" />
             </q-carousel-slide>
         </q-carousel>
+        <!-- /DESKTOP SLIDES -->
+
+        <!-- MOBILE SLIDES -->
+        <q-carousel
+            v-model="slide"
+            transition-prev="slide-right"
+            transition-next="slide-left"
+            swipeable
+            animated
+            infinite
+            height="auto"
+            :autoplay="10000"
+            class="sm-hide md-hide lg-hide xl-hide"
+        >
+            <q-carousel-slide :name="1" class="q-pa-none">
+                <q-img :src="require('@/assets/Landing/BANNER_mobile-03.svg')" />
+            </q-carousel-slide>
+            <q-carousel-slide :name="2" class="q-pa-none">
+                <q-img :src="require('@/assets/Landing/BANNER_mobile-01.svg')" />
+            </q-carousel-slide>
+            <q-carousel-slide :name="3" class="q-pa-none">
+                <q-img :src="require('@/assets/Landing/BANNER_mobile-02.svg')" />
+            </q-carousel-slide>
+        </q-carousel>
+        <!-- /MOBILE SLIDES -->
         <div class="row form-section">
             <q-space />
             <div class="col-lg-7 col-md-9 col-xs-12 q-px-md">
                 <div class="row">
-                    <div class="col-lg-4 col-sm-6 col-xs-12 q-py-lg q-px-md">
+                    <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 q-py-lg q-px-md">
                         <q-card style="border-left: solid 5px #ff5722">
                             <q-card-section>
                                 <div class="text-h5 text-center text-primary q-mb-xs">
@@ -132,7 +160,7 @@
                             </q-card-actions>
                         </q-card>
                     </div>
-                    <div class="col-lg-8 col-xs-12 column flex-center xs-hide">
+                    <div class="col-lg-8 col-md-7 col-sm-6 col-xs-12 column flex-center xs-hide">
                         <div class="text-h4 q-px-lg text-center text-white q-mb-lg">
                             Afiliate al programa de lealtad de <strong>Y-GO! <br /></strong>Y
                             llevate libras <strong>GRATIS</strong> con tu primer pedido.

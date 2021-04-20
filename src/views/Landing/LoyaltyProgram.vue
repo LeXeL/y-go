@@ -7,25 +7,34 @@
             </div>
             <q-space />
         </div>
-        <div class="row form-section" style="height: auto;">
-            <q-space />
-            <div class="col-lg-9 col-md-10">
-                <div class="row q-mt-xl q-mb-xl">
-                    <div class="text-h4 text-bold text-white full-width text-center">
-                        POR TAN SOLO <span class="text-accent">$25.00 ANUALES</span> PUEDES
-                        PERTENECER A NUESTRO PROGRAMA REWARDS Y LLEVARTE ESTOS BENEFICIOS:
+        <div class="row form-section q-pa-md" style="height: auto;">
+            <div class="full-width q-my-xl">
+                <div class="row">
+                    <q-space />
+                    <div class="col-lg-9 col-md-10">
+                        <div class="text-h5 text-bold text-white full-width text-center">
+                            POR TAN SOLO <span class="text-accent">$25.00 ANUALES</span> PUEDES
+                            PERTENECER A NUESTRO PROGRAMA REWARDS Y LLEVARTE ESTOS BENEFICIOS:
+                        </div>
                     </div>
-                </div>
-                <div class="row q-mb-xl">
-                    <div class="text-h4 text-bold text-white full-width text-center">
-                        CANJEA TUS PUNTOS POR LIBRA.<br />ENVIO GRATIS EN LA CIUDAD DE PANAMA
-                    </div>
+                    <q-space />
                 </div>
             </div>
-            <q-space />
-            <q-space />
-            <div class="col-lg-12">
-                <div class="row q-mb-xl">
+
+            <div class="full-width q-mb-xl">
+                <div class="row">
+                    <q-space />
+                    <div class="col-lg-9 col-md-10">
+                        <div class="text-h4 text-bold text-white full-width text-center">
+                            CANJEA TUS PUNTOS POR LIBRA.<br />ENVIO GRATIS EN LA CIUDAD DE PANAMA
+                        </div>
+                    </div>
+                    <q-space />
+                </div>
+            </div>
+
+            <div class="full-width q-mb-xl">
+                <div class="row">
                     <q-space />
                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 q-pa-md">
                         <div class="reward-card-shopper">
@@ -34,7 +43,7 @@
                             </div>
                             <div class="reward-card-body">
                                 <div class="text-h6 text-bold text-center q-py-md">
-                                    2lb gratis de bienvenida
+                                    2lb Welcome
                                 </div>
                                 <q-separator color="white" style="width: 90%; margin: 0 auto;" />
 
@@ -114,15 +123,21 @@
                     </div>
                     <q-space />
                 </div>
-                <div class="row q-mb-xl">
-                    <div class="text-h5 text-bold text-white full-width text-center">
-                        <span class="text-accent">RECICLA TUS CAJAS</span> CON NOSOTROS Y
-                        <span class="text-accent">SUMA PUNTOS</span> A TU CUENTA REWARDS Y PARTICIPA
-                        PARA MAS PREMIOS CON TUS PUNTOS ACUMULADOS.
+            </div>
+
+            <div class="full-width q-mb-xl">
+                <div class="row">
+                    <q-space />
+                    <div class="col-lg-7">
+                        <div class="text-h5 text-bold text-white full-width text-center">
+                            <span class="text-accent">RECICLA TUS CAJAS</span> CON NOSOTROS Y
+                            <span class="text-accent">SUMA PUNTOS</span> A TU CUENTA REWARDS Y
+                            PARTICIPA PARA MAS PREMIOS CON TUS PUNTOS ACUMULADOS.
+                        </div>
                     </div>
+                    <q-space />
                 </div>
             </div>
-            <q-space />
         </div>
     </q-page>
 </template>
