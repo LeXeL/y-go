@@ -45,6 +45,7 @@
                                     </div>
                                     <q-menu fit anchor="bottom right" self="top right">
                                         <q-list style="min-width: 100px">
+
                                             <q-item clickable v-close-popup>
                                                 <q-item-section @click="$router.push('/nosotros')">
                                                     <div
@@ -156,7 +157,7 @@
                             to="/user"
                             v-if="
                                 $router.currentRoute.path != '/user' ||
-                                    $router.currentRoute.path != '/checkout'
+                                $router.currentRoute.path != '/checkout'
                             "
                         />
                     </div>

@@ -385,6 +385,27 @@ exports.returnInvoiceById = functions.https.onRequest(async (req, res) => {
         }
     })
 })
+exports.payInvoices = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await invoices.payInvoices(
+                req.body.invoices,
+                req.body.paymentMethod,
+                req.body.image
+            )
+            functions.logger.info('payInvoices', {
+                invoices: req.body.invoices,
+                method: req.body.paymentMethod,
+            })
+            res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('payInvoices', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
 
 //USER PROFILE
 exports.returnUserProfileInformation = functions.https.onRequest(async (req, res) => {
