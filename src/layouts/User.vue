@@ -118,7 +118,7 @@
                                                 </div>
                                                 <q-btn
                                                     push
-                                                    label="Afiliate aqui"
+                                                    label="Afíliate aqui"
                                                     color="accent"
                                                     size="sm"
                                                     @click="loyaltyAffiliationDialog = true"
@@ -235,7 +235,7 @@
                 <q-form @submit="sendAffiliatedNo">
                     <q-card-section>
                         <div class="text-h6 text-center text-bold">
-                            Afiliate a nuestro programa de lealtad!
+                            Afíliate a nuestro programa de lealtad!
                         </div>
                     </q-card-section>
                     <q-card-section>

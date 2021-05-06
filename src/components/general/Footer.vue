@@ -80,11 +80,11 @@
                     <div class="col-lg-3">
                         <div class="text-body2 adicon-font-2 text-bold q-mb-sm">Contáctanos</div>
                         <a
-                            href="tel:6565-6565"
+                            href="https://wa.me/50767210200"
                             target="_blank"
                             class="q-mb-sm text-primary"
                             style="text-decoration: none; display: block"
-                            ><i class="fas fa-phone-alt"></i>&nbsp;66565-6565</a
+                            ><i class="fas fa-phone-alt"></i>&nbsp;6721-0200</a
                         >
                         <a
                             href="mailto:info@y-go.com.pa"

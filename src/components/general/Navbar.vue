@@ -41,52 +41,44 @@
                             <li>
                                 <a href="javascript:void(0)">
                                     <div class="text-caption" style="font-weight: 600">
-                                        INFORMACION <i class="fas fa-caret-down"></i>
+                                        INFORMACIÓN <i class="fas fa-caret-down"></i>
                                     </div>
                                     <q-menu fit anchor="bottom right" self="top right">
                                         <q-list style="min-width: 100px">
-                                            <router-link
-                                                to="/nosotros"
-                                                style="text-decoration: none; color: #000"
-                                            >
-                                                <q-item clickable v-close-popup>
-                                                    <q-item-section>
-                                                        <div
-                                                            class="text-caption y-go-font text-bold text-right"
-                                                        >
-                                                            QUIENES SOMOS
-                                                        </div>
-                                                    </q-item-section>
-                                                </q-item>
-                                            </router-link>
-                                            <router-link
-                                                to="/terminos-y-condiciones"
-                                                style="text-decoration: none; color: #000"
-                                            >
-                                                <q-item clickable v-close-popup>
-                                                    <q-item-section>
-                                                        <div
-                                                            class="text-caption y-go-font text-bold text-right"
-                                                        >
-                                                            TERMINOS Y CONDICIONES
-                                                        </div>
-                                                    </q-item-section>
-                                                </q-item>
-                                            </router-link>
-                                            <router-link
-                                                to="/politicas-de-privacidad"
-                                                style="text-decoration: none; color: #000"
-                                            >
-                                                <q-item clickable v-close-popup>
-                                                    <q-item-section>
-                                                        <div
-                                                            class="text-caption y-go-font text-bold text-right"
-                                                        >
-                                                            POLITICAS DE PRIVACIDAD
-                                                        </div>
-                                                    </q-item-section>
-                                                </q-item>
-                                            </router-link>
+
+                                            <q-item clickable v-close-popup>
+                                                <q-item-section @click="$router.push('/nosotros')">
+                                                    <div
+                                                        class="text-caption y-go-font text-bold text-right"
+                                                    >
+                                                        QUIÉNES SOMOS
+                                                    </div>
+                                                </q-item-section>
+                                            </q-item>
+                                            <q-item clickable v-close-popup>
+                                                <q-item-section
+                                                    @click="$router.push('/terminos-y-condiciones')"
+                                                >
+                                                    <div
+                                                        class="text-caption y-go-font text-bold text-right"
+                                                    >
+                                                        TÉRMINOS Y CONDICIONES
+                                                    </div>
+                                                </q-item-section>
+                                            </q-item>
+                                            <q-item clickable v-close-popup>
+                                                <q-item-section
+                                                    @click="
+                                                        $router.push('/politicas-de-privacidad')
+                                                    "
+                                                >
+                                                    <div
+                                                        class="text-caption y-go-font text-bold text-right"
+                                                    >
+                                                        POLÍTICAS DE PRIVACIDAD
+                                                    </div>
+                                                </q-item-section>
+                                            </q-item>
                                         </q-list>
                                     </q-menu>
                                 </a>
@@ -150,7 +142,7 @@
                                                 : 'border-bottom: solid 3px #fff'
                                         "
                                     >
-                                        CONTACTANOS
+                                        CONTÁCTANOS
                                     </div>
                                 </router-link>
                             </li>
@@ -159,7 +151,7 @@
                     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 column flex-center xs-hide">
                         <q-btn
                             push
-                            label="Iniciar sesion"
+                            label="Iniciar sesión"
                             color="accent"
                             class="text-bold"
                             to="/user"
@@ -218,7 +210,7 @@
                 <q-card-actions>
                     <q-space />
                     <q-btn
-                        label="Iniciar sesion"
+                        label="Iniciar sesión"
                         push
                         color="primary"
                         class="text-bold q-px-md"
