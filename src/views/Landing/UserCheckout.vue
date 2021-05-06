@@ -1,5 +1,13 @@
 <template>
     <q-page-container class="pattern-bg">
+        <loading-alert :display="displayLoading"></loading-alert>
+        <ygo-alert
+            :display="displayAlert"
+            :title="alertTitle"
+            :message="alertMessage"
+            :type="alertType"
+            @accept="displayAlert = false"
+        ></ygo-alert>
         <div class="row">
             <q-space />
             <div class="col-md-7 col-xs-12">
@@ -23,9 +31,9 @@
                         </q-card-section>
                     </q-card>
                 </div>
-                <div align="center">
+                <!-- <div align="center">
                     <div id="container-form" style="width: 100%; height: 800px"></div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-md-8 col-xs-12 q-pa-md">
                         <q-card class="q-mb-md">
@@ -184,7 +192,11 @@
                                     </div>
                                 </template>
                                 <template v-if="paymentInfo.method == 'ach'">
-                                    <q-file outlined v-model="paymentInfo.proofOfPayment">
+                                    <q-file
+                                        outlined
+                                        v-model="paymentInfo.proofOfPayment"
+                                        label="Comprobante de pago"
+                                    >
                                         <template v-slot:prepend>
                                             <q-icon name="fas fa-paperclip" />
                                         </template>
@@ -286,6 +298,11 @@ export default {
             totalAmount: 0.0,
             itbms: 10.51,
             totalAmountToPay: 0,
+            displayLoading: false,
+            displayAlert: false,
+            alertTitle: '',
+            alertMessage: '',
+            alertType: '',
         }
     },
     computed: {
@@ -325,122 +342,193 @@ export default {
                         case 'ach':
                             this.uploadPayment()
                             break
+                        case 'visa':
+                            this.payWithVisa()
+                            break
                     }
                     break
             }
         },
-        uploadPayment() {},
-        test() {
-            let accessTokenApi = process.env.VUE_APP_YGO_PAGUELOFACILAPI
-            let cclw = process.env.VUE_APP_YGO_PAGUELOFACILCCLW
-            console.log(accessTokenApi, cclw)
-            pfClave.useAsSandbox(true) //en caso de que desee realizar transacciones para pruebas.
-
-            pfClave
-                .openService({
-                    apiKey: accessTokenApi,
-                    cclw: cclw,
-                })
-                .then(
-                    function (merchantSetup) {
-                        let paymentInfo = {
-                            amount: 15.0, //Monto de la compra
-                            taxAmount: 0.0, //Monto de los impuestos
-                            description: 'descripcion personalizada', //Descripción corta del motivo del pago
-                        }
-                        let userInfo = {
-                            email: 'diego.r2892@gmail.com', //Correo electrónico del usuario que realiza la compra
-                            phone: '+50764806778', //Teléfono movil del usuario que realiza la compra
-                        }
-
-                        let setup = {
-                            lang: 'es', //Idioma los valores posibles son "es", "en"
-                            embedded: true, // sí desea que se embebido o muestre un botón.
-                            container: 'container-form', //Elemento html donde se introducirá el formulario de pago de clave
-                            onError: function (data) {
-                                console.error('onError errors', data)
-                            },
-                            onTxSuccess: function (data) {
-                                console.log('onTxSuccess', data)
-                                window.location.href =
-                                    pfClave.pfHostViews + `/pf/default-receipt/${data?.Oper}`
-                            },
-                            onTxError: function (data) {
-                                console.error('when the onTxError, in other process', data)
-                            },
-                            onClose: function () {
-                                console.log('onClose called')
-                            },
-                        }
-                        merchantSetup.init(merchantSetup.dataMerchant, paymentInfo, setup, userInfo)
-                    },
-                    function (error) {
-                        console.log(error)
-                    }
-                )
-        },
-        async payWithClave() {
-            // this.orderNo = await this.generateOrder()
-            let payload = await this.buildPayload()
-            console.log(`payload:${JSON.stringify(payload)}`)
-            this.loadingRequest = true
-            fetch(process.env.VUE_APP_YGO_PAGUELOFACILLINK, {
+        async payWithVisa() {
+            let payload = await this.buildPayloadForVisa()
+            fetch(process.env.VUE_APP_YGO_NMIURL, {
                 method: 'POST',
-                mode: 'cors', // no-cors, *cors, same-origin
                 cache: 'no-cache',
                 credentials: 'same-origin',
                 headers: {
-                    authorization: process.env.VUE_APP_YGO_PAGUELOFACILAPI,
-                    'content-type': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: JSON.stringify(payload),
+                body: new URLSearchParams(payload),
             })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log(data)
-                    }
-                    if (!data.success) {
-                        console.log(data)
-                        this.loadingRequest = false
-                        this.errorPayment = true
-                        if (data.headerStatus.code === 607)
-                            this.errMsg = 'La tarjeta de Credito no es valida'
-                        if (data.headerStatus.code === 605)
-                            this.errMsg = 'La tarjeta de Credito no es valida'
-                        if (data.headerStatus.code === 611)
-                            this.errMsg = 'El numero de telefono no es valido, por favor chekealo!'
-                        if (data.headerStatus.code === 609)
-                            this.errMsg =
-                                'El nombre de la tarjeta tiene un error, por favor chekealo!'
-                        if (data.headerStatus.code === 551)
-                            this.errMsg =
-                                'La informacion suministrada tiene un error, por favor chekeala!'
+                .then(response => {
+                    if (response.ok) {
+                        console.log('transaccion exitosa')
                     }
                 })
+                .catch(error => console.error(error))
+            // .then(data => {
+            //     if (data.success) {
+            //         console.log(data)
+            //     }
+            //     // if (!data.success) {
+            //     //     console.log(data)
+            //     //     this.loadingRequest = false
+            //     //     this.errorPayment = true
+            //     //     if (data.headerStatus.code === 607)
+            //     //         this.errMsg = 'La tarjeta de Credito no es valida'
+            //     //     if (data.headerStatus.code === 605)
+            //     //         this.errMsg = 'La tarjeta de Credito no es valida'
+            //     //     if (data.headerStatus.code === 611)
+            //     //         this.errMsg = 'El numero de telefono no es valido, por favor chekealo!'
+            //     //     if (data.headerStatus.code === 609)
+            //     //         this.errMsg =
+            //     //             'El nombre de la tarjeta tiene un error, por favor chekealo!'
+            //     //     if (data.headerStatus.code === 551)
+            //     //         this.errMsg =
+            //     //             'La informacion suministrada tiene un error, por favor chekeala!'
+            //     // }
+            // })
         },
+        async uploadPayment() {
+            if (!this.paymentInfo.proofOfPayment) {
+                this.alertTitle = 'Error'
+                this.alertMessage = 'Se necesita subir el comprobante de pago!'
+                this.alertType = 'error'
+                this.displayAlert = true
+                return
+            }
 
-        async buildPayload() {
+            let file = this.paymentInfo.proofOfPayment
+            let reader = new FileReader()
+            reader.onloadend = function () {
+                let base64Image = reader.result
+                api.payInvoices({invoices: base64Image}).then(response => {
+                    console.log(response)
+                })
+            }
+            reader.readAsDataURL(file)
+        },
+        // test() {
+        //     let accessTokenApi = process.env.VUE_APP_YGO_PAGUELOFACILAPI
+        //     let cclw = process.env.VUE_APP_YGO_PAGUELOFACILCCLW
+        //     console.log(accessTokenApi, cclw)
+        //     pfClave.useAsSandbox(true) //en caso de que desee realizar transacciones para pruebas.
+
+        //     pfClave
+        //         .openService({
+        //             apiKey: accessTokenApi,
+        //             cclw: cclw,
+        //         })
+        //         .then(
+        //             function (merchantSetup) {
+        //                 let paymentInfo = {
+        //                     amount: 15.0, //Monto de la compra
+        //                     taxAmount: 0.0, //Monto de los impuestos
+        //                     description: 'descripcion personalizada', //Descripción corta del motivo del pago
+        //                 }
+        //                 let userInfo = {
+        //                     email: 'diego.r2892@gmail.com', //Correo electrónico del usuario que realiza la compra
+        //                     phone: '+50764806778', //Teléfono movil del usuario que realiza la compra
+        //                 }
+
+        //                 let setup = {
+        //                     lang: 'es', //Idioma los valores posibles son "es", "en"
+        //                     embedded: true, // sí desea que se embebido o muestre un botón.
+        //                     container: 'container-form', //Elemento html donde se introducirá el formulario de pago de clave
+        //                     onError: function (data) {
+        //                         console.error('onError errors', data)
+        //                     },
+        //                     onTxSuccess: function (data) {
+        //                         console.log('onTxSuccess', data)
+        //                         window.location.href =
+        //                             pfClave.pfHostViews + `/pf/default-receipt/${data?.Oper}`
+        //                     },
+        //                     onTxError: function (data) {
+        //                         console.error('when the onTxError, in other process', data)
+        //                     },
+        //                     onClose: function () {
+        //                         console.log('onClose called')
+        //                     },
+        //                 }
+        //                 merchantSetup.init(merchantSetup.dataMerchant, paymentInfo, setup, userInfo)
+        //             },
+        //             function (error) {
+        //                 console.log(error)
+        //             }
+        //         )
+        // },
+        // async payWithClave() {
+        //     // this.orderNo = await this.generateOrder()
+        //     let payload = await this.buildPayload()
+        //     console.log(`payload:${JSON.stringify(payload)}`)
+        //     this.loadingRequest = true
+        //     fetch(process.env.VUE_APP_YGO_PAGUELOFACILLINK, {
+        //         method: 'POST',
+        //         mode: 'cors', // no-cors, *cors, same-origin
+        //         cache: 'no-cache',
+        //         credentials: 'same-origin',
+        //         headers: {
+        //             authorization: process.env.VUE_APP_YGO_PAGUELOFACILAPI,
+        //             'content-type': 'application/json',
+        //         },
+        //         body: JSON.stringify(payload),
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.success) {
+        //                 console.log(data)
+        //             }
+        //             if (!data.success) {
+        //                 console.log(data)
+        //                 this.loadingRequest = false
+        //                 this.errorPayment = true
+        //                 if (data.headerStatus.code === 607)
+        //                     this.errMsg = 'La tarjeta de Credito no es valida'
+        //                 if (data.headerStatus.code === 605)
+        //                     this.errMsg = 'La tarjeta de Credito no es valida'
+        //                 if (data.headerStatus.code === 611)
+        //                     this.errMsg = 'El numero de telefono no es valido, por favor chekealo!'
+        //                 if (data.headerStatus.code === 609)
+        //                     this.errMsg =
+        //                         'El nombre de la tarjeta tiene un error, por favor chekealo!'
+        //                 if (data.headerStatus.code === 551)
+        //                     this.errMsg =
+        //                         'La informacion suministrada tiene un error, por favor chekeala!'
+        //             }
+        //         })
+        // },
+
+        async buildPayloadForVisa() {
             let payload = {
-                cclw: process.env.VUE_APP_YGO_PAGUELOFACILCCLW,
-                amount: this.totalAmountToPay,
-                taxAmount: 1.0,
-                email: this.user.email,
-                phone: this.user.phone,
-                address: this.group,
-                concept: `this.orderNo`,
+                security_key: process.env.VUE_APP_YGO_NMISECURITYKEY,
+                amount: '101.00',
+                type: 'sale',
                 description: `this.orderNo`,
-                lang: 'ES',
-                cardInformation: {
-                    cardNumber: this.paymentInfo.cardNo.replaceAll(' ', ''),
-                    expMonth: this.paymentInfo.expDate.split('/')[0],
-                    expYear: this.paymentInfo.expDate.split('/')[1],
-                    cvv: this.paymentInfo.code,
-                    firstName: this.paymentInfo.name,
-                    lastName: this.paymentInfo.lastName,
-                    cardType: 'CLAVE',
-                    pin: this.paymentInfo.method === 'clave' ? this.paymentInfo.pin : '',
-                },
+                ccnumber: this.paymentInfo.cardNo.replaceAll(' ', ''),
+                ccexp: this.paymentInfo.expDate.replaceAll('/', ''),
+                cvv: this.paymentInfo.code,
+                first_name: 'Test',
+                last_name: 'User',
+                address1: '123 Main St',
+                city: 'New York',
+                state: 'NY',
+                zip: '12345',
+                shipping_first_name: 'User',
+                shipping_last_name: 'Test',
+                shipping_address1: '987 State St',
+                shipping_city: 'Los Angeles',
+                shipping_state: 'CA',
+                shipping_zip: '98765',
+                // cardInformation: {
+                //     cardNumber:
+                //     expMonth: [0],
+                //     expYear: this.paymentInfo.expDate.split('/')[1],
+                //     cvv:
+                //     firstName: this.paymentInfo.name,
+                //     lastName: this.paymentInfo.lastName,
+                //     cardType: 'CLAVE',
+                //     pin: this.paymentInfo.method === 'clave' ? this.paymentInfo.pin : '',
+                // },
             }
             return payload
         },

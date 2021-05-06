@@ -178,7 +178,7 @@ async function returnAllInvoiceByUid(uid) {
         })
     return invoices
 }
-async function payInvoices(invoices) {
+async function payInvoices(invoices, method, image = null) {
     console.log(invoices)
     return invoices
 }
