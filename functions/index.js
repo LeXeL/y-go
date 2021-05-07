@@ -391,7 +391,8 @@ exports.payInvoices = functions.https.onRequest(async (req, res) => {
             let response = await invoices.payInvoices(
                 req.body.invoices,
                 req.body.paymentMethod,
-                req.body.image
+                req.body.image,
+                req.body.orderId
             )
             functions.logger.info('payInvoices', {
                 invoices: req.body.invoices,

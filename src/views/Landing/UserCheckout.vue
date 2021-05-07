@@ -260,6 +260,7 @@
 
 <script>
 import * as api from '@/api/api'
+import {ResponseMap} from '@/utils/paymentGatewayResponseMap'
 export default {
     data() {
         return {
@@ -350,6 +351,7 @@ export default {
             }
         },
         async payWithVisa() {
+            this.displayLoading = true
             let payload = await this.buildPayloadForVisa()
             fetch(process.env.VUE_APP_YGO_NMIURL, {
                 method: 'POST',
@@ -360,34 +362,39 @@ export default {
                 },
                 body: new URLSearchParams(payload),
             })
-                .then(response => {
-                    if (response.ok) {
+                .then(res => res.text())
+                .then(responseData => {
+                    let data = responseData.split('&')
+                    let response = data[8].split('=')[1]
+                    if (parseInt(response) === 100) {
                         console.log('transaccion exitosa')
+                        api.payInvoices({
+                            invoices: this.cart,
+                            paymentMethod: 'VISA',
+                            orderId: data[3].split('=')[1],
+                        }).then(response => {
+                            this.displayLoading = false
+                            console.log(response)
+                        })
+                    }
+                    if (parseInt(response) === 200) {
+                        console.log('transaccion declinada')
+                        this.alertTitle = 'Error'
+                        this.alertMessage =
+                            'Lo sentimos no pudimos procesar tu pago, intentalo mas tarde'
+                        this.alertType = 'error'
+                        this.displayLoading = false
+                        this.displayAlert = true
+                    } else {
+                        console.log(ResponseMap.get(response))
+                        this.alertTitle = 'Error'
+                        this.alertMessage = ResponseMap.get(response).translation
+                        this.alertType = 'error'
+                        this.displayLoading = false
+                        this.displayAlert = true
                     }
                 })
                 .catch(error => console.error(error))
-            // .then(data => {
-            //     if (data.success) {
-            //         console.log(data)
-            //     }
-            //     // if (!data.success) {
-            //     //     console.log(data)
-            //     //     this.loadingRequest = false
-            //     //     this.errorPayment = true
-            //     //     if (data.headerStatus.code === 607)
-            //     //         this.errMsg = 'La tarjeta de Credito no es valida'
-            //     //     if (data.headerStatus.code === 605)
-            //     //         this.errMsg = 'La tarjeta de Credito no es valida'
-            //     //     if (data.headerStatus.code === 611)
-            //     //         this.errMsg = 'El numero de telefono no es valido, por favor chekealo!'
-            //     //     if (data.headerStatus.code === 609)
-            //     //         this.errMsg =
-            //     //             'El nombre de la tarjeta tiene un error, por favor chekealo!'
-            //     //     if (data.headerStatus.code === 551)
-            //     //         this.errMsg =
-            //     //             'La informacion suministrada tiene un error, por favor chekeala!'
-            //     // }
-            // })
         },
         async uploadPayment() {
             if (!this.paymentInfo.proofOfPayment) {
@@ -501,7 +508,7 @@ export default {
         async buildPayloadForVisa() {
             let payload = {
                 security_key: process.env.VUE_APP_YGO_NMISECURITYKEY,
-                amount: '101.00',
+                amount: '14.00',
                 type: 'sale',
                 description: `this.orderNo`,
                 ccnumber: this.paymentInfo.cardNo.replaceAll(' ', ''),

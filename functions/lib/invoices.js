@@ -178,9 +178,21 @@ async function returnAllInvoiceByUid(uid) {
         })
     return invoices
 }
-async function payInvoices(invoices, method, image = null) {
-    console.log(invoices)
-    return invoices
+async function payInvoices(invoices = null, method, image = null, orderId = null) {
+    if (method.toUpperCase() === 'VISA') {
+        try {
+            for await (const invoice of invoices) {
+                invoice.status = 'paid'
+                invoice.paymentMethod = 'VISA'
+                invoice.paymentDate = Date.now()
+                invoice.credicorpOrderId = orderId
+                await updateInvoice(invoice.id, {...invoice})
+            }
+            return 'Success'
+        } catch (error) {
+            return error
+        }
+    }
 }
 module.exports = {
     createInvoice,
