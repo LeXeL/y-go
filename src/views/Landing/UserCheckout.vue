@@ -338,7 +338,7 @@ export default {
         },
     },
     methods: {
-        //TODO: mejorar ach, mandar correos cuando se reciba un pago, mejorar payload,
+        //TODO: mejorar ach, mandar correos cuando se reciba un pago, mejorar payload, redirect to profile after success
 
         //BUGS: refresh del store, direcciones
         advanceStep() {
