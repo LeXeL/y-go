@@ -69,6 +69,13 @@
                                         <div class="col">
                                             <div class="text-body">$ {{ pkg.price }}</div>
                                         </div>
+                                        <div class="row" v-if="pkg.aditionalCharges">
+                                            <br />
+                                            <div v-for="(aC, i) in pkg.aditionalCharges" :key="i">
+                                                <div class="text-body">{{ aC.chargeName }}</div>
+                                                <div class="text-body">$ {{ aC.chargeAmount }}</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </q-card-section>
@@ -160,6 +167,8 @@
                                         class="full-width q-mb-md"
                                         filled
                                         v-model="paymentInfo.cardNo"
+                                        mask="#### #### #### ####"
+                                        fill-mask="#"
                                     />
                                     <div class="row">
                                         <div class="col on-left">
@@ -168,6 +177,8 @@
                                                 filled
                                                 class="full-width"
                                                 v-model="paymentInfo.expDate"
+                                                mask="##/##"
+                                                fill-mask="####"
                                             />
                                         </div>
                                         <div class="col">
@@ -230,7 +241,7 @@
                                     <q-space />
                                     <div class="text-body2">$ {{ totalAmount }}</div>
                                 </div>
-                                <div class="row q-mb-sm">
+                                <!-- <div class="row q-mb-sm">
                                     <div class="text-body2">Delivery</div>
                                     <q-space />
                                     <div class="text-body2">$ 5.00</div>
@@ -239,7 +250,7 @@
                                     <div class="text-body2">ITBMS:</div>
                                     <q-space />
                                     <div class="text-body2">$ {{ itbms }}</div>
-                                </div>
+                                </div> -->
                             </q-card-section>
                             <q-separator />
                             <q-card-section>
@@ -276,10 +287,10 @@ export default {
                     label: 'MasterCard',
                     value: 'mastercard',
                 },
-                {
-                    label: 'Clave',
-                    value: 'clave',
-                },
+                // {
+                //     label: 'Clave',
+                //     value: 'clave',
+                // },
                 {
                     label: 'Yappy / Transferencia / ACH',
                     value: 'ach',
@@ -322,11 +333,14 @@ export default {
             cart.forEach(inv => {
                 this.totalAmount += parseFloat(inv.price)
             })
-            this.totalAmountToPay = this.totalAmount + this.itbms
+            this.totalAmountToPay = this.totalAmount
             return cart
         },
     },
     methods: {
+        //TODO: mejorar ach, mandar correos cuando se reciba un pago, mejorar payload,
+
+        //BUGS: refresh del store, direcciones
         advanceStep() {
             switch (this.step) {
                 case 0:
@@ -350,7 +364,24 @@ export default {
                     break
             }
         },
+        async isPaymentAmountCorrect() {
+            if (this.paymentInfo.method === 'visa' || this.paymentInfo.method === 'mastercard') {
+                if (parseFloat(this.totalAmount) > 1.0) return true
+                return false
+            }
+        },
         async payWithVisa() {
+            let paymentCorrect = await this.isPaymentAmountCorrect()
+            if (!paymentCorrect) {
+                this.alertTitle = 'Error'
+                this.alertMessage =
+                    'Lo sentimos, para poder procesar este pago tiene que ser mayor a $12, \n Puedes escojer otro metodo de pago'
+                this.alertType = 'error'
+                this.displayLoading = false
+                this.displayAlert = true
+                return
+            }
+
             this.displayLoading = true
             let payload = await this.buildPayloadForVisa()
             fetch(process.env.VUE_APP_YGO_NMIURL, {
@@ -366,18 +397,22 @@ export default {
                 .then(responseData => {
                     let data = responseData.split('&')
                     let response = data[8].split('=')[1]
-                    if (parseInt(response) === 100) {
+                    console.log(response)
+                    if (response === '100') {
                         console.log('transaccion exitosa')
                         api.payInvoices({
                             invoices: this.cart,
                             paymentMethod: 'VISA',
                             orderId: data[3].split('=')[1],
                         }).then(response => {
+                            this.alertMessage = 'Transaccion Existosa'
+                            this.alertType = 'success'
                             this.displayLoading = false
-                            console.log(response)
+                            this.displayAlert = true
                         })
+                        return
                     }
-                    if (parseInt(response) === 200) {
+                    if (response === '200') {
                         console.log('transaccion declinada')
                         this.alertTitle = 'Error'
                         this.alertMessage =
@@ -385,6 +420,7 @@ export default {
                         this.alertType = 'error'
                         this.displayLoading = false
                         this.displayAlert = true
+                        return
                     } else {
                         console.log(ResponseMap.get(response))
                         this.alertTitle = 'Error'
@@ -508,7 +544,7 @@ export default {
         async buildPayloadForVisa() {
             let payload = {
                 security_key: process.env.VUE_APP_YGO_NMISECURITYKEY,
-                amount: '14.00',
+                amount: '18.00',
                 type: 'sale',
                 description: `this.orderNo`,
                 ccnumber: this.paymentInfo.cardNo.replaceAll(' ', ''),
