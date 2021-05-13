@@ -179,6 +179,9 @@ async function returnAllInvoiceByUid(uid) {
     return invoices
 }
 async function payInvoices(invoices = null, method, image = null, orderId = null) {
+    const users = require('./users')
+    const emailHandler = require('./emailHandler')
+    let userFromBox = await users.returnAllUserInformationByBox(invoices[0].box)
     if (method.toUpperCase() === 'VISA' || method.toUpperCase() === 'MASTERCARD') {
         try {
             for await (const invoice of invoices) {
@@ -188,13 +191,20 @@ async function payInvoices(invoices = null, method, image = null, orderId = null
                 invoice.credicorpOrderId = orderId
                 await updateInvoice(invoice.id, {...invoice})
             }
+            let emailBody = await emailHandler.templateHandler('Invoice-02', invoices)
+            emailHandler.sendEmail(
+                userFromBox.email,
+                'Pago de Mercancia Y-Go 💸',
+                emailBody,
+                `${userFromBox.name} ${userFromBox.lastName}`
+            )
             return 'Success'
         } catch (error) {
+            console.log(error)
             return error
         }
     }
     if (method.toUpperCase() === 'ACH') {
-        console.log(invoices)
         try {
             for await (const invoice of invoices) {
                 invoice.status = 'review'
@@ -202,6 +212,13 @@ async function payInvoices(invoices = null, method, image = null, orderId = null
                 invoice.paymentDate = Date.now()
                 await updateInvoice(invoice.id, {...invoice})
             }
+            let emailBody = await emailHandler.templateHandler('Invoice-02', invoices)
+            emailHandler.sendEmail(
+                userFromBox.email,
+                'Pago de Mercancia Y-Go 💸',
+                emailBody,
+                `${userFromBox.name} ${userFromBox.lastName}`
+            )
             return 'Success'
         } catch (error) {
             return error

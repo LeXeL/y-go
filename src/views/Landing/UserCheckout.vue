@@ -239,7 +239,7 @@
                                         Facturas a pagar: ({{ totalItemsToPay }})
                                     </div>
                                     <q-space />
-                                    <div class="text-body2">$ {{ totalAmount }}</div>
+                                    <div class="text-body2">$ {{ totalAmount.toFixed(2) }}</div>
                                 </div>
                                 <!-- <div class="row q-mb-sm">
                                     <div class="text-body2">Delivery</div>
@@ -290,7 +290,7 @@ export default {
                 proofOfPayment: null,
             },
             totalItemsToPay: 0,
-            totalAmount: 0.0,
+            totalAmount: 0,
             itbms: 10.51,
             totalAmountToPay: 0,
             displayLoading: false,
@@ -316,12 +316,12 @@ export default {
             cart.forEach(inv => {
                 this.totalAmount += parseFloat(inv.price)
             })
-            this.totalAmountToPay = this.totalAmount
+            this.totalAmountToPay = this.totalAmount.toFixed(2)
             return cart
         },
     },
     methods: {
-        //TODO: mandar correos cuando se reciba un pago
+        //TODO: mandar correo a departamento de contabilidad
         //BUGS: refresh del store, direcciones
         advanceStep() {
             switch (this.step) {
