@@ -278,24 +278,7 @@ export default {
             step: 0,
             group: null,
             options: [{label: 'Recoger en local', value: 'pickup'}],
-            paymentMethod: [
-                {
-                    label: 'Visa',
-                    value: 'visa',
-                },
-                {
-                    label: 'MasterCard',
-                    value: 'mastercard',
-                },
-                // {
-                //     label: 'Clave',
-                //     value: 'clave',
-                // },
-                {
-                    label: 'Yappy / Transferencia / ACH',
-                    value: 'ach',
-                },
-            ],
+            paymentMethod: [],
             paymentInfo: {
                 method: '',
                 name: '',
@@ -338,8 +321,7 @@ export default {
         },
     },
     methods: {
-        //TODO: mejorar ach, mandar correos cuando se reciba un pago, mejorar payload, redirect to profile after success
-
+        //TODO: mandar correos cuando se reciba un pago
         //BUGS: refresh del store, direcciones
         advanceStep() {
             switch (this.step) {
@@ -347,7 +329,10 @@ export default {
                     this.step++
                     break
                 case 1:
-                    if (!!this.group) this.step++
+                    if (!!this.group) {
+                        this.checkPaymentMethodAvailable()
+                        this.step++
+                    }
                     break
                 case 2:
                     switch (this.paymentInfo.method) {
@@ -358,32 +343,53 @@ export default {
                             this.uploadPayment()
                             break
                         case 'visa':
-                            this.payWithVisa()
+                            this.payWithVisaorMasterCard()
+                            break
+                        case 'mastercard':
+                            this.payWithVisaorMasterCard()
                             break
                     }
                     break
             }
         },
-        async isPaymentAmountCorrect() {
-            if (this.paymentInfo.method === 'visa' || this.paymentInfo.method === 'mastercard') {
-                if (parseFloat(this.totalAmount) > 1.0) return true
-                return false
+        async checkPaymentMethodAvailable() {
+            if (this.cart) {
+                this.paymentMethod.push({
+                    label: 'Yappy / Transferencia / ACH',
+                    value: 'ach',
+                })
+                if (parseFloat(this.totalAmountToPay) > 12.5) {
+                    this.paymentMethod.push(
+                        {
+                            label: 'Visa',
+                            value: 'visa',
+                        },
+                        {
+                            label: 'MasterCard',
+                            value: 'mastercard',
+                        }
+                    )
+                }
             }
+            // if (this.paymentInfo.method === 'visa' || this.paymentInfo.method === 'mastercard') {
+            //     if (parseFloat(this.totalAmount) > 1.0) return true
+            //     return false
+            // }
         },
-        async payWithVisa() {
-            let paymentCorrect = await this.isPaymentAmountCorrect()
-            if (!paymentCorrect) {
-                this.alertTitle = 'Error'
-                this.alertMessage =
-                    'Lo sentimos, para poder procesar este pago tiene que ser mayor a $12, \n Puedes escojer otro metodo de pago'
-                this.alertType = 'error'
-                this.displayLoading = false
-                this.displayAlert = true
-                return
-            }
+        async payWithVisaorMasterCard() {
+            // let paymentCorrect = await this.checkPaymentMethodAvailable()
+            // if (!paymentCorrect) {
+            //     this.alertTitle = 'Error'
+            //     this.alertMessage =
+            //         'Lo sentimos, para poder procesar este pago tiene que ser mayor a $12, \n Puedes escojer otro metodo de pago'
+            //     this.alertType = 'error'
+            //     this.displayLoading = false
+            //     this.displayAlert = true
+            //     return
+            // }
 
             this.displayLoading = true
-            let payload = await this.buildPayloadForVisa()
+            let payload = await this.buildPayloadForVisaOrMasterCard()
             fetch(process.env.VUE_APP_YGO_NMIURL, {
                 method: 'POST',
                 cache: 'no-cache',
@@ -396,10 +402,11 @@ export default {
                 .then(res => res.text())
                 .then(responseData => {
                     let data = responseData.split('&')
+                    // console.log(data)
                     let response = data[8].split('=')[1]
-                    console.log(response)
+                    // console.log(response)
                     if (response === '100') {
-                        console.log('transaccion exitosa')
+                        // console.log('transaccion exitosa')
                         api.payInvoices({
                             invoices: this.cart,
                             paymentMethod: 'VISA',
@@ -440,12 +447,17 @@ export default {
                 this.displayAlert = true
                 return
             }
-
+            let cart = this.cart
             let file = this.paymentInfo.proofOfPayment
             let reader = new FileReader()
+            console.log(this.cart)
             reader.onloadend = function () {
                 let base64Image = reader.result
-                api.payInvoices({invoices: base64Image}).then(response => {
+                api.payInvoices({
+                    invoices: cart,
+                    paymentMethod: 'ACH',
+                    image: base64Image,
+                }).then(response => {
                     console.log(response)
                 })
             }
@@ -541,40 +553,25 @@ export default {
         //         })
         // },
 
-        async buildPayloadForVisa() {
+        async buildPayloadForVisaOrMasterCard() {
             let payload = {
                 security_key: process.env.VUE_APP_YGO_NMISECURITYKEY,
-                amount: '18.00',
+                amount: this.totalAmountToPay,
                 type: 'sale',
-                description: `this.orderNo`,
+                description: `${this.user.box} payment`,
                 ccnumber: this.paymentInfo.cardNo.replaceAll(' ', ''),
                 ccexp: this.paymentInfo.expDate.replaceAll('/', ''),
                 cvv: this.paymentInfo.code,
-                first_name: 'Test',
-                last_name: 'User',
-                address1: '123 Main St',
-                city: 'New York',
-                state: 'NY',
+                first_name: this.paymentInfo.name,
+                last_name: this.paymentInfo.lastName,
+                address1: this.user.address || '',
+                city: 'Panama',
+                state: 'PA',
                 zip: '12345',
-                shipping_first_name: 'User',
-                shipping_last_name: 'Test',
-                shipping_address1: '987 State St',
-                shipping_city: 'Los Angeles',
-                shipping_state: 'CA',
-                shipping_zip: '98765',
-                // cardInformation: {
-                //     cardNumber:
-                //     expMonth: [0],
-                //     expYear: this.paymentInfo.expDate.split('/')[1],
-                //     cvv:
-                //     firstName: this.paymentInfo.name,
-                //     lastName: this.paymentInfo.lastName,
-                //     cardType: 'CLAVE',
-                //     pin: this.paymentInfo.method === 'clave' ? this.paymentInfo.pin : '',
-                // },
             }
             return payload
         },
+        mounted() {},
     },
 }
 </script>

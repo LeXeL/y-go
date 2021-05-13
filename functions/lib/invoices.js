@@ -179,13 +179,27 @@ async function returnAllInvoiceByUid(uid) {
     return invoices
 }
 async function payInvoices(invoices = null, method, image = null, orderId = null) {
-    if (method.toUpperCase() === 'VISA') {
+    if (method.toUpperCase() === 'VISA' || method.toUpperCase() === 'MASTERCARD') {
         try {
             for await (const invoice of invoices) {
                 invoice.status = 'paid'
-                invoice.paymentMethod = 'VISA'
+                invoice.paymentMethod = method.toUpperCase()
                 invoice.paymentDate = Date.now()
                 invoice.credicorpOrderId = orderId
+                await updateInvoice(invoice.id, {...invoice})
+            }
+            return 'Success'
+        } catch (error) {
+            return error
+        }
+    }
+    if (method.toUpperCase() === 'ACH') {
+        console.log(invoices)
+        try {
+            for await (const invoice of invoices) {
+                invoice.status = 'review'
+                invoice.paymentMethod = method.toUpperCase()
+                invoice.paymentDate = Date.now()
                 await updateInvoice(invoice.id, {...invoice})
             }
             return 'Success'

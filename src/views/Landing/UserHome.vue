@@ -110,6 +110,8 @@ export default {
         returnStatus(status) {
             if (status == 'unpaid') return {status: 'Pendiente', color: 'red', icon: 'dollar-sign'}
             if (status == 'paid') return {status: 'Pagado', color: 'green', icon: 'dollar-sign'}
+            if (status == 'review')
+                return {status: 'En Proceso', color: 'amber', icon: 'dollar-sign'}
             if (status == 'delivered') return {status: 'Entregado', color: 'primary', icon: 'box'}
         },
     },
