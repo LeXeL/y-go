@@ -45,6 +45,15 @@
                             </router-link>
                         </div>
                     </q-card-section>
+                    <q-card-actions>
+                        <q-btn
+                            label="Iniciar sesión"
+                            color="primary"
+                            push
+                            class="text-bold"
+                            to="/login"
+                        />
+                    </q-card-actions>
                 </q-card>
             </div>
         </q-drawer>

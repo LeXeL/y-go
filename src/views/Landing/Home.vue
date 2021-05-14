@@ -75,6 +75,20 @@
             </q-carousel-slide>
         </q-carousel>
         <!-- /MOBILE SLIDES -->
+        <div class="row q-pa-md xl-hide lg-hide md-hide sm-hide">
+            <div class="text-h6 q-px-lg text-center text-accent q-mb-md">
+                Afíliate al programa de lealtad de <strong>Y-GO! <br /></strong>Y llevate libras
+                <strong>GRATIS</strong> con tu primer pedido.
+            </div>
+            <q-btn
+                label="Conoce más"
+                color="primary"
+                push
+                class="text-bold"
+                to="/programa-de-lealtad"
+                style="margin: 0 auto;"
+            />
+        </div>
         <div class="row form-section">
             <q-space />
             <div class="col-lg-7 col-md-9 col-xs-12 q-px-md">
@@ -152,7 +166,7 @@
                                 <q-space />
                                 <q-btn
                                     color="accent"
-                                    label="Registrar"
+                                    label="Regístrate"
                                     class="text-bold"
                                     push
                                     @click="registerUser()"
