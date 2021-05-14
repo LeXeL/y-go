@@ -8,6 +8,13 @@
     font-size: 1rem !important;
 }
 
+.sticky-header {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000;
+}
+
 .navigation-bar li {
     display: inline-block;
     padding: 0 10px;

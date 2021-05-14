@@ -117,6 +117,7 @@
                                     color="accent"
                                     class="q-mb-md"
                                     v-model="form.name"
+                                    name="name"
                                 />
                                 <q-input
                                     filled
@@ -124,6 +125,7 @@
                                     color="accent"
                                     class="q-mb-md"
                                     v-model="form.lastName"
+                                    name="lastname"
                                 />
                                 <q-input
                                     filled
@@ -132,6 +134,7 @@
                                     color="accent"
                                     class="q-mb-md"
                                     v-model="form.email"
+                                    name="email"
                                 />
                                 <q-input
                                     filled
@@ -149,6 +152,15 @@
                                     v-model="form.repassword"
                                 />
                             </q-card-section>
+                            <q-card-actions class="q-px-md">
+                                <q-btn
+                                    color="accent"
+                                    label="Regístrate"
+                                    class="text-bold full-width"
+                                    push
+                                    @click="registerUser()"
+                                />
+                            </q-card-actions>
                             <q-card-section>
                                 <div class="text-body2">
                                     Al hacer clic en
@@ -162,16 +174,6 @@
                                     >
                                 </div>
                             </q-card-section>
-                            <q-card-actions>
-                                <q-space />
-                                <q-btn
-                                    color="accent"
-                                    label="Regístrate"
-                                    class="text-bold"
-                                    push
-                                    @click="registerUser()"
-                                />
-                            </q-card-actions>
                         </q-card>
                     </div>
                     <div class="col-lg-8 col-md-7 col-sm-6 col-xs-12 column flex-center xs-hide">

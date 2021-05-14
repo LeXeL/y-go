@@ -1,8 +1,8 @@
 <template>
     <q-layout class="y-go-font">
         <!-- NAVIGATION BAR -->
-        <Navbar class="xs-hide" :navLinks="navLinks" />
-        <NavbarMobile class="sm-hide md-hide lg-hide xl-hide" :navLinks="navLinks" />
+        <Navbar class="xs-hide sticky-header" :navLinks="navLinks" />
+        <NavbarMobile class="sm-hide md-hide lg-hide xl-hide sticky-header" :navLinks="navLinks" />
         <!-- END NAVIGATION BAR -->
         <q-page-container>
             <router-view />

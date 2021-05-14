@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-        <q-drawer v-model="menuDrawer" color="accent">
+        <q-drawer v-model="menuDrawer" color="accent" :width="350">
             <div class="bg-accent" style="height: 100vh">
                 <q-card flat class="bg-accent">
                     <q-card-actions>
