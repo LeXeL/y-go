@@ -450,8 +450,12 @@ export default {
             let cart = this.cart
             let file = this.paymentInfo.proofOfPayment
             let reader = new FileReader()
+<<<<<<< HEAD
             console.log(this.cart)
             reader.onloadend = function () {
+=======
+            reader.onloadend = function() {
+>>>>>>> 700cbbe... navbar and headers full revamp
                 let base64Image = reader.result
                 api.payInvoices({
                     invoices: cart,
@@ -556,7 +560,7 @@ export default {
         async buildPayloadForVisaOrMasterCard() {
             let payload = {
                 security_key: process.env.VUE_APP_YGO_NMISECURITYKEY,
-                amount: this.totalAmountToPay,
+                amount: '19.00',
                 type: 'sale',
                 description: `${this.user.box} payment`,
                 ccnumber: this.paymentInfo.cardNo.replaceAll(' ', ''),

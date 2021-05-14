@@ -3,7 +3,7 @@
         <div class="row bg-green-7">
             <q-space />
             <div class="col-lg-7 col-xs-12 q-pa-lg text-center">
-                <div class="text-h4 text-white text-bold">PROGRAMA Y-GO RECICLANDO</div>
+                <div class="text-h4 text-white text-bold">Y-GA Y RECICLA</div>
             </div>
             <q-space />
         </div>

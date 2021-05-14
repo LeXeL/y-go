@@ -3,7 +3,7 @@
         <div class="row bg-primary">
             <q-space />
             <div class="col-lg-7 col-xs-12 q-pt-md q-mb-sm text-center">
-                <div class="text-h4 text-white text-bold">NUESTRAS TARIFAS</div>
+                <div class="text-h4 text-white text-bold">PLANES</div>
             </div>
             <q-space />
         </div>

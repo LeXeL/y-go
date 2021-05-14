@@ -127,23 +127,23 @@ const routes = [
                 component: Home,
             },
             {
-                path: '/tarifas',
-                name: 'Tarfias',
+                path: '/planes',
+                name: 'Planes',
                 component: Rates,
             },
             {
-                path: '/contacto',
-                name: 'Contacto',
+                path: '/contactanos',
+                name: 'Contactanos',
                 component: Contact,
             },
             {
-                path: '/nosotros',
-                name: 'Nosotros',
+                path: '/quienes-somos',
+                name: 'Quienes-Somos',
                 component: About,
             },
             {
-                path: '/ygo-reciclando',
-                name: 'Ygo-Reciclando',
+                path: '/yga-y-recicla',
+                name: 'Yga-y-recicla',
                 component: YgoRecycle,
             },
             {
