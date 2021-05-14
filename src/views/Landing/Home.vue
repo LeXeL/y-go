@@ -25,7 +25,7 @@
         <!-- /MOBILE SLIDES -->
         <div class="row q-pa-md xl-hide lg-hide md-hide sm-hide">
             <div class="text-h6 q-px-lg text-center text-accent q-mb-md">
-                Afíliate al programa de lealtad de <strong>Y-GO! <br /></strong>Y llevate libras
+                Afíliate al programa de lealtad de <br/><strong>Y-GO! <br /></strong>Y llevate libras
                 <strong>GRATIS</strong> con tu primer pedido.
             </div>
             <q-btn
@@ -112,7 +112,7 @@
                             <q-card-section>
                                 <div class="text-body2">
                                     Al hacer clic en
-                                    <span class="text-bold">"REGISTRAR"</span> acepto los terminos y
+                                    <span class="text-bold">"REGÍSTRATE"</span> acepto los terminos y
                                     condiciones. Leer
                                     <a
                                         href="/terminos-y-condiciones"
