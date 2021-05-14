@@ -450,12 +450,7 @@ export default {
             let cart = this.cart
             let file = this.paymentInfo.proofOfPayment
             let reader = new FileReader()
-<<<<<<< HEAD
-            console.log(this.cart)
-            reader.onloadend = function () {
-=======
             reader.onloadend = function() {
->>>>>>> 700cbbe... navbar and headers full revamp
                 let base64Image = reader.result
                 api.payInvoices({
                     invoices: cart,
