@@ -30,7 +30,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
-                        <q-card flat style="height: 870px;">
+                        <q-card flat style="height: 930px;">
                             <q-card-section class="text-center">
                                 <!-- <i class="fas fa-box-open fa-4x q-mb-md text-grey-7"></i> -->
                                 <img
@@ -49,7 +49,7 @@
                             </q-card-section>
                             <q-separator color="primary" />
                             <q-card-section>
-                                <div class="subtitle2 text-center text-bold q-mb-sm">
+                                <div class="text-subtitle2 text-center text-bold q-mb-sm">
                                     Ideal para tu paquetería pequeña
                                 </div>
                                 <div class="text-subtitle2 text-center text-bold">
@@ -124,7 +124,7 @@
                         </q-card>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
-                        <q-card flat style="height: 870px;">
+                        <q-card flat style="height: 930px;">
                             <q-card-section class="text-center">
                                 <img
                                     src="@/assets/Landing/icons/ICO_premium.svg"
@@ -142,7 +142,7 @@
                             </q-card-section>
                             <q-separator color="primary" />
                             <q-card-section>
-                                <div class="subtitle2 text-center text-bold q-mb-sm">
+                                <div class="text-subtitle2 text-center text-bold q-mb-sm">
                                     Mas flexibilidad para tu paqueteria mediana y grande
                                 </div>
                                 <div class="text-subtitle2 text-center text-bold">
@@ -215,7 +215,7 @@
                         </q-card>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
-                        <q-card flat style="height: 870px;">
+                        <q-card flat style="height: 930px;">
                             <q-card-section class="text-center">
                                 <img
                                     src="@/assets/Landing/icons/ICO_business.svg"
@@ -252,7 +252,7 @@
                         </q-card>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
-                        <q-card flat style="height: 870px;" class="loyalty-frame">
+                        <q-card flat style="height: 930px;" class="loyalty-frame">
                             <q-card-section class="text-center">
                                 <img
                                     src="@/assets/Landing/icons/ICO_lealtad.svg"
