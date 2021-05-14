@@ -8,72 +8,20 @@
             :type="alertType"
             @accept="displayAlert = false"
         ></ygo-alert>
-        <!-- <div class="row bg-amber-8">
-            <q-space />
-            <div class="col-lg-7 col-md-10 col-sm-12 q-px-md">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 flex flex-center">
-                        <div class="text-h4 text-white text-italic q-my-lg">
-                            DE LA WEB A TUS MANOS
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 flex flex-center xs-hide">
-                        <q-img
-                            :src="require('@/assets/Landing/girl_with_box.png')"
-                            style="width: 300px"
-                        />
-                    </div>
-                </div>
-            </div>
-            <q-space />
-        </div> -->
-
         <!-- DESKTOP SLIDES -->
-        <q-carousel
-            v-model="slide"
-            transition-prev="slide-right"
-            transition-next="slide-left"
-            swipeable
-            animated
-            infinite
-            height="auto"
-            :autoplay="10000"
-            class="xs-hide"
-        >
-            <q-carousel-slide :name="1" class="q-pa-none">
-                <q-img :src="require('@/assets/Landing/BANNER-03.svg')" />
-            </q-carousel-slide>
-            <q-carousel-slide :name="2" class="q-pa-none">
-                <q-img :src="require('@/assets/Landing/BANNER-01.svg')" />
-            </q-carousel-slide>
-            <q-carousel-slide :name="3" class="q-pa-none">
-                <q-img :src="require('@/assets/Landing/BANNER-02.svg')" />
-            </q-carousel-slide>
-        </q-carousel>
+        <VueSlickCarousel :arrows="false" :dots="false" :autoplay="true" :autoplaySpeed="10000" class="xs-hide">
+            <q-img :src="require('@/assets/Landing/BANNER-03.svg')" />
+            <q-img :src="require('@/assets/Landing/BANNER-01.svg')" />
+            <q-img :src="require('@/assets/Landing/BANNER-02.svg')" />
+        </VueSlickCarousel>
         <!-- /DESKTOP SLIDES -->
 
         <!-- MOBILE SLIDES -->
-        <q-carousel
-            v-model="slide"
-            transition-prev="slide-right"
-            transition-next="slide-left"
-            swipeable
-            animated
-            infinite
-            height="auto"
-            :autoplay="10000"
-            class="sm-hide md-hide lg-hide xl-hide"
-        >
-            <q-carousel-slide :name="1" class="q-pa-none">
-                <q-img :src="require('@/assets/Landing/BANNER_mobile-03.svg')" />
-            </q-carousel-slide>
-            <q-carousel-slide :name="2" class="q-pa-none">
-                <q-img :src="require('@/assets/Landing/BANNER_mobile-01.svg')" />
-            </q-carousel-slide>
-            <q-carousel-slide :name="3" class="q-pa-none">
-                <q-img :src="require('@/assets/Landing/BANNER_mobile-02.svg')" />
-            </q-carousel-slide>
-        </q-carousel>
+        <VueSlickCarousel :arrows="false" :dots="false" :autoplay="true" :autoplaySpeed="10000" class="xl-hide lg-hide md-hide sm-hide">
+            <q-img :src="require('@/assets/Landing/BANNER_mobile-03.svg')" />
+            <q-img :src="require('@/assets/Landing/BANNER_mobile-01.svg')" />
+            <q-img :src="require('@/assets/Landing/BANNER_mobile-02.svg')" />
+        </VueSlickCarousel>
         <!-- /MOBILE SLIDES -->
         <div class="row q-pa-md xl-hide lg-hide md-hide sm-hide">
             <div class="text-h6 q-px-lg text-center text-accent q-mb-md">
@@ -200,6 +148,9 @@
 import * as api from '@/api/api'
 import firebase from 'firebase/app'
 import 'firebase/auth'
+
+import VueSlickCarousel from 'vue-slick-carousel'
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 
 export default {
     data() {
@@ -351,6 +302,9 @@ export default {
                     // ...
                 })
         },
+    },
+    components: {
+        VueSlickCarousel
     },
     mounted() {
         window.scrollTo(0, 0)
