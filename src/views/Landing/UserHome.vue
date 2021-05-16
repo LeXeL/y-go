@@ -18,6 +18,7 @@
                 class="text-bold q-ml-lg"
                 icon-right="fas fa-dollar-sign"
                 to="/checkout"
+                :disable="isAnInvoiceUnpaid()"
             />
         </template>
 
@@ -113,6 +114,10 @@ export default {
             if (status == 'review')
                 return {status: 'En Proceso', color: 'amber', icon: 'dollar-sign'}
             if (status == 'delivered') return {status: 'Entregado', color: 'primary', icon: 'box'}
+        },
+        isAnInvoiceUnpaid() {
+            let data = this.data.filter(inv => inv.status === 'unpaid')
+            return !(data.length > 0)
         },
     },
     computed: {
