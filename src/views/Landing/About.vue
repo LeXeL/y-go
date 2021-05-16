@@ -3,7 +3,7 @@
         <div class="row bg-primary">
             <q-space />
             <div class="col-lg-7 col-xs-12 q-pt-md q-mb-sm text-center">
-                <div class="text-h4 text-white text-bold">CONOCENOS</div>
+                <div class="text-h4 text-white text-bold">QUIENES SOMOS</div>
             </div>
             <q-space />
         </div>
@@ -33,10 +33,10 @@
                 <div class="row q-mb-xl">
                     <q-space />
                     <q-btn
-                        label="Conoce nuestras tarifas"
+                        label="Conoce nuestros planes"
                         push
                         color="primary"
-                        to="/tarifas"
+                        to="/planes"
                         class="text-bold on-left"
                     />
                     <q-space />

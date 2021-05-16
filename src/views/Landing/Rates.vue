@@ -3,7 +3,7 @@
         <div class="row bg-primary">
             <q-space />
             <div class="col-lg-7 col-xs-12 q-pt-md q-mb-sm text-center">
-                <div class="text-h4 text-white text-bold">NUESTRAS TARIFAS</div>
+                <div class="text-h4 text-white text-bold">NUESTROS PLANES</div>
             </div>
             <q-space />
         </div>
@@ -13,14 +13,14 @@
                 <div class="row q-py-lg">
                     <q-space />
                     <q-btn
-                        label="tarifa aérea"
+                        label="planes aéreo"
                         :color="ratesOnDisplay == 'air' ? 'primary' : 'grey-5'"
                         class="text-bold on-left"
                         unelevated
                         @click="ratesOnDisplay = 'air'"
                     />
                     <q-btn
-                        label="tarifa marítima"
+                        label="planes maritimo"
                         :color="ratesOnDisplay == 'sea' ? 'primary' : 'grey-5'"
                         class="text-bold on-right"
                         unelevated
@@ -30,7 +30,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
-                        <q-card flat style="height: 625px;">
+                        <q-card flat style="height: 845px;">
                             <q-card-section class="text-center">
                                 <!-- <i class="fas fa-box-open fa-4x q-mb-md text-grey-7"></i> -->
                                 <img
@@ -48,7 +48,19 @@
                                 </div>
                             </q-card-section>
                             <q-separator color="primary" />
-                            <q-card-section class="text-center">
+                            <q-card-section>
+                                <div class="text-subtitle2 text-center text-bold q-mb-sm">
+                                    Ideal para tu paquetería pequeña
+                                </div>
+                                <div class="text-subtitle2 text-center text-bold">
+                                    * La libra a considerar es la mayor entre el peso real y el peso
+                                    volumétrico del paquete
+                                </div>
+                            </q-card-section>
+                            <q-card-section class="text-center q-pt-none">
+                                <div class="text-h6 text-bold q-mb-md text-primary">
+                                    Incluido en tu plan
+                                </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     PO Box personal en Miami
                                 </div>
@@ -90,16 +102,23 @@
                                     *$ <strong>10.00</strong>/pie<sup>3</sup>
                                 </div>
                             </q-card-section>
-                            <q-card-section class="text-center" v-if="ratesOnDisplay == 'air'">
-                                <div class="text-caption">
-                                    * La libra a considerar es la mayor entre el peso real y el peso
-                                    volumétrico del paquete.
+                            <q-card-actions align="center">
+                                <q-btn
+                                    label="Contáctanos"
+                                    dense
+                                    color="accent"
+                                    class="text-bold q-mb-sm"
+                                    to="/contactanos"
+                                />
+                                <div class="text-caption text-center">
+                                    No estas seguro de cual plan escoger, contactanos y con gusto te
+                                    asesoramos.
                                 </div>
-                            </q-card-section>
+                            </q-card-actions>
                         </q-card>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
-                        <q-card flat style="height: 625px;">
+                        <q-card flat style="height: 845px;">
                             <q-card-section class="text-center">
                                 <img
                                     src="@/assets/Landing/icons/ICO_premium.svg"
@@ -116,7 +135,18 @@
                                 </div>
                             </q-card-section>
                             <q-separator color="primary" />
-                            <q-card-section class="text-center">
+                            <q-card-section>
+                                <div class="text-subtitle2 text-center text-bold q-mb-sm">
+                                    Mas flexibilidad para tu paqueteria mediana y grande
+                                </div>
+                                <div class="text-subtitle2 text-center text-bold">
+                                    * La libra a considerar es únicamente el peso real del producto.
+                                </div>
+                            </q-card-section>
+                            <q-card-section class="q-pt-none text-center">
+                                <div class="text-h6 text-bold q-mb-md text-primary">
+                                    Incluido en tu plan
+                                </div>
                                 <div class="text-subtitle2 text-bold q-mb-sm">
                                     PO Box personal en Miami
                                 </div>
@@ -158,15 +188,23 @@
                                     *$ <strong>10.00</strong>/pie<sup>3</sup>
                                 </div>
                             </q-card-section>
-                            <q-card-section class="text-center" v-if="ratesOnDisplay == 'air'">
-                                <div class="text-caption">
-                                    * La libra a considerar es unicamente el peso real del paquete.
+                            <q-card-actions align="center">
+                                <q-btn
+                                    label="Contáctanos"
+                                    dense
+                                    color="accent"
+                                    class="text-bold q-mb-sm"
+                                    to="/contactanos"
+                                />
+                                <div class="text-caption text-center">
+                                    No estas seguro de cual plan escoger, contactanos y con gusto te
+                                    asesoramos.
                                 </div>
-                            </q-card-section>
+                            </q-card-actions>
                         </q-card>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
-                        <q-card flat style="height: 625px;">
+                        <q-card flat style="height: 845px;">
                             <q-card-section class="text-center">
                                 <img
                                     src="@/assets/Landing/icons/ICO_business.svg"
@@ -203,7 +241,7 @@
                         </q-card>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
-                        <q-card flat style="height: 625px;" class="loyalty-frame">
+                        <q-card flat style="height: 845px;" class="loyalty-frame">
                             <q-card-section class="text-center">
                                 <img
                                     src="@/assets/Landing/icons/ICO_lealtad.svg"
@@ -238,7 +276,7 @@
                                     label="Inscríbete"
                                     class="text-bold q-px-md loyalty-cta text-white"
                                     unelevated
-                                    to="/"
+                                    to="/programa-de-lealtad"
                                 />
                             </q-card-section>
                         </q-card>

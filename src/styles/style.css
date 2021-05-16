@@ -8,6 +8,13 @@
     font-size: 1rem !important;
 }
 
+.sticky-header {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000;
+}
+
 .navigation-bar li {
     display: inline-block;
     padding: 0 10px;
@@ -25,12 +32,22 @@
 
 .form-section {
     background-image: url('../assets/Landing/landing_bg.jpg');
-    height: 675px;
+    /* height: 675px; */
 }
 
 .pattern-bg {
     background-image: url('../assets/Landing/landing_bg.jpg');
     min-height: 100vh;
+}
+
+.text-body,
+.text-body2,
+.text-caption,
+.text-subtitle,
+.text-subtitle2,
+.text-subtitle3,
+a {
+    font-size: 16px !important;
 }
 
 /* width */
@@ -53,4 +70,3 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #dd2c00;
 }
-

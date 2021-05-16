@@ -1,13 +1,9 @@
 <template>
     <q-layout class="y-go-font">
-        <!-- SOCIAL LINKS -->
-        <!-- <SocialBar /> -->
-        <!-- END SOCIAL LINKS -->
-
         <!-- NAVIGATION BAR -->
-        <Navbar :navLinks="navLinks" @open-drawer="drawer = true" />
+        <Navbar class="xs-hide sticky-header" :navLinks="navLinks" />
+        <NavbarMobile class="sm-hide md-hide lg-hide xl-hide sticky-header" :navLinks="navLinks" />
         <!-- END NAVIGATION BAR -->
-
         <q-page-container>
             <router-view />
             <q-page-sticky position="bottom-right" :offset="[30, 30]">
@@ -23,61 +19,49 @@
 </template>
 
 <script>
-import SocialBar from '@/components/general/SocialBar'
 import Navbar from '@/components/general/Navbar'
+import NavbarMobile from '@/components/general/NavbarMobile'
 import Footer from '@/components/general/Footer'
 
 export default {
     data() {
         return {
-            drawer: false,
             navLinks: [
                 {
-                    text: 'Inicio',
+                    label: 'INICIO',
                     route: '/',
                 },
                 {
-                    text: 'Tarifas',
-                    route: '/tarifas',
+                    label: 'QUIENES SOMOS',
+                    route: '/quienes-somos',
                 },
                 {
-                    text: 'Y-GO Reciclando',
-                    route: '/ygo-reciclando',
+                    label: 'PLANES',
+                    route: '/planes',
                 },
                 {
-                    text: 'Programa de Lealtad',
+                    label: 'PROGRAMA DE LEALTAD',
                     route: '/programa-de-lealtad',
                 },
                 {
-                    text: 'Nosotros',
-                    route: '/nosotros',
+                    label: 'Y-GA Y RECICLA',
+                    route: '/yga-y-recicla',
                 },
                 {
-                    text: 'Contacto',
-                    route: '/contacto',
+                    label: 'CONTÁCTANOS',
+                    route: '/contactanos',
                 },
             ],
         }
     },
-
     components: {
-        SocialBar,
         Navbar,
         Footer,
+        NavbarMobile,
     },
 }
 </script>
 
 <style>
 @import './../styles/style.css';
-
-.drawer-link {
-    text-align: right;
-    list-style-type: none;
-    font-size: 30px;
-}
-
-.drawer-link li {
-    margin-bottom: 15px;
-}
 </style>
