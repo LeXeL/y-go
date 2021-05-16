@@ -4,7 +4,7 @@
             <q-space />
             <div class="col-lg-7 col-md-9 q-py-md q-px-xl">
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                         <div class="q-mb-md">
                             <q-img :src="require('@/assets/logo_ygo.png')" width="50px" />
                         </div>
@@ -14,7 +14,7 @@
                     </div>
                     <q-space />
 
-                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 q-mb-md">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 q-mb-md">
                         <div class="text-body2 adicon-font-2 text-bold q-mb-sm">Síguenos</div>
                         <a
                             href="https://www.instagram.com/ygopanama/"
@@ -33,7 +33,7 @@
                             ><i class="fab fa-facebook"></i>&nbsp;Y-GO</a
                         >
                     </div>
-                    <div class="col-lg-3 q-mb-md">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 q-mb-md">
                         <div class="text-body2 adicon-font-2 text-bold q-mb-sm">Contáctanos</div>
                         <a
                             href="https://wa.me/50767210200"
@@ -50,7 +50,7 @@
                             ><i class="far fa-envelope"></i>&nbsp;info@y-go.com.pa</a
                         >
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="text-body2 adicon-font-2 text-bold q-mb-sm">Información</div>
                         <router-link
                             to="/terminos-y-condiciones"
