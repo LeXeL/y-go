@@ -30,7 +30,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
-                        <q-card flat style="height: 930px;">
+                        <q-card flat style="height: 845px;">
                             <q-card-section class="text-center">
                                 <!-- <i class="fas fa-box-open fa-4x q-mb-md text-grey-7"></i> -->
                                 <img
@@ -44,7 +44,7 @@
                                     v-else
                                 />
                                 <div class="text-h6 text-bold text-accent">
-                                    PLAN
+                                    PLAN STANDARD
                                 </div>
                             </q-card-section>
                             <q-separator color="primary" />
@@ -53,7 +53,7 @@
                                     Ideal para tu paquetería pequeña
                                 </div>
                                 <div class="text-subtitle2 text-center text-bold">
-                                    La libra a considerar es la mayor entre el peso real y el peso
+                                    * La libra a considerar es la mayor entre el peso real y el peso
                                     volumétrico del paquete
                                 </div>
                             </q-card-section>
@@ -102,12 +102,6 @@
                                     *$ <strong>10.00</strong>/pie<sup>3</sup>
                                 </div>
                             </q-card-section>
-                            <q-card-section class="text-center" v-if="ratesOnDisplay == 'air'">
-                                <div class="text-caption">
-                                    * La libra a considerar es la mayor entre el peso real y el peso
-                                    volumétrico del paquete.
-                                </div>
-                            </q-card-section>
                             <q-card-actions align="center">
                                 <q-btn
                                     label="Contáctanos"
@@ -124,7 +118,7 @@
                         </q-card>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
-                        <q-card flat style="height: 930px;">
+                        <q-card flat style="height: 845px;">
                             <q-card-section class="text-center">
                                 <img
                                     src="@/assets/Landing/icons/ICO_premium.svg"
@@ -137,7 +131,7 @@
                                     v-else
                                 />
                                 <div class="text-h6 text-bold text-accent">
-                                    PLAN
+                                    PLAN PREMIUM
                                 </div>
                             </q-card-section>
                             <q-separator color="primary" />
@@ -146,7 +140,7 @@
                                     Mas flexibilidad para tu paqueteria mediana y grande
                                 </div>
                                 <div class="text-subtitle2 text-center text-bold">
-                                    La libra a considerar es únicamente el peso real del producto.
+                                    * La libra a considerar es únicamente el peso real del producto.
                                 </div>
                             </q-card-section>
                             <q-card-section class="q-pt-none text-center">
@@ -194,11 +188,6 @@
                                     *$ <strong>10.00</strong>/pie<sup>3</sup>
                                 </div>
                             </q-card-section>
-                            <q-card-section class="text-center" v-if="ratesOnDisplay == 'air'">
-                                <div class="text-caption">
-                                    * La libra a considerar es unicamente el peso real del paquete.
-                                </div>
-                            </q-card-section>
                             <q-card-actions align="center">
                                 <q-btn
                                     label="Contáctanos"
@@ -215,7 +204,7 @@
                         </q-card>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
-                        <q-card flat style="height: 930px;">
+                        <q-card flat style="height: 845px;">
                             <q-card-section class="text-center">
                                 <img
                                     src="@/assets/Landing/icons/ICO_business.svg"
@@ -252,7 +241,7 @@
                         </q-card>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
-                        <q-card flat style="height: 930px;" class="loyalty-frame">
+                        <q-card flat style="height: 845px;" class="loyalty-frame">
                             <q-card-section class="text-center">
                                 <img
                                     src="@/assets/Landing/icons/ICO_lealtad.svg"

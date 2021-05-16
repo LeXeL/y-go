@@ -39,7 +39,7 @@
                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 q-pa-md">
                         <div class="reward-card-shopper">
                             <div class="reward-header-shopper">
-                                <div class="text-h6 text-bold text-center">Y-GO SHOPPER</div>
+                                <div class="text-h6 text-bold text-center">BRONZE</div>
                             </div>
                             <div class="reward-card-body">
                                 <div class="text-h6 text-bold text-center q-py-md">
@@ -56,7 +56,7 @@
                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 q-pa-md">
                         <div class="reward-card-bronze">
                             <div class="reward-header-bronze">
-                                <div class="text-h6 text-bold text-center">BRONZE</div>
+                                <div class="text-h6 text-bold text-center">SILVER</div>
                             </div>
                             <div class="reward-card-body">
                                 <div class="text-h6 text-bold text-center q-py-md">
@@ -73,7 +73,7 @@
                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 q-pa-md">
                         <div class="reward-card-silver">
                             <div class="reward-header-silver">
-                                <div class="text-h6 text-bold text-center">SILVER</div>
+                                <div class="text-h6 text-bold text-center">GOLD</div>
                             </div>
                             <div class="reward-card-body">
                                 <div class="text-h6 text-bold text-center q-py-md">
@@ -90,11 +90,11 @@
                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 q-pa-md">
                         <div class="reward-card-gold">
                             <div class="reward-header-gold">
-                                <div class="text-h6 text-bold text-center">GOLD</div>
+                                <div class="text-h6 text-bold text-center">PLATINUM</div>
                             </div>
                             <div class="reward-card-body">
                                 <div class="text-h6 text-bold text-center q-py-md">
-                                    GIFT CARD $25
+                                    GIFT CARD $50
                                 </div>
                                 <q-separator color="white" style="width: 90%; margin: 0 auto;" />
 
@@ -107,11 +107,11 @@
                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 q-pa-md">
                         <div class="reward-card-platinum">
                             <div class="reward-header-platinum">
-                                <div class="text-h6 text-bold text-center">PLATINUM</div>
+                                <div class="text-h6 text-bold text-center">DIAMOND</div>
                             </div>
                             <div class="reward-card-body">
                                 <div class="text-h6 text-bold text-center q-py-md">
-                                    GIFT CARD $25
+                                    AMAZON PRIME
                                 </div>
                                 <q-separator color="white" style="width: 90%; margin: 0 auto;" />
 

@@ -33,10 +33,10 @@
                 <div class="row q-mb-xl">
                     <q-space />
                     <q-btn
-                        label="Conoce nuestras tarifas"
+                        label="Conoce nuestros planes"
                         push
                         color="primary"
-                        to="/tarifas"
+                        to="/planes"
                         class="text-bold on-left"
                     />
                     <q-space />
