@@ -76,6 +76,13 @@
                             lbs
                         </div>
                         <div class="col-2">$ {{ pckg.price }}</div>
+                        <div class="row" v-if="pckg.aditionalCharges">
+                            <br />
+                            <div v-for="(aC, i) in pckg.aditionalCharges" :key="i">
+                                <div class="text-body">{{ aC.chargeName }}</div>
+                                <div class="text-body">$ {{ aC.chargeAmount }}</div>
+                            </div>
+                        </div>
                     </div>
                 </q-td>
             </q-tr>
