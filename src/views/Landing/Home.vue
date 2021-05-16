@@ -9,7 +9,13 @@
             @accept="displayAlert = false"
         ></ygo-alert>
         <!-- DESKTOP SLIDES -->
-        <VueSlickCarousel :arrows="false" :dots="false" :autoplay="true" :autoplaySpeed="10000" class="xs-hide">
+        <VueSlickCarousel
+            :arrows="false"
+            :dots="false"
+            :autoplay="true"
+            :autoplaySpeed="10000"
+            class="xs-hide"
+        >
             <q-img :src="require('@/assets/Landing/BANNER-03.svg')" />
             <q-img :src="require('@/assets/Landing/BANNER-01.svg')" />
             <q-img :src="require('@/assets/Landing/BANNER-02.svg')" />
@@ -17,7 +23,13 @@
         <!-- /DESKTOP SLIDES -->
 
         <!-- MOBILE SLIDES -->
-        <VueSlickCarousel :arrows="false" :dots="false" :autoplay="true" :autoplaySpeed="10000" class="xl-hide lg-hide md-hide sm-hide">
+        <VueSlickCarousel
+            :arrows="false"
+            :dots="false"
+            :autoplay="true"
+            :autoplaySpeed="10000"
+            class="xl-hide lg-hide md-hide sm-hide"
+        >
             <q-img :src="require('@/assets/Landing/BANNER_mobile-03.svg')" />
             <q-img :src="require('@/assets/Landing/BANNER_mobile-01.svg')" />
             <q-img :src="require('@/assets/Landing/BANNER_mobile-02.svg')" />
@@ -25,8 +37,8 @@
         <!-- /MOBILE SLIDES -->
         <div class="row q-pa-md xl-hide lg-hide md-hide sm-hide">
             <div class="text-h6 q-px-lg text-center text-accent q-mb-md">
-                Afíliate al programa de lealtad de <br/><strong>Y-GO! <br /></strong>Y llevate libras
-                <strong>GRATIS</strong> con tu primer pedido.
+                Afíliate al programa de lealtad de <br /><strong>Y-GO! <br /></strong>Y llevate
+                libras <strong>GRATIS</strong> con tu primer pedido.
             </div>
             <q-btn
                 label="Conoce más"
@@ -42,87 +54,105 @@
             <div class="col-lg-7 col-md-9 col-xs-12 q-px-md">
                 <div class="row">
                     <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 q-py-lg q-px-md">
-                        <q-card style="border-left: solid 5px #ff5722">
-                            <q-card-section>
-                                <div class="text-h5 text-center text-primary q-mb-xs">
-                                    REGÍSTRATE
-                                </div>
-                                <q-separator
-                                    color="accent"
-                                    style="width: 150px; margin: 0 auto; height: 2px"
-                                />
-                                <div class="text-body1 text-center q-mt-md">
-                                    ¿Ya tienes cuenta con nosotros? <br />Inicia sesión
-                                    <router-link to="/login" class="text-accent text-bold"
-                                        >aquí</router-link
-                                    >.
-                                </div>
-                            </q-card-section>
-                            <q-card-section>
-                                <q-input
-                                    filled
-                                    label="Nombre"
-                                    color="accent"
-                                    class="q-mb-md"
-                                    v-model="form.name"
-                                    name="name"
-                                />
-                                <q-input
-                                    filled
-                                    label="Apellido"
-                                    color="accent"
-                                    class="q-mb-md"
-                                    v-model="form.lastName"
-                                    name="lastname"
-                                />
-                                <q-input
-                                    filled
-                                    label="Correo"
-                                    type="email"
-                                    color="accent"
-                                    class="q-mb-md"
-                                    v-model="form.email"
-                                    name="email"
-                                />
-                                <q-input
-                                    filled
-                                    label="Contraseña"
-                                    type="password"
-                                    color="accent"
-                                    class="q-mb-md"
-                                    v-model="form.password"
-                                />
-                                <q-input
-                                    filled
-                                    label="Repetir contraseña"
-                                    type="password"
-                                    color="accent"
-                                    v-model="form.repassword"
-                                />
-                            </q-card-section>
-                            <q-card-actions class="q-px-md">
-                                <q-btn
-                                    color="accent"
-                                    label="Regístrate"
-                                    class="text-bold full-width"
-                                    push
-                                    @click="registerUser()"
-                                />
-                            </q-card-actions>
-                            <q-card-section>
-                                <div class="text-body2">
-                                    Al hacer clic en
-                                    <span class="text-bold">"REGÍSTRATE"</span> acepto los terminos y
-                                    condiciones. Leer
-                                    <a
-                                        href="/terminos-y-condiciones"
-                                        target="_blank"
-                                        class="text-bold text-accent"
-                                        >aquí.</a
-                                    >
-                                </div>
-                            </q-card-section>
-                        </q-card>
+                        <q-form @submit="registerUser()">
+                            <q-card style="border-left: solid 5px #ff5722">
+                                <q-card-section>
+                                    <div class="text-h5 text-center text-primary q-mb-xs">
+                                        REGÍSTRATE
+                                    </div>
+                                    <q-separator
+                                        color="accent"
+                                        style="width: 150px; margin: 0 auto; height: 2px"
+                                    />
+                                    <div class="text-body1 text-center q-mt-md">
+                                        ¿Ya tienes cuenta con nosotros? <br />Inicia sesión
+                                        <router-link to="/login" class="text-accent text-bold"
+                                            >aquí</router-link
+                                        >.
+                                    </div>
+                                </q-card-section>
+                                <q-card-section>
+                                    <q-input
+                                        filled
+                                        label="Nombre"
+                                        color="accent"
+                                        class="q-mb-sm"
+                                        v-model="form.name"
+                                        name="name"
+                                        :rules="[val => !!val || 'Este campo es requerido']"
+                                    />
+                                    <q-input
+                                        filled
+                                        label="Apellido"
+                                        color="accent"
+                                        class="q-mb-sm"
+                                        v-model="form.lastName"
+                                        name="lastname"
+                                        :rules="[val => !!val || 'Este campo es requerido']"
+                                    />
+                                    <q-input
+                                        filled
+                                        label="Correo"
+                                        type="email"
+                                        color="accent"
+                                        class="q-mb-sm"
+                                        v-model="form.email"
+                                        name="email"
+                                        :rules="[
+                                            val =>
+                                                validEmail.test(val) || 'Ingrese un correo valido',
+                                        ]"
+                                    />
+                                    <q-input
+                                        filled
+                                        label="Contraseña"
+                                        type="password"
+                                        color="accent"
+                                        class="q-mb-sm"
+                                        v-model="form.password"
+                                        :rules="[
+                                            val =>
+                                                val.length >= 6 ||
+                                                'La contraseña debe ser almenos 6 caracteres.',
+                                        ]"
+                                    />
+                                    <q-input
+                                        filled
+                                        label="Repetir contraseña"
+                                        type="password"
+                                        color="accent"
+                                        v-model="form.repassword"
+                                        :rules="[
+                                            val =>
+                                                val == form.password ||
+                                                'Las contraseñas no coinciden',
+                                        ]"
+                                    />
+                                </q-card-section>
+                                <q-card-actions class="q-px-md">
+                                    <q-btn
+                                        color="accent"
+                                        label="Regístrate"
+                                        class="text-bold full-width"
+                                        push
+                                        type="submit"
+                                    />
+                                </q-card-actions>
+                                <q-card-section>
+                                    <div class="text-body2">
+                                        Al hacer clic en
+                                        <span class="text-bold">"REGÍSTRATE"</span> acepto los
+                                        terminos y condiciones. Leer
+                                        <a
+                                            href="/terminos-y-condiciones"
+                                            target="_blank"
+                                            class="text-bold text-accent"
+                                            >aquí.</a
+                                        >
+                                    </div>
+                                </q-card-section>
+                            </q-card>
+                        </q-form>
                     </div>
                     <div class="col-lg-8 col-md-7 col-sm-6 col-xs-12 column flex-center xs-hide">
                         <div class="text-h4 q-px-lg text-center text-white q-mb-lg">
@@ -304,7 +334,7 @@ export default {
         },
     },
     components: {
-        VueSlickCarousel
+        VueSlickCarousel,
     },
     mounted() {
         window.scrollTo(0, 0)
