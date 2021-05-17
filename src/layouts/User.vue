@@ -254,7 +254,7 @@
                             :rules="[
                                 val => val.length > 0 || 'El campo es obligatorio',
                                 val =>
-                                    !allAffiliatedNo.includes(parseInt(val)) ||
+                                    allAffiliatedNo.includes(parseInt(val)) ||
                                     'Por favor revisa el numero introducido',
                             ]"
                         />
@@ -377,6 +377,9 @@ export default {
                     }).then(response => {
                         this.$store.commit('SET_USER', response.data.data)
                     })
+                })
+                .then(() => {
+                    api.DeleteAffiliateCardNo({number: this.userInformation.user.affiliateCardNo})
                 })
                 .catch(error => {
                     console.log(error)

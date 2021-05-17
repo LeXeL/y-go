@@ -173,8 +173,31 @@ async function returnAllUserInformationByBox(box) {
     return currentSelectedUser
 }
 async function returnAllAffiliateCardNo() {
-    let users = await returnAllUsers()
-    return users.filter(user => user.affiliateCardNo != null).map(user => user.affiliateCardNo)
+    // let users = await returnAllUsers()
+    // return users.filter(user => user.affiliateCardNo != null).map(user => user.affiliateCardNo)
+    return db
+        .collection('general')
+        .doc('AffiliatedNumberAvaliable')
+        .get()
+        .then(doc => {
+            return doc.data().numbers
+        })
+        .catch(err => {
+            return err
+        })
+}
+async function removeAffiliateCardNo(number) {
+    // let users = await returnAllUsers()
+    // return users.filter(user => user.affiliateCardNo != null).map(user => user.affiliateCardNo)
+    return await db
+        .collection('general')
+        .doc('AffiliatedNumberAvaliable')
+        .update({
+            numbers: admin.firestore.FieldValue.arrayRemove(number),
+        })
+        .then(() => {
+            return 'Success'
+        })
 }
 async function returnUserRateByBox(box) {
     let users = await returnAllUsers()
@@ -195,4 +218,5 @@ module.exports = {
     returnAllUserInformationByBox,
     returnUserRateByBox,
     returnAllAffiliateCardNo,
+    removeAffiliateCardNo,
 }

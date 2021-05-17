@@ -114,6 +114,20 @@ exports.ReturnAllAffiliateCardNo = functions.https.onRequest(async (req, res) =>
         }
     })
 })
+exports.DeleteAffiliateCardNo = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await users.removeAffiliateCardNo(req.body.number)
+            functions.logger.info('removeAffiliateCardNo')
+            res.status(200).send({data: response})
+        } catch (err) {
+            functions.logger.error('ReturnAllAffiliateCardNo', {
+                error: err,
+            })
+            res.status(400).send({err: err})
+        }
+    })
+})
 exports.ApproveBusinessRequest = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
         try {
