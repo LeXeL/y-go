@@ -198,6 +198,16 @@
                                 </div>
                                 <div class="row q-mb-md">
                                     <div class="col">
+                                        <q-select
+                                            v-if="userInformationData.user.subsidiary === 0"
+                                            filled
+                                            class="y-go-1x"
+                                            label="Distrito"
+                                            :options="locations"
+                                            map-options
+                                            emit-value
+                                            v-model="userInformationData.user.district"
+                                        />
                                         <q-input
                                             filled
                                             label="Direccion de entrega"
@@ -251,6 +261,16 @@
                                 </div>
                                 <div class="row q-mb-md">
                                     <div class="col">
+                                        <q-select
+                                            v-if="userInformationData.user.subsidiary === 0"
+                                            filled
+                                            class="y-go-1x"
+                                            label="Distrito"
+                                            :options="locations"
+                                            map-options
+                                            emit-value
+                                            v-model="userInformationData.user.district2"
+                                        />
                                         <q-input
                                             filled
                                             label="Direccion de entrega"
@@ -311,6 +331,116 @@ export default {
             countryCodes: require('@/assets/country_codes.json'),
             allRates: [],
             loading: false,
+            locations: [
+                {
+                    label: '24 DE DICIEMBRE ',
+                    value: '24 De Diciembre',
+                },
+                {
+                    label: 'ALCALDE DÍAZ',
+                    value: 'Alcalde Diaz',
+                },
+                {
+                    label: 'ANCÓN',
+                    value: 'Ancon',
+                },
+                {
+                    label: 'BETANIA',
+                    value: 'Betania',
+                },
+                {
+                    label: 'BELLA VISTA',
+                    value: 'Bella Vista',
+                },
+                {
+                    label: 'CALIDONIA',
+                    value: 'Calidonia',
+                },
+                {
+                    label: 'CAIMITILLO',
+                    value: 'Caimitillo',
+                },
+                {
+                    label: 'CHILIBRE',
+                    value: 'Chilibre',
+                },
+                {
+                    label: 'CURUNDU',
+                    value: 'Curundu',
+                },
+                {
+                    label: 'DON BOSCO',
+                    value: 'Don Bosco',
+                },
+                {
+                    label: 'EL CHORRILLO',
+                    value: 'El Chorrillo',
+                },
+                {
+                    label: 'ERNESTO CORDOBA CAMPOS',
+                    value: 'Ernesto Cordoba Campos',
+                },
+                {
+                    label: 'JUAN DIAZ',
+                    value: 'Juan Diaz',
+                },
+                {
+                    label: 'LAS CUMBRES',
+                    value: 'Las Cumbres',
+                },
+                {
+                    label: 'LAS GARZAS',
+                    value: 'Las Garzas',
+                },
+                {
+                    label: 'LAS MAÑANITAS',
+                    value: 'Las Mañanitas',
+                },
+                {
+                    label: 'PACORA',
+                    value: 'Pacora',
+                },
+                {
+                    label: 'PARQUE LEFEVRE',
+                    value: 'Parque Lefevre',
+                },
+                {
+                    label: 'PEDREGAL',
+                    value: 'Pedregal',
+                },
+                {
+                    label: 'PUEBLO NUEVO',
+                    value: 'Pueblo Nuevo',
+                },
+                {
+                    label: 'RIO ABAJO',
+                    value: 'Rio Abajo',
+                },
+                {
+                    label: 'SAN FELIPE',
+                    value: 'San Felipe',
+                },
+                {
+                    label: 'SAN FRANCISCO',
+                    value: 'San Francisco',
+                },
+                {
+                    label: 'SAN MARTIN',
+                    value: 'San Martin',
+                },
+                {
+                    label: 'SAN MIGUELITO',
+                    value: 'San Miguelito',
+                },
+                {
+                    label: 'SANTA ANA',
+                    value: 'Santa Ana',
+                },
+                {
+                    label: 'TOCUMEN',
+                    value: 'Tocumen',
+                },
+            ],
         }
     },
     methods: {
