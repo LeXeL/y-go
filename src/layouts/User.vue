@@ -56,9 +56,7 @@
                                             </div>
                                             <div class="text-subtitle2">
                                                 <br />
-                                                2478 NW 89TH AVE SUITE
-                                                {{ userInformation.user.box }}
-
+                                                11600 NW 91st ST Suite 26
                                                 <span class="text-caption on-right">
                                                     <i
                                                         class="fas fa-plane-departure text-primary"
@@ -71,11 +69,15 @@
                                                         @click="copyAddressToClipboard('ship')"
                                                     ></i>
                                                 </span>
-                                                <br />
-                                                DORAL, FLORIDA 33143
+                                                <br/>
+                                                {{ userInformation.user.box }}
+                                                <br/>
+                                                MEDLEY, FLORIDA
+                                                <br/>
+                                                33178-2830
                                                 <br />
                                                 United States
-                                                <br />Phone number: 7866673688
+                                                <br />Phone number: 305-8875000‬
                                             </div>
                                         </div>
                                         <div class="mobile-only q-pa-md"></div>
@@ -393,13 +395,13 @@ export default {
                 })
         },
         copyAddressToClipboard(type) {
-            let text = ''
-            if (type == 'air') {
-                text = `air address ${this.userInformation.user.box}`
-            }
-            if (type == 'ship') {
-                text = `ship address ${this.userInformation.user.box}`
-            }
+            let text = '11600 NW 91st ST Suite 26'
+            // if (type == 'air') {
+            //     text = `11600 NW 91st ST Suite 26`
+            // }
+            // if (type == 'ship') {
+            //     text = `11600 NW 91st ST Suite 26`
+            // }
             navigator.clipboard.writeText(text).then(
                 () => {
                     this.displayLoading = false
