@@ -328,6 +328,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col q-pa-sm">
+                                        <q-select
+                                            filled
+                                            class="y-go-1x"
+                                            label="Distrito"
+                                            :options="locations"
+                                            map-options
+                                            emit-value
+                                            v-model="registrationData.district"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col q-pa-sm">
                                         <q-input
                                             filled
                                             class="y-go-1x"
@@ -488,6 +501,7 @@ export default {
                 countryCode: '+507',
                 phone: '',
                 rate: '',
+                district: '',
                 address: '',
                 addressExtra: '',
                 subsidiary: '',
@@ -506,6 +520,112 @@ export default {
             showMapPinWarning: false,
             successResponse: false,
             locationVerified: false,
+            locations: [
+                {
+                    label: '24 DE DICIEMBRE ',
+                    value: '24 DE DICIEMBRE '
+                },
+                {
+                    label: 'ALCALDE DÍAZ',
+                    value: 'ALCALDE DIAZ'
+                },
+                {
+                    label: 'ANCÓN',
+                    value: 'ANCON'
+                },
+                {
+                    label: 'BETANIA',
+                    value: 'BETANIA'
+                },
+                {
+                    label: 'BELLA VISTA',
+                    value: 'BELLA VISTA'
+                },
+                {
+                    label: 'CALIDONIA',
+                    value: 'CALIDONIA'
+                },
+                {
+                    label: 'CAIMITILLO',
+                    value: 'CAIMITILLO'
+                },
+                {
+                    label: 'CHILIBRE',
+                    value: 'CHILIBRE'
+                },
+                {
+                    label: 'CURUNDU',
+                    value: 'CURUNDU'
+                },
+                {
+                    label: 'DON BOSCO',
+                    value: 'DON BOSCO'
+                },
+                {
+                    label: 'EL CHORRILLO',
+                    value: 'EL CHORRILLO'
+                },
+                {
+                    label: 'ERNESTO CORDOBA CAMPOS',
+                    value: 'ERNESTO CORDOBA CAMPOS'
+                },
+                {
+                    label: 'JUAN DIAZ',
+                    value: 'JUAN DIAZ'
+                },
+                {
+                    label: 'LAS CUMBRES',
+                    value: 'LAS CUMBRES'
+                },
+                {
+                    label: 'LAS GARZAS',
+                    value: 'LAS GARZAS'
+                },
+                {
+                    label: 'LAS MAÑANITAS',
+                    value: 'LAS MANANITAS'
+                },
+                {
+                    label: 'PACORA',
+                    value: 'PACORA'
+                },
+                {
+                    label: 'PARQUE LEFEVRE',
+                    value: 'PARQUE LEFEVRE'
+                },
+                {
+                    label: 'PEDREGAL',
+                    value: 'PEDREGAL'
+                },
+                {
+                    label: 'PUEBLO NUEVO',
+                    value: 'PUEBLO NUEVO'
+                },
+                {
+                    label: 'RIO ABAJO',
+                    value: 'RIO ABAJO'
+                },
+                {
+                    label: 'SAN FELIPE',
+                    value: 'SAN FELIPE'
+                },
+                {
+                    label: 'SAN FRANCISCO',
+                    value: 'SAN FRANCISCO'
+                },
+                {
+                    label: 'SAN MARTIN',
+                    value: 'SAN MARTIN'
+                },
+                {
+                    label: 'SANTA ANA',
+                    value: 'SANTA ANA'
+                },
+                {
+                    label: 'TOCUMEN',
+                    value: 'TOCUMEN'
+                },
+            ]
         }
     },
     watch: {
