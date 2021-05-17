@@ -329,6 +329,7 @@
                                 <div class="row">
                                     <div class="col q-pa-sm">
                                         <q-select
+                                            v-if="selectedSubsidiary === 'Sucursal de Panamá'"
                                             filled
                                             class="y-go-1x"
                                             label="Distrito"
@@ -476,13 +477,6 @@
 </template>
 
 <script>
-import {
-    Loading,
-
-    // optional!, for example below
-    // with custom spinner
-    QSpinnerGears,
-} from 'quasar'
 import GoogleMaps from '../../components/general/GoogleMaps'
 import * as api from '@/api/api'
 export default {
@@ -523,109 +517,113 @@ export default {
             locations: [
                 {
                     label: '24 DE DICIEMBRE ',
-                    value: '24 DE DICIEMBRE '
+                    value: '24 De Diciembre',
                 },
                 {
                     label: 'ALCALDE DÍAZ',
-                    value: 'ALCALDE DIAZ'
+                    value: 'Alcalde Diaz',
                 },
                 {
                     label: 'ANCÓN',
-                    value: 'ANCON'
+                    value: 'Ancon',
                 },
                 {
                     label: 'BETANIA',
-                    value: 'BETANIA'
+                    value: 'Betania',
                 },
                 {
                     label: 'BELLA VISTA',
-                    value: 'BELLA VISTA'
+                    value: 'Bella Vista',
                 },
                 {
                     label: 'CALIDONIA',
-                    value: 'CALIDONIA'
+                    value: 'Calidonia',
                 },
                 {
                     label: 'CAIMITILLO',
-                    value: 'CAIMITILLO'
+                    value: 'Caimitillo',
                 },
                 {
                     label: 'CHILIBRE',
-                    value: 'CHILIBRE'
+                    value: 'Chilibre',
                 },
                 {
                     label: 'CURUNDU',
-                    value: 'CURUNDU'
+                    value: 'Curundu',
                 },
                 {
                     label: 'DON BOSCO',
-                    value: 'DON BOSCO'
+                    value: 'Don Bosco',
                 },
                 {
                     label: 'EL CHORRILLO',
-                    value: 'EL CHORRILLO'
+                    value: 'El Chorrillo',
                 },
                 {
                     label: 'ERNESTO CORDOBA CAMPOS',
-                    value: 'ERNESTO CORDOBA CAMPOS'
+                    value: 'Ernesto Cordoba Campos',
                 },
                 {
                     label: 'JUAN DIAZ',
-                    value: 'JUAN DIAZ'
+                    value: 'Juan Diaz',
                 },
                 {
                     label: 'LAS CUMBRES',
-                    value: 'LAS CUMBRES'
+                    value: 'Las Cumbres',
                 },
                 {
                     label: 'LAS GARZAS',
-                    value: 'LAS GARZAS'
+                    value: 'Las Garzas',
                 },
                 {
                     label: 'LAS MAÑANITAS',
-                    value: 'LAS MANANITAS'
+                    value: 'Las Mañanitas',
                 },
                 {
                     label: 'PACORA',
-                    value: 'PACORA'
+                    value: 'Pacora',
                 },
                 {
                     label: 'PARQUE LEFEVRE',
-                    value: 'PARQUE LEFEVRE'
+                    value: 'Parque Lefevre',
                 },
                 {
                     label: 'PEDREGAL',
-                    value: 'PEDREGAL'
+                    value: 'Pedregal',
                 },
                 {
                     label: 'PUEBLO NUEVO',
-                    value: 'PUEBLO NUEVO'
+                    value: 'Pueblo Nuevo',
                 },
                 {
                     label: 'RIO ABAJO',
-                    value: 'RIO ABAJO'
+                    value: 'Rio Abajo',
                 },
                 {
                     label: 'SAN FELIPE',
-                    value: 'SAN FELIPE'
+                    value: 'San Felipe',
                 },
                 {
                     label: 'SAN FRANCISCO',
-                    value: 'SAN FRANCISCO'
+                    value: 'San Francisco',
                 },
                 {
                     label: 'SAN MARTIN',
-                    value: 'SAN MARTIN'
+                    value: 'San Martin',
+                },
+                {
+                    label: 'SAN MIGUELITO',
+                    value: 'San Miguelito',
                 },
                 {
                     label: 'SANTA ANA',
-                    value: 'SANTA ANA'
+                    value: 'Santa Ana',
                 },
                 {
                     label: 'TOCUMEN',
-                    value: 'TOCUMEN'
+                    value: 'Tocumen',
                 },
-            ]
+            ],
         }
     },
     watch: {
@@ -668,7 +666,7 @@ export default {
             }
             return 'rateTile q-pa-md rounded-borders text-center'
         },
-        splitNParts: function*(num, parts) {
+        splitNParts: function* (num, parts) {
             let sumParts = 0
             for (let i = 0; i < parts - 1; i++) {
                 const pn = Math.ceil(Math.random() * (num - sumParts))
