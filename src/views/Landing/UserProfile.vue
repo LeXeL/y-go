@@ -201,7 +201,7 @@
                                         <q-select
                                             v-if="userInformationData.user.subsidiary === 0"
                                             filled
-                                            class="y-go-1x"
+                                            class="y-go-1x q-mb-md"
                                             label="Distrito"
                                             :options="locations"
                                             map-options
@@ -264,7 +264,7 @@
                                         <q-select
                                             v-if="userInformationData.user.subsidiary === 0"
                                             filled
-                                            class="y-go-1x"
+                                            class="y-go-1x q-mb-md"
                                             label="Distrito"
                                             :options="locations"
                                             map-options
