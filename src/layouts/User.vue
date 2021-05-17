@@ -69,11 +69,11 @@
                                                         @click="copyAddressToClipboard('ship')"
                                                     ></i>
                                                 </span>
-                                                <br/>
+                                                <br />
                                                 {{ userInformation.user.box }}
-                                                <br/>
+                                                <br />
                                                 MEDLEY, FLORIDA
-                                                <br/>
+                                                <br />
                                                 33178-2830
                                                 <br />
                                                 United States
@@ -256,7 +256,7 @@
                             :rules="[
                                 val => val.length > 0 || 'El campo es obligatorio',
                                 val =>
-                                    allAffiliatedNo.includes(parseInt(val)) ||
+                                    isInArray(parseInt(val), allAffiliatedNo) ||
                                     'Por favor revisa el numero introducido',
                             ]"
                         />
@@ -346,6 +346,9 @@ export default {
         },
     },
     methods: {
+        isInArray(value, array) {
+            return array.indexOf(value) > -1
+        },
         showBusinessNotApproved() {
             let rate = this.allRates.find(rate => rate.id === this.userInformation.user.rate)
             if (!!rate && rate.name === 'Plan Business') {
