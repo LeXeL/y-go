@@ -360,6 +360,7 @@ export default {
             this.displayLoadingForAffiliated = true
             this.userInformation.user.affiliateCardNo = parseInt(this.affiliatedNo)
             this.userInformation.user.poundsCount = 0
+            this.userInformation.user.affliatedDate = Date.now()
             this.value = 0
             api.UpdateUserInformationById({
                 uid: this.uid,
