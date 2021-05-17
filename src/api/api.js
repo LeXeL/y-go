@@ -31,6 +31,10 @@ export const ReturnAllAffiliateCardNo = data =>
     Request.post('/ReturnAllAffiliateCardNo', data, {
         'Content-Type': 'application/json',
     })
+export const DeleteAffiliateCardNo = data =>
+    Request.post('/DeleteAffiliateCardNo', data, {
+        'Content-Type': 'application/json',
+    })
 export const ApproveBusinessRequest = data =>
     Request.post('/ApproveBusinessRequest', data, {
         'Content-Type': 'application/json',

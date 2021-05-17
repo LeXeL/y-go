@@ -328,6 +328,20 @@
                                 </div>
                                 <div class="row">
                                     <div class="col q-pa-sm">
+                                        <q-select
+                                            v-if="selectedSubsidiary === 'Sucursal de Panamá'"
+                                            filled
+                                            class="y-go-1x"
+                                            label="Distrito"
+                                            :options="locations"
+                                            map-options
+                                            emit-value
+                                            v-model="registrationData.district"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col q-pa-sm">
                                         <q-input
                                             filled
                                             class="y-go-1x"
@@ -463,13 +477,6 @@
 </template>
 
 <script>
-import {
-    Loading,
-
-    // optional!, for example below
-    // with custom spinner
-    QSpinnerGears,
-} from 'quasar'
 import GoogleMaps from '../../components/general/GoogleMaps'
 import * as api from '@/api/api'
 export default {
@@ -488,6 +495,7 @@ export default {
                 countryCode: '+507',
                 phone: '',
                 rate: '',
+                district: '',
                 address: '',
                 addressExtra: '',
                 subsidiary: '',
@@ -506,6 +514,116 @@ export default {
             showMapPinWarning: false,
             successResponse: false,
             locationVerified: false,
+            locations: [
+                {
+                    label: '24 DE DICIEMBRE ',
+                    value: '24 De Diciembre',
+                },
+                {
+                    label: 'ALCALDE DÍAZ',
+                    value: 'Alcalde Diaz',
+                },
+                {
+                    label: 'ANCÓN',
+                    value: 'Ancon',
+                },
+                {
+                    label: 'BETANIA',
+                    value: 'Betania',
+                },
+                {
+                    label: 'BELLA VISTA',
+                    value: 'Bella Vista',
+                },
+                {
+                    label: 'CALIDONIA',
+                    value: 'Calidonia',
+                },
+                {
+                    label: 'CAIMITILLO',
+                    value: 'Caimitillo',
+                },
+                {
+                    label: 'CHILIBRE',
+                    value: 'Chilibre',
+                },
+                {
+                    label: 'CURUNDU',
+                    value: 'Curundu',
+                },
+                {
+                    label: 'DON BOSCO',
+                    value: 'Don Bosco',
+                },
+                {
+                    label: 'EL CHORRILLO',
+                    value: 'El Chorrillo',
+                },
+                {
+                    label: 'ERNESTO CORDOBA CAMPOS',
+                    value: 'Ernesto Cordoba Campos',
+                },
+                {
+                    label: 'JUAN DIAZ',
+                    value: 'Juan Diaz',
+                },
+                {
+                    label: 'LAS CUMBRES',
+                    value: 'Las Cumbres',
+                },
+                {
+                    label: 'LAS GARZAS',
+                    value: 'Las Garzas',
+                },
+                {
+                    label: 'LAS MAÑANITAS',
+                    value: 'Las Mañanitas',
+                },
+                {
+                    label: 'PACORA',
+                    value: 'Pacora',
+                },
+                {
+                    label: 'PARQUE LEFEVRE',
+                    value: 'Parque Lefevre',
+                },
+                {
+                    label: 'PEDREGAL',
+                    value: 'Pedregal',
+                },
+                {
+                    label: 'PUEBLO NUEVO',
+                    value: 'Pueblo Nuevo',
+                },
+                {
+                    label: 'RIO ABAJO',
+                    value: 'Rio Abajo',
+                },
+                {
+                    label: 'SAN FELIPE',
+                    value: 'San Felipe',
+                },
+                {
+                    label: 'SAN FRANCISCO',
+                    value: 'San Francisco',
+                },
+                {
+                    label: 'SAN MARTIN',
+                    value: 'San Martin',
+                },
+                {
+                    label: 'SAN MIGUELITO',
+                    value: 'San Miguelito',
+                },
+                {
+                    label: 'SANTA ANA',
+                    value: 'Santa Ana',
+                },
+                {
+                    label: 'TOCUMEN',
+                    value: 'Tocumen',
+                },
+            ],
         }
     },
     watch: {
@@ -548,7 +666,7 @@ export default {
             }
             return 'rateTile q-pa-md rounded-borders text-center'
         },
-        splitNParts: function*(num, parts) {
+        splitNParts: function* (num, parts) {
             let sumParts = 0
             for (let i = 0; i < parts - 1; i++) {
                 const pn = Math.ceil(Math.random() * (num - sumParts))
