@@ -360,8 +360,6 @@ export default {
             this.displayLoadingForAffiliated = true
             this.displayAlert = false
             if (!this.isInArray(parseInt(this.affiliatedNo), this.allAffiliatedNo)) {
-                console.log(this.allAffiliatedNo)
-                console.log(this.allAffiliatedNo.length)
                 this.displayLoadingForAffiliated = false
                 this.alertTitle = 'Error'
                 this.alertMessage = 'Hubo un error con la solicitud por favor inténtelo más tarde'
