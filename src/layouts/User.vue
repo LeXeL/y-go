@@ -250,15 +250,10 @@
                         <q-input
                             filled
                             type="number"
-                            label="Registra tu tarjeta"
+                            label="Registra tu tarjeta "
                             color="primary"
                             v-model="affiliatedNo"
-                            :rules="[
-                                val => val.length > 0 || 'El campo es obligatorio',
-                                val =>
-                                    isInArray(parseInt(val), allAffiliatedNo) ||
-                                    'Por favor revisa el numero introducido',
-                            ]"
+                            :rules="[val => val.length > 0 || 'El campo es obligatorio']"
                         />
                     </q-card-section>
                     <q-card-actions>
@@ -363,6 +358,15 @@ export default {
         },
         sendAffiliatedNo() {
             this.displayLoadingForAffiliated = true
+            this.displayAlert = false
+            if (!this.isInArray(parseInt(this.affiliatedNo), this.allAffiliatedNo)) {
+                this.displayLoadingForAffiliated = false
+                this.alertTitle = 'Error'
+                this.alertMessage = 'Hubo un error con la solicitud por favor inténtelo más tarde'
+                this.alertType = 'error'
+                this.displayAlert = true
+                return
+            }
             this.userInformation.user.affiliateCardNo = parseInt(this.affiliatedNo)
             this.userInformation.user.poundsCount = 0
             this.userInformation.user.affliatedDate = Date.now()
