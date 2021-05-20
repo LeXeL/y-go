@@ -7,7 +7,7 @@
                     <div class="text-center q-py-lg q-mb-md">
                         <q-img :src="require('@/assets/logo_ygo.png')" style="width: 150px" />
                     </div>
-                    <q-form @submit="checkSteppers()">
+                    <q-form @submit="checkSteppers()" class="q-px-md">
                         <q-stepper
                             v-model="step"
                             ref="stepper"
@@ -16,9 +16,9 @@
                             style="border-top: solid 5px #ff5722"
                             class="q-mb-xl"
                         >
-                            <q-step :name="1" title="Informacion personal" :done="step > 1">
+                            <q-step :name="1" title="Información personal" :done="step > 1">
                                 <div class="text-h4 text-center text-primary">
-                                    <span class="text-bold text-secondary">1.</span> Informacion
+                                    <span class="text-bold text-secondary">1.</span> Información
                                     personal
                                 </div>
                                 <q-separator
@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-2 q-pa-sm">
+                                    <div class="col-lg-2 col-xs-5 q-pa-sm">
                                         <q-select
                                             filled
                                             class="y-go-1x"
@@ -65,7 +65,7 @@
                                             emit-value
                                         />
                                     </div>
-                                    <div class="col-lg-10 q-pa-sm">
+                                    <div class="col-lg-10 col-xs-7 q-pa-sm">
                                         <q-input
                                             filled
                                             class="y-go-1x"
@@ -298,12 +298,12 @@
 
                             <q-step
                                 :name="3"
-                                title="Direccion de entrega"
+                                title="Dirección de entrega"
                                 icon="fas fa-map-marker-alt"
                                 :done="step > 3"
                             >
                                 <div class="text-h4 text-center text-primary">
-                                    <span class="text-bold text-secondary">3.</span> Direccion de
+                                    <span class="text-bold text-secondary">3.</span> Dirección de
                                     entrega
                                 </div>
                                 <q-separator
@@ -666,7 +666,7 @@ export default {
             }
             return 'rateTile q-pa-md rounded-borders text-center'
         },
-        splitNParts: function* (num, parts) {
+        splitNParts: function*(num, parts) {
             let sumParts = 0
             for (let i = 0; i < parts - 1; i++) {
                 const pn = Math.ceil(Math.random() * (num - sumParts))
