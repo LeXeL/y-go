@@ -41,7 +41,7 @@
                             class="text-bold"
                             to="/user"
                             v-if="
-                                $router.currentRoute.path != '/user' ||
+                                $router.currentRoute.path != '/user' &&
                                     $router.currentRoute.path != '/checkout'
                             "
                         />
