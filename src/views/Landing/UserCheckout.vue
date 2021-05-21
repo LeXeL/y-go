@@ -390,6 +390,7 @@ export default {
 
             this.displayLoading = true
             let payload = await this.buildPayloadForVisaOrMasterCard()
+            console.log(process.env.VUE_APP_YGO_NMIURL)
             fetch(process.env.VUE_APP_YGO_NMIURL, {
                 method: 'POST',
                 cache: 'no-cache',
@@ -402,7 +403,7 @@ export default {
                 .then(res => res.text())
                 .then(responseData => {
                     let data = responseData.split('&')
-                    // console.log(data)
+
                     let response = data[8].split('=')[1]
                     // console.log(response)
                     if (response === '100') {
@@ -450,7 +451,7 @@ export default {
             let cart = this.cart
             let file = this.paymentInfo.proofOfPayment
             let reader = new FileReader()
-            reader.onloadend = function() {
+            reader.onloadend = function () {
                 let base64Image = reader.result
                 api.payInvoices({
                     invoices: cart,
