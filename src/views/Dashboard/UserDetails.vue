@@ -94,10 +94,17 @@
                                 label="Tarifa"
                                 class="q-mb-md"
                             />
+                            <q-select
+                                filled
+                                :disable="!editInformation"
+                                :options="absorbedCompanies"
+                                label="Compañia absorvida"
+                                class="q-mb-md"
+                            />
                             <div
                                 v-if="
                                     currentlySelectedRate === 'Plan Business' &&
-                                    !data.businessAproved
+                                        !data.businessAproved
                                 "
                             >
                                 <div class="text-caption q-mb-sm">Solicitud Plan Business</div>
@@ -176,6 +183,10 @@ export default {
     },
     data() {
         return {
+            absorbedCompanies: [
+                {label: 'n/a', value: ''},
+                {label: 'Company Name', value: 'company_name'},
+            ],
             displayLoading: false,
             displayAlert: false,
             alertTitle: '',
