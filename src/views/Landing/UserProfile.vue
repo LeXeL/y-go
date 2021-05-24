@@ -44,6 +44,11 @@
                 </div>
                 <div class="row q-mb-md">
                     <div class="col q-pa-sm">
+                        <q-input filled label="Nombre de empresa" :disable="!editInformation" />
+                    </div>
+                </div>
+                <div class="row q-mb-md">
+                    <div class="col q-pa-sm">
                         <q-input
                             filled
                             readonly
