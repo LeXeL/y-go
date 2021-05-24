@@ -461,14 +461,14 @@ exports.populateAuthUsers = functions.https.onRequest(async (req, res) => {
     const users = [
         //Admins
         {
-            uid: 'jixSzZzd7pMxjESSA3HVEiLyFLG2',
-            email: 'alejandromillan29@live.com',
+            uid: 'qmVWueDVJhZj3KXnbnBMtUSGh1N2',
+            email: 'alejandro@blueballoon.io',
             password: 'BlueBalloon123!',
             emailVerified: true,
         },
         {
-            uid: 'HsaCxRLNSgcGoRSjqh4hlgYmjar2',
-            email: 'diego.r2892@gmail.com',
+            uid: 'JgWAcpGW2MYBkkP2RcYnmP8FaSQ2',
+            email: 'diego@blueballoon.io',
             password: 'BlueBalloon123!',
             emailVerified: true,
         },
