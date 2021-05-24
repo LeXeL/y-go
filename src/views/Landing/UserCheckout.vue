@@ -59,23 +59,41 @@
                                         <span class="text-accent">Factura No. {{ inv.No }}</span> -
                                         $ {{ inv.price }}
                                     </div>
-                                    <div class="row" v-for="(pkg, i) in inv.packages" :key="i">
-                                        <div class="col">
-                                            <div class="text-body">{{ pkg.tracking }}</div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="text-body">{{ pkg.weight }} lb.</div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="text-body">$ {{ pkg.price }}</div>
-                                        </div>
-                                        <div class="row" v-if="pkg.aditionalCharges">
-                                            <br />
-                                            <div v-for="(aC, i) in pkg.aditionalCharges" :key="i">
-                                                <div class="text-body">{{ aC.chargeName }}</div>
-                                                <div class="text-body">$ {{ aC.chargeAmount }}</div>
+                                    <div v-for="(pkg, i) in inv.packages" :key="i">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="text-body">{{ pkg.tracking }}</div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="text-body">{{ pkg.weight }} lb.</div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="text-body">$ {{ pkg.price }}</div>
                                             </div>
                                         </div>
+                                        <div class="text-subtitle2 text-bold">
+                                            Cargos adicionales
+                                        </div>
+                                        <template v-if="pkg.aditionalCharges">
+                                            <div
+                                                class="row"
+                                                v-for="(aC, i) in pkg.aditionalCharges"
+                                                :key="i"
+                                            >
+                                                <div class="col-8">
+                                                    <div class="text-body">{{ aC.chargeName }}</div>
+                                                </div>
+                                                <div class="col-2">
+                                                    <div class="text-body">
+                                                        $ {{ aC.chargeAmount.toFixed(2) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                        <q-separator
+                                            class="q-my-md"
+                                            v-if="i < inv.packages.length - 1"
+                                        />
                                     </div>
                                 </div>
                             </q-card-section>
@@ -451,7 +469,7 @@ export default {
             let cart = this.cart
             let file = this.paymentInfo.proofOfPayment
             let reader = new FileReader()
-            reader.onloadend = function () {
+            reader.onloadend = function() {
                 let base64Image = reader.result
                 api.payInvoices({
                     invoices: cart,

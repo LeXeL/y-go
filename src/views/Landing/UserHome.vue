@@ -69,20 +69,33 @@
                         <span class="text-bold text-accent">{{ props.row.packages.length }}</span>
                     </div>
                     <br />
-                    <div class="row text-left" v-for="(pckg, i) in props.row.packages" :key="i">
-                        <div class="col-8">{{ pckg.tracking }}</div>
-                        <div class="col-2">
-                            {{ pckg.volumetricWeight === 0 ? pckg.weight : pckg.volumetricWeight }}
-                            lbs
+                    <div v-for="(pckg, i) in props.row.packages" :key="i">
+                        <div class="row text-left">
+                            <div class="col-8">{{ pckg.tracking }}</div>
+                            <div class="col-2">
+                                {{
+                                    pckg.volumetricWeight === 0
+                                        ? pckg.weight
+                                        : pckg.volumetricWeight
+                                }}
+                                lbs
+                            </div>
+                            <div class="col-2">$ {{ pckg.price }}</div>
                         </div>
-                        <div class="col-2">$ {{ pckg.price }}</div>
-                        <div class="row" v-if="pckg.aditionalCharges">
-                            <br />
-                            <div v-for="(aC, i) in pckg.aditionalCharges" :key="i">
-                                <div class="text-body">{{ aC.chargeName }}</div>
-                                <div class="text-body">$ {{ aC.chargeAmount }}</div>
+                        <div v-if="pckg.aditionalCharges">
+                            <div class="text-subtitle2 text-bold">
+                                Cargos adicionales
+                            </div>
+                            <div class="row" v-for="(aC, i) in pckg.aditionalCharges" :key="i">
+                                <div class="col-10">
+                                    <div class="text-body">{{ aC.chargeName }}</div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="text-body">$ {{ aC.chargeAmount.toFixed(2) }}</div>
+                                </div>
                             </div>
                         </div>
+                        <q-separator class="q-my-md" v-if="i < props.row.packages.length - 1" />
                     </div>
                 </q-td>
             </q-tr>
