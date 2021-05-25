@@ -96,15 +96,17 @@
                             />
                             <q-select
                                 filled
+                                v-model="data.absorbedCompany"
                                 :disable="!editInformation"
                                 :options="absorbedCompanies"
+                                emit-value
                                 label="Compañia absorvida"
                                 class="q-mb-md"
                             />
                             <div
                                 v-if="
                                     currentlySelectedRate === 'Plan Business' &&
-                                        !data.businessAproved
+                                    !data.businessAproved
                                 "
                             >
                                 <div class="text-caption q-mb-sm">Solicitud Plan Business</div>
