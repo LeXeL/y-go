@@ -42,6 +42,16 @@
                         />
                     </div>
                 </div>
+                <div class="row q-mb-md" v-if="isBusinessAccount()">
+                    <div class="col q-pa-sm">
+                        <q-input
+                            filled
+                            label="Nombre de empresa"
+                            v-model="userInformationData.user.companyName"
+                            :disable="!editInformation"
+                        />
+                    </div>
+                </div>
                 <div class="row q-mb-md">
                     <div class="col q-pa-sm">
                         <q-input
@@ -450,6 +460,11 @@ export default {
                 if (!this.userInformationData.user.businessAproved) return false
             }
             return true
+        },
+        isBusinessAccount() {
+            let rate = this.allRates.find(rate => rate.id === this.userInformationData.user.rate)
+            if (!!rate && rate.name === 'Plan Business') return true
+            return false
         },
         returnRateName() {
             let rate = this.allRates.find(rate => rate.id === this.userInformationData.user.rate)

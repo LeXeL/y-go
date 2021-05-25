@@ -101,7 +101,7 @@ function templateInvoice02(info) {
 function templateBusiness01(info) {
     let emailBody = `<div style="padding: 15px;">
     
-    <h3><strong>Quiere una peticion de Business Plan</h3>
+    <h3><strong>Quiere una petición de Business Plan</h3>
   </div>`
     return emailBody
 }
@@ -173,7 +173,7 @@ async function sendEmail(to, subject, template, name) {
             }
         })
 }
-async function sendEmailForUserPetition(to, subject, template, name) {
+async function sendEmailForUserPetition(to, subject, template, user) {
     sgMail.setApiKey(functions.config().emailservice.key)
     const msg = {
         to: to,
@@ -195,15 +195,19 @@ async function sendEmailForUserPetition(to, subject, template, name) {
               />
             </div>
             <div>
-              <h3 style="text-align: center; margin: 0">PETICION DE USUARIO</h3>
+            //   <h3 style="text-align: center; margin: 0">PETICIÓN DE USUARIO</h3>
             </div>
           </div>
           <div style="padding: 15px;">
             <p>
-              <strong
-                >El cliente
-                <span style="color: #ff5722">${name}</span></strong
-              >
+              <strong>El cliente</strong>
+                <span style="color: #ff5722">${user.name} ${user.lastName}</span>
+                <br>
+                <span style="color: #ff5722">Email: ${user.email}</span>
+                <br>
+                <span style="color: #ff5722">Teléfono: ${user.phone} </span>
+                <br>
+                <span style="color: #ff5722">Casillero: ${user.box} </span>
             </p>
           </div>
             ${template}
