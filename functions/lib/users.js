@@ -92,16 +92,18 @@ async function returnUserById(uid) {
 }
 async function updateUserInfo(uid, userObj) {
     if (userObj.rate === 'lUCeno2AKMbUH7tydxFk' || userObj.rate === 'b4sjdrZNdlnRaPTpMps3') {
-        //TODO:Tengo que mandar un correo para que lo revisen
         // console.log(userObj)
+        let currentUser = await returnUserById(uid)
         if (userObj.businessAproved === undefined) {
             const emailHandler = require('./emailHandler')
+            userObj.email = currentUser.email
+            userObj.box = currentUser.box
             let emailBody = await emailHandler.templateHandler('Business-01', userObj)
             emailHandler.sendEmailForUserPetition(
-                'lexelEZ@gmail.com',
-                'Peticion de Usuario',
+                'info@y-go.com.pa',
+                'Petición de Usuario',
                 emailBody,
-                `${userObj.name} ${userObj.lastName}`
+                userObj
             )
             userObj.businessAproved = false
         }
