@@ -98,8 +98,7 @@
                                 filled
                                 v-model="data.absorbedCompany"
                                 :disable="!editInformation"
-                                :options="absorbedCompanies"
-                                emit-value
+                                :options="['Ernel']"
                                 label="Compañia absorvida"
                                 class="q-mb-md"
                             />
@@ -185,10 +184,6 @@ export default {
     },
     data() {
         return {
-            absorbedCompanies: [
-                {label: 'n/a', value: ''},
-                {label: 'Company Name', value: 'company_name'},
-            ],
             displayLoading: false,
             displayAlert: false,
             alertTitle: '',
