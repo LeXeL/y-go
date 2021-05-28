@@ -98,6 +98,16 @@ function templateInvoice02(info) {
   </div>`
     return emailBody
 }
+function templateInvoice03(info) {
+    let emailBody = `<div style="padding: 15px;">
+    <h1 style="text-align: center; margin: 0">PAGO RECIBIDO</h1>
+
+    <p> Un administrador estará revisando tu comprobante de pago y te confirmaremos si todo esta bien </p>
+
+
+  </div>`
+    return emailBody
+}
 function templateBusiness01(info) {
     let emailBody = `<div style="padding: 15px;">
     
@@ -112,6 +122,9 @@ async function templateHandler(id, information) {
     }
     if (id === 'Invoice-02') {
         return templateInvoice02(information)
+    }
+    if (id === 'Invoice-03') {
+        return templateInvoice03(information)
     }
     if (id === 'Business-01') {
         return templateBusiness01(information)
@@ -229,9 +242,109 @@ async function sendEmailForUserPetition(to, subject, template, user) {
             }
         })
 }
+async function sendEmailToFinance(image, subject, info) {
+    console.log(`Info :${JSON.stringify(info)}`)
+    let packagesHtmlBody = ''
+    let totalPrice = 0
+    for (const invoice of info.invoices) {
+        invoice.packages.forEach(package => {
+            let weight = package.volumetricWeight === 0 ? package.weight : package.volumetricWeight
+            packagesHtmlBody += `
+            <tr>
+            <td>${package.tracking}</td>
+            <td>${weight}</td>
+            <td style="text-align: right">$${package.price}</td>
+          </tr>`
+            totalPrice += parseFloat(package.price)
+        })
+    }
+    sgMail.setApiKey(functions.config().emailservice.key)
+    const msg = {
+        to: 'finanzas@y-go.com.pa',
+        from: 'no-reply@y-go.com.pa', // Use the email address or domain you verified above
+        subject: subject,
+        html: `<html>
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        </head>
+        <body style="margin: 0;">
+          <div style="background-color: #01bcd4;
+          padding: 15px;
+          color: #fff;">
+            <div>
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/y-go-9fa3f.appspot.com/o/logo_ygo.png?alt=media&token=421f6d76-60aa-4006-9494-f001b8650b77"
+                width="70px"
+                style="margin: 0 auto; display: block; margin-bottom: 10px"
+              />
+            </div>
+            <div>
+            <h3 style="text-align: center; margin: 0">REVISION DE PAGO</h3>
+            </div>
+          </div>
+
+          <div style="padding: 15px;">
+            <span> Información de la factura No ${info.invoices[0].No}</span> 
+            <br>
+            <p>
+              <strong>Información del cliente:</strong>
+                <span style="color: #ff5722">${info.userFromBox.name} ${info.userFromBox.lastName}</span>
+                <br>
+                <span style="color: #ff5722">Email: ${info.userFromBox.email}</span>
+                <br>
+                <span style="color: #ff5722">Teléfono: ${info.userFromBox.phone} </span>
+                <br>
+                <span style="color: #ff5722">Casillero: ${info.userFromBox.box} </span>
+            </p>
+            <table style="width: 100%">
+            <thead>
+                <tr>
+                <th style="text-align: left">Tracking</th>
+                <th style="text-align: left">Peso</th>
+                <th style="text-align: right">Monto</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${packagesHtmlBody}
+            </tbody>
+            </table>
+            <h3 style="text-align: right"><strong>Total: $ ${totalPrice}</strong></h3>
+        </div>
+          <div style="padding: 15px;">
+            <span> Comprobante: </span>
+            <br>
+            <img src="cid:comprobante" alt="image" />
+          </div>
+        </body>
+      </html>
+      `,
+        attachments: [
+            {
+                content: image,
+                filename: 'image2',
+                type: 'image/jpeg',
+                content_id: 'comprobante',
+                disposition: 'inline',
+            },
+        ],
+    }
+    sgMail
+        .send(msg)
+        .then(response => {
+            console.log(`Emails Sent to finanzas@y-go.com.pa with status:${response}`)
+        })
+        .catch(error => {
+            console.error(error)
+
+            if (error.response) {
+                console.error(error.response.body)
+            }
+        })
+}
 
 module.exports = {
     templateHandler,
     sendEmail,
     sendEmailForUserPetition,
+    sendEmailToFinance,
 }

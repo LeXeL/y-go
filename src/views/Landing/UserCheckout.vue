@@ -469,12 +469,12 @@ export default {
             let cart = this.cart
             let file = this.paymentInfo.proofOfPayment
             let reader = new FileReader()
-            reader.onloadend = function() {
+            reader.onloadend = function () {
                 let base64Image = reader.result
                 api.payInvoices({
                     invoices: cart,
                     paymentMethod: 'ACH',
-                    image: base64Image,
+                    image: base64Image.replace('data:image/jpeg;base64,', ''),
                 }).then(response => {
                     console.log(response)
                 })

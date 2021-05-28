@@ -198,6 +198,7 @@ async function payInvoices(invoices = null, method, image = null, orderId = null
                 emailBody,
                 `${userFromBox.name} ${userFromBox.lastName}`
             )
+
             return 'Success'
         } catch (error) {
             console.log(error)
@@ -212,13 +213,18 @@ async function payInvoices(invoices = null, method, image = null, orderId = null
                 invoice.paymentDate = Date.now()
                 await updateInvoice(invoice.id, {...invoice})
             }
-            let emailBody = await emailHandler.templateHandler('Invoice-02', invoices)
+            //TODO: mandar correo a finanzas
+            let emailBody = await emailHandler.templateHandler('Invoice-03', invoices)
             emailHandler.sendEmail(
                 userFromBox.email,
                 'Pago de Mercancia Y-Go 💸',
                 emailBody,
                 `${userFromBox.name} ${userFromBox.lastName}`
             )
+            emailHandler.sendEmailToFinance(image, 'Revision de Pago de un cliente 🔍', {
+                userFromBox,
+                invoices,
+            })
             return 'Success'
         } catch (error) {
             return error
