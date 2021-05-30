@@ -1,5 +1,6 @@
 const admin = require('firebase-admin')
 const db = admin.firestore()
+const fetch = require('node-fetch')
 
 async function addToLastInvoiceId() {
     // Sum the count of each shard in the subcollection
@@ -178,11 +179,61 @@ async function returnAllInvoiceByUid(uid) {
         })
     return invoices
 }
-async function payInvoices(invoices = null, method, image = null, orderId = null) {
+async function handleInvoicePayment(payload) {
+    axios
+    fetch('https://secure.nmi.com/api/transact.php', {
+        method: 'POST',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams(payload),
+    })
+        .then(res => res.text())
+        .then(responseData => {
+            let data = responseData.split('&')
+            let response = data[8].split('=')[1]
+            console.log(response)
+            // if (response === '100') {
+            //     // console.log('transaccion exitosa')
+            //     api.payInvoices({
+            //         invoices: this.cart,
+            //         paymentMethod: 'VISA',
+            //         orderId: data[3].split('=')[1],
+            //     }).then(response => {
+            //         this.alertMessage = 'Transaccion Existosa'
+            //         this.alertType = 'success'
+            //         this.displayLoading = false
+            //         this.displayAlert = true
+            //     })
+            //     return
+            // }
+            // if (response === '200') {
+            //     console.log('transaccion declinada')
+            //     this.alertTitle = 'Error'
+            //     this.alertMessage = 'Lo sentimos no pudimos procesar tu pago, intentalo mas tarde'
+            //     this.alertType = 'error'
+            //     this.displayLoading = false
+            //     this.displayAlert = true
+            //     return
+            // } else {
+            //     console.log(ResponseMap.get(response))
+            //     this.alertTitle = 'Error'
+            //     this.alertMessage = ResponseMap.get(response).translation
+            //     this.alertType = 'error'
+            //     this.displayLoading = false
+            //     this.displayAlert = true
+            // }
+        })
+        .catch(error => console.error(error))
+}
+
+async function payInvoices(invoices = null, method, image = null, orderId = null, payload = null) {
     const users = require('./users')
     const emailHandler = require('./emailHandler')
     let userFromBox = await users.returnAllUserInformationByBox(invoices[0].box)
     if (method.toUpperCase() === 'VISA' || method.toUpperCase() === 'MASTERCARD') {
+        await handleInvoicePayment(payload)
         try {
             for await (const invoice of invoices) {
                 invoice.status = 'paid'

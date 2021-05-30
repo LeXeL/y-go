@@ -339,8 +339,7 @@ export default {
         },
     },
     methods: {
-        //TODO: mandar correo a departamento de contabilidad
-        //BUGS: refresh del store, direcciones
+        //BUG: refresh del store, direcciones
         advanceStep() {
             switch (this.step) {
                 case 0:
@@ -409,54 +408,56 @@ export default {
             this.displayLoading = true
             let payload = await this.buildPayloadForVisaOrMasterCard()
             console.log(process.env.VUE_APP_YGO_NMIURL)
-            fetch(process.env.VUE_APP_YGO_NMIURL, {
-                method: 'POST',
-                cache: 'no-cache',
-                credentials: 'same-origin',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams(payload),
-            })
-                .then(res => res.text())
-                .then(responseData => {
-                    let data = responseData.split('&')
 
-                    let response = data[8].split('=')[1]
-                    // console.log(response)
-                    if (response === '100') {
-                        // console.log('transaccion exitosa')
-                        api.payInvoices({
-                            invoices: this.cart,
-                            paymentMethod: 'VISA',
-                            orderId: data[3].split('=')[1],
-                        }).then(response => {
-                            this.alertMessage = 'Transaccion Existosa'
-                            this.alertType = 'success'
-                            this.displayLoading = false
-                            this.displayAlert = true
-                        })
-                        return
-                    }
-                    if (response === '200') {
-                        console.log('transaccion declinada')
-                        this.alertTitle = 'Error'
-                        this.alertMessage =
-                            'Lo sentimos no pudimos procesar tu pago, intentalo mas tarde'
-                        this.alertType = 'error'
-                        this.displayLoading = false
-                        this.displayAlert = true
-                        return
-                    } else {
-                        console.log(ResponseMap.get(response))
-                        this.alertTitle = 'Error'
-                        this.alertMessage = ResponseMap.get(response).translation
-                        this.alertType = 'error'
-                        this.displayLoading = false
-                        this.displayAlert = true
-                    }
-                })
-                .catch(error => console.error(error))
+            // fetch(process.env.VUE_APP_YGO_NMIURL, {
+            //     method: 'POST',
+            //     cache: 'no-cache',
+            //     cors: 'no-cors',
+            //     headers: {
+            //         'Content-Type': 'application/x-www-form-urlencoded',
+            //         'Access-Control-Allow-Origin': '*',
+            //     },
+            //     body: new URLSearchParams(payload),
+            // })
+            //     .then(res => res.text())
+            //     .then(responseData => {
+            //         let data = responseData.split('&')
+
+            //         let response = data[8].split('=')[1]
+            //         // console.log(response)
+            //         if (response === '100') {
+            //             // console.log('transaccion exitosa')
+            //             api.payInvoices({
+            //                 invoices: this.cart,
+            //                 paymentMethod: 'VISA',
+            //                 orderId: data[3].split('=')[1],
+            //             }).then(response => {
+            //                 this.alertMessage = 'Transaccion Existosa'
+            //                 this.alertType = 'success'
+            //                 this.displayLoading = false
+            //                 this.displayAlert = true
+            //             })
+            //             return
+            //         }
+            //         if (response === '200') {
+            //             console.log('transaccion declinada')
+            //             this.alertTitle = 'Error'
+            //             this.alertMessage =
+            //                 'Lo sentimos no pudimos procesar tu pago, intentalo mas tarde'
+            //             this.alertType = 'error'
+            //             this.displayLoading = false
+            //             this.displayAlert = true
+            //             return
+            //         } else {
+            //             console.log(ResponseMap.get(response))
+            //             this.alertTitle = 'Error'
+            //             this.alertMessage = ResponseMap.get(response).translation
+            //             this.alertType = 'error'
+            //             this.displayLoading = false
+            //             this.displayAlert = true
+            //         }
+            //     })
+            //     .catch(error => console.error(error))
         },
         async uploadPayment() {
             if (!this.paymentInfo.proofOfPayment) {
@@ -469,7 +470,7 @@ export default {
             let cart = this.cart
             let file = this.paymentInfo.proofOfPayment
             let reader = new FileReader()
-            reader.onloadend = function() {
+            reader.onloadend = function () {
                 let base64Image = reader.result
                 api.payInvoices({
                     invoices: cart,
