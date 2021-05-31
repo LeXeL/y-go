@@ -233,7 +233,7 @@ async function payInvoices(invoices = null, method, image = null, orderId = null
     const emailHandler = require('./emailHandler')
     let userFromBox = await users.returnAllUserInformationByBox(invoices[0].box)
     if (method.toUpperCase() === 'VISA' || method.toUpperCase() === 'MASTERCARD') {
-        await handleInvoicePayment(payload)
+        // await handleInvoicePayment(payload)
         try {
             for await (const invoice of invoices) {
                 invoice.status = 'paid'

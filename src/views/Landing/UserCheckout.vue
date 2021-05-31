@@ -408,14 +408,15 @@ export default {
             this.displayLoading = true
             let payload = await this.buildPayloadForVisaOrMasterCard()
             console.log(process.env.VUE_APP_YGO_NMIURL)
+            CollectJS.startPaymentRequest()
 
             // fetch(process.env.VUE_APP_YGO_NMIURL, {
             //     method: 'POST',
             //     cache: 'no-cache',
-            //     cors: 'no-cors',
+            //     mode: 'cors',
+            //     credentials: 'include',
             //     headers: {
             //         'Content-Type': 'application/x-www-form-urlencoded',
-            //         'Access-Control-Allow-Origin': '*',
             //     },
             //     body: new URLSearchParams(payload),
             // })
@@ -590,7 +591,30 @@ export default {
             }
             return payload
         },
-        mounted() {},
+        mounted() {
+            CollectJS.configure({
+                variant: 'inline',
+                styleSniffer: true,
+                callback: token => {
+                    console.log(token)
+                    // this.finishSubmit(token)
+                },
+                fields: {
+                    ccnumber: {
+                        placeholder: 'CC Number',
+                        selector: '#ccnumber',
+                    },
+                    ccexp: {
+                        placeholder: 'CC Expiration',
+                        selector: '#ccexp',
+                    },
+                    cvv: {
+                        placeholder: 'CVV',
+                        selector: '#cvv',
+                    },
+                },
+            })
+        },
     },
 }
 </script>
