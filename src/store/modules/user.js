@@ -1,12 +1,10 @@
-//TODO: Tengo que cambiar como funciona lo del admin y hacer los tokens dentro del api
-
 export default {
     state: {
         user: '',
         isVerified: '',
         token: localStorage.getItem('user-token') || '',
         uid: localStorage.getItem('uid') || '',
-        cart: '',
+        cart: [],
     },
     mutations: {
         SET_USER: (state, payload) => {

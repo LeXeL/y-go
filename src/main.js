@@ -44,16 +44,18 @@ if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'testing'
 }
 
 firebase.auth().onAuthStateChanged(user => {
-    store.dispatch('setCurrentUser', user)
-    api.getUserInformationById({uid: user.uid}).then(response => {
-        store.commit('SET_USER', response.data.data)
-    })
+    if (user) {
+        store.dispatch('setCurrentUser', user)
+        api.getUserInformationById({uid: user.uid}).then(response => {
+            store.commit('SET_USER', response.data.data)
+        })
+    }
 })
 
 new Vue({
     router,
     store,
-    render: function (h) {
+    render: function(h) {
         return h(App)
     },
 }).$mount('#app')

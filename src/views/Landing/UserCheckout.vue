@@ -538,5 +538,10 @@ export default {
             return payload
         },
     },
+    mounted() {
+        if (this.cart.length <= 0) {
+            this.$router.push('/user')
+        }
+    },
 }
 </script>
