@@ -522,7 +522,7 @@ export default {
 
         async buildPayloadForVisaOrMasterCard() {
             let payload = {
-                amount: parseFloat(this.totalAmountToPay) + 8.0,
+                amount: parseFloat(this.totalAmountToPay),
                 type: 'sale',
                 description: `${this.user.box} payment`,
                 ccnumber: this.paymentInfo.cardNo.replaceAll(' ', ''),
