@@ -210,7 +210,7 @@ async function fetchNmiDirectPostApi(payload) {
     }
 }
 
-async function payInvoices(invoices = null, method, image = null, orderId = null, payload = null) {
+async function payInvoices(invoices = null, method, image = null, payload = null) {
     const users = require('./users')
     const emailHandler = require('./emailHandler')
     let userFromBox = await users.returnAllUserInformationByBox(invoices[0].box)

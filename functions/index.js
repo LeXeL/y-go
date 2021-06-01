@@ -406,7 +406,6 @@ exports.payInvoices = functions.https.onRequest(async (req, res) => {
                 req.body.invoices,
                 req.body.paymentMethod,
                 req.body.image,
-                req.body.orderId,
                 req.body.payload
             )
             functions.logger.info('payInvoices', {
