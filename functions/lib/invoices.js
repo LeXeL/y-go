@@ -1,6 +1,8 @@
 const admin = require('firebase-admin')
+const functions = require('firebase-functions')
 const db = admin.firestore()
 const fetch = require('node-fetch')
+const ResponseMap = require('../utils/nmiResponses')
 
 async function addToLastInvoiceId() {
     // Sum the count of each shard in the subcollection
@@ -179,53 +181,33 @@ async function returnAllInvoiceByUid(uid) {
         })
     return invoices
 }
-async function handleInvoicePayment(payload) {
-    axios
-    fetch('https://secure.nmi.com/api/transact.php', {
-        method: 'POST',
-        cache: 'no-cache',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(payload),
-    })
-        .then(res => res.text())
-        .then(responseData => {
-            let data = responseData.split('&')
-            let response = data[8].split('=')[1]
-            console.log(response)
-            // if (response === '100') {
-            //     // console.log('transaccion exitosa')
-            //     api.payInvoices({
-            //         invoices: this.cart,
-            //         paymentMethod: 'VISA',
-            //         orderId: data[3].split('=')[1],
-            //     }).then(response => {
-            //         this.alertMessage = 'Transaccion Existosa'
-            //         this.alertType = 'success'
-            //         this.displayLoading = false
-            //         this.displayAlert = true
-            //     })
-            //     return
-            // }
-            // if (response === '200') {
-            //     console.log('transaccion declinada')
-            //     this.alertTitle = 'Error'
-            //     this.alertMessage = 'Lo sentimos no pudimos procesar tu pago, intentalo mas tarde'
-            //     this.alertType = 'error'
-            //     this.displayLoading = false
-            //     this.displayAlert = true
-            //     return
-            // } else {
-            //     console.log(ResponseMap.get(response))
-            //     this.alertTitle = 'Error'
-            //     this.alertMessage = ResponseMap.get(response).translation
-            //     this.alertType = 'error'
-            //     this.displayLoading = false
-            //     this.displayAlert = true
-            // }
+async function fetchNmiDirectPostApi(payload) {
+    try {
+        payload.security_key = functions.config().nmiservice.key
+        return await fetch(functions.config().nmiservice.url, {
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams(payload),
         })
-        .catch(error => console.error(error))
+            .then(res => res.text())
+            .then(async responseData => {
+                let data = responseData.split('&')
+                let response = data[8].split('=')[1]
+                await data.push(`ResponseError=${ResponseMap.ResponseMap.get(response).error}`)
+                await data.push(
+                    `Responsetranslation=${ResponseMap.ResponseMap.get(response).translation}`
+                )
+                console.log(`NMI Response Data: ${JSON.stringify(responseData)}`)
+                console.log(`Response number ${response} response text: ${response.error}`)
+                return {response, data}
+            })
+            .catch(error => console.error(error))
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 async function payInvoices(invoices = null, method, image = null, orderId = null, payload = null) {
@@ -233,27 +215,41 @@ async function payInvoices(invoices = null, method, image = null, orderId = null
     const emailHandler = require('./emailHandler')
     let userFromBox = await users.returnAllUserInformationByBox(invoices[0].box)
     if (method.toUpperCase() === 'VISA' || method.toUpperCase() === 'MASTERCARD') {
-        // await handleInvoicePayment(payload)
-        try {
-            for await (const invoice of invoices) {
-                invoice.status = 'paid'
-                invoice.paymentMethod = method.toUpperCase()
-                invoice.paymentDate = Date.now()
-                invoice.credicorpOrderId = orderId
-                await updateInvoice(invoice.id, {...invoice})
+        console.log(`-> Pago de VISA o MC Payload: ${JSON.stringify(payload)}`)
+        let response = await fetchNmiDirectPostApi(payload)
+        console.log(`response :${JSON.stringify(response)}`)
+        if (response.response === '100') {
+            try {
+                for await (const invoice of invoices) {
+                    invoice.status = 'paid'
+                    invoice.paymentMethod = method.toUpperCase()
+                    invoice.paymentDate = Date.now()
+                    invoice.credicorpOrderId = response.data[3].split('=')[1]
+                    await updateInvoice(invoice.id, {...invoice})
+                }
+                let emailBody = await emailHandler.templateHandler('Invoice-02', invoices)
+                emailHandler.sendEmail(
+                    userFromBox.email,
+                    'Pago de Mercancia Y-Go 💸',
+                    emailBody,
+                    `${userFromBox.name} ${userFromBox.lastName}`
+                )
+                return {
+                    responseStatus: '100',
+                    responseError: response.data[9].split('=')[1],
+                    responseTranslation: response.data[10].split('=')[1],
+                }
+            } catch (error) {
+                console.log(error)
+                return error
             }
-            let emailBody = await emailHandler.templateHandler('Invoice-02', invoices)
-            emailHandler.sendEmail(
-                userFromBox.email,
-                'Pago de Mercancia Y-Go 💸',
-                emailBody,
-                `${userFromBox.name} ${userFromBox.lastName}`
-            )
-
-            return 'Success'
-        } catch (error) {
-            console.log(error)
-            return error
+        }
+        if (response.response !== '100') {
+            return {
+                responseStatus: response.response,
+                responseError: response.data[9].split('=')[1],
+                responseTranslation: response.data[10].split('=')[1],
+            }
         }
     }
     if (method.toUpperCase() === 'ACH') {
@@ -264,7 +260,6 @@ async function payInvoices(invoices = null, method, image = null, orderId = null
                 invoice.paymentDate = Date.now()
                 await updateInvoice(invoice.id, {...invoice})
             }
-            //TODO: mandar correo a finanzas
             let emailBody = await emailHandler.templateHandler('Invoice-03', invoices)
             emailHandler.sendEmail(
                 userFromBox.email,

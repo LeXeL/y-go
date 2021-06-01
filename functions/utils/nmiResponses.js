@@ -100,4 +100,4 @@ ResponseMap.set('461', {
     translation: 'Tipo de tarjeta no soportado.',
 })
 
-export {ResponseMap}
+module.exports = {ResponseMap}

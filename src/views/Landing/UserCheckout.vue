@@ -7,6 +7,7 @@
             :message="alertMessage"
             :type="alertType"
             @accept="displayAlert = false"
+            :redirect="redirect"
         ></ygo-alert>
         <div class="row">
             <q-space />
@@ -180,6 +181,34 @@
                                             />
                                         </div>
                                     </div>
+
+                                    <!-- <form @submit.prevent="payWithVisaorMasterCard($event)">
+                                        <div>
+                                            <input
+                                                type="text"
+                                                name="firstName"
+                                                placeholder="First
+                                            Name"
+                                                id="first_name"
+                                            />
+                                        </div>
+                                        <div>
+                                            <input
+                                                type="text"
+                                                name="lastName"
+                                                placeholder="Last
+                                            Name"
+                                                id="last_name"
+                                            />
+                                        </div>
+                                        <div>
+                                            <input type="text" name="amount" placeholder="Amount" />
+                                        </div>
+                                        <div id="ccnumber" />
+                                        <div id="ccexp" />
+                                        <div id="cvv" />
+                                        <button type="submit">Submit</button>
+                                    </form> -->
                                     <q-input
                                         label="Numero de tarjeta"
                                         class="full-width q-mb-md"
@@ -189,7 +218,7 @@
                                         fill-mask="#"
                                     />
                                     <div class="row">
-                                        <div class="col on-left">
+                                        <div class="col on-left" id="ccexp">
                                             <q-input
                                                 label="Fecha de expiracion"
                                                 filled
@@ -199,7 +228,7 @@
                                                 fill-mask="####"
                                             />
                                         </div>
-                                        <div class="col">
+                                        <div class="col" id="cvv">
                                             <q-input
                                                 label="Codigo de seguridad"
                                                 filled
@@ -316,6 +345,7 @@ export default {
             alertTitle: '',
             alertMessage: '',
             alertType: '',
+            redirect: '',
         }
     },
     computed: {
@@ -338,8 +368,46 @@ export default {
             return cart
         },
     },
+
     methods: {
         //BUG: refresh del store, direcciones
+        collectJSConfigurator(event) {
+            if (event === 'visa' || event === 'mastercard') {
+                window.CollectJS.configure({
+                    variant: 'inline',
+                    styleSniffer: true,
+                    callback: token => {
+                        console.log(token)
+                        // this.finishSubmit(token)
+                    },
+                    fields: {
+                        ccnumber: {
+                            placeholder: 'CC Number',
+                            selector: '#ccnumber',
+                        },
+                        ccexp: {
+                            placeholder: 'CC Expiration',
+                            selector: '#ccexp',
+                        },
+                        cvv: {
+                            placeholder: 'CVV',
+                            selector: '#cvv',
+                        },
+                    },
+                    price: '21.00',
+                    currency: 'USD',
+                    country: 'US',
+                    validationCallback: function (field, status, message) {
+                        if (status) {
+                            var message = field + ' is now OK: ' + message
+                        } else {
+                            var message = field + ' is now Invalid: ' + message
+                        }
+                        console.log(message)
+                    },
+                })
+            }
+        },
         advanceStep() {
             switch (this.step) {
                 case 0:
@@ -407,58 +475,43 @@ export default {
 
             this.displayLoading = true
             let payload = await this.buildPayloadForVisaOrMasterCard()
-            console.log(process.env.VUE_APP_YGO_NMIURL)
-            CollectJS.startPaymentRequest()
-
-            // fetch(process.env.VUE_APP_YGO_NMIURL, {
-            //     method: 'POST',
-            //     cache: 'no-cache',
-            //     mode: 'cors',
-            //     credentials: 'include',
-            //     headers: {
-            //         'Content-Type': 'application/x-www-form-urlencoded',
-            //     },
-            //     body: new URLSearchParams(payload),
-            // })
-            //     .then(res => res.text())
-            //     .then(responseData => {
-            //         let data = responseData.split('&')
-
-            //         let response = data[8].split('=')[1]
-            //         // console.log(response)
-            //         if (response === '100') {
-            //             // console.log('transaccion exitosa')
-            //             api.payInvoices({
-            //                 invoices: this.cart,
-            //                 paymentMethod: 'VISA',
-            //                 orderId: data[3].split('=')[1],
-            //             }).then(response => {
-            //                 this.alertMessage = 'Transaccion Existosa'
-            //                 this.alertType = 'success'
-            //                 this.displayLoading = false
-            //                 this.displayAlert = true
-            //             })
-            //             return
-            //         }
-            //         if (response === '200') {
-            //             console.log('transaccion declinada')
-            //             this.alertTitle = 'Error'
-            //             this.alertMessage =
-            //                 'Lo sentimos no pudimos procesar tu pago, intentalo mas tarde'
-            //             this.alertType = 'error'
-            //             this.displayLoading = false
-            //             this.displayAlert = true
-            //             return
-            //         } else {
-            //             console.log(ResponseMap.get(response))
-            //             this.alertTitle = 'Error'
-            //             this.alertMessage = ResponseMap.get(response).translation
-            //             this.alertType = 'error'
-            //             this.displayLoading = false
-            //             this.displayAlert = true
-            //         }
-            //     })
-            //     .catch(error => console.error(error))
+            api.payInvoices({
+                invoices: this.cart,
+                paymentMethod: 'VISA',
+                payload: payload,
+            }).then(response => {
+                console.log(response)
+                if (response.data.data.responseStatus === '100') {
+                    this.alertMessage = 'Transaccion Existosa'
+                    this.alertType = 'success'
+                    this.displayLoading = false
+                    this.displayAlert = true
+                    this.redirect = '/user'
+                    return
+                }
+                if (response.data.data.responseStatus === '200') {
+                    this.alertTitle = 'Error'
+                    this.alertMessage =
+                        'Lo sentimos no pudimos procesar tu pago, intentalo mas tarde'
+                    this.alertType = 'error'
+                    this.displayLoading = false
+                    this.displayAlert = true
+                    return
+                } else {
+                    this.alertTitle = 'Error'
+                    this.alertMessage = response.data.data.responseTranslation
+                    this.alertType = 'error'
+                    this.displayLoading = false
+                    this.displayAlert = true
+                }
+            })
+            // console.log(window.CollectJS)
+            // try {
+            //     await window.CollectJS.startPaymentRequest()
+            // } catch (error) {
+            //     console.log(error)
+            // }
+            // var proxyUrl = 'https://cors-anywhere.herokuapp.com/'
         },
         async uploadPayment() {
             if (!this.paymentInfo.proofOfPayment) {
@@ -575,8 +628,7 @@ export default {
 
         async buildPayloadForVisaOrMasterCard() {
             let payload = {
-                security_key: process.env.VUE_APP_YGO_NMISECURITYKEY,
-                amount: '19.00',
+                amount: parseFloat(this.totalAmountToPay) + 8.0,
                 type: 'sale',
                 description: `${this.user.box} payment`,
                 ccnumber: this.paymentInfo.cardNo.replaceAll(' ', ''),
@@ -590,30 +642,6 @@ export default {
                 zip: '12345',
             }
             return payload
-        },
-        mounted() {
-            CollectJS.configure({
-                variant: 'inline',
-                styleSniffer: true,
-                callback: token => {
-                    console.log(token)
-                    // this.finishSubmit(token)
-                },
-                fields: {
-                    ccnumber: {
-                        placeholder: 'CC Number',
-                        selector: '#ccnumber',
-                    },
-                    ccexp: {
-                        placeholder: 'CC Expiration',
-                        selector: '#ccexp',
-                    },
-                    cvv: {
-                        placeholder: 'CVV',
-                        selector: '#cvv',
-                    },
-                },
-            })
         },
     },
 }
