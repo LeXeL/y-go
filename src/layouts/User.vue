@@ -56,7 +56,7 @@
                                             </div>
                                             <div class="text-subtitle2">
                                                 <br />
-                                                11600 NW 91st ST Suite 26
+                                                5401 NW 72nd Ave
                                                 <span class="text-caption on-right">
                                                     <i
                                                         class="fas fa-plane-departure text-primary"
@@ -72,12 +72,12 @@
                                                 <br />
                                                 {{ userInformation.user.box }}
                                                 <br />
-                                                MEDLEY, FLORIDA
+                                                MIAMI, FLORIDA
                                                 <br />
-                                                33178-2830
+                                                33166-4941
                                                 <br />
                                                 United States
-                                                <br />Phone number: 305-8875000‬
+                                                <br />Phone number: 305-3645238
                                             </div>
                                         </div>
                                         <div class="mobile-only q-pa-md"></div>
@@ -419,7 +419,7 @@ export default {
                     this.alertType = 'success'
                     this.displayAlert = true
                 },
-                function (err) {
+                function(err) {
                     console.error('Async: Could not copy text: ', err)
                 }
             )
